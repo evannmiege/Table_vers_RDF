@@ -1,0 +1,618 @@
+@prefix : <http://purl.org/frontierelethale/onto/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix frontletVocab: <http://purl.org/frontierelethale/onto/> .
+@base <http://purl.org/frontierelethale/onto/> .
+
+<http://purl.org/frontierelethale/onto> rdf:type owl:Ontology ;
+                                         owl:imports <http://purl.org/frontierelethale/onto> ,
+                                                     <http://www.opengis.net/ont/geosparql/1.1> ,
+                                                     <http://www.w3.org/2006/time#2016> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdfs:comment "Person"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.org/frontierelethale/onto/UsedIn
+frontletVocab:UsedIn rdf:type owl:ObjectProperty ;
+                     rdfs:domain frontletVocab:Transport ;
+                     rdfs:range frontletVocab:Event ;
+                     skos:definition "A mean of transport is used during an event"@en ,
+                                     "Un transport est utilisé dans le cadre d'un évènement"@fr ;
+                     skos:prefLabel "Used in"@en ,
+                                    "Utilisé dans"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/aged
+frontletVocab:aged rdf:type owl:ObjectProperty ;
+                   rdfs:domain frontletVocab:Person ;
+                   rdfs:range frontletVocab:Age ;
+                   skos:definition "Defines a migrant age"@en ,
+                                   "Défini l'âge d'un migrant"@fr ;
+                   skos:prefLabel "aged"@en ,
+                                  "agé de"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/birthPlace
+frontletVocab:birthPlace rdf:type owl:ObjectProperty ;
+                         rdfs:domain frontletVocab:Person ;
+                         rdfs:range frontletVocab:Country ;
+                         skos:definition "Defines a migrant birth country"@en ,
+                                         "Défini le pays de naissance d'un migrant"@fr ;
+                         skos:prefLabel "birth place"@en ,
+                                        "lieu de naissance"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/certificate
+frontletVocab:certificate rdf:type owl:ObjectProperty ;
+                          rdfs:domain frontletVocab:Death ;
+                          rdfs:range frontletVocab:DeathCertificate ;
+                          skos:definition "Lie un certificat de mort à un évènement"@fr ,
+                                          "Links a death certificate to an event"@en ;
+                          skos:prefLabel "certificat"@fr ,
+                                         "certificate"@en .
+
+
+###  http://purl.org/frontierelethale/onto/composedOf
+frontletVocab:composedOf rdf:type owl:ObjectProperty ;
+                         rdfs:domain frontletVocab:Person ;
+                         rdfs:range frontletVocab:IndividualEvent ;
+                         skos:definition "The migrant lives one or more events during his route"@en ,
+                                         "Un migrant vis un ou plusieurs évènements durant son trajet"@fr ;
+                         skos:prefLabel "live"@en ,
+                                        "vis"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/group
+frontletVocab:group rdf:type owl:ObjectProperty ;
+                    rdfs:domain frontletVocab:IndividualEvent ;
+                    rdfs:range frontletVocab:CollectiveEvent ;
+                    skos:definition "Plusieurs évènements individuels sont groupés dans un évènement collectif"@fr ,
+                                    "Several individual events are grouped in one collective event"@en ;
+                    skos:prefLabel "group"@en ,
+                                   "groupe"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/hasAgeInterval
+frontletVocab:hasAgeInterval rdf:type owl:ObjectProperty ;
+                             rdfs:range frontletVocab:AgeCategory ;
+                             skos:definition "Defines an age interval for a migrant when the information is not precise"@en ,
+                                             "Défini un intervalle d'âge pour un migrant lorsque l'information précise n'est pas communiquée"@fr ;
+                             skos:prefLabel "a un intervalle d'âge"@fr ,
+                                            "has age interval"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasDeathCause
+frontletVocab:hasDeathCause rdf:type owl:ObjectProperty ;
+                            rdfs:domain frontletVocab:Death ;
+                            rdfs:range frontletVocab:DeathCause ;
+                            skos:definition "Defines a migrant death cause"@en ,
+                                            "Défini la cause de mort d'un migrant"@fr ;
+                            skos:prefLabel "a une cause de mort"@fr ,
+                                           "has death cause"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasDeathNature
+frontletVocab:hasDeathNature rdf:type owl:ObjectProperty ;
+                             rdfs:domain frontletVocab:Death ;
+                             rdfs:range frontletVocab:DeathNature ;
+                             skos:definition "Defines a migrant death nature"@en ,
+                                             "Défini la nature de la mort d'un migrant"@fr ;
+                             skos:prefLabel "a une nature de mort"@fr ,
+                                            "has death nature"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasGender
+frontletVocab:hasGender rdf:type owl:ObjectProperty ;
+                        rdfs:domain frontletVocab:Person ;
+                        rdfs:range frontletVocab:Gender ;
+                        skos:definition "Defines a migrant gender"@en ,
+                                        "Défini le genre d'un migrant"@fr ;
+                        skos:prefLabel "a un genre"@fr ,
+                                       "has gender"@en .
+
+
+###  http://purl.org/frontierelethale/onto/mediaType
+frontletVocab:mediaType rdf:type owl:ObjectProperty ;
+                        rdfs:domain frontletVocab:Media ;
+                        rdfs:range frontletVocab:MediaType ;
+                        skos:definition "Media type bringing elements about an event"@en ,
+                                        "Type de média apportant des éléments sur un évènement"@fr ;
+                        skos:prefLabel "media type"@en ,
+                                       "type de média"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/sourcedBy
+frontletVocab:sourcedBy rdf:type owl:ObjectProperty ;
+                        rdfs:domain frontletVocab:IndividualEvent ;
+                        rdfs:range frontletVocab:Source ;
+                        skos:definition "An element attesting the veracity of an event"@en ,
+                                        "Un élément attestant de la véracité d'un évènement"@fr ;
+                        skos:prefLabel "sourced by"@en ,
+                                       "sourcé par"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/startCountry
+frontletVocab:startCountry rdf:type owl:ObjectProperty ;
+                           rdfs:domain frontletVocab:IndividualEvent ;
+                           rdfs:range frontletVocab:Country ;
+                           skos:definition "Country where a migrant begins a border crossing"@en ,
+                                           "Pays dans lequel un migrant commence un franchissement de frontière"@fr ;
+                           skos:prefLabel "pays de départ"@fr ,
+                                          "start country"@en .
+
+
+###  http://purl.org/frontierelethale/onto/targetCountry
+frontletVocab:targetCountry rdf:type owl:ObjectProperty ;
+                            rdfs:domain frontletVocab:IndividualEvent ;
+                            rdfs:range frontletVocab:Country ;
+                            skos:definition "Defines the country a migrant wanted to join during a border crossing"@en ,
+                                            "Défini le pays que le migrant voulait rejoindre lors du franchissement d'une frontière"@fr ;
+                            skos:prefLabel "pays cible"@fr ,
+                                           "target country"@en .
+
+
+###  http://purl.org/frontierelethale/onto/transportType
+frontletVocab:transportType rdf:type owl:ObjectProperty ;
+                            rdfs:domain frontletVocab:Transport ;
+                            rdfs:label "transport type"@en ,
+                                       "type de transport"@fr ;
+                            skos:definition "Defines the used transport type"@en ,
+                                            "Défini le type de transport utilisé"@fr .
+
+
+###  http://www.w3.org/2004/02/skos/core#broader
+skos:broader rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/frontierelethale/onto/hasAge
+frontletVocab:hasAge rdf:type owl:DatatypeProperty ;
+                     rdfs:domain frontletVocab:Age ;
+                     rdfs:range xsd:integer ;
+                     skos:prefLabel "a un âge"@fr ,
+                                    "has age"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasAuthor
+frontletVocab:hasAuthor rdf:type owl:DatatypeProperty ;
+                        rdfs:domain frontletVocab:Testimony ;
+                        rdfs:range xsd:string ;
+                        skos:prefLabel "a un auteur"@fr ,
+                                       "has author"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasAuthority
+frontletVocab:hasAuthority rdf:type owl:DatatypeProperty ;
+                           rdfs:domain frontletVocab:Control ;
+                           rdfs:range xsd:string ;
+                           skos:prefLabel "a une autorité impliquée"@fr ,
+                                          "has an implicated authority"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasCalledMember
+frontletVocab:hasCalledMember rdf:type owl:DatatypeProperty ;
+                              rdfs:domain frontletVocab:Call ;
+                              rdfs:range xsd:string ;
+                              skos:prefLabel "a une personne appelée"@fr ,
+                                             "has called member"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasComment
+frontletVocab:hasComment rdf:type owl:DatatypeProperty ;
+                         rdfs:domain [ rdf:type owl:Class ;
+                                       owl:unionOf ( frontletVocab:IndividualEvent
+                                                     frontletVocab:Source
+                                                   )
+                                     ] ;
+                         rdfs:range xsd:string ;
+                         skos:prefLabel "a un commentaire"@fr ,
+                                        "has comment"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasIdCertificate
+frontletVocab:hasIdCertificate rdf:type owl:DatatypeProperty ;
+                               rdfs:domain frontletVocab:DeathCertificate ;
+                               rdfs:range xsd:string ;
+                               skos:prefLabel "a un numéro de certificat de décès"@fr ,
+                                              "has a death certificate id"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasName
+frontletVocab:hasName rdf:type owl:DatatypeProperty ;
+                      rdfs:domain frontletVocab:Source ;
+                      rdfs:range xsd:string ;
+                      skos:definition "Représente le nom public d'une personne"@fr ;
+                      skos:prefLabel "a un nom"@fr ,
+                                     "has name"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasOfficialName
+frontletVocab:hasOfficialName rdf:type owl:DatatypeProperty ;
+                              skos:definition "Représente le nom officiel d'une personne"@fr ;
+                              skos:prefLabel "a un nom officiel"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/hasOtherName
+frontletVocab:hasOtherName rdf:type owl:DatatypeProperty ;
+                           rdfs:label "a un autre nom"@fr ;
+                           skos:definition "Représente un autre nom pour une personne"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/hasPrecision
+frontletVocab:hasPrecision rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain frontletVocab:Age ;
+                           rdfs:range xsd:boolean ;
+                           skos:prefLabel "a une précision"@fr ,
+                                          "has precision"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasShape
+frontletVocab:hasShape rdf:type owl:DatatypeProperty ;
+                       rdfs:domain frontletVocab:Trace ;
+                       rdfs:range xsd:string ;
+                       skos:prefLabel "a une trace"@fr ,
+                                      "has trace"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasType
+frontletVocab:hasType rdf:type owl:DatatypeProperty ;
+                      rdfs:domain frontletVocab:Injury ;
+                      rdfs:range xsd:string ;
+                      skos:prefLabel "a un type"@fr ,
+                                     "has type"@en .
+
+
+###  http://purl.org/frontierelethale/onto/hasWebLink
+frontletVocab:hasWebLink rdf:type owl:DatatypeProperty ;
+                         rdfs:domain frontletVocab:Source ;
+                         rdfs:range xsd:string ;
+                         skos:prefLabel "a un lien web"@fr ,
+                                        "has web link"@en .
+
+
+###  http://purl.org/frontierelethale/onto/policeIntervention
+frontletVocab:policeIntervention rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain frontletVocab:DeathInjury ;
+                                 rdfs:range xsd:boolean ;
+                                 skos:prefLabel "intervention des forces de l'ordre"@fr ,
+                                                "police intervention"@en .
+
+
+###  http://purl.org/frontierelethale/onto/transportId
+frontletVocab:transportId rdf:type owl:DatatypeProperty ;
+                          rdfs:domain frontletVocab:Transport ;
+                          rdfs:range xsd:string ;
+                          rdfs:label "identifiant de transport"@fr ,
+                                     "transport identifier"@en ;
+                          skos:definition "Identifiant unique du moyen de transport. Généralement une immatriculation"@fr ,
+                                          "Unique identifier of a transport. Most of the time the immatriculation"@en .
+
+
+###  http://purl.org/frontierelethale/onto/transportName
+frontletVocab:transportName rdf:type owl:DatatypeProperty ;
+                            rdfs:domain frontletVocab:Transport ;
+                            rdfs:range xsd:string ;
+                            rdfs:label "nom du transport"@fr ,
+                                       "transport name"@en ;
+                            skos:definition "Name given to a mean of transport"@en ,
+                                            "Nom donné au moyen de transport"@fr .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/frontierelethale/onto/Age
+frontletVocab:Age rdf:type owl:Class ;
+                  rdfs:subClassOf frontletVocab:AgeEntity ;
+                  skos:definition "Precise value of a migrant age. It can be negative for a prenatal loss or real in case of a less than one year old child"@en ,
+                                  "Valeur précise de l'âge d'un migrant. Il peut être négatif pour une perte prénatale ou à virgule dans le cas d'un enfant de moins d'un an" ;
+                  skos:prefLabel "Age"@en ,
+                                 "Age"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/AgeCategory
+frontletVocab:AgeCategory rdf:type owl:Class ;
+                          rdfs:subClassOf frontletVocab:AgeInterval ;
+                          skos:definition "Catégories d'âge génériques que l'on retrouve dans les récits de migrations lorsque l'on a pas l'information sur l'âge réel d'un migrant. Ces catégories représentent des intervalles prédéfinis."@fr ,
+                                          "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en .
+
+
+###  http://purl.org/frontierelethale/onto/AgeEntity
+frontletVocab:AgeEntity rdf:type owl:Class ;
+                        skos:definition "Super class dealing with migrant age"@en ,
+                                        "Super classe gérant l'âge d'un migrant"@fr ;
+                        skos:prefLabel "Age entity"@en ,
+                                       "Entité âge"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/AgeInterval
+frontletVocab:AgeInterval rdf:type owl:Class ;
+                          rdfs:subClassOf frontletVocab:AgeEntity ;
+                          skos:definition "Age interval where the migrant age is"@en ,
+                                          "Intervalle d'âge dans lequel un migrant se trouve"@fr ;
+                          skos:prefLabel "Age interval"@en ,
+                                         "Inervalle d'âge"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Call
+frontletVocab:Call rdf:type owl:Class ;
+                   rdfs:subClassOf frontletVocab:IndividualEvent ;
+                   skos:definition "Ante mortem event consisting in a migrant calling a close person"@en ,
+                                   "Evènement ante mortem consistant à un migrant ayant passé un appel téléphonique avec un proche"@fr ;
+                   skos:prefLabel "Appel"@fr ,
+                                  "Call"@en .
+
+
+###  http://purl.org/frontierelethale/onto/CivilSociety
+frontletVocab:CivilSociety rdf:type owl:Class ;
+                           rdfs:subClassOf frontletVocab:Source ;
+                           skos:definition "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ,
+                                           "The information source comes from a civil society orgnism (NGO)"@en ;
+                           skos:prefLabel "Civil society"@en ,
+                                          "Sociétée civile"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/CollectiveEvent
+frontletVocab:CollectiveEvent rdf:type owl:Class ;
+                              rdfs:subClassOf frontletVocab:Event ,
+                                              <http://www.opengis.net/ont/geosparql#Feature> ;
+                              skos:definition "An event potentially shared by mulitple migrants. Events can be slighlty different (a death and an injury)"@en ,
+                                              "Un évènement partagé par au moins deux migrants. Les évènements peuvent être légèrement différents (un décès et une blessure)."@fr ;
+                              skos:prefLabel "Collective event"@en ,
+                                             "Evènement collectif"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Control
+frontletVocab:Control rdf:type owl:Class ;
+                      rdfs:subClassOf frontletVocab:IndividualEvent ;
+                      skos:definition "Ante mortem event consisting in a police control or an NGO grouping migrant names with a date and a place"@en ,
+                                      "Evènement ante mortem consistant à un contrôle de police ou d'une ONG regroupant le nom d'un migrant ainsi qu'un lieu et une date"@fr ;
+                      skos:prefLabel "Control"@en ,
+                                     "Contrôle"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Conversation
+frontletVocab:Conversation rdf:type owl:Class ;
+                           rdfs:subClassOf frontletVocab:IndividualEvent ;
+                           skos:definition "Ante mortem event where a migrant discussed with another person in a physical way"@en ,
+                                           "Evènement ante mortem où un migrant a discuté avec une autre personne de manière physique"@fr ;
+                           skos:prefLabel "Conversation"@en ,
+                                          "Conversation"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/CorpseAnalysis
+frontletVocab:CorpseAnalysis rdf:type owl:Class ;
+                             rdfs:subClassOf frontletVocab:IndividualEvent ;
+                             skos:definition "Evènement post mortem consistant à analyser le corps d'un migrant décédé"@fr ,
+                                             "Post mortem event consisting in analyzing the corpse if a deceased migrant"@en ;
+                             skos:prefLabel "Analyse du corps"@fr ,
+                                            "Corpse analysis"@en .
+
+
+###  http://purl.org/frontierelethale/onto/CorpseRepatriation
+frontletVocab:CorpseRepatriation rdf:type owl:Class ;
+                                 rdfs:subClassOf frontletVocab:IndividualEvent ;
+                                 skos:definition "Evènement post mortem consistant au rapatriement du corps d'un migrant décédé dans son pays d'origine."@fr ,
+                                                 "Post mortem event consisting in rapatriating a dead migran corpse"@en ;
+                                 skos:prefLabel "Corpse repatriation"@en ,
+                                                "Rapatriement du corps"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Country
+frontletVocab:Country rdf:type owl:Class ;
+                      rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ;
+                      skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
+                      skos:prefLabel "Country"@en ,
+                                     "Pays"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Death
+frontletVocab:Death rdf:type owl:Class ;
+                    rdfs:subClassOf frontletVocab:DeathInjury ;
+                    skos:definition "Event consisting in the death of a migrant crossing a border"@en ,
+                                    "Evènement consistant à la mort d'un migrant dans le cadre du franchissement d'une frontière."@fr ;
+                    skos:prefLabel "Death"@en ,
+                                   "Mort"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/DeathCause
+frontletVocab:DeathCause rdf:type owl:Class ;
+                         skos:definition "Manière précise dont un migrant est décédé"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/DeathCertificate
+frontletVocab:DeathCertificate rdf:type owl:Class ;
+                               rdfs:subClassOf frontletVocab:OfficialDocument ;
+                               skos:definition "Certificat de décès d'un migrant"@fr ,
+                                               "Death certificate of a migrant"@en ;
+                               skos:prefLabel "Certificat de décès"@fr ,
+                                              "Death certificate"@en .
+
+
+###  http://purl.org/frontierelethale/onto/DeathInjury
+frontletVocab:DeathInjury rdf:type owl:Class ;
+                          rdfs:subClassOf frontletVocab:IndividualEvent ;
+                          skos:definition "Event consisting in the death or the injury of a migrant crossing a border"@en ,
+                                          "Evènement consistant à la blessure ou la mort d'un migrant lors du passage d'une frontière."@fr ;
+                          skos:prefLabel "Death injury"@en ,
+                                         "Mort blessure"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/DeathNature
+frontletVocab:DeathNature rdf:type owl:Class ;
+                          skos:definition "Nature de la mort d'un migrant"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Event
+frontletVocab:Event rdf:type owl:Class ;
+                    skos:definition "A life moment of a migrant during its journey"@en ,
+                                    "Un moment de la vie d'un migrant durant son trajet."@fr ;
+                    skos:prefLabel "Event"@en ,
+                                   "Evènement"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Family
+frontletVocab:Family rdf:type owl:Class ;
+                     rdfs:subClassOf frontletVocab:Source ;
+                     skos:definition "La source d'une information vient d'un membre de la famille ou d'un proche d'un migrant"@fr ,
+                                     "The source information comes from a family member or a migrant close person"@en ;
+                     skos:prefLabel "Famille"@fr ,
+                                    "Family"@en .
+
+
+###  http://purl.org/frontierelethale/onto/Gender
+frontletVocab:Gender rdf:type owl:Class ;
+                     skos:definition "Genre d'une personne"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/IndividualEvent
+frontletVocab:IndividualEvent rdf:type owl:Class ;
+                              rdfs:subClassOf frontletVocab:Event ,
+                                              <http://www.opengis.net/ont/geosparql#Feature> ;
+                              skos:definition "Evènement dans la trajectoire de migration d'un migrant"@fr ,
+                                              "Individual event in the journey of a migrant"@en ;
+                              skos:prefLabel "Evènement individuel"@fr ,
+                                             "Individual Event"@en .
+
+
+###  http://purl.org/frontierelethale/onto/Inhumation
+frontletVocab:Inhumation rdf:type owl:Class ;
+                         rdfs:subClassOf frontletVocab:IndividualEvent ;
+                         skos:definition "Evènement post mortem consistant à la cérémonie d'inhumation du corps d'un migrant décédé."@fr ,
+                                         "Post mortem event consisting in the inhumation ceremony of a deceased migrant corpse"@en ;
+                         skos:prefLabel "Inhumation"@en ,
+                                        "Inhumation"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Injury
+frontletVocab:Injury rdf:type owl:Class ;
+                     rdfs:subClassOf frontletVocab:DeathInjury ;
+                     skos:definition "Event consisting in the injury of a migrant crossing a border"@en ,
+                                     "Evènement ante mortem où un migrant est blessé lors d'une tentative de franchissement d'une frontière."@fr ;
+                     skos:prefLabel "Blessure"@fr ,
+                                    "Injury"@en .
+
+
+###  http://purl.org/frontierelethale/onto/Media
+frontletVocab:Media rdf:type owl:Class ;
+                    rdfs:subClassOf frontletVocab:Source ;
+                    skos:definition "La source d'information vient d'un média"@fr ,
+                                    "The information source comes from a media"@en ;
+                    skos:prefLabel "Media"@en ,
+                                   "Media"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/MediaType
+frontletVocab:MediaType rdf:type owl:Class ;
+                        skos:definition "Type de média servant de source au décès d'un migrant"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/OfficialDocument
+frontletVocab:OfficialDocument rdf:type owl:Class ;
+                               rdfs:subClassOf frontletVocab:Source ;
+                               skos:definition "Document officiel attestant du passage ou de la mort d'un migrant"@fr ,
+                                               "Official document attesting the passage or the death of a migrant"@en ;
+                               skos:prefLabel "Document officiel"@fr ,
+                                              "Official document"@en .
+
+
+###  http://purl.org/frontierelethale/onto/OtherOfficialDocument
+frontletVocab:OtherOfficialDocument rdf:type owl:Class ;
+                                    rdfs:subClassOf frontletVocab:OfficialDocument ;
+                                    skos:definition "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ,
+                                                    "Other official document attesting the passage or the death of a migrant"@en ;
+                                    skos:prefLabel "Autre document officiel"@fr ,
+                                                   "Other offical document"@en .
+
+
+###  http://purl.org/frontierelethale/onto/Person
+frontletVocab:Person rdf:type owl:Class ;
+                     skos:definition "A person undertakes a journey between two countries"@en ,
+                                     "Un personne entreprend un trajet entre deux pays"@fr ;
+                     skos:prefLabel "Person"@en ,
+                                    "Personne"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Source
+frontletVocab:Source rdf:type owl:Class ;
+                     skos:definition "Information source of an event"@en ,
+                                     "Source de l'information d'un évènement"@fr ;
+                     skos:prefLabel "Source"@en ,
+                                    "Source"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Testimony
+frontletVocab:Testimony rdf:type owl:Class ;
+                        rdfs:subClassOf frontletVocab:IndividualEvent ;
+                        skos:definition "Ante mortem event consisting in one person seing a migrant without getting directly in contact with him."@en ,
+                                        "Evènement ante mortem consistant en une personne ayant vu un migrant sans être directement entré en contact avec celui-ci."@fr ;
+                        skos:prefLabel "Testimony"@en ,
+                                       "Témoignage"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Trace
+frontletVocab:Trace rdf:type owl:Class ;
+                    rdfs:subClassOf frontletVocab:IndividualEvent ;
+                    skos:definition "Ante mortem event consisting in a abandonned object owned by a migrant at a given moment of his journey"@en ,
+                                    "Evènement ante mortem consistant dans un objet laissé par un migrant à un moment donné de son voyage"@fr ;
+                    skos:prefLabel "Trace"@en ,
+                                   "Trace"@fr .
+
+
+###  http://purl.org/frontierelethale/onto/Transport
+frontletVocab:Transport rdf:type owl:Class ;
+                        skos:definition "Moyen de transport utilisé par un migrant au moment d'un évènement"@fr ,
+                                        "Trasport mean used by a migrant during an event"@en ;
+                        skos:prefLabel "Transport"@en ,
+                                       "Transport"@fr .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+frontletVocab:InvolvementType skos:definition "Manière dont les forces de l'ordre sont impliquées dans le décès d'un migrant"@fr .
+
+
+frontletVocab:OrganizationMode skos:definition "Mode d'organisation des migrants dans l'optique du franchissement d'une frontière"@fr .
+
+
+frontletVocab:Service skos:definition "Service en contact avec le migrant"@fr .
+
+
+frontletVocab:Structure skos:definition "Structure d'acceuil du migrant"@fr .
+
+
+frontletVocab:TransportationMode skos:definition "Moyen de transport utilisé par me migrant pour franchir la frontière"@fr .
+
+
+frontletVocab:VictimState skos:definition "Etat d'une personne à la fin de sa migration"@fr .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

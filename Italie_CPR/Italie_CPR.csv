@@ -1,0 +1,48 @@
+;Data decesso o evento critico;Nome;Struttura;Paese d’origine;Età;Causa della morte
+1.        ;1998 estate;Amin Saber;Cpt di Caltanissetta;;;
+2.        ;01.08.1998;Abdeleh Saler;Cpt Lampedusa;;25;
+3.        ;25.12.1999;Mohammed Ben Said;Cpt Ponte Galeria, Roma;Tunisia;39;
+4.        ;29.12.1999;Rabah Arfaoui Ben Hedi;Cpt Serraino Vulpitta, Trapani;Tunisia;;Bruciato vivo
+5.        ;29.12.1999;Nasreddin Arfaoui Ben Hedi;Cpt Serraino Vulpitta, Trapani;Tunisia;;Bruciato vivo
+6.        ;29.12.1999;Jamel Brahami Ben Taahr;Cpt Serraino Vulpitta, Trapani;Tunisia;;Bruciato vivo
+7.        ;29.12.1999;Ramzi Ben Salem Mouldi;Cpt Serraino Vulpitta, Trapani;Tunisia;;Gravi ustioni riportate il 29.12.1999
+8.        ;29.12.1999;Lotfi Ben Mohamed Salah;Cpt Serraino Vulpitta, Trapani;Tunisia;;Gravi ustioni riportate il 29.12.1999
+9.        ;29.12.1999;Nasim El Herzally Ben Moustafa;Cpt Serraino Vulpitta, Trapani;Tunisia;;Gravi ustioni riportate il 29.12.1999
+10.     ;12.01.2005;Said Zigoui;Cpt Lamezia Terme;Marocco;44;Suicidio
+11.     ;01.01.2006;Mehdy Alik (o Alih o Aliy);Cpt Caltanissetta;Tunisia;30;Insufficienza cardiaca
+12.     ;06.08.2006;Mohamed Aloui;Cpt Bologna;Tunisia;33;
+13.     ;01.12.2006;Christiana Amankwa;CPT Ragusa;Liberia;;
+14.     ;2006;-;Cpt Ponte Galeria, Roma;Bangladesh;;Suicidio
+15.     ;09.12.2006;Nikolov Alexandar;Cpt Lamezia Terme;Bulgaria;40;suicidio
+16.     ;14-15.10.2007;Monam Ajouli;Cpt Modena;Tunisia;23;suicidio
+17.     ;16-17.10.2007;Huri Mohamed;Cpt Modena;Marocco;25;suicidio
+18.     ;24.05.2008;Elmanai Fathi Benali Ben Rihaen (alias Hassan Nejl);Cie Torino;Tunisia;36;Ritardo assistenza
+19.     ;29-30.06.2008;Yussuf Abubakr;Cie Pian del Lago, Caltanissetta;Ghana;;
+20.     ;19.03.2009;Soudani Saleh (Souidani Salah);Cie Ponte Galeria, Roma;Algeria;42;Ritardo assistenza. Arresto cardiaco
+21.     ;06.06.2009;Mabruka Mimouni/Nabruka Mimuni;Cie Ponte Galeria, Roma;Tunisia;49;Suicidio
+22.     ;2009;-;Cie Ponte Galeria, Roma;;;
+23.     ;01.05.2009;No id;Cie Pian del Lago, Caltanissetta;Eritrea;26;
+24.     ;9.12.2009;Mohammad Muzaffar Alì, detto Sher Khan;Cie Ponte Galeria, Roma;Pakistan;55;Uscito dal CPR, indebolito/ muore in strada  per il freddo
+25.     ;25.12.2009;Carlos Santos da Costa;Cie, Milano;Brasile;34;suicidio
+26.     ;09.03.2012;Abdou Said;Cie Ponte Galeria, Roma;Egitto;30;Suicidio
+27.     ;12.03.2013;Ac Nande;Cie Bologna;Tunisia;21;
+28.;13.08.2013                (30.04.2014);Abdelmajid (Majid) El Kodra;Cie Gradisca D'Isonzo;Marocco;35;
+29.    ;10.08.2013;Moustapha Anaki;Cie Crotone, Sant’Anna di Isola Capo Rizzuto;Marocco;31;infarto
+30.     ;07.02.2015;Reda Mohammed;Cie Bari;Egitto;26;arresto cardiorespiratorio
+31.     ;13/11/2018;;Ponte Galeria;ucraina;46;
+32.     ;02.06.2019;Harry;Cpr Brindisi;Nigeria;20;
+33.;08.07.2019;Hossain Faisal;Cpr Torino;Bangladesh;32;
+34.;12.01.2020;Aymen (Aymed) Mekni;Cpr Caltanissetta;Tunisia;34;
+35.;18.01.2020;Vakhtang Enukidze;Cpr Gradisca D'Isonzo;Georgia;37;Da chiarire
+36.;14.07.2020;Orgest Turia;Cpr Gradisca D'Isonzo;Albanese;28;Probabile alta dose farmaci
+37.;22.05.2021;Moussa Mamadou Balde;Cpr Torino;Guinea;23;Suicidio
+38.;2021/2022;-;Cpr Restinco, Brindisi;Nigeriano*;;
+39.;28.11.2021;Wissem Ben Abdel Latif;Cpr Ponte Galeria, Roma;Tunisia;26;
+40.;6.12.2021;Anani Ezzeddine;Cpr Gradisca D'Isonzo;Tunisia;44;suicidio
+41.;04/08/2022;NONOS EGBONU.;Brindisi;nigeria;36;Probabile arresto cardiocircolatorio
+41.;22/08/2022;ROTON MOHAMAD;Ponte Galeria;bangladesh;34;Probabile arresto cardiocircolatorio
+42.;31.08.2022;Arhad Jahangir;Cpr Gradisca D'Isonzo;Pakistan;27;Suicidio
+43.;07/10/2022;UHNMWANGHO OSARO;Palazzo San Gervasio;Nigeria;44;
+44.;19/12/2022;;Brindisi Restinco;Marocco;38;
+45.;05/02/2024;Ousmane Sylla;CPR Ponte Galeria;Guinea;19;Suicidio
+46.;05/08/2024; Oussama Darkaoui;CPR di Palazzo San Gervasio;Marocco;22;Da chiarire

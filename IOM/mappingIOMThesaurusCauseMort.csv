@@ -1,0 +1,12 @@
+IOM;Thesaurus;Nature
+Drowning;noyade;accident
+Drowning,Harsh environmental conditions / lack of adequate shelter, food, water;noyade;accident
+Drowning,Mixed or unknown;noyade;accident
+Drowning,Vehicle accident / death linked to hazardous transport;noyade;accident
+Drowning,Violence;noyade;accident
+Harsh environmental conditions / lack of adequate shelter, food, water;mort de faim ou de soif;accident
+Harsh environmental conditions / lack of adequate shelter, food, water,Mixed or unknown;mort de faim ou de soif;accident
+Harsh environmental conditions / lack of adequate shelter, food, water,Sickness / lack of access to adequate healthcare;mort de faim ou de soif;accident
+Mixed or unknown;inconnu;inconnu
+Sickness / lack of access to adequate healthcare;médical;médical
+Vehicle accident / death linked to hazardous transport;accident de transport;accident

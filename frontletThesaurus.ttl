@@ -1,0 +1,1194 @@
+@prefix : <http://data/frontlet/thesaurus#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@base <http://data/frontlet/thesaurus#> .
+
+<http://www.semanticweb.org/bresra/ontologies/2025/5/thesaurusSequence> rdf:type owl:Ontology ;
+                                                                         owl:versionIRI <http://data/frontlet/thesaurus/1.0> ;
+                                                                         owl:imports <http://www.w3.org/2004/02/skos/core> ;
+                                                                         rdfs:comment "Ontologie définissant les concepts SKOS permettant de déclarer les valeurs des propriétés énumérées utilisé dans frontlet"@fr .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://data/frontlet/thesaurus#AgeCategory
+:AgeCategory rdf:type owl:Class ;
+             rdfs:subClassOf skos:Concept ;
+             skos:prefLabel "Age category"@en ,
+                            "Catégorie d'âge"@fr .
+
+
+###  http://data/frontlet/thesaurus#DeathCause
+:DeathCause rdf:type owl:Class ;
+            rdfs:subClassOf skos:Concept ;
+            skos:definition "Cause de la mort d'un migrant"@fr ,
+                            "Migrant cause of death"@en ;
+            skos:prefLabel "Cause de la mort"@fr ,
+                           "Death cause"@en .
+
+
+###  http://data/frontlet/thesaurus#DeathNature
+:DeathNature rdf:type owl:Class ;
+             rdfs:subClassOf skos:Concept ;
+             skos:definition "Migrant nature of death"@en ,
+                             "Nature de la mort d'un migrant durant le franchissement d'une frontière"@fr ;
+             skos:prefLabel "Death nature"@en ,
+                            "Nature de la mort"@fr .
+
+
+###  http://data/frontlet/thesaurus#ExclusionReason
+:ExclusionReason rdf:type owl:Class ;
+                 rdfs:subClassOf skos:Concept ;
+                 skos:prefLabel "Exclusion reason"@en ,
+                                "Raison de l'exclusion"@fr .
+
+
+###  http://data/frontlet/thesaurus#Gender
+:Gender rdf:type owl:Class ;
+        rdfs:subClassOf skos:Concept ;
+        skos:definition "Genre d'une personne"@fr ,
+                        "Person gender"@en ;
+        skos:prefLabel "Gender"@en ,
+                       "Genre"@fr .
+
+
+###  http://data/frontlet/thesaurus#InvolvementType
+:InvolvementType rdf:type owl:Class ;
+                 rdfs:subClassOf skos:Concept ;
+                 skos:definition "Implication des forces de l'ordre dans la blessure ou la mort d'un migrant"@fr ,
+                                 "Police forces involvment in the injury or death of a migrant"@en ;
+                 skos:prefLabel "Involvment type"@en ,
+                                "Type d'implication"@fr .
+
+
+###  http://data/frontlet/thesaurus#MediaType
+:MediaType rdf:type owl:Class ;
+           rdfs:subClassOf skos:Concept ;
+           skos:definition "Media type serving as a source for an event"@en ,
+                           "Type de média servant de source à un évènement"@fr ;
+           skos:prefLabel "Media type"@en ,
+                          "Type de media"@fr .
+
+
+###  http://data/frontlet/thesaurus#OrganizationMode
+:OrganizationMode rdf:type owl:Class ;
+                  rdfs:subClassOf skos:Concept ;
+                  skos:definition "Mode d'organisation d'un migrant pour franchir une frontière"@fr ,
+                                  "Organization mode of a migrant to cross a border"@en ;
+                  skos:prefLabel "Mode d'organisation"@fr ,
+                                 "Organisation mode"@en .
+
+
+###  http://data/frontlet/thesaurus#Service
+:Service rdf:type owl:Class ;
+         rdfs:subClassOf skos:Concept ;
+         skos:definition "Service en lien avec un migrant"@fr ,
+                         "Service related to a migrant"@en ;
+         skos:prefLabel "Service"@en ,
+                        "Service"@fr .
+
+
+###  http://data/frontlet/thesaurus#Structure
+:Structure rdf:type owl:Class ;
+           rdfs:subClassOf skos:Concept ;
+           skos:definition "Structure acceuillant un migrant"@fr ,
+                           "Structure hosting a migrant"@en ;
+           skos:prefLabel "Structure"@en ,
+                          "Structure"@fr .
+
+
+###  http://data/frontlet/thesaurus#TransportationMode
+:TransportationMode rdf:type owl:Class ;
+                    rdfs:subClassOf skos:Concept ;
+                    skos:definition "Mode de transport utilisé par un migrant pour franchir une frontière"@fr ,
+                                    "Transportation mode used by a migrant to cross a border"@en ;
+                    skos:prefLabel "Mode de transport"@fr ,
+                                   "Transportation mode"@en .
+
+
+###  http://data/frontlet/thesaurus#VictimState
+:VictimState rdf:type owl:Class ;
+             rdfs:subClassOf skos:Concept ;
+             skos:definition "Etat d'un migrant à l'heure actuelle ou à la fin de son voyage"@fr ,
+                             "Migrant state at the time or at the end of his journey"@en ;
+             skos:prefLabel "Etat de la victime"@fr ,
+                            "Victim state"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://data/frontlet/thesaurus#accident
+:accident rdf:type owl:NamedIndividual ,
+                   :DeathNature ;
+          skos:broader :deathNature ;
+          rdfs:comment "Le migrant est mort ou blessé dans de manière accidentelle"@fr ,
+                       "The migrant died or was injured in a crash"@en ;
+          skos:prefLabel "accident"@en ,
+                         "accident"@fr .
+
+
+###  http://data/frontlet/thesaurus#adult
+:adult rdf:type owl:NamedIndividual ,
+                :AgeCategory ;
+       skos:broader :ageCategory ;
+       rdfs:comment "30 ans à 59"@fr ,
+                    "30 to 59 years old"@en ;
+       skos:prefLabel "adult"@en ,
+                      "adulte"@fr .
+
+
+###  http://data/frontlet/thesaurus#ageCategory
+:ageCategory rdf:type owl:NamedIndividual ,
+                      :AgeCategory ;
+             skos:broader :ageCategory ;
+             rdfs:comment "Age category of the person"@en ,
+                          "Catégorie d'âge de la personne"@fr ;
+             skos:prefLabel "age category"@en ,
+                            "catégorie d'âge"@fr .
+
+
+###  http://data/frontlet/thesaurus#ageCategory_other
+:ageCategory_other rdf:type owl:NamedIndividual ,
+                            :AgeCategory ;
+                   rdfs:comment "Autre catégorie d'âge"@fr ,
+                                "Other age category"@en ;
+                   skos:prefLabel "autre"@fr ,
+                                  "other"@en .
+
+
+###  http://data/frontlet/thesaurus#air
+:air rdf:type owl:NamedIndividual ,
+              :TransportationMode ;
+     skos:broader :transportationMode ;
+     rdfs:comment "One migrant crosses a border using an air transportation mode"@en ,
+                  "Un migrant franchit une frontière avec un transport de type aérien"@fr ;
+     skos:prefLabel "air"@en ,
+                    "aérien"@fr .
+
+
+###  http://data/frontlet/thesaurus#airplane
+:airplane rdf:type owl:NamedIndividual ,
+                   :TransportationMode ;
+          skos:broader :air ;
+          rdfs:comment "Le migrant a franchi la frontière en avion"@fr ,
+                       "The migrant crossed the border by airplane"@en ;
+          skos:prefLabel "airplane"@en ,
+                         "avion"@fr .
+
+
+###  http://data/frontlet/thesaurus#army
+:army rdf:type owl:NamedIndividual ,
+               :Service ;
+      skos:broader :institution ;
+      rdfs:comment "L'armée a été en contact avec le migrant"@fr ,
+                   "The migrant was in contact with the army"@en ;
+      skos:prefLabel "army"@en ,
+                     "armée"@fr .
+
+
+###  http://data/frontlet/thesaurus#asphyxia
+:asphyxia rdf:type owl:NamedIndividual ,
+                   :DeathCause ;
+          skos:broader :deathCause ;
+          rdfs:comment "Le migrant est mort ou blessé à cause d'une asphyxie"@fr ,
+                       "The migrant is dead or injured because of asphyxia"@en ;
+          skos:prefLabel "asphyxia"@en ,
+                         "asphyxie"@fr .
+
+
+###  http://data/frontlet/thesaurus#avalanche
+:avalanche rdf:type owl:NamedIndividual ,
+                    :DeathCause ;
+           skos:broader :environmentalHazard ;
+           rdfs:comment "Le migrant est mort ou blessé à cause d'une avalanche"@fr ,
+                        "The migrant is dead or injured because of an avalanche"@en ;
+           skos:prefLabel "avalanche"@en ,
+                          "avalanche"@fr .
+
+
+###  http://data/frontlet/thesaurus#bladedWeapon
+:bladedWeapon rdf:type owl:NamedIndividual ,
+                       :DeathCause ;
+              skos:broader :weapon ;
+              rdfs:comment "Le migrant est mort à cause d'une arme blanche"@fr ,
+                           "The migrant is dead or injured because of a bladed weapon"@en ;
+              skos:prefLabel "arme blanche"@fr ,
+                             "bladed weapon"@en .
+
+
+###  http://data/frontlet/thesaurus#borderGuard
+:borderGuard rdf:type owl:NamedIndividual ,
+                      :Service ;
+             skos:broader :institution ;
+             rdfs:comment "Le migrant a croisé des gardes frontières dans le franchissement d'une frontière"@fr ,
+                          "The migrant crossed border guards while crossing a border"@en ;
+             skos:prefLabel "border guard"@en ,
+                            "garde frontière"@fr .
+
+
+###  http://data/frontlet/thesaurus#borderPost
+:borderPost rdf:type owl:NamedIndividual ,
+                     :Structure ;
+            skos:broader :structure ;
+            rdfs:comment "Le migrant a été acceuilli au poste frontière en franchissant une forntière"@fr ,
+                         "The migrant was welcomed at the border post while crossing a border"@en ;
+            skos:prefLabel "border post"@en ,
+                           "poste frontière"@fr .
+
+
+###  http://data/frontlet/thesaurus#bus
+:bus rdf:type owl:NamedIndividual ,
+              :TransportationMode ;
+     skos:broader :road ;
+     rdfs:comment "Le migrant franchit une frontière dans un bus"@fr ,
+                  "The migrant crossed a border using a bus"@en ;
+     skos:prefLabel "bus"@en ,
+                    "bus"@fr .
+
+
+###  http://data/frontlet/thesaurus#car
+:car rdf:type owl:NamedIndividual ,
+              :TransportationMode ;
+     skos:broader :road ;
+     rdfs:comment "Le migrant a franchit la frontière à bord d'une voiture"@fr ,
+                  "The migrant crossed the border using a car"@en ;
+     skos:prefLabel "car"@en ,
+                    "voiture"@fr .
+
+
+###  http://data/frontlet/thesaurus#carCrash
+:carCrash rdf:type owl:NamedIndividual ,
+                   :DeathCause ;
+          skos:broader :transportCrash ;
+          rdfs:comment "Le migrant est mort ou blessé dans un accident de voiture"@fr ,
+                       "The migrant is dead or injured in a car crash"@en ;
+          skos:prefLabel "accident de voiture"@fr ,
+                         "car crash"@en .
+
+
+###  http://data/frontlet/thesaurus#cargoShip
+:cargoShip rdf:type owl:NamedIndividual ,
+                    :TransportationMode ;
+           skos:broader :maritim ;
+           rdfs:comment "Le migrant a franchi une frontière à bord d'un navire de marchandises"@fr ,
+                        "The migrant crossed a border using a cargo ship"@en ;
+           skos:prefLabel "cargo ship"@en ,
+                          "navire de marchandises"@fr .
+
+
+###  http://data/frontlet/thesaurus#child
+:child rdf:type owl:NamedIndividual ,
+                :AgeCategory ;
+       skos:broader :ageCategory ;
+       rdfs:comment "2 ans à 11 ans"@fr ,
+                    "2 years old to 11 years old"@en ;
+       skos:prefLabel "child"@en ,
+                      "enfant"@fr .
+
+
+###  http://data/frontlet/thesaurus#clinic
+:clinic rdf:type owl:NamedIndividual ,
+                 :Structure ;
+        skos:broader :hospitalClinic ;
+        rdfs:comment "Le migrant a été acceuilli dans une clinique"@fr ,
+                     "The migrant was welcomed in a clinic"@en ;
+        skos:prefLabel "clinic"@en ,
+                       "clinique"@fr .
+
+
+###  http://data/frontlet/thesaurus#crashDuringCarChase
+:crashDuringCarChase rdf:type owl:NamedIndividual ,
+                              :InvolvementType ;
+                     skos:broader :typeOfInvolvment ;
+                     rdfs:comment "Le migrant est mort ou blessé dans le cadre d'une poursuite"@fr ,
+                                  "The migrant is dead or injured in the context of a car chase"@en ;
+                     skos:prefLabel "accident lors d'une poursuite"@fr ,
+                                    "crash during a car chase"@en .
+
+
+###  http://data/frontlet/thesaurus#crashDuringSupervisedMove
+:crashDuringSupervisedMove rdf:type owl:NamedIndividual ,
+                                    :InvolvementType ;
+                           skos:broader :typeOfInvolvment ;
+                           rdfs:comment "Le migrant est mort ou blessé dans le cadre d'un déplacement encadré"@fr ;
+                           skos:prefLabel "accident lors d'un déplacement encadré"@fr ,
+                                          "crash during a supervised move"@en .
+
+
+###  http://data/frontlet/thesaurus#dead
+:dead rdf:type owl:NamedIndividual ,
+               :VictimState ;
+      skos:broader :victimState ;
+      rdfs:comment "Le migrant est décédé"@fr ,
+                   "The migrant is dead"@en ;
+      skos:prefLabel "dead"@en ,
+                     "mort"@fr .
+
+
+###  http://data/frontlet/thesaurus#deathCause
+:deathCause rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            rdfs:comment "Defines the cause of death of a victim"@en ,
+                         "Définit la cause de décès d'une victime"@fr ;
+            skos:prefLabel "cause de décès"@fr ,
+                           "death cause"@en .
+
+
+###  http://data/frontlet/thesaurus#deathNature
+:deathNature rdf:type owl:NamedIndividual ,
+                      :DeathNature ;
+             rdfs:comment "Defines the nature of the cause of death"@en ,
+                          "Définit la nature de la cause de décès"@fr ;
+             skos:prefLabel "death nature"@en ,
+                            "nature de la mort"@fr .
+
+
+###  http://data/frontlet/thesaurus#digitalPress
+:digitalPress rdf:type owl:NamedIndividual ,
+                       :MediaType ;
+              skos:broader :press ;
+              rdfs:comment "La source de l'information se trouve dans la presse numérique"@fr ,
+                           "The source of the information is in digital press"@en ;
+              skos:prefLabel "digital press"@en ,
+                             "presse numérique"@fr .
+
+
+###  http://data/frontlet/thesaurus#drowning
+:drowning rdf:type owl:NamedIndividual ,
+                   :DeathCause ;
+          skos:broader :deathCause ;
+          rdfs:comment "Le migrant est mort ou blessé à cause d'une noyade"@fr ,
+                       "The migrant is dead or injured because of drowning"@en ;
+          skos:prefLabel "drowning"@en ,
+                         "noyade"@fr .
+
+
+###  http://data/frontlet/thesaurus#electrocution
+:electrocution rdf:type owl:NamedIndividual ,
+                        :DeathCause ;
+               skos:broader :deathCause ;
+               rdfs:comment "Le migrant est blessé ou mort à cause d'une électrocution"@fr ,
+                            "The migrant is dead or injured because of electrocution"@en ;
+               skos:prefLabel "electrocution"@en ,
+                              "électrocution"@fr .
+
+
+###  http://data/frontlet/thesaurus#environmentalHazard
+:environmentalHazard rdf:type owl:NamedIndividual ,
+                              :DeathCause ;
+                     skos:broader :deathCause ;
+                     rdfs:comment "Le migrant est mort ou blessé à cause d'un danger naturel"@fr ,
+                                  "The migrant is dead or injured because of a natural hazard"@en ;
+                     skos:prefLabel "danger naturel"@fr ,
+                                    "environmental hazard"@en .
+
+
+###  http://data/frontlet/thesaurus#exclusionReason
+:exclusionReason rdf:type owl:NamedIndividual ,
+                          :ExclusionReason ;
+                 skos:prefLabel "exclusion reason"@en ,
+                                "raison de l'exclusion"@fr .
+
+
+###  http://data/frontlet/thesaurus#exclusionReason_other
+:exclusionReason_other rdf:type owl:NamedIndividual ,
+                                :ExclusionReason ;
+                       skos:broader :exclusionReason ;
+                       rdfs:comment "Autre raison d'exclusion"@fr ,
+                                    "Other reason for exclusion"@en ;
+                       skos:prefLabel "autre"@fr ,
+                                      "other"@en .
+
+
+###  http://data/frontlet/thesaurus#exhaustion
+:exhaustion rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            skos:broader :deathCause ;
+            rdfs:comment "Le migrant est mort ou blessé à cause d'épuisement"@fr ,
+                         "The migrant is dead or injured because of exhaustion"@en ;
+            skos:prefLabel "exhaustion"@en ,
+                           "épuisement"@fr .
+
+
+###  http://data/frontlet/thesaurus#fall
+:fall rdf:type owl:NamedIndividual ,
+               :DeathCause ;
+      skos:broader :deathCause ;
+      rdfs:comment "Le migrant est mort ou blessé à cause d'une chute"@fr ,
+                   "The migrant is dead or injured because of a fall"@en ;
+      skos:prefLabel "chute"@fr ,
+                     "fall"@en .
+
+
+###  http://data/frontlet/thesaurus#fearEscapeAttempt
+:fearEscapeAttempt rdf:type owl:NamedIndividual ,
+                            :InvolvementType ;
+                   skos:broader :typeOfInvolvment ;
+                   rdfs:comment "Les forces de l'ordre sont impliquées dans la blessure ou la mort d'un migrant en ayant fait peur à celui-ci ou entrainé sa tentative de fuite"@fr ,
+                                "The police forces are involved in the injury or death of a migrant by scaring him or causing his attempt to escape"@en ;
+                   skos:prefLabel "fear / escape attempt"@en ,
+                                  "peur/ tentative de fuite"@fr .
+
+
+###  http://data/frontlet/thesaurus#female
+:female rdf:type owl:NamedIndividual ,
+                 :Gender ;
+        skos:broader :gender ;
+        rdfs:comment "Female gender"@en ,
+                     "Genre féminin"@fr ;
+        skos:prefLabel "female"@en ,
+                       "féminin"@fr .
+
+
+###  http://data/frontlet/thesaurus#ferryBoat
+:ferryBoat rdf:type owl:NamedIndividual ,
+                    :TransportationMode ;
+           skos:broader :maritim ;
+           rdfs:comment "Le migrant a franchi la frontière à l'aide d'un ferry"@fr ,
+                        "The migrant crossed a border using a ferry boat"@en ;
+           skos:prefLabel "ferry"@fr ,
+                          "ferry boat"@en .
+
+
+###  http://data/frontlet/thesaurus#fire
+:fire rdf:type owl:NamedIndividual ,
+               :DeathCause ;
+      skos:broader :deathCause ,
+                   :environmentalHazard ;
+      rdfs:comment "Le migrant est mort ou blessé à cause d'un incendie"@fr ,
+                   "The migrant is dead or injured because of a fire"@en ;
+      skos:prefLabel "fire"@en ,
+                     "incendie"@fr .
+
+
+###  http://data/frontlet/thesaurus#fireArm
+:fireArm rdf:type owl:NamedIndividual ,
+                  :DeathCause ;
+         skos:broader :weapon ;
+         rdfs:comment "Le migrant est mort ou blessé à cause d'une arme à feu"@fr ,
+                      "The migrant is dead or injured because of a fire arm"@en ;
+         skos:prefLabel "arme à feu"@fr ,
+                        "fire arm"@en .
+
+
+###  http://data/frontlet/thesaurus#flood
+:flood rdf:type owl:NamedIndividual ,
+                :DeathCause ;
+       skos:broader :environmentalHazard ;
+       rdfs:comment "Le migrant est mort ou blessé à cause d'une crue"@fr ,
+                    "The migrant is dead or injured because of a flood"@en ;
+       skos:prefLabel "crue"@fr ,
+                      "flood"@en .
+
+
+###  http://data/frontlet/thesaurus#gender
+:gender rdf:type owl:NamedIndividual ,
+                 :Gender ;
+        rdfs:comment "Gender of the person"@en ,
+                     "Genre de la personne"@fr ;
+        skos:prefLabel "gender"@en ,
+                       "genre"@fr .
+
+
+###  http://data/frontlet/thesaurus#gender_other
+:gender_other rdf:type owl:NamedIndividual ,
+                       :Gender ;
+              skos:broader :gender ;
+              rdfs:comment "Autre genre"@fr ,
+                           "Other gender"@en ;
+              skos:prefLabel "autre"@fr ,
+                             "other"@en .
+
+
+###  http://data/frontlet/thesaurus#gender_unknown
+:gender_unknown rdf:type owl:NamedIndividual ,
+                         :Gender ;
+                skos:broader :gender ;
+                rdfs:comment "Le genre du migrant est inconnu"@fr ,
+                             "Migrant gender is unknown"@en ;
+                skos:prefLabel "inconnu"@fr ,
+                               "unknown"@en .
+
+
+###  http://data/frontlet/thesaurus#hanging
+:hanging rdf:type owl:NamedIndividual ,
+                  :DeathCause ;
+         skos:broader :deathCause ;
+         rdfs:comment "Le migrant est mort ou blessé par pendaison"@fr ,
+                      "The migrant is dead or injured by hanging"@en ;
+         skos:prefLabel "hanging"@en ,
+                        "pendaison"@fr .
+
+
+###  http://data/frontlet/thesaurus#healthInstitution
+:healthInstitution rdf:type owl:NamedIndividual ,
+                            :Service ;
+                   skos:broader :institution ;
+                   rdfs:comment "Le migrant a été en contact avec un service de santé"@fr ,
+                                "The migrant was in contact with a health service"@en ;
+                   skos:prefLabel "health institution"@en ,
+                                  "service de santé"@fr .
+
+
+###  http://data/frontlet/thesaurus#healthIssue
+:healthIssue rdf:type owl:NamedIndividual ,
+                      :ExclusionReason ;
+             skos:broader :exclusionReason ;
+             skos:prefLabel "Problème de santé"@fr ,
+                            "health issue"@en .
+
+
+###  http://data/frontlet/thesaurus#hit
+:hit rdf:type owl:NamedIndividual ,
+              :DeathCause ;
+     skos:broader :deathCause ;
+     rdfs:comment "Le migrant est mort ou blessé après une percussion par un véhicule"@fr ,
+                  "The migrant is dead or injured after being hit by a vehicle"@en ;
+     skos:prefLabel "hit"@en ,
+                    "percussion"@fr .
+
+
+###  http://data/frontlet/thesaurus#hitByCar
+:hitByCar rdf:type owl:NamedIndividual ,
+                   :DeathCause ;
+          skos:broader :hit ;
+          rdfs:comment "Le migrant est mort ou blessé à cause d'une percussion par une voiture"@fr ,
+                       "The migrant is dead or injured after being hit by a car"@en ;
+          skos:prefLabel "hit by car"@en ,
+                         "percussion par une voiture"@fr .
+
+
+###  http://data/frontlet/thesaurus#hitByTrain
+:hitByTrain rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            skos:broader :hit ;
+            rdfs:comment "Le migrant est mort ou blessé à cause d'une percussion par un train"@fr ,
+                         "The migrant is dead or injured after being hit by a train"@en ;
+            skos:prefLabel "hit by train"@en ,
+                           "percussion par un train"@fr .
+
+
+###  http://data/frontlet/thesaurus#hitByTruck
+:hitByTruck rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            skos:broader :hit ;
+            rdfs:comment "Le migrant est mort ou blessé à cause d'une percussion par un camion"@fr ,
+                         "The migrant is dead or injured after being hit by a truck"@en ;
+            skos:prefLabel "hit by truck"@en ,
+                           "percussion par un camion"@fr .
+
+
+###  http://data/frontlet/thesaurus#homicide
+:homicide rdf:type owl:NamedIndividual ,
+                   :DeathNature ,
+                   :InvolvementType ;
+          skos:broader :deathNature ,
+                       :typeOfInvolvment ;
+          rdfs:comment "The migrant is dead while crossing a border because of a homicide"@en ,
+                       "Un migrant est mort en franchissant une frontière à cause d'un homicide" ;
+          skos:prefLabel "homicide"@en ,
+                         "homicide"@fr .
+
+
+###  http://data/frontlet/thesaurus#hospital
+:hospital rdf:type owl:NamedIndividual ,
+                   :Structure ;
+          skos:broader :hospitalClinic ;
+          rdfs:comment "Le migrant est acceuilli dans un hopital"@fr ,
+                       "The migrant is welcomed in a hospital"@en ;
+          skos:prefLabel "hospital"@en ,
+                         "hôpital"@fr .
+
+
+###  http://data/frontlet/thesaurus#hospitalClinic
+:hospitalClinic rdf:type owl:NamedIndividual ,
+                         :Structure ;
+                skos:broader :structure ;
+                rdfs:comment "Le migrant est acceuilli dans un hopital ou une clinique"@fr ,
+                             "The migrant is welcomed in a hospital or a clinic"@en ;
+                skos:prefLabel "hospital or clinic"@en ,
+                               "hôpital ou clinique"@fr .
+
+
+###  http://data/frontlet/thesaurus#human
+:human rdf:type owl:NamedIndividual ,
+                :TransportationMode ;
+       skos:broader :transportationMode ;
+       rdfs:comment "The migrant crossed a border without any means of transport"@en ,
+                    "Un migrant a franchi une frontière sans moyen de transport"@fr ;
+       skos:prefLabel "humain"@fr ,
+                      "human"@en .
+
+
+###  http://data/frontlet/thesaurus#hypothermia
+:hypothermia rdf:type owl:NamedIndividual ,
+                      :DeathCause ;
+             skos:broader :deathCause ;
+             rdfs:comment "The migrant is dead or injured because of hypothermia"@en ,
+                          "Un migrant est mort ou blessé à cause d'une hypothermie"@fr ;
+             skos:prefLabel "hypothermia"@en ,
+                            "hypothermie"@fr .
+
+
+###  http://data/frontlet/thesaurus#immigrationDetention
+:immigrationDetention rdf:type owl:NamedIndividual ,
+                               :Structure ;
+                      skos:broader :structure ;
+                      rdfs:comment "Le migrant est placé dans un centre de rétention"@fr ,
+                                   "The migrant is placed in a detention center"@en ;
+                      skos:prefLabel "centre de rétention"@fr ,
+                                     "immigration detention"@en .
+
+
+###  http://data/frontlet/thesaurus#infant
+:infant rdf:type owl:NamedIndividual ,
+                 :AgeCategory ;
+        skos:broader :ageCategory ;
+        rdfs:comment "0 jour à 23 mois"@fr ,
+                     "Less than 2 years old"@en ;
+        skos:prefLabel "infant"@en ,
+                       "nourisson"@fr .
+
+
+###  http://data/frontlet/thesaurus#injured
+:injured rdf:type owl:NamedIndividual ,
+                  :ExclusionReason ,
+                  :VictimState ;
+         skos:broader :exclusionReason ,
+                      :victimState ;
+         rdfs:comment "Le migrant est blessé"@fr ,
+                      "The migrant is injured"@en ;
+         skos:prefLabel "blessé"@fr ,
+                        "injured"@en .
+
+
+###  http://data/frontlet/thesaurus#institution
+:institution rdf:type owl:NamedIndividual ,
+                      :Service ;
+             rdfs:comment "Le migrant a rencontré une institution locale"@fr ,
+                          "The migrant met a local institution"@en ;
+             skos:prefLabel "institution"@en ,
+                            "institution"@fr .
+
+
+###  http://data/frontlet/thesaurus#lackOfInformation
+:lackOfInformation rdf:type owl:NamedIndividual ,
+                            :ExclusionReason ;
+                   skos:broader :exclusionReason ;
+                   skos:prefLabel "lack of information"@en ,
+                                  "manque d'informations"@fr .
+
+
+###  http://data/frontlet/thesaurus#male
+:male rdf:type owl:NamedIndividual ,
+               :Gender ;
+      skos:broader :gender ;
+      rdfs:comment "Le migrant est de sexe masculin"@fr ,
+                   "The migrant is a male"@en ;
+      skos:prefLabel "male"@en ,
+                     "masculin"@fr .
+
+
+###  http://data/frontlet/thesaurus#maritim
+:maritim rdf:type owl:NamedIndividual ,
+                  :TransportationMode ;
+         skos:broader :transportationMode ;
+         rdfs:comment "Le migrant franchit une frontière par une voie maritime"@fr ,
+                      "The migrant crosses a border by a maritim way"@en ;
+         skos:prefLabel "maritim"@en ,
+                        "maritime"@fr .
+
+
+###  http://data/frontlet/thesaurus#mediaType
+:mediaType rdf:type owl:NamedIndividual ,
+                    :MediaType ;
+           rdfs:comment "Defines the type of a media source"@en ,
+                        "Définit le type d'une source médiatique"@fr ;
+           skos:prefLabel "media type"@en ,
+                          "type de média"@fr .
+
+
+###  http://data/frontlet/thesaurus#medicalIssue
+:medicalIssue rdf:type owl:NamedIndividual ,
+                       :DeathCause ;
+              skos:broader :deathCause ;
+              rdfs:comment "Le migrant est mort d'une cause médicale"@fr ,
+                           "The migrant is dead because of a medical issue"@en ;
+              skos:prefLabel "medical issue"@en ,
+                             "médical"@fr .
+
+
+###  http://data/frontlet/thesaurus#mine
+:mine rdf:type owl:NamedIndividual ,
+               :DeathCause ;
+      skos:broader :deathCause ;
+      rdfs:comment "Le migrant est mort ou blessé à cause d'une mine anti personnel"@fr ,
+                   "The migrant is dead or injured because of a landmine"@en ;
+      skos:prefLabel "mine"@en ,
+                     "mine"@fr .
+
+
+###  http://data/frontlet/thesaurus#missing
+:missing rdf:type owl:NamedIndividual ,
+                  :ExclusionReason ,
+                  :VictimState ;
+         skos:broader :exclusionReason ,
+                      :victimState ;
+         rdfs:comment "Le migrant est porté disparu"@fr ,
+                      "The migrant is missing"@en ;
+         skos:prefLabel "disparu"@fr ,
+                        "missing"@en .
+
+
+###  http://data/frontlet/thesaurus#missingAfterTakingOver
+:missingAfterTakingOver rdf:type owl:NamedIndividual ,
+                                 :InvolvementType ;
+                        skos:broader :typeOfInvolvment ;
+                        rdfs:comment "Le migrant a disparu après avoir été pris en charge par les forces de l'ordre"@fr ,
+                                     "The migrant went missing after being taken over by law enforcement"@en ;
+                        skos:prefLabel "disparition après prise en charge"@fr ,
+                                       "missing after taking over"@en .
+
+
+###  http://data/frontlet/thesaurus#negligence
+:negligence rdf:type owl:NamedIndividual ,
+                     :InvolvementType ;
+            skos:broader :typeOfInvolvment ;
+            rdfs:comment "Les forces de l'ordre sont impliquées par négligence dans la mort ou la blessure d'un migrant"@fr ,
+                         "The law enforcement is involved by negligence in the death or injury of a migrant"@en ;
+            skos:prefLabel "negligence"@en ,
+                           "négligence"@fr .
+
+
+###  http://data/frontlet/thesaurus#newspapers
+:newspapers rdf:type owl:NamedIndividual ,
+                     :MediaType ;
+            skos:broader :press ;
+            rdfs:comment "La source de l'information est un journal"@fr ,
+                         "The source of the information is in a newspaper"@en ;
+            skos:prefLabel "journaux"@fr ,
+                           "newspapers"@en .
+
+
+###  http://data/frontlet/thesaurus#noBorderCrossing
+:noBorderCrossing rdf:type owl:NamedIndividual ,
+                           :ExclusionReason ;
+                  skos:broader :exclusionReason ;
+                  skos:prefLabel "no border crossing"@en ,
+                                 "pas de traversée de frontière"@fr .
+
+
+###  http://data/frontlet/thesaurus#notMigrant
+:notMigrant rdf:type owl:NamedIndividual ,
+                     :ExclusionReason ;
+            skos:broader :exclusionReason ;
+            skos:prefLabel "not migrant"@en ,
+                           "pas un migrant"@fr .
+
+
+###  http://data/frontlet/thesaurus#organizationMode
+:organizationMode rdf:type owl:NamedIndividual ,
+                           :OrganizationMode ;
+                  rdfs:comment "Mode d'organisation de la personne pour franchir la frontière"@fr ,
+                               "Organization mode of the person to cross the border"@en ;
+                  skos:prefLabel "mode d'organisation"@fr ,
+                                 "organization mode"@en .
+
+
+###  http://data/frontlet/thesaurus#organizationMode_other
+:organizationMode_other rdf:type owl:NamedIndividual ,
+                                 :OrganizationMode ;
+                        skos:broader :organizationMode ;
+                        rdfs:comment "Autre mode d'organisation"@fr ,
+                                     "Other organization mode"@en ;
+                        skos:prefLabel "autre"@fr ,
+                                       "other"@en .
+
+
+###  http://data/frontlet/thesaurus#outsideZone
+:outsideZone rdf:type owl:NamedIndividual ,
+                      :ExclusionReason ;
+             skos:broader :exclusionReason ;
+             skos:prefLabel "hors périmètre"@fr ,
+                            "outsideZone"@en .
+
+
+###  http://data/frontlet/thesaurus#poisoning
+:poisoning rdf:type owl:NamedIndividual ,
+                    :DeathCause ;
+           skos:broader :deathCause ;
+           rdfs:comment "Le migrant est mort ou blessé à cause d'un empoisonnement"@fr ,
+                        "The migrant is dead or injured because of poisoning"@en ;
+           skos:prefLabel "empoisonnement"@fr ,
+                          "poisoning"@en .
+
+
+###  http://data/frontlet/thesaurus#police
+:police rdf:type owl:NamedIndividual ,
+                 :Service ;
+        skos:broader :institution ;
+        rdfs:comment "Le migrant a croisé la police en franchissant une frontière"@fr ,
+                     "The migrant crossed the police while crossing a border"@en ;
+        skos:prefLabel "police"@en ,
+                       "police"@fr .
+
+
+###  http://data/frontlet/thesaurus#prenatal
+:prenatal rdf:type owl:NamedIndividual ,
+                   :AgeCategory ;
+          rdfs:comment "En gestation ou enfant mort-né"@fr ,
+                       "The migrant is prenatal or stillborn"@en ;
+          skos:prefLabel "prenatal"@en ,
+                         "prénatal"@fr .
+
+
+###  http://data/frontlet/thesaurus#prenatalLoss
+:prenatalLoss rdf:type owl:NamedIndividual ,
+                       :DeathCause ;
+              skos:broader :deathCause ;
+              rdfs:comment "A pregnant migrant lost her child before birth"@en ,
+                           "Une migrante enceinte a perdu son enfant avant la naissance."@fr ;
+              skos:prefLabel "perte prénatale"@fr ,
+                             "prenatal loss"@en .
+
+
+###  http://data/frontlet/thesaurus#press
+:press rdf:type owl:NamedIndividual ,
+                :MediaType ;
+       skos:broader :mediaType ;
+       rdfs:comment "La source de l'information se trouve dans la presse"@fr ,
+                    "The source of the information is in the press"@en ;
+       skos:prefLabel "press"@en ,
+                      "presse"@fr .
+
+
+###  http://data/frontlet/thesaurus#pushback
+:pushback rdf:type owl:NamedIndividual ,
+                   :InvolvementType ;
+          skos:broader :typeOfInvolvment ;
+          rdfs:comment "Le migrant par la suite blessé ou mort a été refoulé à la frontière qu'il essayait de franchir"@fr ,
+                       "The migrant, later injured or dead, was pushed back to the border he was trying to cross"@en ;
+          skos:prefLabel "pushback"@en ,
+                         "refoulement"@fr .
+
+
+###  http://data/frontlet/thesaurus#radio
+:radio rdf:type owl:NamedIndividual ,
+                :MediaType ;
+       rdfs:comment "La source de l'information se trouve à la radio"@fr ,
+                    "The source of the information is on the radio"@en ;
+       skos:prefLabel "radio"@en ,
+                      "radio"@fr .
+
+
+###  http://data/frontlet/thesaurus#rail
+:rail rdf:type owl:NamedIndividual ,
+               :TransportationMode ;
+      skos:broader :transportationMode ;
+      rdfs:comment "Le migrant a franchi une frontière à l'aide d'un transport ferroviaire"@fr ,
+                   "The migrant crossed a border using a rail transport"@en ;
+      skos:prefLabel "ferroviaire"@fr ,
+                     "rail"@en .
+
+
+###  http://data/frontlet/thesaurus#receptionCenter
+:receptionCenter rdf:type owl:NamedIndividual ,
+                          :Structure ;
+                 skos:broader :structure ;
+                 rdfs:comment "Le migrant es tacceuilli dans un centre d'acceuil"@fr ,
+                              "The migrant was welcomed in a reception center"@en ;
+                 skos:prefLabel "centre d'acceuil"@fr ,
+                                "reception center"@en .
+
+
+###  http://data/frontlet/thesaurus#refuge
+:refuge rdf:type owl:NamedIndividual ,
+                 :Structure ;
+        skos:broader :structure ;
+        rdfs:comment "The migrant was welcomed in a refuge"@en ,
+                     "Un migrant a été acceuilli dans un refuge"@fr ;
+        skos:prefLabel "refuge"@en ,
+                       "refuge"@fr .
+
+
+###  http://data/frontlet/thesaurus#road
+:road rdf:type owl:NamedIndividual ,
+               :TransportationMode ;
+      skos:broader :transportationMode ;
+      rdfs:comment "Le migrant a franchit la frontière avec un moyen de transport routier"@fr ,
+                   "The migrant crossed a border using a road transport"@en ;
+      skos:prefLabel "road"@en ,
+                     "routier"@fr .
+
+
+###  http://data/frontlet/thesaurus#rockFall
+:rockFall rdf:type owl:NamedIndividual ,
+                   :DeathCause ;
+          skos:broader :environmentalHazard ;
+          rdfs:comment "Le migrant est mort ou blessé à cause d'une chute de pierre"@fr ,
+                       "The migrant is dead or injured because of a rock fall"@en ;
+          skos:prefLabel "chute de pierre"@fr ,
+                         "rock fall" .
+
+
+###  http://data/frontlet/thesaurus#selfOrganization
+:selfOrganization rdf:type owl:NamedIndividual ,
+                           :OrganizationMode ;
+                  skos:broader :organizationMode ;
+                  rdfs:comment "Le migrant était en auto-organisation pour franchir la frontière"@fr ,
+                               "The migrant was self-organized to cross the border"@en ;
+                  skos:prefLabel "auto-organisation"@fr ,
+                                 "self-organization"@en .
+
+
+###  http://data/frontlet/thesaurus#senior
+:senior rdf:type owl:NamedIndividual ,
+                 :AgeCategory ;
+        skos:broader :ageCategory ;
+        rdfs:comment "Older than 60 years old"@en ,
+                     "Plus de 60 ans"@fr ;
+        skos:prefLabel "senior"@en ,
+                       "sénior"@fr .
+
+
+###  http://data/frontlet/thesaurus#smallBoat
+:smallBoat rdf:type owl:NamedIndividual ,
+                    :TransportationMode ;
+           skos:broader :maritim ;
+           rdfs:comment "Le migrant a franchit une frontière avec une petite embarcation"@fr ,
+                        "The migrant crossed a border using a small boat"@en ;
+           skos:prefLabel "petite embarcation"@fr ,
+                          "small boat"@en .
+
+
+###  http://data/frontlet/thesaurus#smuggler
+:smuggler rdf:type owl:NamedIndividual ,
+                   :OrganizationMode ;
+          skos:broader :organizationMode ;
+          rdfs:comment "The migrant crossed the border using a smuggling system"@en ,
+                       "Un migrant a franchit la frontière par un système de passeurs"@fr ;
+          skos:prefLabel "passeurs"@fr ,
+                         "smuggler"@en .
+
+
+###  http://data/frontlet/thesaurus#socialNetwork
+:socialNetwork rdf:type owl:NamedIndividual ,
+                        :MediaType ;
+               skos:broader :mediaType ;
+               rdfs:comment "La source de l'information est issue des réseaux sociaux"@fr ,
+                            "The source of the information is from social networks"@en ;
+               skos:prefLabel "réseaux sociaux"@fr ,
+                              "social network"@en .
+
+
+###  http://data/frontlet/thesaurus#starvedThirsty
+:starvedThirsty rdf:type owl:NamedIndividual ,
+                         :DeathCause ;
+                skos:broader :deathCause ;
+                rdfs:comment "Le migrant est mort de faim ou de soif"@fr ,
+                             "The migrant is dead because of starvation or thirst"@en ;
+                skos:prefLabel "mort de faim ou de soif"@fr ,
+                               "starved or thirsty"@en .
+
+
+###  http://data/frontlet/thesaurus#structure
+:structure rdf:type owl:NamedIndividual ,
+                    :Structure ;
+           skos:prefLabel "structure"@en ,
+                          "structure"@fr .
+
+
+###  http://data/frontlet/thesaurus#suicide
+:suicide rdf:type owl:NamedIndividual ,
+                  :DeathNature ;
+         skos:broader :deathNature ;
+         rdfs:comment "Le migrant s'est suicidé en essayant de franchir une frontière"@fr ,
+                      "The migrant killed himself trying to cross a border"@en ;
+         skos:prefLabel "suicide"@en ,
+                        "suicide"@fr .
+
+
+###  http://data/frontlet/thesaurus#swimming
+:swimming rdf:type owl:NamedIndividual ,
+                   :TransportationMode ;
+          skos:broader :human ;
+          rdfs:comment "Le migrant a franchit une frontière à la nage"@fr ,
+                       "The migrant crossed a border by swim"@en ;
+          skos:prefLabel "nage"@fr ,
+                         "swimming"@en .
+
+
+###  http://data/frontlet/thesaurus#teenager
+:teenager rdf:type owl:NamedIndividual ,
+                   :AgeCategory ;
+          skos:broader :ageCategory ;
+          rdfs:comment "12 ans à 17 ans"@fr ,
+                       "12 to 17 years old"@en ;
+          skos:prefLabel "adolescent"@fr ,
+                         "teenager"@en .
+
+
+###  http://data/frontlet/thesaurus#television
+:television rdf:type owl:NamedIndividual ,
+                     :MediaType ;
+            skos:broader :mediaType ;
+            rdfs:comment "La source de l'information est à la télévision"@fr ,
+                         "The source of the information is on television"@en ;
+            skos:prefLabel "television"@en ,
+                           "télévision"@fr .
+
+
+###  http://data/frontlet/thesaurus#traffic
+:traffic rdf:type owl:NamedIndividual ,
+                  :OrganizationMode ;
+         skos:broader :organizationMode ;
+         rdfs:comment "Le migrant ayant franchit la frontière fait parti d'un système de traffic d'êtres humains"@fr ,
+                      "The migrant who crossed the border is part of a human trafficking system"@en ;
+         skos:prefLabel "traffic"@en ,
+                        "traffic"@fr .
+
+
+###  http://data/frontlet/thesaurus#train
+:train rdf:type owl:NamedIndividual ,
+                :TransportationMode ;
+       skos:broader :rail ;
+       rdfs:comment "Le migrant a franchit la frontière à bord d'un train"@fr ,
+                    "The migrant crossed a border using a train"@en ;
+       skos:prefLabel "train"@en ,
+                      "train"@fr .
+
+
+###  http://data/frontlet/thesaurus#trainCrash
+:trainCrash rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            skos:broader :transportCrash ;
+            rdfs:comment "Le migrant est mort ou blessé dans un accident de train"@fr ,
+                         "The migrant is dead or injured in a train crash"@en ;
+            skos:prefLabel "accident de train"@fr ,
+                           "train crash"@en .
+
+
+###  http://data/frontlet/thesaurus#transportCrash
+:transportCrash rdf:type owl:NamedIndividual ,
+                         :DeathCause ;
+                skos:broader :deathCause ;
+                rdfs:comment "Le migrant est mort ou blessé dans un accident de transport"@fr ,
+                             "The migrant is dead or injured in a transport crash"@en ;
+                skos:prefLabel "accident de transport"@fr ,
+                               "transport crash"@en .
+
+
+###  http://data/frontlet/thesaurus#transportationMode
+:transportationMode rdf:type owl:NamedIndividual ,
+                             :TransportationMode ;
+                    rdfs:comment "Defines the mode of transport used by the victim"@en ,
+                                 "Définit le mode de transport utilisé par la victime" ;
+                    skos:prefLabel "mode de transport"@fr ,
+                                   "transportation mode"@en .
+
+
+###  http://data/frontlet/thesaurus#transportationMode_other
+:transportationMode_other rdf:type owl:NamedIndividual ,
+                                   :TransportationMode ;
+                          skos:broader :transportationMode ;
+                          rdfs:comment "Autre mode de transport"@fr ,
+                                       "Other mode of transport"@en ;
+                          skos:prefLabel "autre"@fr ,
+                                         "other"@en .
+
+
+###  http://data/frontlet/thesaurus#truck
+:truck rdf:type owl:NamedIndividual ,
+                :TransportationMode ;
+       skos:broader :road ;
+       rdfs:comment "Le migrant franchit la frontière dans un camion"@fr ,
+                    "The migrant crossed a border in a truck"@en ;
+       skos:prefLabel "camion"@fr ,
+                      "truck"@en .
+
+
+###  http://data/frontlet/thesaurus#truckCrash
+:truckCrash rdf:type owl:NamedIndividual ,
+                     :DeathCause ;
+            skos:broader :transportCrash ;
+            rdfs:comment "Le migrant est mort ou blessé dans un accident de camion"@fr ,
+                         "The migrant is dead or injured in a truck crash"@en ;
+            skos:prefLabel "accident de camion"@fr ,
+                           "truck crash"@en .
+
+
+###  http://data/frontlet/thesaurus#typeOfInvolvment
+:typeOfInvolvment rdf:type owl:NamedIndividual ,
+                           :InvolvementType ;
+                  rdfs:comment "Defines the nature associated with the involvement of a service"@en ,
+                               "Définit la nature associée à l’implication d’un service"@fr ;
+                  skos:prefLabel "type de l'implication"@fr ,
+                                 "type of involvment"@en .
+
+
+###  http://data/frontlet/thesaurus#victimState
+:victimState rdf:type owl:NamedIndividual ,
+                      :VictimState ;
+             rdfs:comment "Defines the state of the victim"@en ,
+                          "Définit l'état de la victime"@fr ;
+             skos:prefLabel "victim state"@en ,
+                            "état de la victime"@fr .
+
+
+###  http://data/frontlet/thesaurus#victimState_other
+:victimState_other rdf:type owl:NamedIndividual ,
+                            :VictimState ;
+                   skos:broader :victimState ;
+                   rdfs:comment "Le migrant est dans un autre état"@fr ,
+                                "Other state of the victim"@en ;
+                   skos:prefLabel "autre"@fr ,
+                                  "other"@en .
+
+
+###  http://data/frontlet/thesaurus#violence
+:violence rdf:type owl:NamedIndividual ,
+                   :InvolvementType ;
+          skos:broader :typeOfInvolvment ;
+          rdfs:comment "Les forces de l'ordre sont imlpiquées dans la blessure ou la mort d'un migrant par des faits de violence"@fr ,
+                       "The law enforcement is involved in the injury or death of a migrant by acts of violence"@en ;
+          skos:prefLabel "violence"@en ,
+                         "violence"@fr .
+
+
+###  http://data/frontlet/thesaurus#walk
+:walk rdf:type owl:NamedIndividual ,
+               :TransportationMode ;
+      skos:broader :human ;
+      rdfs:comment "The migrant crossed a border on foot"@en ,
+                   "Un migrant a franchi une forntière à pied"@fr ;
+      skos:prefLabel "marche"@fr ,
+                     "walk"@en .
+
+
+###  http://data/frontlet/thesaurus#weapon
+:weapon rdf:type owl:NamedIndividual ,
+                 :DeathCause ;
+        skos:broader :deathCause ;
+        rdfs:comment "Le migrant est mort à cause d'une arme"@fr ,
+                     "The migrant is dead or injured because of a weapon"@en ;
+        skos:prefLabel "arme"@fr ,
+                       "weapon"@en .
+
+
+###  http://data/frontlet/thesaurus#youngAdult
+:youngAdult rdf:type owl:NamedIndividual ,
+                     :AgeCategory ;
+            rdfs:comment "18 ans à 29 ans"@fr ,
+                         "18 to 29 years old"@en ;
+            skos:prefLabel "jeune adulte"@fr ,
+                           "young adult"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

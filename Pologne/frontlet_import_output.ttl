@@ -1,0 +1,1528 @@
+@prefix frontlet: <http://purl.org/frontierelethale/onto/> .
+@prefix frontlet_data: <http://data/frontlet/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+frontlet_data:alpes_Person_1 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:alpes_Death_1 .
+
+frontlet_data:alpes_Person_10 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 19 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_10 .
+
+frontlet_data:alpes_Person_11 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_demokratyczna_republika_konga ;
+    frontlet:composedOf frontlet_data:alpes_Death_11 .
+
+frontlet_data:alpes_Person_12 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
+    frontlet:composedOf frontlet_data:alpes_Death_12 .
+
+frontlet_data:alpes_Person_13 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
+    frontlet:composedOf frontlet_data:alpes_Death_13 .
+
+frontlet_data:alpes_Person_14 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 25 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:alpes_Death_14 .
+
+frontlet_data:alpes_Person_15 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 35 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:alpes_Death_15 .
+
+frontlet_data:alpes_Person_16 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 44 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_palestyna ;
+    frontlet:composedOf frontlet_data:alpes_Death_16 .
+
+frontlet_data:alpes_Person_17 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 20 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_17 .
+
+frontlet_data:alpes_Person_18 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 24 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:alpes_Death_18 .
+
+frontlet_data:alpes_Person_19 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 25 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_19 .
+
+frontlet_data:alpes_Person_2 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 29 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_2 .
+
+frontlet_data:alpes_Person_20 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 38 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kurdyjka_z_iraku ;
+    frontlet:composedOf frontlet_data:alpes_Death_20 .
+
+frontlet_data:alpes_Person_21 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 31 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
+    frontlet:composedOf frontlet_data:alpes_Death_21 .
+
+frontlet_data:alpes_Person_22 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
+    frontlet:composedOf frontlet_data:alpes_Death_22 .
+
+frontlet_data:alpes_Person_23 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 26 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_23 .
+
+frontlet_data:alpes_Person_24 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:alpes_Death_24 .
+
+frontlet_data:alpes_Person_25 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_GIN ;
+    frontlet:composedOf frontlet_data:alpes_Death_25 .
+
+frontlet_data:alpes_Person_26 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_26 .
+
+frontlet_data:alpes_Person_27 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 50 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_27 .
+
+frontlet_data:alpes_Person_28 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 21 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
+    frontlet:composedOf frontlet_data:alpes_Death_28 .
+
+frontlet_data:alpes_Person_29 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_29 .
+
+frontlet_data:alpes_Person_3 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
+    frontlet:composedOf frontlet_data:alpes_Death_3 .
+
+frontlet_data:alpes_Person_30 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 21 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SDN ;
+    frontlet:composedOf frontlet_data:alpes_Death_30 .
+
+frontlet_data:alpes_Person_31 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_31 .
+
+frontlet_data:alpes_Person_32 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_afryka_po__nocna ;
+    frontlet:composedOf frontlet_data:alpes_Death_32 .
+
+frontlet_data:alpes_Person_33 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_afryka_po__nocna ;
+    frontlet:composedOf frontlet_data:alpes_Death_33 .
+
+frontlet_data:alpes_Person_34 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 22 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_34 .
+
+frontlet_data:alpes_Person_35 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 20 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_35 .
+
+frontlet_data:alpes_Person_36 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 66 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_36 .
+
+frontlet_data:alpes_Person_37 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_37 .
+
+frontlet_data:alpes_Person_38 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TGO ;
+    frontlet:composedOf frontlet_data:alpes_Death_38 .
+
+frontlet_data:alpes_Person_39 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 33 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_39 .
+
+frontlet_data:alpes_Person_4 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 37 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_4 .
+
+frontlet_data:alpes_Person_40 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_40 .
+
+frontlet_data:alpes_Person_41 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
+    frontlet:composedOf frontlet_data:alpes_Death_41 .
+
+frontlet_data:alpes_Person_42 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_42 .
+
+frontlet_data:alpes_Person_43 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 31 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_43 .
+
+frontlet_data:alpes_Person_44 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_kraj_arabski ;
+    frontlet:composedOf frontlet_data:alpes_Death_44 .
+
+frontlet_data:alpes_Person_45 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 22 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_45 .
+
+frontlet_data:alpes_Person_46 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_46 .
+
+frontlet_data:alpes_Person_47 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 28 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
+    frontlet:composedOf frontlet_data:alpes_Death_47 .
+
+frontlet_data:alpes_Person_48 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 23 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
+    frontlet:composedOf frontlet_data:alpes_Death_48 .
+
+frontlet_data:alpes_Person_49 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 44 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_CMR ;
+    frontlet:composedOf frontlet_data:alpes_Death_49 .
+
+frontlet_data:alpes_Person_5 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 38 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_5 .
+
+frontlet_data:alpes_Person_50 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
+    frontlet:composedOf frontlet_data:alpes_Death_50 .
+
+frontlet_data:alpes_Person_51 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
+    frontlet:composedOf frontlet_data:alpes_Death_51 .
+
+frontlet_data:alpes_Person_52 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 23 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_52 .
+
+frontlet_data:alpes_Person_53 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 27 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_53 .
+
+frontlet_data:alpes_Person_54 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_54 .
+
+frontlet_data:alpes_Person_55 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_55 .
+
+frontlet_data:alpes_Person_56 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_56 .
+
+frontlet_data:alpes_Person_57 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 41 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_57 .
+
+frontlet_data:alpes_Person_58 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_58 .
+
+frontlet_data:alpes_Person_59 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 58 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_59 .
+
+frontlet_data:alpes_Person_6 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_6 .
+
+frontlet_data:alpes_Person_60 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 37 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_60 .
+
+frontlet_data:alpes_Person_61 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 25 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_61 .
+
+frontlet_data:alpes_Person_62 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_62 .
+
+frontlet_data:alpes_Person_63 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 14 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_CMR ;
+    frontlet:composedOf frontlet_data:alpes_Death_63 .
+
+frontlet_data:alpes_Person_64 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_64 .
+
+frontlet_data:alpes_Person_65 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_65 .
+
+frontlet_data:alpes_Person_66 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_66 .
+
+frontlet_data:alpes_Person_67 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
+    frontlet:composedOf frontlet_data:alpes_Death_67 .
+
+frontlet_data:alpes_Person_68 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_68 .
+
+frontlet_data:alpes_Person_69 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SOM ;
+    frontlet:composedOf frontlet_data:alpes_Death_69 .
+
+frontlet_data:alpes_Person_7 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 16 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
+    frontlet:composedOf frontlet_data:alpes_Death_7 .
+
+frontlet_data:alpes_Person_70 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_70 .
+
+frontlet_data:alpes_Person_71 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 23 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_71 .
+
+frontlet_data:alpes_Person_72 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_72 .
+
+frontlet_data:alpes_Person_73 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_DZA ;
+    frontlet:composedOf frontlet_data:alpes_Death_73 .
+
+frontlet_data:alpes_Person_74 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_74 .
+
+frontlet_data:alpes_Person_75 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
+    frontlet:composedOf frontlet_data:alpes_Death_75 .
+
+frontlet_data:alpes_Person_76 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_prawdopodobnie_bliski_wscho_d ;
+    frontlet:composedOf frontlet_data:alpes_Death_76 .
+
+frontlet_data:alpes_Person_77 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_77 .
+
+frontlet_data:alpes_Person_78 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 32 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_PAK ;
+    frontlet:composedOf frontlet_data:alpes_Death_78 .
+
+frontlet_data:alpes_Person_79 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge "Unknown" ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_79 .
+
+frontlet_data:alpes_Person_8 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 33 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_8 .
+
+frontlet_data:alpes_Person_80 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 28 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_80 .
+
+frontlet_data:alpes_Person_81 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_etiopia_ ;
+    frontlet:composedOf frontlet_data:alpes_Death_81 .
+
+frontlet_data:alpes_Person_82 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 36 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
+    frontlet:composedOf frontlet_data:alpes_Death_82 .
+
+frontlet_data:alpes_Person_83 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_bd_nd ;
+    frontlet:composedOf frontlet_data:alpes_Death_83 .
+
+frontlet_data:alpes_Person_84 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:alpes_Death_84 .
+
+frontlet_data:alpes_Person_85 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:alpes_Death_85 .
+
+frontlet_data:alpes_Person_9 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 24 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
+    frontlet:composedOf frontlet_data:alpes_Death_9 .
+
+frontlet:AgeCategory a owl:Class ;
+    rdfs:subClassOf frontlet:AgeInterval ;
+    skos:definition "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en,
+        "Catégories d'âge génériques que l'on retrouve dans les récits de migrations lorsque l'on a pas l'information sur l'âge réel d'un migrant. Ces catégories représentent des intervalles prédéfinis."@fr .
+
+frontlet:Call a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a migrant calling a close person"@en,
+        "Evènement ante mortem consistant à un migrant ayant passé un appel téléphonique avec un proche"@fr ;
+    skos:prefLabel "Call"@en,
+        "Appel"@fr .
+
+frontlet:CivilSociety a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a civil society orgnism (NGO)"@en,
+        "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ;
+    skos:prefLabel "Civil society"@en,
+        "Sociétée civile"@fr .
+
+frontlet:CollectiveEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "An event potentially shared by mulitple migrants. Events can be slighlty different (a death and an injury)"@en,
+        "Un évènement partagé par au moins deux migrants. Les évènements peuvent être légèrement différents (un décès et une blessure)."@fr ;
+    skos:prefLabel "Collective event"@en,
+        "Evènement collectif"@fr .
+
+frontlet:Control a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a police control or an NGO grouping migrant names with a date and a place"@en,
+        "Evènement ante mortem consistant à un contrôle de police ou d'une ONG regroupant le nom d'un migrant ainsi qu'un lieu et une date"@fr ;
+    skos:prefLabel "Control"@en,
+        "Contrôle"@fr .
+
+frontlet:Conversation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event where a migrant discussed with another person in a physical way"@en,
+        "Evènement ante mortem où un migrant a discuté avec une autre personne de manière physique"@fr ;
+    skos:prefLabel "Conversation"@en,
+        "Conversation"@fr .
+
+frontlet:CorpseAnalysis a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in analyzing the corpse if a deceased migrant"@en,
+        "Evènement post mortem consistant à analyser le corps d'un migrant décédé"@fr ;
+    skos:prefLabel "Corpse analysis"@en,
+        "Analyse du corps"@fr .
+
+frontlet:CorpseRepatriation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in rapatriating a dead migran corpse"@en,
+        "Evènement post mortem consistant au rapatriement du corps d'un migrant décédé dans son pays d'origine."@fr ;
+    skos:prefLabel "Corpse repatriation"@en,
+        "Rapatriement du corps"@fr .
+
+frontlet:DeathCause a owl:Class ;
+    skos:definition "Manière précise dont un migrant est décédé"@fr .
+
+frontlet:DeathCertificate a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Death certificate of a migrant"@en,
+        "Certificat de décès d'un migrant"@fr ;
+    skos:prefLabel "Death certificate"@en,
+        "Certificat de décès"@fr .
+
+frontlet:DeathNature a owl:Class ;
+    skos:definition "Nature de la mort d'un migrant"@fr .
+
+frontlet:Family a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The source information comes from a family member or a migrant close person"@en,
+        "La source d'une information vient d'un membre de la famille ou d'un proche d'un migrant"@fr ;
+    skos:prefLabel "Family"@en,
+        "Famille"@fr .
+
+frontlet:Gender a owl:Class ;
+    skos:definition "Genre d'une personne"@fr .
+
+frontlet:Inhumation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in the inhumation ceremony of a deceased migrant corpse"@en,
+        "Evènement post mortem consistant à la cérémonie d'inhumation du corps d'un migrant décédé."@fr ;
+    skos:prefLabel "Inhumation"@en,
+        "Inhumation"@fr .
+
+frontlet:Injury a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the injury of a migrant crossing a border"@en,
+        "Evènement ante mortem où un migrant est blessé lors d'une tentative de franchissement d'une frontière."@fr ;
+    skos:prefLabel "Injury"@en,
+        "Blessure"@fr .
+
+frontlet:MediaType a owl:Class ;
+    skos:definition "Type de média servant de source au décès d'un migrant"@fr .
+
+frontlet:OtherOfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
+        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Other offical document"@en,
+        "Autre document officiel"@fr .
+
+frontlet:Testimony a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in one person seing a migrant without getting directly in contact with him."@en,
+        "Evènement ante mortem consistant en une personne ayant vu un migrant sans être directement entré en contact avec celui-ci."@fr ;
+    skos:prefLabel "Testimony"@en,
+        "Témoignage"@fr .
+
+frontlet:Trace a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a abandonned object owned by a migrant at a given moment of his journey"@en,
+        "Evènement ante mortem consistant dans un objet laissé par un migrant à un moment donné de son voyage"@fr ;
+    skos:prefLabel "Trace"@en,
+        "Trace"@fr .
+
+frontlet:Transport a owl:Class ;
+    skos:definition "Trasport mean used by a migrant during an event"@en,
+        "Moyen de transport utilisé par un migrant au moment d'un évènement"@fr ;
+    skos:prefLabel "Transport"@en,
+        "Transport"@fr .
+
+frontlet_data:alpes_Country_DZA a frontlet:Country ;
+    rdfs:label "Algeria"@en ;
+    frontlet:isoAlpha2 "DZ" ;
+    frontlet:isoAlpha3 "DZA" ;
+    skos:notation "DZA" .
+
+frontlet_data:alpes_Country_GIN a frontlet:Country ;
+    rdfs:label "Guinea"@en ;
+    frontlet:isoAlpha2 "GN" ;
+    frontlet:isoAlpha3 "GIN" ;
+    skos:notation "GIN" .
+
+frontlet_data:alpes_Country_NGA a frontlet:Country ;
+    rdfs:label "Nigeria"@en ;
+    frontlet:isoAlpha2 "NG" ;
+    frontlet:isoAlpha3 "NGA" ;
+    skos:notation "NGA" .
+
+frontlet_data:alpes_Country_PAK a frontlet:Country ;
+    rdfs:label "Pakistan"@en ;
+    frontlet:isoAlpha2 "PK" ;
+    frontlet:isoAlpha3 "PAK" ;
+    skos:notation "PAK" .
+
+frontlet_data:alpes_Country_SDN a frontlet:Country ;
+    rdfs:label "Sudan"@en ;
+    frontlet:isoAlpha2 "SD" ;
+    frontlet:isoAlpha3 "SDN" ;
+    skos:notation "SDN" .
+
+frontlet_data:alpes_Country_SOM a frontlet:Country ;
+    rdfs:label "Somalia"@en ;
+    frontlet:isoAlpha2 "SO" ;
+    frontlet:isoAlpha3 "SOM" ;
+    skos:notation "SOM" .
+
+frontlet_data:alpes_Country_TGO a frontlet:Country ;
+    rdfs:label "Togo"@en ;
+    frontlet:isoAlpha2 "TG" ;
+    frontlet:isoAlpha3 "TGO" ;
+    skos:notation "TGO" .
+
+frontlet_data:alpes_Country_bd_nd a frontlet:Country ;
+    rdfs:label "bd/nd" .
+
+frontlet_data:alpes_Country_demokratyczna_republika_konga a frontlet:Country ;
+    rdfs:label "Demokratyczna Republika Konga" .
+
+frontlet_data:alpes_Country_etiopia_ a frontlet:Country ;
+    rdfs:label "Etiopia?" .
+
+frontlet_data:alpes_Country_kraj_arabski a frontlet:Country ;
+    rdfs:label "Kraj arabski" .
+
+frontlet_data:alpes_Country_kurdyjka_z_iraku a frontlet:Country ;
+    rdfs:label "Kurdyjka z Iraku" .
+
+frontlet_data:alpes_Country_palestyna a frontlet:Country ;
+    rdfs:label "Palestyna" .
+
+frontlet_data:alpes_Country_prawdopodobnie_bliski_wscho_d a frontlet:Country ;
+    rdfs:label "prawdopodobnie Bliski Wschód" .
+
+frontlet_data:alpes_Death_1 a frontlet:Death,
+        frontlet:IndividualEvent .
+
+frontlet_data:alpes_Death_10 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Uton?? w Bugu. Cia?o 19-latka nurkowie wydobyli 20 pa?dziernika. Sekcja zw?ok wykaza?a, ?e przyczyn? ?mierci by?o utoni?cie. M??czyzna pochodzi? ze zrujnowanego miasta Homs w Syrii. Przebywa? w obozie dla uchod?ców w Jordanii, gdzie Syryjczycy schronili si? przed wojn? domow?. W obozie zacz?? studia." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_10 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_10 .
+
+frontlet_data:alpes_Death_11 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Przy ciele nie znaleziono dokumentów - nie uda?o si? ustali? to?samo?ci m??czyzny. Prawdopodobnie pochodzi? ze Sri Lanki." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_11 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_11 .
+
+frontlet_data:alpes_Death_12 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zmar? po stronie bia?oruskiej w obozowisku. Prawdopodobnie chorowa? na cukrzyc?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_12 .
+
+frontlet_data:alpes_Death_13 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zmar? po stronie bia?oruskiej w obozowisku. Autor nagrania, na którym wida? dwa cia?a przykryte foli? NRC, mówi?, ?e w obozowisku przebywa?o w tamtym czasie 300 osób, cz??? w bardzo z?ym stanie." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_13 .
+
+frontlet_data:alpes_Death_14 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Kurd z Iraku. Chorowa? na cukrzyc?, mia? te? problemy z kr?gos?upem. Po?redni? przyczyn? ?mierci by? brak dost?pu do leków." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_14 .
+
+frontlet_data:alpes_Death_15 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Kurd z Iraku. Zmar? w Mi?sku po powrocie spod granicy, na skutek udaru mózgu." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_15 .
+
+frontlet_data:alpes_Death_16 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Syryjko-Palestynka, zmar?a najprawdopodobniej z wych?odzenia. Próbowa?a wróci? do Syrii, ale bia?oruskie s?u?by zawróci?y j? i przerzuca?y mi?dzy kolejnymi obozowiskami przy granicy." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_16 .
+
+frontlet_data:alpes_Death_17 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody m??czyzna z Syrii. Jego m?odszy brat prosi? o pomoc SG, gdy Mohammed jeszcze ?y?. Nie udzielono mu pomocy, brata z kolei wywieziono na stron? bia?orusk?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_17 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_17 .
+
+frontlet_data:alpes_Death_18 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Dziecko, którego matk? by?a Avin Irfan Zahir. Avin urodzi?a przedwcze?nie - w 24 tygodniu ci??y. Dziecko by?o oczekiwane, mia?o wybrane imi?. Mia?o urodzi? si? w bezpiecznym kraju." ;
+    geo:hasGeometry frontlet_data:alpes_geometry_18 .
+
+frontlet_data:alpes_Death_19 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Próbowa? 9 razy dosta? si? do Polski, ostatecznie zmar? w samochodzie na granicy polsko-niemieckiej." .
+
+frontlet_data:alpes_Death_2 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zmar? z wych?odzenia, cia?o wróci?o do Iraku." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_2 .
+
+frontlet_data:alpes_Death_20 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "38-latka do szpitala w Hajnówce trafi?a 12 listopada. W lesie pod Narewk? znale?li j? wolontariusze z Grupy Granica. Temperatura jej cia?a wynosi?a 28 stopni, a oprócz hipotermii kobieta mia?a te? kwasic?. Poroni?a dwa dni pó?niej, b?d?c w 24 tygodniu ci??y. Nieprzytomna, zmar?a 3 grudnia wieczorem." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_20 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_20 .
+
+frontlet_data:alpes_Death_21 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zmar? 12 grudnia 2021 r. Wed?ug wolontariuszy cia?o Nigeryjczyka znaleziono we wsi Olchówka w pobli?u domów mieszkalnych — zamarz?. Nie wiadomo, czy ba? si? zapuka?, czy te? nie mia? ju? si?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_21 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_21 .
+
+frontlet_data:alpes_Death_22 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Osoba znajduj?ca si? w sistiemie wys?a?a zdj?cia swojego przyjaciela, który zmar? oko?o 15 dni wcze?niej." .
+
+frontlet_data:alpes_Death_23 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Jeme?czyk. Uton??. Towarzysze wyszli z lasu i poprosili s?u?by o pomoc w wyniesieniu cia?a, jednak wszyscy zostali wywiezieni do Bia?orusi." ;
+    geo:hasGeometry frontlet_data:alpes_geometry_23 .
+
+frontlet_data:alpes_Death_24 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Okoliczno?ci ?mierci nieznane. Zmar?y by? Kurdem. Cia?o wróci?o do Iraku." .
+
+frontlet_data:alpes_Death_25 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Obywatel Gwinei. O ?mierci poinformowa?y s?u?by bia?oruskie." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_25 .
+
+frontlet_data:alpes_Death_26 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative """Wg ?ród?a: "We wtorek s?ynny jeme?ski YouTuber zmar? z g?odu w lasach Bia?orusi, próbuj?c przedosta? si? do Europy.
+?ród?o bliskie jeme?skiemu YouTuberowi Abdulowi Majeedowi Khaledowi poda?o, ?e ten ostatni zmar? z g?odu i zm?czenia w bia?oruskich lasach, próbuj?c przedosta? si? do Europy.
+Khaled studiowa? studia podyplomowe w Malezji, zanim zdecydowa? si? wyemigrowa? do Europy przez Bia?oru?.\"""" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_26 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_26 .
+
+frontlet_data:alpes_Death_27 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Syryjka. Zmar?a na wysoko?ci Usnarza po stronie bia?oruskiej. ?mier? potwierdzona przez bliskich." .
+
+frontlet_data:alpes_Death_28 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Egipcjanin. Cia?o znaleziono w ?wis?oczy." .
+
+frontlet_data:alpes_Death_29 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_29 .
+
+frontlet_data:alpes_Death_3 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o m??czyzny stra?nicy graniczni znale?li na polu niedaleko Poniatowicz. Nie ustalono wieku, kraju pochodzenia ani to?samo?ci m??czyzny." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_3 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_3 .
+
+frontlet_data:alpes_Death_30 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Suda?czyk. Uton?? w ?wis?oczy." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_30 .
+
+frontlet_data:alpes_Death_31 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna. Zmar?y to obywatel Iraku." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_31 .
+
+frontlet_data:alpes_Death_32 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_32 .
+
+frontlet_data:alpes_Death_33 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_33 .
+
+frontlet_data:alpes_Death_34 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." .
+
+frontlet_data:alpes_Death_35 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." .
+
+frontlet_data:alpes_Death_36 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Syryjczyk zmar?y po stronie bia?oruskiej, kilka dni po wywózce z Polski." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_36 .
+
+frontlet_data:alpes_Death_37 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?oda Syryjka zmar?a po stronie bia?oruskiej. Okoliczno?ci ?mierci nieznane." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_37 .
+
+frontlet_data:alpes_Death_38 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Obywatel Togo zmar? po stronie bia?oruskiej. Cia?o znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_38 .
+
+frontlet_data:alpes_Death_39 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "7 stycznia zmar? z wyzi?bienia w Puszczy Bia?owieskiej. W Jemenie pracowa? jako lekarz. Mia? 36 lat." .
+
+frontlet_data:alpes_Death_4 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Jeme?czyk. Zmar? z wych?odzenia. Pochowany na mizarze w Bohonikach." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_4 .
+
+frontlet_data:alpes_Death_40 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    geo:hasGeometry frontlet_data:alpes_geometry_40 .
+
+frontlet_data:alpes_Death_41 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody m??czyzna z Etiopii. Zmar? w polskim lesie." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_41 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_41 .
+
+frontlet_data:alpes_Death_42 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    geo:hasGeometry frontlet_data:alpes_geometry_42 .
+
+frontlet_data:alpes_Death_43 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Jego cia?o znaleziono w lesie niedaleko Czerlonki." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_43 .
+
+frontlet_data:alpes_Death_44 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o m??czyzny znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_44 .
+
+frontlet_data:alpes_Death_45 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o Irakijczyka znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_45 .
+
+frontlet_data:alpes_Death_46 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o Jeme?czyka znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_46 .
+
+frontlet_data:alpes_Death_47 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Towarzyszy podró?y wywieziono do Bia?orusi, jej samej nie udzielono pomocy. Zmar?a w samotno?ci." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_47 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_47 .
+
+frontlet_data:alpes_Death_48 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Etiopczyk, cia?o znaleziono w polskim lesie. Okoliczno?ci ?mierci nie wyja?niono." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_48 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_48 .
+
+frontlet_data:alpes_Death_49 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." .
+
+frontlet_data:alpes_Death_5 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Irakijka, zmar?a w nast?pstwie hipotermii. Pochowana w Iraku." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_5 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_5 .
+
+frontlet_data:alpes_Death_50 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." .
+
+frontlet_data:alpes_Death_51 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "By? przemoczony i wych?odzony, ale nie udzielono mu pomocy. Zosta? wyrzucony do Bia?orusi. Tam zmar? w szpitalu." .
+
+frontlet_data:alpes_Death_52 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "W sobot? wieczorem zosta? sam - nie mia? si?y i?? dalej. W niedziel? po po?udniu aktywi?ci znale?li jego cia?o." .
+
+frontlet_data:alpes_Death_53 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Afga?czyk. Chorowa? na serce. Zmar? samotnie w Puszczy Bia?owieskiej." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_53 .
+
+frontlet_data:alpes_Death_54 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o znaleziono na terenie Puszczy Bia?owieskiej." .
+
+frontlet_data:alpes_Death_55 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_55 .
+
+frontlet_data:alpes_Death_56 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_56 .
+
+frontlet_data:alpes_Death_57 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zmar? z wych?odzenia. Cia?o Afga?czyka odnalaz?o Podlaskie Ochotnicze Pogotowie Humanitarne." .
+
+frontlet_data:alpes_Death_58 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Jego cia?o znale?li tury?ci. Nie uda?o si? go zidentyfikowa?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_58 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_58 .
+
+frontlet_data:alpes_Death_59 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "W wyniku upadku z muru po?ama? ko?ci, które przebi?y t?tnice. Zmar? w szpitalu po dziewi?tnastu dniach." .
+
+frontlet_data:alpes_Death_6 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M??czyzna zmar? w nocy pó? kilometra od linii granicznej mimo d?ugiej akcji reanimacyjnej. Prawdopodobnie mia? zawa? serca." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_6 .
+
+frontlet_data:alpes_Death_60 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "osoba zmar?a na miejscu w wypadku drogowym" .
+
+frontlet_data:alpes_Death_61 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "zmar? w szpitalu w wyniku urazów po wypadku drogowym" .
+
+frontlet_data:alpes_Death_62 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zauwa?ony przez Stra? Graniczn? kilka metrów od muru. Kilka dni pó?niej zmar? w sistiemie na wysoko?ci Bia?owie?y." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_62 .
+
+frontlet_data:alpes_Death_63 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o znaleziono w ?wis?oczy, w maju - podczas dzia?a? patrolowych Stra?y Granicznej, przy u?yciu drona. Pogrzeb odby? si? we wrze?niu." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_63 .
+
+frontlet_data:alpes_Death_64 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o znaleziono w ?wis?oczy po stronie bia?oruskiej." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_64 .
+
+frontlet_data:alpes_Death_65 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Jeme?czyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_65 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_65 .
+
+frontlet_data:alpes_Death_66 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Syryjczyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_66 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_66 .
+
+frontlet_data:alpes_Death_67 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Egipcjanin zmar? prawdopodobnie na skutek pobicia przez polsk? stra? graniczn?. O ?mierci informowa?a bia?oruska stra? oraz polskie media." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_67 .
+
+frontlet_data:alpes_Death_68 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M??czyzna zmar? w sistemie. By? wycie?czony. ?wiadkami ?mierci Afga?czyka byli jego towarzysze, którzy relacjonuj?, ?e stan jego zdrowia stopniowo si? pogarsza?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_68 .
+
+frontlet_data:alpes_Death_69 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "W okolicach Bia?owie?y przez dziur? wyci?t? w ogrodzeniu przesz?a grupa osób. Na widok polskich patroli zacz?li ucieka?. Jeden z m??czyzn utkn?? w bagnie. Polskim s?u?bom uda?o si? go wydosta?, jednak jego stan by? bardzo ci??ki. M??czyzna zmar? w samochodzie stra?y granicznej, przed przybyciem karetki pogotowia." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_69 .
+
+frontlet_data:alpes_Death_7 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Nastolatek z Iraku. Zmar? po wywózce z Polski, na pó?noc od Ku?nicy. Przed ?mierci? wymiotowa? krwi?." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_7 .
+
+frontlet_data:alpes_Death_70 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Patrol Stra?y Ochrony Kolei znalaz? zw?oki m?odego m??czyzny z Syrii przy torach w okolicach Dobrowody, niedaleko Kleszczel. Prawdopodobnie umar? z wych?odzenia." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_70 .
+
+frontlet_data:alpes_Death_71 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Zagin?? w okolicy mi?dzy Bia?owie?? a Masiewem. Chorowa? przewlekle. Cia?o znaleziono w lesie w okolicy Bia?owie?y." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_71 .
+
+frontlet_data:alpes_Death_72 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "?mier? prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_72 .
+
+frontlet_data:alpes_Death_73 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "M?ody Algierczyk. Zmar? 25 grudnia 2023, prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by. Informacja potwierdzona przez rodzin? zmar?ego." .
+
+frontlet_data:alpes_Death_74 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "?mier? prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_74 .
+
+frontlet_data:alpes_Death_75 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Jeme?czyk, prawdopodobnie zmar? w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_75 .
+
+frontlet_data:alpes_Death_76 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Prokuratura w Hajnówce prowadzi ?ledztwo w sprawie znalezienia w lutym 2024 w Puszczy Bia?owieskiej ludzkej czaszki. Z ekspertyz wynika, ?e nale?a?a ona do osoby z krajów Bliskiego Wschodu." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_76 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_76 .
+
+frontlet_data:alpes_Death_77 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Syryjczyk, jego cia?o znalaz?a bia?oruska stra? graniczna." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_77 .
+
+frontlet_data:alpes_Death_78 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Cia?o Pakista?czyka znaleziono w pobli?u miejscowo?ci Sorocza Nó?ka." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_78 .
+
+frontlet_data:alpes_Death_79 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Na podstawie ?wiadectwa cz?onka rodziny" .
+
+frontlet_data:alpes_Death_8 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Syryjczyk zmar? w wypadku samochodowym, w drodze z granicy po lepsze ?ycie." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_8 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_8 .
+
+frontlet_data:alpes_Death_80 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative """M??czyzna mia? umrze? w Sistiemie
+Na podstawie ?wiadectwa cz?onka rodziny""" .
+
+frontlet_data:alpes_Death_81 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative """Kobieta mia?a umrze? w Sistiemie
+Na podstawie ?wiadectwa grupy, z któr? podró?owa?a""" .
+
+frontlet_data:alpes_Death_82 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_82 .
+
+frontlet_data:alpes_Death_83 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_83 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_83 .
+
+frontlet_data:alpes_Death_84 a frontlet:Death,
+        frontlet:IndividualEvent .
+
+frontlet_data:alpes_Death_85 a frontlet:Death,
+        frontlet:IndividualEvent .
+
+frontlet_data:alpes_Death_9 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasNarrative "Za?oga policyjnego ?mig?owca dostrzeg?a na polu cia?o m??czyzny. Zmar?y okaza? si? 24-letnim obywatelem Syrii. ?ledztwo nie wyja?ni?o przyczyny ?mierci." ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_9 ;
+    geo:hasGeometry frontlet_data:alpes_geometry_9 .
+
+frontlet_data:alpes_geometry_10 a geo:Geometry ;
+    geo:asWKT "POINT(23.5646822 51.5347566)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_11 a geo:Geometry ;
+    geo:asWKT "POINT(119.2815086 29.3109093)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_17 a geo:Geometry ;
+    geo:asWKT "POINT(23.3905556 52.5288889)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_18 a geo:Geometry ;
+    geo:asWKT "POINT(23.6115256 52.7461643)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_20 a geo:Geometry ;
+    geo:asWKT "POINT(23.6115256 52.7461643)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_21 a geo:Geometry ;
+    geo:asWKT "POINT(23.8295828 52.8539796)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_23 a geo:Geometry ;
+    geo:asWKT "POINT(103.8454469 1.2996219)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_26 a geo:Geometry ;
+    geo:asWKT "POINT(27.6971358 53.4250605)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_3 a geo:Geometry ;
+    geo:asWKT "POINT(23.6387915 53.4302246)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_40 a geo:Geometry ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_41 a geo:Geometry ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_42 a geo:Geometry ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_47 a geo:Geometry ;
+    geo:asWKT "POINT(23.5878728 52.7365783)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_48 a geo:Geometry ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_5 a geo:Geometry ;
+    geo:asWKT "POINT(20.5492602 54.6323612)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_58 a geo:Geometry ;
+    geo:asWKT "POINT(20.4882544 42.7816777)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_65 a geo:Geometry ;
+    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_66 a geo:Geometry ;
+    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_76 a geo:Geometry ;
+    geo:asWKT "POINT(19.134422 52.215933)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_8 a geo:Geometry ;
+    geo:asWKT "POINT(23.2056777 53.198684)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_83 a geo:Geometry ;
+    geo:asWKT "POINT(90.3652099 23.6602426)"^^geo:wktLiteral .
+
+frontlet_data:alpes_geometry_9 a geo:Geometry ;
+    geo:asWKT "POINT(23.692513 53.4375049)"^^geo:wktLiteral .
+
+frontlet_data:pologne_Source_10 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami" .
+
+frontlet_data:pologne_Source_11 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://bialystok.wyborcza.pl/bialystok/7,35241,27888587,kolejna-ofiar-kryzysu-na-granicy-polsko-bialoruskiej-znaleziono.html" .
+
+frontlet_data:pologne_Source_12 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://bialystok.wyborcza.pl/bialystok/7,35241,27754760,uchodzcy-kolejna-smierc-na-polsko-bialoruskiej-granicy-propaganda.html
+https://oko.press/w-obozowisku-przy-granicy-sa-zmarli-uchodzca-przesyla-nam-zdjecia-dwoch-ofiar""" .
+
+frontlet_data:pologne_Source_13 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/w-obozowisku-przy-granicy-sa-zmarli-uchodzca-przesyla-nam-zdjecia-dwoch-ofiar" .
+
+frontlet_data:pologne_Source_14 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.wprost.pl/kryzys-na-granicy/10545281/kryzys-na-granicy-smierc-25-letniego-kurda-ojciec-obwinia-polske.html
+https://www.msn.com/pl-pl/wiadomosci/polska/%C5%9Bmier%C4%87-irackiego-kurda-na-naszej-granicy-opisana-przez-ap-%E2%80%9Eojciec-obwinia-polsk%C4%99%E2%80%9D/ar-AAQKST2
+https://wiadomosci.onet.pl/swiat/kryzys-na-granicy-ojciec-zmarlego-kurda-obwinia-polske-o-smierc-syna/wqqfpql
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_15 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.euronews.com/2021/11/16/families-mourn-young-migrants-who-died-at-belarus-poland-border
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_16 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://bialystok.wyborcza.pl/bialystok/7,35241,27879443,kryzys-na-granicy-polsko-bialoruskiej-w-szpitalu-w-hajnowce.html
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_17 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/znowu-ofiara-smiertelna-na-granicy-na-podlasiu-znaleziono-cialo-mlodego-syryjczyka" .
+
+frontlet_data:pologne_Source_2 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://wiadomosci.onet.pl/bialystok/kryzys-migracyjny-wszystkie-smierci-przy-granicy-polsko-bialoruskiej/62ck1q3?srcc=undefined&utm_v=2
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_20 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.wprost.pl/kryzys-na-granicy/10588723/granica-polsko-bialoruska-pozegnano-zmarla-avin-ifran-kurdyjke-wypychana-na-bialorus.html
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_21 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.onet.pl/informacje/onetwiadomosci/reportaz-bialoruskiego-dziennikarza-spod-granicznego-plotu/k2fbkns,79cfc278
+
+https://bialystok.wyborcza.pl/bialystok/7,35241,27888587,kolejna-ofiar-kryzysu-na-granicy-polsko-bialoruskiej-znaleziono.html""" .
+
+frontlet_data:pologne_Source_25 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://sputnik.by/20220404/telo-inostrantsa-naydeno-u-granitsy-s-polshey-1061832275.html
+https://t.me/gpkgovby/1365""" .
+
+frontlet_data:pologne_Source_26 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://archive.ph/ATCPI#selection-859.18-885.170" .
+
+frontlet_data:pologne_Source_29 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://web.archive.org/web/20231103205141/https://gpk.gov.by/news/gpk/147700/
+https://t.me/gpkgovby/2163""" .
+
+frontlet_data:pologne_Source_3 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://wiadomosci.onet.pl/bialystok/kryzys-migracyjny-wszystkie-smierci-przy-granicy-polsko-bialoruskiej/62ck1q3?srcc=undefined&utm_v=2
+https://bialystok.wyborcza.pl/bialystok/7,35241,27888587,kolejna-ofiar-kryzysu-na-granicy-polsko-bialoruskiej-znaleziono.html""" .
+
+frontlet_data:pologne_Source_30 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://euobserver.com/world/156420" .
+
+frontlet_data:pologne_Source_31 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://web.archive.org/web/20221209015818/https://gpk.gov.by/news/gpk/148780/
+https://t.me/gpkgovby/2409""" .
+
+frontlet_data:pologne_Source_32 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://tass.ru/situaciya-s-migrantami-na-granice-polshi-i-belorussii/16394351
+https://t.me/gpkgovby/2421""" .
+
+frontlet_data:pologne_Source_33 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://web.archive.org/web/20231001061524/https://gpk.gov.by/news/gpk/148884/
+https://t.me/gpkgovby/2427""" .
+
+frontlet_data:pologne_Source_36 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://krytykapolityczna.pl/kraj/katarzyna-przyborska-straz-graniczna-uchodzcy-podlasie-granica-polsko-bialoruska/" .
+
+frontlet_data:pologne_Source_37 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://bialystok.wyborcza.pl/bialystok/7,35241,29307097,koszmar-na-granicy-polsko-bialoruskiej-smierc-30-letniej-syryjki.html" .
+
+frontlet_data:pologne_Source_38 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/gpkgovby/2577" .
+
+frontlet_data:pologne_Source_4 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://wiadomosci.onet.pl/bialystok/kryzys-migracyjny-wszystkie-smierci-przy-granicy-polsko-bialoruskiej/62ck1q3?srcc=undefined&utm_v=2
+https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami""" .
+
+frontlet_data:pologne_Source_41 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/smiertelne-zniwo-push-backow-na-granicy-z-bialorusia-znaleziono-ciala-az-4-migrantow" .
+
+frontlet_data:pologne_Source_43 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://tvn24.pl/bialystok/czerlonka-puszcza-bialowieska-jednego-dnia-znalezli-szczatki-nieznanej-osoby-kolejnego-cialo-mezczyzny-dzialania-strazy-granicznej-6626833
+https://www.facebook.com/mofa.gov.ye/posts/pfbid023eKBaLpEGKoavyGz6TvcvRsqM8i4KyQTZPGrP38KPm4cxhYg9Ujw3QBg1ZHrseW5l""" .
+
+frontlet_data:pologne_Source_44 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/skgovby/8757" .
+
+frontlet_data:pologne_Source_45 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/gpkgovby/2786" .
+
+frontlet_data:pologne_Source_46 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/gpkgovby/2813" .
+
+frontlet_data:pologne_Source_47 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://wiadomosci.wp.pl/znaleziono-cialo-mlodej-kobiety-dziennikarz-ujawnia-kim-byla-6872217367558880a" .
+
+frontlet_data:pologne_Source_48 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://wiadomosci.radiozet.pl/polska/podlaskie-szczatki-znalezione-w-lesie-pod-hajnowka-czlowiek-sie-tego-spodziewal
+https://bialystok.wyborcza.pl/bialystok/7,35241,29472739,kryzys-na-granicy-polsko-bialoruskiej-kolejne-cialo-w-puszczy.html""" .
+
+frontlet_data:pologne_Source_5 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami" .
+
+frontlet_data:pologne_Source_53 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/straznicy-parku-zablokowali-poszukiwania-migranta-znaleziono-cialo" .
+
+frontlet_data:pologne_Source_55 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/gpkgovby/3051" .
+
+frontlet_data:pologne_Source_56 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://t.me/gpkgovby/3112" .
+
+frontlet_data:pologne_Source_58 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://www.wprost.pl/kraj/11190127/w-poblizu-granicy-z-bialorusia-znaleziono-kolejne-cialo-bedzie-sledztwo.html" .
+
+frontlet_data:pologne_Source_6 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://wiadomosci.onet.pl/bialystok/kryzys-migracyjny-wszystkie-smierci-przy-granicy-polsko-bialoruskiej/62ck1q3?srcc=undefined&utm_v=2" .
+
+frontlet_data:pologne_Source_62 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://tass.ru/proisshestviya/17701903
+https://bialystok.wyborcza.pl/bialystok/7,35241,29733991,kryzys-na-granicy-polsko-bialoruskiej-polska-straz-graniczna.html""" .
+
+frontlet_data:pologne_Source_63 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://tvn24.pl/bialystok/losiniany-w-rzece-swislocz-na-granicy-z-bialorusia-znaleziono-cialozauwazyli-je-straznicy-graniczni-7141478" .
+
+frontlet_data:pologne_Source_64 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://bialystok.wyborcza.pl/bialystok/7,35241,29849042,kryzys-na-granicy-polsko-bialoruskiej-kolejna-smiertelna.html" .
+
+frontlet_data:pologne_Source_65 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://natemat.pl/494525,odkryto-dwa-ciala-w-rzece-przy-granicy-z-bialorusia" .
+
+frontlet_data:pologne_Source_66 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://natemat.pl/494525,odkryto-dwa-ciala-w-rzece-przy-granicy-z-bialorusia" .
+
+frontlet_data:pologne_Source_67 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://bialystok.wyborcza.pl/bialystok/7,35241,30048590,kryzys-na-granicy-na-granicy-polsko-bialoruskiej-juz-co-najmniej.html" .
+
+frontlet_data:pologne_Source_68 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://bloknot.ru/chp/pol-skie-pogranichniki-zastavili-bezhentsa-peretashhit-trup-druga-v-belarus-1182759.html" .
+
+frontlet_data:pologne_Source_69 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.radio.bialystok.pl/wiadomosci/index/id/232013
+https://wiadomosci.gazeta.pl/wiadomosci/7,114883,30331438,granica-z-bialorusia-dwoch-mlodych-mezczyzn-zmarlo-w-dwa-dni.html""" .
+
+frontlet_data:pologne_Source_7 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://wiadomosci.onet.pl/bialystok/kryzys-migracyjny-wszystkie-smierci-przy-granicy-polsko-bialoruskiej/62ck1q3?srcc=undefined&utm_v=2" .
+
+frontlet_data:pologne_Source_70 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink """https://www.radio.bialystok.pl/wiadomosci/index/id/232013
+https://wiadomosci.gazeta.pl/wiadomosci/7,114883,30331438,granica-z-bialorusia-dwoch-mlodych-mezczyzn-zmarlo-w-dwa-dni.html""" .
+
+frontlet_data:pologne_Source_71 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/mial-23-lata-ofiara-smiertelna-na-granicy" .
+
+frontlet_data:pologne_Source_72 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://gpk.gov.by/news/gpk/154514/" .
+
+frontlet_data:pologne_Source_74 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://gpk.gov.by/news/gpk/157124/" .
+
+frontlet_data:pologne_Source_75 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://gpk.gov.by/news/gpk/157389/" .
+
+frontlet_data:pologne_Source_76 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://www.rmf24.pl/regiony/bialystok/news-zwloki-migranta-znaleziono-przy-granicy-z-bialorusia,nId,7390081#crp_state=1" .
+
+frontlet_data:pologne_Source_77 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://web.archive.org/web/20240416164552/https://gpk.gov.by/news/gpk/158917/" .
+
+frontlet_data:pologne_Source_78 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://www.rmf24.pl/regiony/bialystok/news-zwloki-migranta-znaleziono-przy-granicy-z-bialorusia,nId,7390081#crp_state=1" .
+
+frontlet_data:pologne_Source_8 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://www.spiegel.de/international/world/a-chronicle-of-refugee-deaths-along-the-border-between-poland-and-belarus-a-de0d7ace-3322-4ac9-9826-9f2774a540ee; https://tvn24.pl/bialystok/bialystok-wypadek-na-obwodnicy-wasilkowa-zginela-jedna-osoba-syryjczyk-z-zarzutami-trafil-do-aresztu-st5455012l; https://tvn24.pl/bialystok/podlaskie-wypadek-na-obwodnicy-wasilkowa-nie-zyje-jedna-osoba-a-trzy-ranne-po-zderzenie-auta-osobowego-i-ciezarowki-st5449481; https://bialystok.wyborcza.pl/bialystok/7,35241,27680443,wypadek-pod-wasilkowem-jedna-osoba-nie-zyje-trzy-w-szpitalu.html" .
+
+frontlet_data:pologne_Source_82 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://web.archive.org/web/20240409193341/https://gpk.gov.by/news/gpk/159833/" .
+
+frontlet_data:pologne_Source_83 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://web.archive.org/web/20240508161926/https://gpk.gov.by/news/gpk/160602/" .
+
+frontlet_data:pologne_Source_9 a frontlet:Media,
+        frontlet:Source ;
+    frontlet:hasWebLink "https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami" .
+
+frontlet:AgeInterval a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Age interval where the migrant age is"@en,
+        "Intervalle d'âge dans lequel un migrant se trouve"@fr ;
+    skos:prefLabel "Age interval"@en,
+        "Inervalle d'âge"@fr .
+
+frontlet_data:alpes_Country_CMR a frontlet:Country ;
+    rdfs:label "Cameroon"@en ;
+    frontlet:isoAlpha2 "CM" ;
+    frontlet:isoAlpha3 "CMR" ;
+    skos:notation "CMR" .
+
+frontlet_data:alpes_Country_EGY a frontlet:Country ;
+    rdfs:label "Egypt"@en ;
+    frontlet:isoAlpha2 "EG" ;
+    frontlet:isoAlpha3 "EGY" ;
+    skos:notation "EGY" .
+
+frontlet_data:alpes_Country_afryka_po__nocna a frontlet:Country ;
+    rdfs:label "Afryka Pó?nocna" .
+
+frontlet:AgeEntity a owl:Class ;
+    skos:definition "Super class dealing with migrant age"@en,
+        "Super classe gérant l'âge d'un migrant"@fr ;
+    skos:prefLabel "Age entity"@en,
+        "Entité âge"@fr .
+
+frontlet:DeathInjury a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Event consisting in the death or the injury of a migrant crossing a border"@en,
+        "Evènement consistant à la blessure ou la mort d'un migrant lors du passage d'une frontière."@fr ;
+    skos:prefLabel "Death injury"@en,
+        "Mort blessure"@fr .
+
+frontlet:Event a owl:Class ;
+    skos:definition "A life moment of a migrant during its journey"@en,
+        "Un moment de la vie d'un migrant durant son trajet."@fr ;
+    skos:prefLabel "Event"@en,
+        "Evènement"@fr .
+
+frontlet:OfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "Official document attesting the passage or the death of a migrant"@en,
+        "Document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Official document"@en,
+        "Document officiel"@fr .
+
+frontlet_data:alpes_Country_ETH a frontlet:Country ;
+    rdfs:label "Ethiopia"@en ;
+    frontlet:isoAlpha2 "ET" ;
+    frontlet:isoAlpha3 "ETH" ;
+    skos:notation "ETH" .
+
+frontlet_data:alpes_Country_kurd_z_iraku a frontlet:Country ;
+    rdfs:label "Kurd z Iraku" .
+
+frontlet_data:alpes_Country_nieznany a frontlet:Country ;
+    rdfs:label "nieznany" .
+
+frontlet_data:alpes_Country_IRQ a frontlet:Country ;
+    rdfs:label "Iraq"@en ;
+    frontlet:isoAlpha2 "IQ" ;
+    frontlet:isoAlpha3 "IRQ" ;
+    skos:notation "IRQ" .
+
+frontlet_data:alpes_Country_AFG a frontlet:Country ;
+    rdfs:label "Afghanistan"@en ;
+    frontlet:isoAlpha2 "AF" ;
+    frontlet:isoAlpha3 "AFG" ;
+    skos:notation "AFG" .
+
+frontlet_data:alpes_Country_jemen a frontlet:Country ;
+    rdfs:label "Jemen" .
+
+frontlet_data:alpes_Country_SYR a frontlet:Country ;
+    rdfs:label "Syrian Arab Republic"@en ;
+    frontlet:isoAlpha2 "SY" ;
+    frontlet:isoAlpha3 "SYR" ;
+    skos:notation "SYR" .
+
+frontlet:Country a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
+    skos:prefLabel "Country"@en,
+        "Pays"@fr .
+
+frontlet:Media a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a media"@en,
+        "La source d'information vient d'un média"@fr ;
+    skos:prefLabel "Media"@en,
+        "Media"@fr .
+
+frontlet:Source a owl:Class ;
+    skos:definition "Information source of an event"@en,
+        "Source de l'information d'un évènement"@fr ;
+    skos:prefLabel "Source"@en,
+        "Source"@fr .
+
+frontlet:Age a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Valeur précise de l'âge d'un migrant. Il peut être négatif pour une perte prénatale ou à virgule dans le cas d'un enfant de moins d'un an",
+        "Precise value of a migrant age. It can be negative for a prenatal loss or real in case of a less than one year old child"@en ;
+    skos:prefLabel "Age"@en,
+        "Age"@fr .
+
+frontlet:Death a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the death of a migrant crossing a border"@en,
+        "Evènement consistant à la mort d'un migrant dans le cadre du franchissement d'une frontière."@fr ;
+    skos:prefLabel "Death"@en,
+        "Mort"@fr .
+
+frontlet:Person a owl:Class ;
+    skos:definition "A person undertakes a journey between two countries"@en,
+        "Un personne entreprend un trajet entre deux pays"@fr ;
+    skos:prefLabel "Person"@en,
+        "Personne"@fr .
+
+frontlet:IndividualEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "Individual event in the journey of a migrant"@en,
+        "Evènement dans la trajectoire de migration d'un migrant"@fr ;
+    skos:prefLabel "Individual Event"@en,
+        "Evènement individuel"@fr .
+

@@ -1,0 +1,16 @@
+MissingMigrants;Thesaurus;Nature
+Mixed or unknown;inconnu;inconnu
+Violence;arme;homicide
+Harsh environmental conditions / lack of adequate shelter, food, water;mort de faim ou de soif;accident
+Drowning;noyade;accident
+Vehicle accident / death linked to hazardous transport;accident de transport;accident
+Sickness / lack of access to adequate healthcare;médical;médical
+Accidental death;;accident
+Drowning,Mixed or unknown;noyade;accident
+Drowning,Harsh environmental conditions / lack of adequate shelter, food, water;noyade;accident
+Drowning,Vehicle accident / death linked to hazardous transport;noyade;accident
+Harsh environmental conditions / lack of adequate shelter, food, water,Sickness / lack of access to adequate healthcare;mort de faim ou de soif;accident
+Harsh environmental conditions / lack of adequate shelter, food, water,Mixed or unknown;mort de faim ou de soif;accident
+Drowning,Violence;noyade;accident
+Mixed or unknown,Vehicle accident / death linked to hazardous transport,Violence;accident de transport;accident
+Drowning,Sickness / lack of access to adequate healthcare;médical;médical

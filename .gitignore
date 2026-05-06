@@ -1,0 +1,18 @@
+# Environnement virtuel Python
+.venv/
+
+# Fichiers temporaires générés
+__tmp_*.py.err.txt
+__tmp_*.py.out.txt
+run_logs/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Fichiers système
+Thumbs.db
+.DS_Store

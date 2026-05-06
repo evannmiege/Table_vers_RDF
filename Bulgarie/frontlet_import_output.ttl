@@ -1,0 +1,680 @@
+@prefix data: <http://data/frontlet/> .
+@prefix frontlet: <http://purl.org/frontierelethale/onto/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix ns1: <http://data/frontlet/thesaurus#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix temp: <http://purl.org/frontierelethale/temporal/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+data:bulgarie_Gender_autre a frontlet:Gender ;
+    rdfs:label "autre"@fr ;
+    skos:closeMatch ns1:gender_other .
+
+data:bulgarie_Gender_feminin a frontlet:Gender ;
+    rdfs:label "feminin"@fr ;
+    skos:closeMatch ns1:female .
+
+data:bulgarie_Gender_masculin a frontlet:Gender ;
+    rdfs:label "masculin"@fr ;
+    skos:closeMatch ns1:male .
+
+data:bulgarie_Person_1 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_1,
+        data:bulgarie_InhumationEvent_1 ;
+    frontlet:hasComment "Family member/s: Brother: Mohamad Al-Sheikh (+90 535 078 52 62)" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mustafa Al-Sheikh" .
+
+data:bulgarie_Person_10 a frontlet:Person ;
+    frontlet:composedOf data:bulgarie_Death_10 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu .
+
+data:bulgarie_Person_11 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_11 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_11 ;
+    frontlet:hasComment "Date of Birth: 2007-01-01",
+        "Family member/s: cousin Fahd Faysal +35677074742" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad Sayeed Kassem Faysal" ;
+    frontlet:yearOfBirth 2007 .
+
+data:bulgarie_Person_12 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_12 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_12 ;
+    frontlet:hasComment "Date of Birth: 2001-04-01" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Rahmatullah Sediqi" ;
+    frontlet:yearOfBirth 2001 .
+
+data:bulgarie_Person_13 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_13 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_13 ;
+    frontlet:hasComment "Date of Birth: 1997-04-01",
+        "Family member/s: Rami's brother Muhammed Isa +905312280335" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Rami al Isa" ;
+    frontlet:yearOfBirth 1997 .
+
+data:bulgarie_Person_14 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_14 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_14 ;
+    frontlet:hasComment "Date of Birth: 1980-11-01",
+        "Family member/s: 4915738338722" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Fedaa Shelleh" ;
+    frontlet:yearOfBirth 1980 .
+
+data:bulgarie_Person_15 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_15 ;
+    frontlet:hasComment "Date of Birth: 2003-01-05",
+        "Family member/s: 905345717702" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Alaa Mustafa Al-Suwaid" ;
+    frontlet:yearOfBirth 2003 .
+
+data:bulgarie_Person_16 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_16 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_16 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Saif Ahmed Al-Ahmad" ;
+    frontlet:yearOfBirth 2001 .
+
+data:bulgarie_Person_17 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_17 ;
+    frontlet:hasComment "Family member/s: His brother: +90 553 884 86 55" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Muhammad Zakaria Salim Baroudi" ;
+    frontlet:yearOfBirth 1999 .
+
+data:bulgarie_Person_18 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_18 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_18 ;
+    frontlet:hasComment "Family member/s: Brother in Turkey: 05380163678" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Hamza Mutlac" ;
+    frontlet:yearOfBirth 1993 .
+
+data:bulgarie_Person_19 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_19 ;
+    frontlet:hasComment "Family member/s: Cousin in NL, speaks English: +31687220012" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad" .
+
+data:bulgarie_Person_2 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_2 ;
+    frontlet:hasComment "Family member/s: Father: Ghulam Mohammad" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Hussain Alami" .
+
+data:bulgarie_Person_3 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_3 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Fasel Rahmani" .
+
+data:bulgarie_Person_4 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_4 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Nour Haadzade" .
+
+data:bulgarie_Person_5 a frontlet:Person ;
+    frontlet:composedOf data:bulgarie_Death_5 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mohammad Abdul Al-Ahab" .
+
+data:bulgarie_Person_6 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_MAR ;
+    frontlet:composedOf data:bulgarie_Death_6,
+        data:bulgarie_InhumationEvent_6 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mohammad Hamani" .
+
+data:bulgarie_Person_7 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_MAR ;
+    frontlet:composedOf data:bulgarie_Death_7 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Abdi Mi Lah El-Idrisi" .
+
+data:bulgarie_Person_8 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_DZA ;
+    frontlet:composedOf data:bulgarie_Death_8 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mounsef Hasbalawi" .
+
+data:bulgarie_Person_9 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_9 ;
+    frontlet:hasComment "Family member/s: Mohammad Nasim Sharifi: +93 79 926 8003" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad Javid Sharifi" .
+
+frontlet:AgeCategory a owl:Class ;
+    rdfs:subClassOf frontlet:AgeInterval ;
+    skos:definition "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en,
+        "Catégories d'âge génériques que l'on retrouve dans les récits de migrations lorsque l'on a pas l'information sur l'âge réel d'un migrant. Ces catégories représentent des intervalles prédéfinis."@fr .
+
+frontlet:Call a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a migrant calling a close person"@en,
+        "Evènement ante mortem consistant à un migrant ayant passé un appel téléphonique avec un proche"@fr ;
+    skos:prefLabel "Call"@en,
+        "Appel"@fr .
+
+frontlet:CivilSociety a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a civil society orgnism (NGO)"@en,
+        "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ;
+    skos:prefLabel "Civil society"@en,
+        "Sociétée civile"@fr .
+
+frontlet:CollectiveEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "An event potentially shared by mulitple migrants. Events can be slighlty different (a death and an injury)"@en,
+        "Un évènement partagé par au moins deux migrants. Les évènements peuvent être légèrement différents (un décès et une blessure)."@fr ;
+    skos:prefLabel "Collective event"@en,
+        "Evènement collectif"@fr .
+
+frontlet:Control a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a police control or an NGO grouping migrant names with a date and a place"@en,
+        "Evènement ante mortem consistant à un contrôle de police ou d'une ONG regroupant le nom d'un migrant ainsi qu'un lieu et une date"@fr ;
+    skos:prefLabel "Control"@en,
+        "Contrôle"@fr .
+
+frontlet:Conversation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event where a migrant discussed with another person in a physical way"@en,
+        "Evènement ante mortem où un migrant a discuté avec une autre personne de manière physique"@fr ;
+    skos:prefLabel "Conversation"@en,
+        "Conversation"@fr .
+
+frontlet:CorpseAnalysis a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in analyzing the corpse if a deceased migrant"@en,
+        "Evènement post mortem consistant à analyser le corps d'un migrant décédé"@fr ;
+    skos:prefLabel "Corpse analysis"@en,
+        "Analyse du corps"@fr .
+
+frontlet:CorpseRepatriation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in rapatriating a dead migran corpse"@en,
+        "Evènement post mortem consistant au rapatriement du corps d'un migrant décédé dans son pays d'origine."@fr ;
+    skos:prefLabel "Corpse repatriation"@en,
+        "Rapatriement du corps"@fr .
+
+frontlet:DeathCertificate a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Death certificate of a migrant"@en,
+        "Certificat de décès d'un migrant"@fr ;
+    skos:prefLabel "Death certificate"@en,
+        "Certificat de décès"@fr .
+
+frontlet:Injury a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the injury of a migrant crossing a border"@en,
+        "Evènement ante mortem où un migrant est blessé lors d'une tentative de franchissement d'une frontière."@fr ;
+    skos:prefLabel "Injury"@en,
+        "Blessure"@fr .
+
+frontlet:MediaType a owl:Class ;
+    skos:definition "Type de média servant de source au décès d'un migrant"@fr .
+
+frontlet:Missing a owl:Class ;
+    rdfs:label "Missing"@en ;
+    rdfs:subClassOf frontlet:IndividualEvent .
+
+frontlet:Testimony a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in one person seing a migrant without getting directly in contact with him."@en,
+        "Evènement ante mortem consistant en une personne ayant vu un migrant sans être directement entré en contact avec celui-ci."@fr ;
+    skos:prefLabel "Testimony"@en,
+        "Témoignage"@fr .
+
+frontlet:Trace a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a abandonned object owned by a migrant at a given moment of his journey"@en,
+        "Evènement ante mortem consistant dans un objet laissé par un migrant à un moment donné de son voyage"@fr ;
+    skos:prefLabel "Trace"@en,
+        "Trace"@fr .
+
+data:bulgarie_Age_11 a frontlet:Age ;
+    frontlet:hasAge 16 .
+
+data:bulgarie_Age_12 a frontlet:Age ;
+    frontlet:hasAge 22 .
+
+data:bulgarie_Age_13 a frontlet:Age ;
+    frontlet:hasAge 26 .
+
+data:bulgarie_Age_14 a frontlet:Age ;
+    frontlet:hasAge 43 .
+
+data:bulgarie_Age_16 a frontlet:Age ;
+    frontlet:hasAge 22 .
+
+data:bulgarie_Age_18 a frontlet:Age ;
+    frontlet:hasAge 30 .
+
+data:bulgarie_Country_DZA a frontlet:Country ;
+    rdfs:label "Algeria"@en .
+
+data:bulgarie_DeathCause_accident_de_voiture a frontlet:DeathCause ;
+    rdfs:label "accident de voiture"@fr ;
+    skos:closeMatch ns1:carCrash .
+
+data:bulgarie_DeathCause_arme a frontlet:DeathCause ;
+    rdfs:label "arme"@fr ;
+    skos:closeMatch ns1:weapon .
+
+data:bulgarie_DeathCause_noyade a frontlet:DeathCause ;
+    rdfs:label "noyade"@fr ;
+    skos:closeMatch ns1:drowning .
+
+data:bulgarie_DeathNature_homicide a frontlet:DeathNature ;
+    rdfs:label "homicide"@fr ;
+    skos:closeMatch ns1:homicide .
+
+data:bulgarie_Death_10 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Village of Vojnegovac" ;
+    geo:hasGeometry data:bulgarie_geometry_10 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2022-09-26"^^xsd:date .
+
+data:bulgarie_Death_11 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Hospital in Haskovo",
+        "Place of death: Harmanli, in Maritsa river" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_noyade ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_accident ;
+    frontlet:sourcedBy data:bulgarie_Source_11_mission_wings_family ;
+    frontlet:transportType data:bulgarie_Transport_boat ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-07-01"^^xsd:date .
+
+data:bulgarie_Death_12 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Hospital in Burgas",
+        "Place of death: Yambol/Burgas area" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:sourcedBy data:bulgarie_Source_12_mission_wings_italian_activists ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2023-07-26"^^xsd:date .
+
+data:bulgarie_Death_13 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Sredets",
+        "Raw death date: 26/27 July 2023" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:sourcedBy data:bulgarie_Source_13_ihab_rawi_family_members ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2023-07-26"^^xsd:date .
+
+data:bulgarie_Death_14 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Hospital in Yambol?",
+        "Place of death: Between Dennitsa and Stefan Karadjovo" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:sourcedBy data:bulgarie_Source_14_ihab_rawi_family_members ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2023-07-26"^^xsd:date .
+
+data:bulgarie_Death_15 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: https://maps.app.goo.gl/fBixTK8VQcrbX8TT7" ;
+    frontlet:sourcedBy data:bulgarie_Source_15_ihab_on_whatsapp_group .
+
+data:bulgarie_Death_16 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: https://maps.google.com/?q=42.279513,27.197288&entry=gps" ;
+    frontlet:sourcedBy data:bulgarie_Source_16_whatsapp_group ;
+    geo:hasGeometry data:bulgarie_geometry_16 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-08-25"^^xsd:date .
+
+data:bulgarie_Death_17 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: https://www.google.com/maps/place/42%C2%B004'37.9%22N+26%C2%B036'41.0%22E/@42.0771868,26.6088056,17z/data=!3m1!4b1!4m4!3m3!8m2!3d42.0771868!4d26.6113805?hl=en&entry=ttu" ;
+    frontlet:sourcedBy data:bulgarie_Source_17_whatsapp_group ;
+    geo:hasGeometry data:bulgarie_geometry_17 .
+
+data:bulgarie_Death_18 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Burgas morgue",
+        "Place of death: 42.2020380, 27.04917809690",
+        "Raw death date: 4/5 August 2023" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:sourcedBy data:bulgarie_Source_18_ihab_italian_group_mission_wings ;
+    geo:hasGeometry data:bulgarie_geometry_18 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-08-04"^^xsd:date .
+
+data:bulgarie_Death_19 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Burgas morgue",
+        "Place of death: 42.2020380, 27.0491780" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:sourcedBy data:bulgarie_Source_19_ihab_mission_wings ;
+    geo:hasGeometry data:bulgarie_geometry_19 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-08-20"^^xsd:date .
+
+data:bulgarie_Death_2 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Stara Zagora region" ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_accident_de_voiture ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_accident ;
+    frontlet:sourcedBy data:bulgarie_Source_2_hamid_mission_wings ;
+    frontlet:transportType data:bulgarie_Transport_car .
+
+data:bulgarie_Death_3 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Burgas region" .
+
+data:bulgarie_Death_4 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Burgas region" .
+
+data:bulgarie_Death_5 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Burgas region" .
+
+data:bulgarie_Death_7 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause data:bulgarie_DeathCause_arme ;
+    frontlet:hasDeathNature data:bulgarie_DeathNature_homicide ;
+    frontlet:sourcedBy data:bulgarie_Source_7_burgas_hospital .
+
+data:bulgarie_Death_8 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: https://www.google.com/maps/place/42%C2%B019'50.5%22N+27%C2%B017'52.3%22E/@42.3307039,27.295679,745m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x59b847249f71c2d4!8m2!3d42.3307!4d27.297873?coh=164777&entry=tt&shorturl=1 | Algeria",
+        "Place of death: Burgas regon: https://www.google.com/maps/place/42%C2%B019'50.5%22N+27%C2%B017'52.3%22E/@42.3307039,27.295679,745m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x59b847249f71c2d4!8m2!3d42.3307!4d27.297873?coh=164777&entry=tt&shorturl=1" ;
+    frontlet:sourcedBy data:bulgarie_Source_8_sir_report_verification_by_bashar ;
+    geo:hasGeometry data:bulgarie_geometry_8 .
+
+data:bulgarie_Death_9 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Place of death: Burgas region: https://drive.google.com/file/d/1jbZnoQyH39KJQfyo6tJxlRjoBISQGgo5/view" ;
+    frontlet:sourcedBy data:bulgarie_Source_9_facebook_https_www_facebook_com_photo_fbid_769526901624056_set_a_115561010353985 .
+
+data:bulgarie_Source_11_mission_wings_family a frontlet:Family,
+        frontlet:Source ;
+    rdfs:label "Mission Wings, Family" .
+
+data:bulgarie_Source_12_mission_wings_italian_activists a frontlet:Source ;
+    rdfs:label "Mission Wings,Italian activists" .
+
+data:bulgarie_Source_13_ihab_rawi_family_members a frontlet:Family,
+        frontlet:Source ;
+    rdfs:label "Ihab Rawi, Family members" .
+
+data:bulgarie_Source_14_ihab_rawi_family_members a frontlet:Family,
+        frontlet:Source ;
+    rdfs:label "Ihab Rawi, Family members" .
+
+data:bulgarie_Source_15_ihab_on_whatsapp_group a frontlet:Source ;
+    rdfs:label "Ihab on WhatsApp group" .
+
+data:bulgarie_Source_16_whatsapp_group a frontlet:Source ;
+    rdfs:label "WhatsApp group" .
+
+data:bulgarie_Source_17_whatsapp_group a frontlet:Source ;
+    rdfs:label "WhatsApp group" .
+
+data:bulgarie_Source_18_ihab_italian_group_mission_wings a frontlet:Source ;
+    rdfs:label "Ihab, Italian Group, Mission Wings" .
+
+data:bulgarie_Source_19_ihab_mission_wings a frontlet:Source ;
+    rdfs:label "Ihab,Mission Wings" .
+
+data:bulgarie_Source_1_ihab_rawi_syrian_activist_journalist_in_germany_46_76_746_62_72 a frontlet:Source ;
+    rdfs:label "Ihab Rawi, Syrian activist/journalist in Germany (+46 76 746 62 72)" .
+
+data:bulgarie_Source_2_hamid_mission_wings a frontlet:Source ;
+    rdfs:label "Hamid, Mission Wings" .
+
+data:bulgarie_Source_6_burgas_hospital_confirmed_by_relatives a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
+    rdfs:label "Burgas hospital, confirmed by relatives" .
+
+data:bulgarie_Source_7_burgas_hospital a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
+    rdfs:label "Burgas hospital" .
+
+data:bulgarie_Source_8_sir_report_verification_by_bashar a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
+    rdfs:label "SIR report / verification by Bashar" .
+
+data:bulgarie_Source_9_facebook_https_www_facebook_com_photo_fbid_769526901624056_set_a_115561010353985 a frontlet:Media,
+        frontlet:Source ;
+    rdfs:label "Facebook: https://www.facebook.com/photo?fbid=769526901624056&set=a.115561010353985" .
+
+data:bulgarie_Transport_boat a frontlet:Transport ;
+    frontlet:transportName "boat" .
+
+data:bulgarie_Transport_car a frontlet:Transport ;
+    frontlet:transportName "car" .
+
+data:bulgarie_geometry_10 a geo:Geometry ;
+    geo:asWKT "POINT(22.635164 43.0756042)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_16 a geo:Geometry ;
+    geo:asWKT "POINT(27.197288 42.279513)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_17 a geo:Geometry ;
+    geo:asWKT "POINT(26.6088056 42.0771868)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_18 a geo:Geometry ;
+    geo:asWKT "POINT(27.0491780969 42.202038)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_19 a geo:Geometry ;
+    geo:asWKT "POINT(27.049178 42.202038)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_8 a geo:Geometry ;
+    geo:asWKT "POINT(27.295679 42.3307039)"^^geo:wktLiteral .
+
+frontlet:AgeInterval a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Age interval where the migrant age is"@en,
+        "Intervalle d'âge dans lequel un migrant se trouve"@fr ;
+    skos:prefLabel "Age interval"@en,
+        "Inervalle d'âge"@fr .
+
+frontlet:Media a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a media"@en,
+        "La source d'information vient d'un média"@fr ;
+    skos:prefLabel "Media"@en,
+        "Media"@fr .
+
+time:Monday a time:DayOfWeek ;
+    rdfs:label "Monday"@en .
+
+time:Saturday a time:DayOfWeek ;
+    rdfs:label "Saturday"@en .
+
+time:Sunday a time:DayOfWeek ;
+    rdfs:label "Sunday"@en .
+
+time:Tuesday a time:DayOfWeek ;
+    rdfs:label "Tuesday"@en .
+
+data:bulgarie_Country_MAR a frontlet:Country ;
+    rdfs:label "Morocco"@en .
+
+data:bulgarie_DeathNature_accident a frontlet:DeathNature ;
+    rdfs:label "accident"@fr ;
+    skos:closeMatch ns1:accident .
+
+data:bulgarie_Death_1 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: Brother didn't know but we found out it had been in Burgas morgue | Burgas cemetary",
+        "Place of death: Burgas region" ;
+    frontlet:sourcedBy data:bulgarie_Source_1_ihab_rawi_syrian_activist_journalist_in_germany_46_76_746_62_72 ;
+    temp:before data:bulgarie_InhumationEvent_1 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-02-21"^^xsd:date .
+
+data:bulgarie_Death_6 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasComment "Body location: buried in Morroco" ;
+    frontlet:sourcedBy data:bulgarie_Source_6_burgas_hospital_confirmed_by_relatives ;
+    temp:before data:bulgarie_InhumationEvent_6 .
+
+data:bulgarie_InhumationEvent_1 a frontlet:IndividualEvent,
+        frontlet:Inhumation ;
+    ns1:missingAfterTakingOver data:bulgarie_Death_1 ;
+    frontlet:hasComment "Brother didn't know but we found out it had been in Burgas morgue | Burgas cemetary" .
+
+data:bulgarie_InhumationEvent_6 a frontlet:IndividualEvent,
+        frontlet:Inhumation ;
+    ns1:missingAfterTakingOver data:bulgarie_Death_6 ;
+    frontlet:hasComment "buried in Morroco" .
+
+frontlet:AgeEntity a owl:Class ;
+    skos:definition "Super class dealing with migrant age"@en,
+        "Super classe gérant l'âge d'un migrant"@fr ;
+    skos:prefLabel "Age entity"@en,
+        "Entité âge"@fr .
+
+frontlet:DeathInjury a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Event consisting in the death or the injury of a migrant crossing a border"@en,
+        "Evènement consistant à la blessure ou la mort d'un migrant lors du passage d'une frontière."@fr ;
+    skos:prefLabel "Death injury"@en,
+        "Mort blessure"@fr .
+
+frontlet:Event a owl:Class ;
+    skos:definition "A life moment of a migrant during its journey"@en,
+        "Un moment de la vie d'un migrant durant son trajet."@fr ;
+    skos:prefLabel "Event"@en,
+        "Evènement"@fr .
+
+frontlet:Inhumation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in the inhumation ceremony of a deceased migrant corpse"@en,
+        "Evènement post mortem consistant à la cérémonie d'inhumation du corps d'un migrant décédé."@fr ;
+    skos:prefLabel "Inhumation"@en,
+        "Inhumation"@fr .
+
+frontlet:OfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "Official document attesting the passage or the death of a migrant"@en,
+        "Document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Official document"@en,
+        "Document officiel"@fr .
+
+frontlet:Transport a owl:Class ;
+    skos:definition "Trasport mean used by a migrant during an event"@en,
+        "Moyen de transport utilisé par un migrant au moment d'un évènement"@fr ;
+    skos:prefLabel "Transport"@en,
+        "Transport"@fr .
+
+time:Friday a time:DayOfWeek ;
+    rdfs:label "Friday"@en .
+
+frontlet:DeathNature a owl:Class ;
+    skos:definition "Nature de la mort d'un migrant"@fr .
+
+frontlet:Family a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The source information comes from a family member or a migrant close person"@en,
+        "La source d'une information vient d'un membre de la famille ou d'un proche d'un migrant"@fr ;
+    skos:prefLabel "Family"@en,
+        "Famille"@fr .
+
+frontlet:OtherOfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
+        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Other offical document"@en,
+        "Autre document officiel"@fr .
+
+time:Wednesday a time:DayOfWeek ;
+    rdfs:label "Wednesday"@en .
+
+data:bulgarie_Country_AFG a frontlet:Country ;
+    rdfs:label "Afghanistan"@en .
+
+frontlet:Country a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
+    skos:prefLabel "Country"@en,
+        "Pays"@fr .
+
+frontlet:DeathCause a owl:Class ;
+    skos:definition "Manière précise dont un migrant est décédé"@fr .
+
+frontlet:Gender a owl:Class ;
+    skos:definition "Genre d'une personne"@fr .
+
+data:bulgarie_DeathCause_medical a frontlet:DeathCause ;
+    rdfs:label "médical"@fr ;
+    skos:closeMatch ns1:medicalIssue .
+
+data:bulgarie_DeathNature_medical a frontlet:DeathNature ;
+    rdfs:label "médical"@fr ;
+    skos:closeMatch ns1:deathNature .
+
+frontlet:Age a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Valeur précise de l'âge d'un migrant. Il peut être négatif pour une perte prénatale ou à virgule dans le cas d'un enfant de moins d'un an",
+        "Precise value of a migrant age. It can be negative for a prenatal loss or real in case of a less than one year old child"@en ;
+    skos:prefLabel "Age"@en,
+        "Age"@fr .
+
+data:bulgarie_Country_SYR a frontlet:Country ;
+    rdfs:label "Syrian Arab Republic"@en .
+
+data:bulgarie_Gender_inconnu a frontlet:Gender ;
+    rdfs:label "inconnu"@fr ;
+    skos:closeMatch ns1:gender_unknown .
+
+frontlet:Death a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the death of a migrant crossing a border"@en,
+        "Evènement consistant à la mort d'un migrant dans le cadre du franchissement d'une frontière."@fr ;
+    skos:prefLabel "Death"@en,
+        "Mort"@fr .
+
+frontlet:Person a owl:Class ;
+    skos:definition "A person undertakes a journey between two countries"@en,
+        "Un personne entreprend un trajet entre deux pays"@fr ;
+    skos:prefLabel "Person"@en,
+        "Personne"@fr .
+
+frontlet:Source a owl:Class ;
+    skos:definition "Information source of an event"@en,
+        "Source de l'information d'un évènement"@fr ;
+    skos:prefLabel "Source"@en,
+        "Source"@fr .
+
+frontlet:IndividualEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "Individual event in the journey of a migrant"@en,
+        "Evènement dans la trajectoire de migration d'un migrant"@fr ;
+    skos:prefLabel "Individual Event"@en,
+        "Evènement individuel"@fr .
+

@@ -1,0 +1,953 @@
+@prefix frontlet: <http://purl.org/frontierelethale/onto/> .
+@prefix frontlet_data: <http://data/frontlet/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix thes: <http://data/frontlet/thesaurus#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+frontlet_data:alpes_Person_1 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:alpes_Death_1 ;
+    frontlet:hasName "Amin Saber" .
+
+frontlet_data:alpes_Person_10 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 44 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_10 ;
+    frontlet:hasName "Said Zigoui" .
+
+frontlet_data:alpes_Person_11 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_11 ;
+    frontlet:hasName "Mehdy Alik (o Alih o Aliy)" .
+
+frontlet_data:alpes_Person_12 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 33 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_12 ;
+    frontlet:hasName "Mohamed Aloui" .
+
+frontlet_data:alpes_Person_13 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_LBR ;
+    frontlet:composedOf frontlet_data:alpes_Death_13 ;
+    frontlet:hasName "Christiana Amankwa" .
+
+frontlet_data:alpes_Person_14 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_BGD ;
+    frontlet:composedOf frontlet_data:alpes_Death_14 .
+
+frontlet_data:alpes_Person_15 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 40 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_BGR ;
+    frontlet:composedOf frontlet_data:alpes_Death_15 ;
+    frontlet:hasName "Nikolov Alexandar" .
+
+frontlet_data:alpes_Person_16 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 23 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_16 ;
+    frontlet:hasName "Monam Ajouli" .
+
+frontlet_data:alpes_Person_17 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 25 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_17 ;
+    frontlet:hasName "Huri Mohamed" .
+
+frontlet_data:alpes_Person_18 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 36 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_18 ;
+    frontlet:hasName "Elmanai Fathi Benali Ben Rihaen (alias Hassan Nejl)" .
+
+frontlet_data:alpes_Person_19 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_GHA ;
+    frontlet:composedOf frontlet_data:alpes_Death_19 ;
+    frontlet:hasName "Yussuf Abubakr" .
+
+frontlet_data:alpes_Person_2 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 25 ] ;
+    frontlet:composedOf frontlet_data:alpes_Death_2 ;
+    frontlet:hasName "Abdeleh Saler" .
+
+frontlet_data:alpes_Person_20 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 42 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_DZA ;
+    frontlet:composedOf frontlet_data:alpes_Death_20 ;
+    frontlet:hasName "Soudani Saleh (Souidani Salah)" .
+
+frontlet_data:alpes_Person_21 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 49 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_21 ;
+    frontlet:hasName "Mabruka Mimouni/Nabruka Mimuni" .
+
+frontlet_data:alpes_Person_22 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:alpes_Death_22 .
+
+frontlet_data:alpes_Person_23 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 26 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ERI ;
+    frontlet:composedOf frontlet_data:alpes_Death_23 ;
+    frontlet:hasName "No id" .
+
+frontlet_data:alpes_Person_24 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 55 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_PAK ;
+    frontlet:composedOf frontlet_data:alpes_Death_24 ;
+    frontlet:hasName "Mohammad Muzaffar Alì, detto Sher Khan" .
+
+frontlet_data:alpes_Person_25 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 34 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_BRA ;
+    frontlet:composedOf frontlet_data:alpes_Death_25 ;
+    frontlet:hasName "Carlos Santos da Costa" .
+
+frontlet_data:alpes_Person_26 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 30 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
+    frontlet:composedOf frontlet_data:alpes_Death_26 ;
+    frontlet:hasName "Abdou Said" .
+
+frontlet_data:alpes_Person_27 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 21 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_27 ;
+    frontlet:hasName "Ac Nande" .
+
+frontlet_data:alpes_Person_28 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 35 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_28 ;
+    frontlet:hasName "Abdelmajid (Majid) El Kodra" .
+
+frontlet_data:alpes_Person_29 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 31 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_29 ;
+    frontlet:hasName "Moustapha Anaki" .
+
+frontlet_data:alpes_Person_3 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 39 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_3 ;
+    frontlet:hasName "Mohammed Ben Said" .
+
+frontlet_data:alpes_Person_30 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 26 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
+    frontlet:composedOf frontlet_data:alpes_Death_30 ;
+    frontlet:hasName "Reda Mohammed" .
+
+frontlet_data:alpes_Person_31 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 46 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_UKR ;
+    frontlet:composedOf frontlet_data:alpes_Death_31 .
+
+frontlet_data:alpes_Person_32 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 20 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
+    frontlet:composedOf frontlet_data:alpes_Death_32 ;
+    frontlet:hasName "Harry" .
+
+frontlet_data:alpes_Person_33 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 32 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_BGD ;
+    frontlet:composedOf frontlet_data:alpes_Death_33 ;
+    frontlet:hasName "Hossain Faisal" .
+
+frontlet_data:alpes_Person_34 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 34 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_34 ;
+    frontlet:hasName "Aymen (Aymed) Mekni" .
+
+frontlet_data:alpes_Person_35 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 37 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_GEO ;
+    frontlet:composedOf frontlet_data:alpes_Death_35 ;
+    frontlet:hasName "Vakhtang Enukidze" .
+
+frontlet_data:alpes_Person_36 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 28 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_ALB ;
+    frontlet:composedOf frontlet_data:alpes_Death_36 ;
+    frontlet:hasName "Orgest Turia" .
+
+frontlet_data:alpes_Person_37 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 23 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_GIN ;
+    frontlet:composedOf frontlet_data:alpes_Death_37 ;
+    frontlet:hasName "Moussa Mamadou Balde" .
+
+frontlet_data:alpes_Person_38 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
+    frontlet:composedOf frontlet_data:alpes_Death_38 .
+
+frontlet_data:alpes_Person_39 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 26 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_39 ;
+    frontlet:hasName "Wissem Ben Abdel Latif" .
+
+frontlet_data:alpes_Person_4 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_4 ;
+    frontlet:hasName "Rabah Arfaoui Ben Hedi" .
+
+frontlet_data:alpes_Person_40 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 44 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_40 ;
+    frontlet:hasName "Anani Ezzeddine" .
+
+frontlet_data:alpes_Person_41 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 36 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
+    frontlet:composedOf frontlet_data:alpes_Death_41 ;
+    frontlet:hasName "NONOS EGBONU." .
+
+frontlet_data:alpes_Person_42 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 34 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_BGD ;
+    frontlet:composedOf frontlet_data:alpes_Death_42 ;
+    frontlet:hasName "ROTON MOHAMAD" .
+
+frontlet_data:alpes_Person_43 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 27 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_PAK ;
+    frontlet:composedOf frontlet_data:alpes_Death_43 ;
+    frontlet:hasName "Arhad Jahangir" .
+
+frontlet_data:alpes_Person_44 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 44 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
+    frontlet:composedOf frontlet_data:alpes_Death_44 ;
+    frontlet:hasName "UHNMWANGHO OSARO" .
+
+frontlet_data:alpes_Person_45 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 38 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_45 .
+
+frontlet_data:alpes_Person_46 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 19 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_GIN ;
+    frontlet:composedOf frontlet_data:alpes_Death_46 ;
+    frontlet:hasName "Ousmane Sylla" .
+
+frontlet_data:alpes_Person_47 a frontlet:Person ;
+    frontlet:aged [ a frontlet:Age ;
+            frontlet:hasAge 22 ] ;
+    frontlet:birthPlace frontlet_data:alpes_Country_MAR ;
+    frontlet:composedOf frontlet_data:alpes_Death_47 ;
+    frontlet:hasName "Oussama Darkaoui" .
+
+frontlet_data:alpes_Person_5 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_5 ;
+    frontlet:hasName "Nasreddin Arfaoui Ben Hedi" .
+
+frontlet_data:alpes_Person_6 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_6 ;
+    frontlet:hasName "Jamel Brahami Ben Taahr" .
+
+frontlet_data:alpes_Person_7 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_7 ;
+    frontlet:hasName "Ramzi Ben Salem Mouldi" .
+
+frontlet_data:alpes_Person_8 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_8 ;
+    frontlet:hasName "Lotfi Ben Mohamed Salah" .
+
+frontlet_data:alpes_Person_9 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:alpes_Country_TUN ;
+    frontlet:composedOf frontlet_data:alpes_Death_9 ;
+    frontlet:hasName "Nasim El Herzally Ben Moustafa" .
+
+frontlet:AgeCategory a owl:Class ;
+    rdfs:subClassOf frontlet:AgeInterval ;
+    skos:definition "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en,
+        "Catégories d'âge génériques que l'on retrouve dans les récits de migrations lorsque l'on a pas l'information sur l'âge réel d'un migrant. Ces catégories représentent des intervalles prédéfinis."@fr .
+
+frontlet:Call a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a migrant calling a close person"@en,
+        "Evènement ante mortem consistant à un migrant ayant passé un appel téléphonique avec un proche"@fr ;
+    skos:prefLabel "Call"@en,
+        "Appel"@fr .
+
+frontlet:CivilSociety a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a civil society orgnism (NGO)"@en,
+        "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ;
+    skos:prefLabel "Civil society"@en,
+        "Sociétée civile"@fr .
+
+frontlet:CollectiveEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "An event potentially shared by mulitple migrants. Events can be slighlty different (a death and an injury)"@en,
+        "Un évènement partagé par au moins deux migrants. Les évènements peuvent être légèrement différents (un décès et une blessure)."@fr ;
+    skos:prefLabel "Collective event"@en,
+        "Evènement collectif"@fr .
+
+frontlet:Control a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a police control or an NGO grouping migrant names with a date and a place"@en,
+        "Evènement ante mortem consistant à un contrôle de police ou d'une ONG regroupant le nom d'un migrant ainsi qu'un lieu et une date"@fr ;
+    skos:prefLabel "Control"@en,
+        "Contrôle"@fr .
+
+frontlet:Conversation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event where a migrant discussed with another person in a physical way"@en,
+        "Evènement ante mortem où un migrant a discuté avec une autre personne de manière physique"@fr ;
+    skos:prefLabel "Conversation"@en,
+        "Conversation"@fr .
+
+frontlet:CorpseAnalysis a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in analyzing the corpse if a deceased migrant"@en,
+        "Evènement post mortem consistant à analyser le corps d'un migrant décédé"@fr ;
+    skos:prefLabel "Corpse analysis"@en,
+        "Analyse du corps"@fr .
+
+frontlet:CorpseRepatriation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in rapatriating a dead migran corpse"@en,
+        "Evènement post mortem consistant au rapatriement du corps d'un migrant décédé dans son pays d'origine."@fr ;
+    skos:prefLabel "Corpse repatriation"@en,
+        "Rapatriement du corps"@fr .
+
+frontlet:DeathCertificate a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Death certificate of a migrant"@en,
+        "Certificat de décès d'un migrant"@fr ;
+    skos:prefLabel "Death certificate"@en,
+        "Certificat de décès"@fr .
+
+frontlet:Family a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The source information comes from a family member or a migrant close person"@en,
+        "La source d'une information vient d'un membre de la famille ou d'un proche d'un migrant"@fr ;
+    skos:prefLabel "Family"@en,
+        "Famille"@fr .
+
+frontlet:Gender a owl:Class ;
+    skos:definition "Genre d'une personne"@fr .
+
+frontlet:Inhumation a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Post mortem event consisting in the inhumation ceremony of a deceased migrant corpse"@en,
+        "Evènement post mortem consistant à la cérémonie d'inhumation du corps d'un migrant décédé."@fr ;
+    skos:prefLabel "Inhumation"@en,
+        "Inhumation"@fr .
+
+frontlet:Injury a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the injury of a migrant crossing a border"@en,
+        "Evènement ante mortem où un migrant est blessé lors d'une tentative de franchissement d'une frontière."@fr ;
+    skos:prefLabel "Injury"@en,
+        "Blessure"@fr .
+
+frontlet:Media a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a media"@en,
+        "La source d'information vient d'un média"@fr ;
+    skos:prefLabel "Media"@en,
+        "Media"@fr .
+
+frontlet:MediaType a owl:Class ;
+    skos:definition "Type de média servant de source au décès d'un migrant"@fr .
+
+frontlet:OtherOfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
+        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Other offical document"@en,
+        "Autre document officiel"@fr .
+
+frontlet:Testimony a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in one person seing a migrant without getting directly in contact with him."@en,
+        "Evènement ante mortem consistant en une personne ayant vu un migrant sans être directement entré en contact avec celui-ci."@fr ;
+    skos:prefLabel "Testimony"@en,
+        "Témoignage"@fr .
+
+frontlet:Trace a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Ante mortem event consisting in a abandonned object owned by a migrant at a given moment of his journey"@en,
+        "Evènement ante mortem consistant dans un objet laissé par un migrant à un moment donné de son voyage"@fr ;
+    skos:prefLabel "Trace"@en,
+        "Trace"@fr .
+
+frontlet:Transport a owl:Class ;
+    skos:definition "Trasport mean used by a migrant during an event"@en,
+        "Moyen de transport utilisé par un migrant au moment d'un évènement"@fr ;
+    skos:prefLabel "Transport"@en,
+        "Transport"@fr .
+
+frontlet_data:alpes_Country_ALB a frontlet:Country ;
+    rdfs:label "Albania"@en ;
+    frontlet:isoAlpha2 "AL" ;
+    frontlet:isoAlpha3 "ALB" ;
+    skos:notation "ALB" .
+
+frontlet_data:alpes_Country_BGR a frontlet:Country ;
+    rdfs:label "Bulgaria"@en ;
+    frontlet:isoAlpha2 "BG" ;
+    frontlet:isoAlpha3 "BGR" ;
+    skos:notation "BGR" .
+
+frontlet_data:alpes_Country_BRA a frontlet:Country ;
+    rdfs:label "Brazil"@en ;
+    frontlet:isoAlpha2 "BR" ;
+    frontlet:isoAlpha3 "BRA" ;
+    skos:notation "BRA" .
+
+frontlet_data:alpes_Country_DZA a frontlet:Country ;
+    rdfs:label "Algeria"@en ;
+    frontlet:isoAlpha2 "DZ" ;
+    frontlet:isoAlpha3 "DZA" ;
+    skos:notation "DZA" .
+
+frontlet_data:alpes_Country_ERI a frontlet:Country ;
+    rdfs:label "Eritrea"@en ;
+    frontlet:isoAlpha2 "ER" ;
+    frontlet:isoAlpha3 "ERI" ;
+    skos:notation "ERI" .
+
+frontlet_data:alpes_Country_GEO a frontlet:Country ;
+    rdfs:label "Georgia"@en ;
+    frontlet:isoAlpha2 "GE" ;
+    frontlet:isoAlpha3 "GEO" ;
+    skos:notation "GEO" .
+
+frontlet_data:alpes_Country_GHA a frontlet:Country ;
+    rdfs:label "Ghana"@en ;
+    frontlet:isoAlpha2 "GH" ;
+    frontlet:isoAlpha3 "GHA" ;
+    skos:notation "GHA" .
+
+frontlet_data:alpes_Country_LBR a frontlet:Country ;
+    rdfs:label "Liberia"@en ;
+    frontlet:isoAlpha2 "LR" ;
+    frontlet:isoAlpha3 "LBR" ;
+    skos:notation "LBR" .
+
+frontlet_data:alpes_Country_UKR a frontlet:Country ;
+    rdfs:label "Ukraine"@en ;
+    frontlet:isoAlpha2 "UA" ;
+    frontlet:isoAlpha3 "UKR" ;
+    skos:notation "UKR" .
+
+frontlet_data:alpes_Death_1 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "1998-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_10 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2005-01-12"^^xsd:date .
+
+frontlet_data:alpes_Death_11 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_me_dical ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_me_dical ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2006-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_12 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2006-08-06"^^xsd:date .
+
+frontlet_data:alpes_Death_13 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2006-12-01"^^xsd:date .
+
+frontlet_data:alpes_Death_14 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2006-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_15 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2006-12-09"^^xsd:date .
+
+frontlet_data:alpes_Death_16 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2007-10-14"^^xsd:date .
+
+frontlet_data:alpes_Death_17 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2007-10-16"^^xsd:date .
+
+frontlet_data:alpes_Death_18 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_inconnu ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_inconnu ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2008-05-24"^^xsd:date .
+
+frontlet_data:alpes_Death_19 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2008-06-29"^^xsd:date .
+
+frontlet_data:alpes_Death_2 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "1998-08-01"^^xsd:date .
+
+frontlet_data:alpes_Death_20 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_me_dical ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_me_dical ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2009-03-19"^^xsd:date .
+
+frontlet_data:alpes_Death_21 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2009-06-06"^^xsd:date .
+
+frontlet_data:alpes_Death_22 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2009-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_23 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2009-05-01"^^xsd:date .
+
+frontlet_data:alpes_Death_24 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_hypothermie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2009-12-09"^^xsd:date .
+
+frontlet_data:alpes_Death_25 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2009-12-25"^^xsd:date .
+
+frontlet_data:alpes_Death_26 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2012-03-09"^^xsd:date .
+
+frontlet_data:alpes_Death_27 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2013-03-12"^^xsd:date .
+
+frontlet_data:alpes_Death_28 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2013-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_29 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_me_dical ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_me_dical ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2013-08-10"^^xsd:date .
+
+frontlet_data:alpes_Death_3 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "1999-12-25"^^xsd:date .
+
+frontlet_data:alpes_Death_30 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_me_dical ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_me_dical ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2015-02-07"^^xsd:date .
+
+frontlet_data:alpes_Death_31 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2018-11-13"^^xsd:date .
+
+frontlet_data:alpes_Death_32 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2019-06-02"^^xsd:date .
+
+frontlet_data:alpes_Death_33 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2019-07-08"^^xsd:date .
+
+frontlet_data:alpes_Death_34 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2020-01-12"^^xsd:date .
+
+frontlet_data:alpes_Death_35 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_inconnu ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_inconnu ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2020-01-18"^^xsd:date .
+
+frontlet_data:alpes_Death_36 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_me_dical ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_me_dical ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2020-07-14"^^xsd:date .
+
+frontlet_data:alpes_Death_37 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2021-05-22"^^xsd:date .
+
+frontlet_data:alpes_Death_38 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2021-01-01"^^xsd:date .
+
+frontlet_data:alpes_Death_39 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-11-28"^^xsd:date .
+
+frontlet_data:alpes_Death_4 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:alpes_Death_40 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2021-12-06"^^xsd:date .
+
+frontlet_data:alpes_Death_41 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_accident ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2022-08-04"^^xsd:date .
+
+frontlet_data:alpes_Death_42 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_accident ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2022-08-22"^^xsd:date .
+
+frontlet_data:alpes_Death_43 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2022-08-31"^^xsd:date .
+
+frontlet_data:alpes_Death_44 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2022-10-07"^^xsd:date .
+
+frontlet_data:alpes_Death_45 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2022-12-19"^^xsd:date .
+
+frontlet_data:alpes_Death_46 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_pendaison ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_suicide ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2024-02-05"^^xsd:date .
+
+frontlet_data:alpes_Death_47 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_inconnu ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_inconnu ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2024-08-05"^^xsd:date .
+
+frontlet_data:alpes_Death_5 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:alpes_Death_6 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:alpes_Death_7 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:alpes_Death_8 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:alpes_Death_9 a frontlet:Death,
+        frontlet:IndividualEvent ;
+    frontlet:hasDeathCause frontlet_data:italie_cpr_DeathCause_incendie ;
+    frontlet:hasDeathNature frontlet_data:italie_cpr_DeathNature_accident ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "1999-12-29"^^xsd:date .
+
+frontlet_data:italie_cpr_DeathCause_hypothermie a frontlet:DeathCause ;
+    rdfs:label "hypothermie" ;
+    skos:closeMatch thes:hypothermia .
+
+frontlet:AgeInterval a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Age interval where the migrant age is"@en,
+        "Intervalle d'âge dans lequel un migrant se trouve"@fr ;
+    skos:prefLabel "Age interval"@en,
+        "Inervalle d'âge"@fr .
+
+frontlet_data:alpes_Country_EGY a frontlet:Country ;
+    rdfs:label "Egypt"@en ;
+    frontlet:isoAlpha2 "EG" ;
+    frontlet:isoAlpha3 "EGY" ;
+    skos:notation "EGY" .
+
+frontlet_data:alpes_Country_GIN a frontlet:Country ;
+    rdfs:label "Guinea"@en ;
+    frontlet:isoAlpha2 "GN" ;
+    frontlet:isoAlpha3 "GIN" ;
+    skos:notation "GIN" .
+
+frontlet_data:alpes_Country_PAK a frontlet:Country ;
+    rdfs:label "Pakistan"@en ;
+    frontlet:isoAlpha2 "PK" ;
+    frontlet:isoAlpha3 "PAK" ;
+    skos:notation "PAK" .
+
+frontlet_data:italie_cpr_DeathCause_accident a frontlet:DeathCause ;
+    rdfs:label "accident" .
+
+frontlet:AgeEntity a owl:Class ;
+    skos:definition "Super class dealing with migrant age"@en,
+        "Super classe gérant l'âge d'un migrant"@fr ;
+    skos:prefLabel "Age entity"@en,
+        "Entité âge"@fr .
+
+frontlet:DeathInjury a owl:Class ;
+    rdfs:subClassOf frontlet:IndividualEvent ;
+    skos:definition "Event consisting in the death or the injury of a migrant crossing a border"@en,
+        "Evènement consistant à la blessure ou la mort d'un migrant lors du passage d'une frontière."@fr ;
+    skos:prefLabel "Death injury"@en,
+        "Mort blessure"@fr .
+
+frontlet:Event a owl:Class ;
+    skos:definition "A life moment of a migrant during its journey"@en,
+        "Un moment de la vie d'un migrant durant son trajet."@fr ;
+    skos:prefLabel "Event"@en,
+        "Evènement"@fr .
+
+frontlet:OfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "Official document attesting the passage or the death of a migrant"@en,
+        "Document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Official document"@en,
+        "Document officiel"@fr .
+
+frontlet_data:alpes_Country_BGD a frontlet:Country ;
+    rdfs:label "Bangladesh"@en ;
+    frontlet:isoAlpha2 "BD" ;
+    frontlet:isoAlpha3 "BGD" ;
+    skos:notation "BGD" .
+
+frontlet_data:italie_cpr_DeathCause_inconnu a frontlet:DeathCause ;
+    rdfs:label "inconnu" .
+
+frontlet_data:italie_cpr_DeathNature_inconnu a frontlet:DeathNature ;
+    rdfs:label "inconnu" .
+
+frontlet_data:alpes_Country_NGA a frontlet:Country ;
+    rdfs:label "Nigeria"@en ;
+    frontlet:isoAlpha2 "NG" ;
+    frontlet:isoAlpha3 "NGA" ;
+    skos:notation "NGA" .
+
+frontlet:DeathNature a owl:Class ;
+    skos:definition "Nature de la mort d'un migrant"@fr .
+
+frontlet:Source a owl:Class ;
+    skos:definition "Information source of an event"@en,
+        "Source de l'information d'un évènement"@fr ;
+    skos:prefLabel "Source"@en,
+        "Source"@fr .
+
+time:Thursday a time:DayOfWeek ;
+    rdfs:label "Thursday"@en .
+
+frontlet_data:italie_cpr_DeathCause_me_dical a frontlet:DeathCause ;
+    rdfs:label "médical" ;
+    skos:closeMatch thes:medicalIssue .
+
+frontlet_data:italie_cpr_DeathNature_me_dical a frontlet:DeathNature ;
+    rdfs:label "médical" .
+
+time:Tuesday a time:DayOfWeek ;
+    rdfs:label "Tuesday"@en .
+
+frontlet_data:alpes_Country_MAR a frontlet:Country ;
+    rdfs:label "Morocco"@en ;
+    frontlet:isoAlpha2 "MA" ;
+    frontlet:isoAlpha3 "MAR" ;
+    skos:notation "MAR" .
+
+frontlet_data:italie_cpr_DeathCause_incendie a frontlet:DeathCause ;
+    rdfs:label "incendie" ;
+    skos:closeMatch thes:fire .
+
+frontlet:DeathCause a owl:Class ;
+    skos:definition "Manière précise dont un migrant est décédé"@fr .
+
+time:Friday a time:DayOfWeek ;
+    rdfs:label "Friday"@en .
+
+time:Monday a time:DayOfWeek ;
+    rdfs:label "Monday"@en .
+
+time:Sunday a time:DayOfWeek ;
+    rdfs:label "Sunday"@en .
+
+frontlet_data:italie_cpr_DeathNature_accident a frontlet:DeathNature ;
+    rdfs:label "accident" .
+
+time:Saturday a time:DayOfWeek ;
+    rdfs:label "Saturday"@en .
+
+time:Wednesday a time:DayOfWeek ;
+    rdfs:label "Wednesday"@en .
+
+frontlet_data:italie_cpr_DeathCause_pendaison a frontlet:DeathCause ;
+    rdfs:label "pendaison" ;
+    skos:closeMatch thes:hanging .
+
+frontlet_data:italie_cpr_DeathNature_suicide a frontlet:DeathNature ;
+    rdfs:label "suicide" .
+
+frontlet_data:alpes_Country_TUN a frontlet:Country ;
+    rdfs:label "Tunisia"@en ;
+    frontlet:isoAlpha2 "TN" ;
+    frontlet:isoAlpha3 "TUN" ;
+    skos:notation "TUN" .
+
+frontlet:Country a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
+    skos:prefLabel "Country"@en,
+        "Pays"@fr .
+
+frontlet:Age a owl:Class ;
+    rdfs:subClassOf frontlet:AgeEntity ;
+    skos:definition "Valeur précise de l'âge d'un migrant. Il peut être négatif pour une perte prénatale ou à virgule dans le cas d'un enfant de moins d'un an",
+        "Precise value of a migrant age. It can be negative for a prenatal loss or real in case of a less than one year old child"@en ;
+    skos:prefLabel "Age"@en,
+        "Age"@fr .
+
+frontlet:Death a owl:Class ;
+    rdfs:subClassOf frontlet:DeathInjury ;
+    skos:definition "Event consisting in the death of a migrant crossing a border"@en,
+        "Evènement consistant à la mort d'un migrant dans le cadre du franchissement d'une frontière."@fr ;
+    skos:prefLabel "Death"@en,
+        "Mort"@fr .
+
+frontlet:Person a owl:Class ;
+    skos:definition "A person undertakes a journey between two countries"@en,
+        "Un personne entreprend un trajet entre deux pays"@fr ;
+    skos:prefLabel "Person"@en,
+        "Personne"@fr .
+
+frontlet:IndividualEvent a owl:Class ;
+    rdfs:subClassOf frontlet:Event,
+        geo:Feature ;
+    skos:definition "Individual event in the journey of a migrant"@en,
+        "Evènement dans la trajectoire de migration d'un migrant"@fr ;
+    skos:prefLabel "Individual Event"@en,
+        "Evènement individuel"@fr .
+
