@@ -14,17 +14,20 @@ import os
 import math
 import json
 import pycountry
-import random
 from datetime import datetime
-from geopy.geocoders import Nominatim
+from geopy.geocoders import Photon
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
     infer_source_category_key,
+    propagate_geometry_to_sibling_events,
 )
 
 # -------------------- CONFIGURATION --------------------
@@ -33,13 +36,12 @@ THES_PATH = "frontletThesaurus.ttl"
 CSV_PATH = "fortress_europe/fortress_europe.csv"
 OUTPUT_TTL = "fortress_europe/frontlet_import_output.ttl"
 MAPPING_PATH = "fortress_europe/mappingFeThesaurusCauseMort.csv"  # Fichier de mapping CSV (optionnel)
-GEOCODE_SAMPLE_SIZE = 30  # Géocoder seulement N lignes aléatoires pour accélérer.
-GEOCODE_RANDOM_SEED = 42
 GEOCODE_CACHE_PATH = "fortress_europe/geocode_cache.json"
-GEOCODE_USE_CEMETERY_SEARCH = False  # Réduit fortement les appels API et les 429.
-GEOCODE_MIN_DELAY_SECONDS = 1.2  # Délai minimal entre 2 requêtes HTTP Nominatim.
+GEOCODE_MIN_DELAY_SECONDS = 1.2  # Délai minimal entre 2 requêtes HTTP Photon.
 GEOCODE_429_BACKOFF_SECONDS = 8.0  # Pause après un 429 avant un nouvel essai.
 GEOCODE_MAX_429_RETRIES = 3  # Nombre d'essais supplémentaires après 429.
+GEOCODE_TIME_BUDGET_SEC = 240    # Arrêt du géocodage réseau après N secondes.
+GEOCODE_MAX_AFTER_BUDGET = 60    # Appels online supplémentaires après budget épuisé.
 SUSPECT_YEAR_MIN = 1950
 SUSPECT_YEAR_MAX = 2025
 
@@ -108,9 +110,11 @@ def copy_all_class_hierarchy(g_src, g_dst):
                 g_dst.add((class_uri, predicate, obj))
 
 # Initialiser le géocodeur
-geolocator = Nominatim(user_agent="frontlet_fe_geocoder")
+geolocator = Photon(user_agent="frontlet_fe_geocoder")
 GEOCODER_RATE_LIMITED = False
 LAST_GEOCODE_REQUEST_TS = 0.0
+_GEOCODE_START_TIME = None
+_GEOCODE_CALLS_AFTER_BUDGET = 0
 
 
 def throttle_geocode_requests():
@@ -132,7 +136,7 @@ def geocode_single_query(query_text, timeout=10):
     while retries_429 <= GEOCODE_MAX_429_RETRIES:
         try:
             throttle_geocode_requests()
-            result = geolocator.geocode(query_text, timeout=timeout)
+            result = geolocator.geocode(query_text, timeout=timeout, language="en", limit=1)
             return result
         except GeocoderTimedOut:
             # Timeout réseau: laisser la boucle d'appel décider du retry global.
@@ -170,28 +174,27 @@ def geocode_single_query(query_text, timeout=10):
 def geocode_location(location_name, max_retries=3):
     """
     Géocode un nom de lieu et retourne (latitude, longitude) ou (None, None).
-    Cherche d'abord un cimetière, sinon utilise le centroïde de la ville.
     """
     if is_missing(location_name):
         return None, None
 
-    global GEOCODER_RATE_LIMITED
+    global GEOCODER_RATE_LIMITED, _GEOCODE_START_TIME, _GEOCODE_CALLS_AFTER_BUDGET
     if GEOCODER_RATE_LIMITED:
         return None, None
-    
+
+    # Gestion budget temps
+    if _GEOCODE_START_TIME is None:
+        _GEOCODE_START_TIME = time.time()
+    elapsed = time.time() - _GEOCODE_START_TIME
+    if elapsed > GEOCODE_TIME_BUDGET_SEC:
+        if _GEOCODE_CALLS_AFTER_BUDGET >= GEOCODE_MAX_AFTER_BUDGET:
+            return None, None
+        _GEOCODE_CALLS_AFTER_BUDGET += 1
+
     location_str = str(location_name).strip()
-    
-    # Optionnel: chercher un cimetière avant le géocodage standard.
+
     for attempt in range(max_retries):
         try:
-            if GEOCODE_USE_CEMETERY_SEARCH:
-                # Version allégée: si activé, on tente seulement un point "cemetery <lieu>".
-                cemetery_query = f"cemetery {location_str}"
-                cemetery_location = geocode_single_query(cemetery_query, timeout=10)
-                if cemetery_location:
-                    return cemetery_location.latitude, cemetery_location.longitude
-            
-            # Si pas de cimetière unique, chercher le centroïde de la ville
             location = geocode_single_query(location_str, timeout=10)
             if location:
                 return location.latitude, location.longitude
@@ -241,18 +244,17 @@ def is_suspicious_coordinate(lat, lon):
     if lon == -99 and lat == -99:
         return True, "ERROR_-99,-99"
     
-    # Nord-Ouest de Madagascar (lat -12 à -14, lon 43 à 45)
-    if -14 < lat < -12 and 43 < lon < 45:
-        return True, "Madagascar_NW"
-    
-    # Vers le Pôle Nord (lat > 70)
-    if lat > 70:
-        return True, "High_North"
-    
     # Hors limites (|lon| > 180 ou |lat| > 90)
     if abs(lon) > 180 or abs(lat) > 90:
         return True, "OUT_OF_BOUNDS"
-    
+
+    # Hors de la zone Europe / Méditerranée / Afrique du Nord / Proche-Orient
+    # Bounding box : lat 10–72, lon –30 à 60
+    if lat < 10 or lat > 72:
+        return True, "OUT_OF_REGION_LAT"
+    if lon < -30 or lon > 60:
+        return True, "OUT_OF_REGION_LON"
+
     return False, "OK"
 
 def detect_traffic_accident_and_transport(cause_deces_text):
@@ -647,6 +649,20 @@ def is_country_like_value(value):
         return pycountry.countries.get(alpha_3=sval) is not None
     return False
 
+def extract_country_hint_from_lieu(lieu_value):
+    """
+    Extrait le nom de pays en anglais depuis la valeur brute de la colonne 'lieu'
+    (gère les alias italiens via COUNTRY_ALIASES, ex. "Turchia" -> "Turkey").
+    Retourne le nom anglais du pays, ou "" si non reconnu.
+    """
+    if is_missing(lieu_value):
+        return ""
+    cr = resolve_country_record(str(lieu_value).strip())
+    if cr is not None:
+        return getattr(cr, "name", "") or ""
+    return ""
+
+
 def ensure_country_node(g, country_code_or_name):
     """
     Try to find a country resource in graph by label or prefLabel or ISO code.
@@ -835,10 +851,11 @@ def is_plausible_place_name(value):
     connector_words = {
         "di", "de", "del", "della", "delle", "dei", "da", "al", "alla", "du",
         "la", "le", "el", "los", "las", "d", "l",
+        "a", "sul", "sulla", "sugli", "sulle", "sui", "degli", "e",
     }
 
-    tokens = re.findall(r"[A-Za-zÀ-ÖØ-öø-ÿ'’.-]+", txt)
-    if not tokens or len(tokens) > 6:
+    tokens = re.findall(r"[A-Za-z\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u00ff''.-]+", txt)
+    if not tokens or len(tokens) > 8:
         return False
 
     saw_upper_token = False
@@ -854,32 +871,197 @@ def is_plausible_place_name(value):
     return saw_upper_token
 
 
+# Mots-clés narratifs non-géographiques utilisés pour couper les fragments extraits.
+_LOC_NARRATIVE_CUT = re.compile(
+    r"\b(?:con|alla\s+deriva|sulla\s+rotta|a\s+bordo|in\s+cui|nel\s+quale|nella\s+quale"
+    r"|che\s+|il\s+quale|la\s+quale|dove\s|provoca|causa|viene|hanno|sono|si\s+trova"
+    r"|with|where|when|while|after|before|during|durante|mentre)\b",
+    re.IGNORECASE,
+)
+
+# Tokens d'arrêt : capitalisés mais non-géographiques.
+_LOC_STOP_CAPS = {
+    "I", "Il", "La", "Le", "Lo", "Gli", "Un", "Una", "Uno",
+    "Si", "Ha", "Ho", "Che", "Da", "In", "Al", "Alla", "Del", "Della",
+    "Nel", "Nella", "Dei", "Delle", "Sul", "Sulla", "Sugli", "Tra",
+    "Con", "Per", "Ma", "Ed", "E", "O", "Non", "Secondo",
+    "Soccorsa", "Bordo", "Cadaveri", "Passeggeri", "Morti", "Stenti",
+    "Barca", "Deriva", "Rotta", "Largo", "Marina", "Militare",
+    "Guardia", "Costiera", "Organizzazione",
+}
+
+
+def _clean_loc_fragment(raw: str):
+    """
+    Nettoie un fragment brut extrait par un pattern géographique :
+    coupe à la première ponctuation forte ou mot narratif, supprime les articles initiaux.
+    """
+    if not raw:
+        return None
+    raw = raw.strip(" \t\n\r,.;:-()[]{}\"'")
+    raw = re.split(r"[.;]", raw, maxsplit=1)[0].strip()
+    raw = _LOC_NARRATIVE_CUT.split(raw, maxsplit=1)[0].strip(" \t\n\r,.;:-")
+    # Couper avant article défini + nom commun (ex. "Melilla il corpo" → "Melilla")
+    raw = re.split(r"\s+(?:il|la|lo|gli|i|un|una|uno|le|a|e|e')\s+[a-z\u00c0-\u00ff]", raw, maxsplit=1)[0].strip()
+    raw = re.sub(r"^(?:l[ea]?|il|lo|gli|the|des?|l['\u2019])\s+", "", raw, flags=re.IGNORECASE)
+    raw = re.sub(r"\s+", " ", raw).strip()
+    if len(raw) < 2 or len(raw) > 80:
+        return None
+    return raw
+
+
+def _first_proper_noun(raw: str):
+    """Retourne le premier nom propre (token commençant par une majuscule) d'un fragment."""
+    for token in re.findall(r"[A-Z\u00C0-\u00D6\u00D8-\u00DE][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{1,}", raw):
+        if token not in _LOC_STOP_CAPS:
+            return token
+    return None
+
+
+def _last_proper_noun(raw: str):
+    """Retourne le dernier nom propre d'un fragment (utile pour 'X, Y' où Y est plus précis)."""
+    result = None
+    for token in re.findall(r"[A-Z\u00C0-\u00D6\u00D8-\u00DE][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{1,}", raw):
+        if token not in _LOC_STOP_CAPS:
+            result = token
+    return result
+
+
 def extract_location_from_text(text_value):
-    """Try to detect a location mention from narrative text."""
+    """
+    Extrait le lieu de mort le plus précis possible depuis le texte narratif.
+
+    Hiérarchie décroissante de précision :
+      1. Localité nommée  – « in località X », « nella località di X »
+      2. Lieu nommé       – port, plage, rochers, enclave, frontière
+      3. Ville / île      – « al largo di X », « nelle acque di X »,
+                            « sull'isola di X », « a X [, nel distretto] »
+      4. Province / district / région
+      5. Fallback général – « vicino a X », « in X »
+
+    Retourne la chaîne la plus précise trouvée, ou None.
+    """
     if is_missing(text_value):
         return None
-
     text = str(text_value).strip()
     if not text:
         return None
 
-    patterns = [
-        r"\b(?:rotta per|route to|heading to|towards?|diretti a|diretto a|en route to)\s+(?P<loc>[^,.;:()]{2,100})",
-        r"\b(?:al largo di|au large de|off the coast of)\s+(?P<loc>[^,.;:()]{2,100})",
-        r"\b(?:near|close to|vicino a|nei pressi di|in prossimita di|in prossimità di)\s+(?P<loc>[^,.;:()]{2,100})",
-        r"\b(?:in|at)\s+(?P<loc>[A-Z][^,.;:()]{2,100})",
-        r"\ba\s+(?P<loc>[A-Z][A-Za-zÀ-ÖØ-öø-ÿ'’.-]{1,40}(?:\s+(?:[A-Z][A-Za-zÀ-ÖØ-öø-ÿ'’.-]{1,40}|di|de|del|della|delle|da|al|alla)){0,4})",
-    ]
+    _P = re.IGNORECASE
 
-    for pattern in patterns:
-        match = re.search(pattern, text, flags=re.IGNORECASE)
-        if match:
-            cleaned = clean_extracted_location(match.group("loc"))
-            if cleaned and is_plausible_place_name(cleaned):
-                return cleaned
+    # ── Niveau 1 : localité nommée ───────────────────────────────────────────
+    for pat in [
+        r"\bin\s+localit[\u00e0a]\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bnell[ae]\s+localit[\u00e0a]\s+(?:di\s+)?(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bnella\s+localit[\u00e0a]\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bin\s+loc(?:\.|alita)?\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+    ]:
+        m = re.search(pat, text, _P)
+        if m:
+            raw = _clean_loc_fragment(m.group("loc"))
+            if raw:
+                # Couper sur la virgule OU sur " e " (ex. "Vagia e Skylomantra" → "Vagia")
+                result = re.split(r",|\s+e\s+", raw)[0].strip()
+                if len(result) >= 2:
+                    return result
+
+    # ── Niveau 2 : lieu nommé (port, plage, rochers, enclave, frontière) ────
+    for pat in [
+        r"\bnell[ae]\s+acque\s+del\s+porto\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bnel\s+porto\s+(?:dell['\u2019ae]\s+\S+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bporto\s+d[i'\u2019]\s*(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bsulle?\s+spiagge?\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bsulla\s+spiaggia\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bsugli\s+scogli\s+(?:di\s+|dell['\u2019ae]\s+(?:isola\s+di\s+)?)?(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bscogli\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\benclave\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\bconfine\s+(?:tra\s+[A-Z]\S+\s+e\s+la\s+|con\s+la\s+)(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+        r"\b(?:nel\s+Canale\s+di|nello\s+Stretto\s+di)\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{1,50})",
+    ]:
+        m = re.search(pat, text, _P)
+        if m:
+            raw = _clean_loc_fragment(m.group("loc"))
+            if raw:
+                result = raw.split(",")[0].strip()
+                if len(result) >= 2:
+                    return result
+
+    # ── Niveau 3 : ville / île ───────────────────────────────────────────────
+    _lvl3_patterns = [
+        # "a X, nel distretto/provincia di Y" → X est la ville
+        (False, r"\b(?:a|ad)\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})\s*,\s*(?:nel|nella)\s+(?:distretto|provincia)"),
+        # "nelle acque di X, nel distretto de Y" → X est la ville
+        (False, r"\bnell[ae]\s+acque\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})\s*,"),
+        # "davanti alla/alle costa/coste (turca/…) di X"
+        (False, r"\bdavanti\s+all[ae]\s+cost[ae]\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})"),
+        # "sulle coste (turche/…) di X"
+        (False, r"\bsulle?\s+coste?\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})"),
+        # "nelle acque di X"
+        (False, r"\bnell[ae]\s+acque\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})"),
+        # "al largo di X, Y" – virgule possible ; Y peut être plus précis
+        (True,  r"\bal\s+largo\s+(?:dell['\u2019ae]\s+isola\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''., \s-]{2,60})"),
+        # "al largo dell'isola X" (sans "di")
+        (False, r"\bal\s+largo\s+dell['\u2019]isola\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})\b"),
+        # "a nord/sud/est/ovest di X"
+        (False, r"\ba\s+(?:nord|sud|est|ovest|nord-est|nord-ovest|sud-est|sud-ovest)\s+(?:di\s+)?(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})"),
+        # "sull'isola (greca/…) di X"
+        (False, r"\bsull['\u2019]isola\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})"),
+        (False, r"\ball['\u2019]isola\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})"),
+        (False, r"\bisola\s+(?:\w+\s+)?di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})"),
+        (False, r"\bsull['\u2019]isola\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})\b"),
+        # "tra le localita di X e Y" → X
+        (False, r"\btra\s+le\s+localit[\u00e0a]\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})"),
+        # "a X" général (ville)
+        (False, r"\b(?:a|ad)\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40}(?:\s+[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40}){0,2})\b"),
+    ]
+    for is_al_largo, pat in _lvl3_patterns:
+        m = re.search(pat, text, _P)
+        if m:
+            raw = _clean_loc_fragment(m.group("loc"))
+            if not raw:
+                continue
+            # Pour "al largo di X, Y" : Y (après la virgule) est souvent la ville
+            if is_al_largo and "," in raw:
+                parts = [p.strip() for p in raw.split(",") if p.strip()]
+                candidate = _last_proper_noun(parts[-1]) if parts else None
+                if candidate:
+                    return candidate
+                raw = parts[0]
+            # Fragment trop long → extraire le premier nom propre
+            if len(raw.split()) > 4:
+                pn = _first_proper_noun(raw)
+                if pn:
+                    raw = pn
+            if raw and len(raw) >= 2:
+                return raw
+
+    # ── Niveau 4 : province / district / région ──────────────────────────────
+    for pat in [
+        r"\bnell[ae]?\s+(?:provincia|distretto|dipartimento)\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})",
+        r"\bnella\s+regione\s+(?:di\s+)?(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})",
+        r"\b(?:nel\s+)?distretto\s+di\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''.-]{2,40})",
+    ]:
+        m = re.search(pat, text, _P)
+        if m:
+            raw = _clean_loc_fragment(m.group("loc"))
+            if raw:
+                result = raw.split(",")[0].strip()
+                if len(result) >= 2:
+                    return result
+
+    # ── Niveau 5 : fallback général ───────────────────────────────────────────
+    for pat in [
+        r"\b(?:vicino\s+a|nei\s+pressi\s+di|in\s+prossimit[\u00e0a]\s+(?:di\s+)?|near|close\s+to)\s+(?P<loc>[A-Z][A-Za-z\u00C0-\u00F6\u00F8-\u00FF''. \s-]{2,50})",
+        r"\b(?:in|at)\s+(?P<loc>[A-Z][^,.;:()]{2,60})",
+        r"\b(?:rotta\s+per|route\s+to|heading\s+to|diretti\s+a|diretto\s+a|en\s+route\s+to)\s+(?P<loc>[^,.;:()]{2,60})",
+    ]:
+        m = re.search(pat, text, _P)
+        if m:
+            raw = _clean_loc_fragment(m.group("loc"))
+            if raw and is_plausible_place_name(raw):
+                return raw
 
     return None
-
 
 def normalize_location_choice(value):
     """Normalize a raw location candidate into a concise place-like name."""
@@ -923,19 +1105,26 @@ def slugify_location_name(value, default="unknown"):
 
 
 def load_persistent_geocode_cache(cache_path=GEOCODE_CACHE_PATH):
-    """Load geocoding cache from disk: {location: [lat, lon]}."""
+    """Load geocoding cache from disk: {cache_key: [lat, lon]}.
+    Les entrées sans séparateur '||' (ancien format sans pays) sont ignorées
+    pour forcer un nouveau géocodage contextualisé par pays."""
     if not os.path.exists(cache_path):
         return {}
     try:
         with open(cache_path, "r", encoding="utf-8") as fh:
             data = json.load(fh)
         cache = {}
+        skipped = 0
         for key, value in data.items():
+            # Ignorer les entrées de l'ancien format (sans contexte pays)
+            if "||" not in str(key):
+                skipped += 1
+                continue
             if isinstance(value, list) and len(value) == 2:
                 lat, lon = value
                 if lat is not None and lon is not None:
                     cache[str(key)] = (float(lat), float(lon))
-        print(f"Cache géocodage chargé: {len(cache)} lieux")
+        print(f"Cache géocodage chargé: {len(cache)} lieux ({skipped} entrées obsolètes ignorées)")
         return cache
     except Exception as e:
         print(f"Warning: cache géocodage illisible ({cache_path}): {e}")
@@ -954,7 +1143,7 @@ def save_persistent_geocode_cache(cache, cache_path=GEOCODE_CACHE_PATH):
         print(f"Warning: impossible de sauvegarder le cache géocodage: {e}")
 
 
-def add_or_update_geometry(g, event_uri, geometry_uri, location_label=None, lat=None, lon=None):
+def add_or_update_geometry(g, event_uri, geometry_uri, location_label=None, lat=None, lon=None, is_geocoded=False):
     """Create a geometry node, keep a human label, and add WKT when coordinates are available."""
     if lat is None or lon is None:
         return False
@@ -977,8 +1166,9 @@ def add_or_update_geometry(g, event_uri, geometry_uri, location_label=None, lat=
     if not is_missing(location_label):
         g.add((geometry_uri, RDFS.label, Literal(str(location_label).strip())))
 
-    wkt = f"POINT({lon_f} {lat_f})"
+    wkt = build_wkt_for_location_precision(location_label or "", lat_f, lon_f, bool(is_geocoded))
     g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+    g.add((geometry_uri, F.hasPrecision, Literal(not is_geocoded, datatype=XSD.boolean)))
     return True
 
 # ----------------- Chargement des graphes ----------------
@@ -1030,43 +1220,81 @@ if df is None:
 
 n_rows = len(df)
 
-# Échantillon aléatoire des lignes sur lesquelles on autorise le géocodage.
-sample_size = min(GEOCODE_SAMPLE_SIZE, n_rows)
-rng = random.Random(GEOCODE_RANDOM_SEED)
-geocode_row_indices = set(rng.sample(list(df.index), sample_size)) if sample_size > 0 else set()
-print(f"Géocodage activé sur {sample_size}/{n_rows} lignes (échantillon aléatoire, seed={GEOCODE_RANDOM_SEED})")
+# Géocodage activé sur toutes les lignes (résultats mis en cache JSON).
+geocode_row_indices = set(df.index)
+print(f"Géocodage activé sur {n_rows} lignes (toutes lignes, cache JSON actif)")
 print(
     "Paramètres anti-429: "
     f"min_delay={GEOCODE_MIN_DELAY_SECONDS}s, "
     f"backoff={GEOCODE_429_BACKOFF_SECONDS}s, "
-    f"max_429_retries={GEOCODE_MAX_429_RETRIES}"
+    f"max_429_retries={GEOCODE_MAX_429_RETRIES}, "
+    f"budget={GEOCODE_TIME_BUDGET_SEC}s"
 )
 
 # ------------------- Cache de geocodage ------------------
-def build_geocode_cache(values, label="lieux", persistent_cache=None):
-    """Geocode each distinct non-empty value once and return {value: (lat, lon)}."""
+def make_geocode_cache_key(location_value, country_hint):
+    """Clé de cache stable : 'lieu||Pays' quand le pays est connu, sinon 'lieu'."""
+    if country_hint:
+        return f"{location_value}||{country_hint}"
+    return location_value
+
+
+def build_geocode_cache(values, label="lieux", persistent_cache=None, country_hint_map=None):
+    """
+    Géocode chaque valeur unique et retourne {cache_key: (lat, lon)}.
+    country_hint_map : dict optionnel {location_value: country_english_name}.
+      - La clé de cache devient "loc||Pays" quand le pays est connu.
+      - La requête Photon est enrichie en "loc, Pays" pour forcer la bonne région.
+    """
     cache = {}
     if persistent_cache is None:
         persistent_cache = {}
-    unique_values = sorted({str(v).strip() for v in values if not is_missing(v) and str(v).strip()})
-    total = len(unique_values)
+    if country_hint_map is None:
+        country_hint_map = {}
+
+    # Construire l'ensemble unique (valeur, hint_pays)
+    unique_pairs = sorted({
+        (str(v).strip(), country_hint_map.get(str(v).strip(), ""))
+        for v in values
+        if not is_missing(v) and str(v).strip()
+    })
+    total = len(unique_pairs)
 
     if total == 0:
         return cache
 
-    hits = sum(1 for value in unique_values if value in persistent_cache)
+    hits = sum(
+        1 for val, hint in unique_pairs
+        if make_geocode_cache_key(val, hint) in persistent_cache
+    )
     print(f"Pré-géocodage: {total} {label} uniques (cache hit={hits}, online={total-hits})")
-    for i, value in enumerate(unique_values, start=1):
-        if value in persistent_cache:
-            cache[value] = persistent_cache[value]
+    budget_start = time.time()
+    budget_exceeded = False
+    calls_after_budget = 0
+    for i, (value, country_hint) in enumerate(unique_pairs, start=1):
+        cache_key = make_geocode_cache_key(value, country_hint)
+        if cache_key in persistent_cache:
+            cache[cache_key] = persistent_cache[cache_key]
             continue
         if GEOCODER_RATE_LIMITED:
             print(f"  Pré-géocodage {label}: interrompu à {i-1}/{total} (rate limit)")
             break
-        coords = geocode_location(value)
-        cache[value] = coords
+        if not budget_exceeded and (time.time() - budget_start) > GEOCODE_TIME_BUDGET_SEC:
+            budget_exceeded = True
+            print(f"  Budget temps écoulé ({GEOCODE_TIME_BUDGET_SEC}s) après {i-1} appels. Encore {GEOCODE_MAX_AFTER_BUDGET} appels online autorisés.")
+        if budget_exceeded:
+            calls_after_budget += 1
+            if calls_after_budget > GEOCODE_MAX_AFTER_BUDGET:
+                print(f"  Limite post-budget atteinte ({GEOCODE_MAX_AFTER_BUDGET}). Arrêt géocodage en ligne.")
+                break
+        # Requête enrichie avec le contexte pays pour plus de précision
+        query = f"{value}, {country_hint}" if country_hint else value
+        if country_hint:
+            print(f"  Géocodage «{value}» dans le contexte pays: {country_hint}")
+        coords = geocode_location(query)
+        cache[cache_key] = coords
         if coords[0] is not None and coords[1] is not None:
-            persistent_cache[value] = coords
+            persistent_cache[cache_key] = coords
         if i % 50 == 0 or i == total:
             print(f"  Pré-géocodage {label}: {i}/{total}")
 
@@ -1092,24 +1320,24 @@ def is_geocodable_location_text(value):
     return True
 
 
-# Préparer les listes de valeurs à géocoder uniquement quand c'est nécessaire.
+# Préparer les listes de valeurs à géocoder.
 persistent_geocode_cache = load_persistent_geocode_cache()
 rows_needing_lieu_geocode = []
 rows_needing_inhumation_geocode = []
 row_location_choice = {}
+row_country_hint = {}  # idx -> nom de pays en anglais extrait depuis "lieu"
 
 count_location_from_text = 0
 count_location_from_lieu = 0
 count_location_missing = 0
-count_sample_rows_missing_coords = 0
-count_sample_rows_with_coords = 0
-count_sample_rows_with_geocodable_location = 0
 
 for prep_idx, prep_row in df.iterrows():
-    lat_deces = prep_row.get("Coord_Lat_deces", "") or prep_row.get("Coord_lat_deces", "")
-    lon_deces = prep_row.get("Coord_Long_deces", "") or prep_row.get("Coord_long_deces", "")
     text_prep = prep_row.get("text", "")
     lieu_prep = prep_row.get("lieu", "") or prep_row.get("lieu".lower(), "")
+
+    # Extraire le pays depuis la colonne "lieu" pour contraindre le géocodage
+    country_hint = extract_country_hint_from_lieu(lieu_prep)
+    row_country_hint[prep_idx] = country_hint
 
     text_location = extract_location_from_text(text_prep)
     if not is_missing(text_location):
@@ -1126,36 +1354,51 @@ for prep_idx, prep_row in df.iterrows():
         location_choice = ""
     row_location_choice[prep_idx] = location_choice
 
-    if prep_idx in geocode_row_indices:
-        if is_missing(lat_deces) or is_missing(lon_deces):
-            count_sample_rows_missing_coords += 1
-            if is_geocodable_location_text(location_choice):
-                rows_needing_lieu_geocode.append(location_choice)
-                count_sample_rows_with_geocodable_location += 1
-        else:
-            count_sample_rows_with_coords += 1
+    if is_geocodable_location_text(location_choice):
+        rows_needing_lieu_geocode.append(location_choice)
 
-    lat_ent_prep = prep_row.get("Coord_Lat_enterrement", "") or prep_row.get("Coord_lat_enterrement", "")
-    lon_ent_prep = prep_row.get("Coord_Long_enterrement", "") or prep_row.get("Coord_long_enterrement", "")
     comm_enterrement_prep = prep_row.get("Comm_enterrement", "")
-    if prep_idx in geocode_row_indices and (is_missing(lat_ent_prep) or is_missing(lon_ent_prep)):
-        if is_geocodable_location_text(comm_enterrement_prep):
-            rows_needing_inhumation_geocode.append(str(comm_enterrement_prep).strip())
+    if is_geocodable_location_text(comm_enterrement_prep):
+        rows_needing_inhumation_geocode.append(str(comm_enterrement_prep).strip())
 
-geocode_cache_lieu = build_geocode_cache(rows_needing_lieu_geocode, label="lieux de décès", persistent_cache=persistent_geocode_cache)
+# Construire loc_to_country_hint : {location_choice -> pays en anglais}
+# Si une même valeur de lieu apparaît pour plusieurs pays, on prend la valeur
+# non-vide la plus fréquente (la première rencontrée suffit ici).
+loc_to_country_hint: dict[str, str] = {}
+for _pidx, _loc in row_location_choice.items():
+    if _loc:
+        _hint = row_country_hint.get(_pidx, "")
+        if _hint and _loc not in loc_to_country_hint:
+            loc_to_country_hint[_loc] = _hint
+
+geocode_cache_lieu = build_geocode_cache(
+    rows_needing_lieu_geocode,
+    label="lieux de décès",
+    persistent_cache=persistent_geocode_cache,
+    country_hint_map=loc_to_country_hint,
+)
 geocode_cache_inhumation = build_geocode_cache(rows_needing_inhumation_geocode, label="lieux d'inhumation", persistent_cache=persistent_geocode_cache)
+
+# Build cemetery geocode cache: pour les communes d'enterrement sans coordonnées,
+# chercher spécifiquement les cimetières plutôt que juste la commune.
+# Créer un map commune -> pays pour les cimetières
+cemetery_country_hint_map = {}
+for _pidx, _comm in enumerate(rows_needing_inhumation_geocode):
+    if _comm and _pidx in row_country_hint:
+        cemetery_country_hint_map[_comm] = row_country_hint[_pidx]
+
+geocode_cache_cemetery = build_cemetery_geocode_cache(
+    rows_needing_inhumation_geocode,
+    geocoder=geolocator,
+    country_hint_map=cemetery_country_hint_map if cemetery_country_hint_map else None,
+)
+
 save_persistent_geocode_cache(persistent_geocode_cache)
 print(
     "Détection de lieu (toutes lignes): "
     f"depuis text={count_location_from_text}, "
     f"fallback lieu={count_location_from_lieu}, "
     f"sans lieu={count_location_missing}"
-)
-print(
-    "Diagnostic échantillon géocodage: "
-    f"lignes avec coords déjà présentes={count_sample_rows_with_coords}, "
-    f"lignes sans coords={count_sample_rows_missing_coords}, "
-    f"lignes géocodables (sans coords)={count_sample_rows_with_geocodable_location}"
 )
 
 # ---------------------- Preparation ----------------------
@@ -1229,10 +1472,17 @@ count_additional_typed_events = 0
 
 for idx, row in df.iterrows():
     dead_count, injury_count, missing_count = estimate_casualty_counts_from_text(row.get("text", ""))
-    if injury_count > 0 and (dead_count + missing_count) == 0:
-        # Injury est ante-mortem et doit etre ancre a un evenement de deces ou de disparition.
+    primary_people_count = dead_count + missing_count
+    if injury_count > 0 and primary_people_count == 0:
+        # Une blessure ne constitue pas un resultat final; on cree au minimum une disparition d'ancrage.
         missing_count = 1
-    people_involved_for_row = dead_count + injury_count + missing_count
+        primary_people_count = 1
+
+    # Une blessure est ante-mortem/ante-disparition: on ne cree pas plus de blessures que d'evenements primaires.
+    injury_event_count = min(injury_count, primary_people_count) if primary_people_count > 0 else 0
+
+    # Le nombre de personnes impliquees correspond aux personnes ayant un resultat final (Death ou Missing).
+    people_involved_for_row = primary_people_count
 
     if people_involved_for_row >= 2:
         count_rows_multi_people += 1
@@ -1254,12 +1504,11 @@ for idx, row in df.iterrows():
     event_specs = []
     for i in range(dead_count):
         event_specs.append((DEATH_EVENT_CLASS, "Death", i + 1))
-    for i in range(injury_count):
-        event_specs.append((INJURY_EVENT_CLASS, "Injury", i + 1))
     for i in range(missing_count):
         event_specs.append((MISSING_EVENT_CLASS, "Missing", i + 1))
 
     person_event_pairs = []
+    injury_event_pairs = []
     primary_event_uris = []
     for pair_idx, (event_class_uri, event_kind, type_index) in enumerate(event_specs, start=1):
         person_uri = DATA[f"fe_Person_{idx+1}_{pair_idx}"]
@@ -1280,20 +1529,28 @@ for idx, row in df.iterrows():
         if event_kind == "Death":
             count_death_events += 1
             primary_event_uris.append(event_uri)
-        elif event_kind == "Injury":
-            count_injury_events += 1
         elif event_kind == "Missing":
             count_missing_events += 1
             primary_event_uris.append(event_uri)
 
         person_event_pairs.append((person_uri, event_uri))
 
-    if primary_event_uris:
-        for _, event_uri in person_event_pairs:
-            if (event_uri, RDF.type, INJURY_EVENT_CLASS) in g:
-                anchor_event_uri = primary_event_uris[0]
-                g.add((event_uri, PROP_temporal_before, anchor_event_uri))
-                g.add((anchor_event_uri, PROP_temporal_after, event_uri))
+    # Les blessures sont des evenements additionnels rattaches aux personnes ayant un resultat final.
+    if person_event_pairs and injury_event_count > 0:
+        for injury_idx in range(1, injury_event_count + 1):
+            anchor_person_uri, anchor_event_uri = person_event_pairs[(injury_idx - 1) % len(person_event_pairs)]
+            injury_event_uri = DATA[f"fe_Injury_gen_{idx+1}_{injury_idx}"]
+            g.add((injury_event_uri, RDF.type, INJURY_EVENT_CLASS))
+            g.add((injury_event_uri, RDF.type, F.IndividualEvent))
+            g.add((anchor_person_uri, PROP_composedOf, injury_event_uri))
+            g.add((injury_event_uri, PROP_temporal_before, anchor_event_uri))
+            g.add((anchor_event_uri, PROP_temporal_after, injury_event_uri))
+            if collective_event_uri is not None:
+                g.add((injury_event_uri, F.group, collective_event_uri))
+            injury_event_pairs.append((anchor_person_uri, injury_event_uri))
+            count_injury_events += 1
+
+    all_event_pairs = person_event_pairs + injury_event_pairs
 
     # NOMS
     val = row.get("Nom_connu", "")
@@ -1319,6 +1576,9 @@ for idx, row in df.iterrows():
                 age_node = create_age_node(g, age_val)
                 if age_node:
                     g.add((person_uri, PROP_hasAgeLink, age_node))
+                    # Also add direct hasAge for convenience
+                    for age_v in g.objects(age_node, F.hasAge):
+                        g.add((person_uri, F.hasAge, age_v))
     except Exception:
         pass
 
@@ -1328,14 +1588,14 @@ for idx, row in df.iterrows():
         for person_uri, _ in person_event_pairs:
             if any(k in sexe for k in (" hombre ", "hombre", " varon", "varón", " male ", " man ", " boy ", " nino", "niño")):
                 if THES_male is not None:
-                    g.add((person_uri, F.gender, THES_male))
+                    g.add((person_uri, F.hasGender, THES_male))
                 else:
-                    g.add((person_uri, F.gender, Literal("male")))
+                    g.add((person_uri, F.hasGender, Literal("male")))
             elif any(k in sexe for k in (" mujer ", "mujer", " female ", " woman ", " girl ", " nina", "niña")):
                 if THES_female is not None:
-                    g.add((person_uri, F.gender, THES_female))
+                    g.add((person_uri, F.hasGender, THES_female))
                 else:
-                    g.add((person_uri, F.gender, Literal("female")))
+                    g.add((person_uri, F.hasGender, Literal("female")))
 
     # LIEU DE NAISSANCE
     birth_country = None
@@ -1385,7 +1645,7 @@ for idx, row in df.iterrows():
             if parsed_date:
                 date_iso = parsed_date.strftime("%Y-%m-%d")
                 weekday_name = infer_day_of_week_name(date_iso, date_str, row.get("text", ""))
-                for _, event_uri in person_event_pairs:
+                for _, event_uri in all_event_pairs:
                     g.add((event_uri, TIME.inXSDDate, Literal(date_iso, datatype=XSD.date)))
                     if weekday_name:
                         g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
@@ -1398,7 +1658,7 @@ for idx, row in df.iterrows():
     if parsed_date is None:
         weekday_name = infer_day_of_week_name(date_mort_val, row.get("text", ""), row.get("Cause_deces", ""))
         if weekday_name:
-            for _, event_uri in person_event_pairs:
+            for _, event_uri in all_event_pairs:
                 g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
                 g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
                 g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
@@ -1439,7 +1699,7 @@ for idx, row in df.iterrows():
     if not is_missing(front_ex):
         cnode = ensure_country_node(g, str(front_ex).strip())
         if cnode:
-            for _, event_uri in person_event_pairs:
+            for _, event_uri in all_event_pairs:
                 g.add((event_uri, PROP_borderOUT, cnode))
 
     # frontiere_IN -> borderIN
@@ -1447,7 +1707,7 @@ for idx, row in df.iterrows():
     if not is_missing(front_in):
         cnode = ensure_country_node(g, str(front_in).strip())
         if cnode:
-            for _, event_uri in person_event_pairs:
+            for _, event_uri in all_event_pairs:
                 g.add((event_uri, PROP_borderIN, cnode))
 
     raw_lieu_val = row.get("lieu", "") or row.get("lieu".lower(), "")
@@ -1473,10 +1733,13 @@ for idx, row in df.iterrows():
         lat_f = None
         lon_f = None
 
+    is_geocoded_from_lieu = False
     if lat_f is None or lon_f is None:
-        if idx in geocode_row_indices and not is_missing(lieu_val):
+        if not is_missing(lieu_val):
             try:
-                lat_lieu, lon_lieu = geocode_cache_lieu.get(str(lieu_val).strip(), (None, None))
+                country_hint_for_row = row_country_hint.get(idx, "")
+                cache_key_lieu = make_geocode_cache_key(str(lieu_val).strip(), country_hint_for_row)
+                lat_lieu, lon_lieu = geocode_cache_lieu.get(cache_key_lieu, (None, None))
                 if lat_lieu is not None and lon_lieu is not None and math.isfinite(lat_lieu) and math.isfinite(lon_lieu):
                     is_suspicious, reason = is_suspicious_coordinate(lat_lieu, lon_lieu)
                     if is_suspicious:
@@ -1484,10 +1747,11 @@ for idx, row in df.iterrows():
                     else:
                         lat_f = lat_lieu
                         lon_f = lon_lieu
+                        is_geocoded_from_lieu = True
             except Exception as e:
                 print(f"Erreur géocodage lieu pour ligne {idx+1}: {lieu_val} - {e}")
 
-    for pair_idx, (_, event_uri) in enumerate(person_event_pairs, start=1):
+    for pair_idx, (_, event_uri) in enumerate(all_event_pairs, start=1):
         if not is_missing(lieu_val):
             geometry_slug = slugify_location_name(lieu_val)
             geometry_uri = DATA[f"fe_geometry_{geometry_slug}_{idx+1}_{pair_idx}"]
@@ -1498,6 +1762,7 @@ for idx, row in df.iterrows():
                 location_label=lieu_val,
                 lat=lat_f,
                 lon=lon_f,
+                        is_geocoded=False,
             ):
                 count_geometry_with_wkt += 1
             count_geometry_nodes += 1
@@ -1541,15 +1806,17 @@ for idx, row in df.iterrows():
 
                 for pair_idx, (person_uri, event_uri) in enumerate(person_event_pairs, start=1):
                     g.add((event_uri, PROP_transportType, transport_uri))
+                    # Lien direct Transport -> usedIn -> Death/Missing
+                    g.add((transport_uri, PROP_usedIn, event_uri))
                     embark_uri = DATA[f"EmbarkEvent_{idx+1}_{slug}_{pair_idx}"]
                     if (embark_uri, None, None) not in g:
                         g.add((embark_uri, RDF.type, EMBARK_EVENT_CLASS))
                     g.add((embark_uri, PROP_usedIn, transport_uri))
+                    # Lien bidirectionnel pour consistence
+                    g.add((transport_uri, PROP_usedIn, embark_uri))
                     g.add((embark_uri, PROP_temporal_before, event_uri))
                     g.add((event_uri, PROP_temporal_after, embark_uri))
                     g.add((person_uri, PROP_composedOf, embark_uri))
-                    if collective_event_uri is not None:
-                        g.add((embark_uri, F.group, collective_event_uri))
                     count_embark += 1
 
     # RAPATRIEMENT
@@ -1587,8 +1854,19 @@ for idx, row in df.iterrows():
             lat_e = None
             lon_e = None
 
-        if (lat_e is None or lon_e is None) and idx in geocode_row_indices:
-            lat_e, lon_e = geocode_cache_inhumation.get(str(comm_enterrement).strip(), (None, None))
+        is_inhumation_geocoded = False
+        if (lat_e is None or lon_e is None):
+            # Essayer d'abord le cimetière (burial/cemetery)
+            comm_key = str(comm_enterrement).strip()
+            if comm_key in geocode_cache_cemetery and geocode_cache_cemetery[comm_key][0] is not None:
+                lat_e, lon_e = geocode_cache_cemetery[comm_key]
+                is_inhumation_geocoded = True
+            else:
+                # Sinon, fallback sur le cache de commune régulier
+                cached = geocode_cache_inhumation.get(comm_key, (None, None))
+                if cached[0] is not None:
+                    lat_e, lon_e = cached
+                    is_inhumation_geocoded = True
 
         for pair_idx, (person_uri, event_uri) in enumerate(person_event_pairs, start=1):
             inhumation_event_uri = DATA[f"InhumationEvent_{idx+1}_{pair_idx}"]
@@ -1613,9 +1891,12 @@ for idx, row in df.iterrows():
                         location_label=comm_enterrement,
                         lat=lat_e,
                         lon=lon_e,
+                        is_geocoded=is_inhumation_geocoded,
                     ):
                         count_geometry_nodes += 1
                         count_geometry_with_wkt += 1
+                        if is_inhumation_geocoded and comm_enterrement and not is_missing(comm_enterrement):
+                            g.add((inhumation_event_uri, F.lieu, Literal(str(comm_enterrement).strip())))
                 else:
                     print(f"  ⚠️  Coordonnée suspecte ignorée pour inhumation ({reason}): {lon_e}, {lat_e}")
 
@@ -1630,16 +1911,26 @@ for idx, row in df.iterrows():
         g.add((source_uri, RDF.type, SOURCE_CLASS))
         combined_fe_source = " ".join(filter(None, [str(source_name).strip() if not is_missing(source_name) else "", str(url2).strip() if not is_missing(url2) else ""]))
         source_category = infer_source_category_key(combined_fe_source)
-        SOURCE_SUBTYPE_MAP = {"family": F.Family, "media": F.Media, "civil_society": F.CivilSociety, "death_certificate": F.DeathCertificate, "official_document": F.OtherOfficialDocument}
+        SOURCE_SUBTYPE_MAP = {
+            "family": F.Family, 
+            "media": F.Media, 
+            "civil_society": F.CivilSociety, 
+            "death_certificate": F.DeathCertificate, 
+            "official_document": F.OfficialDocument,
+            "other_official_document": F.OtherOfficialDocument
+        }
         sub_type = SOURCE_SUBTYPE_MAP.get(source_category)
         if sub_type:
             g.add((source_uri, RDF.type, sub_type))
+        else:
+            # Default to Media if category unknown
+            g.add((source_uri, RDF.type, F.Media))
         if not is_missing(source_name):
             g.add((source_uri, RDFS.label, Literal(str(source_name).strip())))
         if not is_missing(url2):
             g.add((source_uri, PROP_hasWebLink, Literal(str(url2).strip())))
 
-        for _, event_uri in person_event_pairs:
+        for _, event_uri in all_event_pairs:
             g.add((event_uri, PROP_sourcedBy, source_uri))
         count_sources += 1
 
@@ -1666,6 +1957,29 @@ for idx, row in df.iterrows():
     
 
 # --------------------- Resume et sortie ------------------
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "fortress_europe")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "fortress_europe")
+
+# Integrite metier: une personne doit avoir un resultat final (Death ou Missing).
+invalid_injury_only_persons = []
+for person_uri in g.subjects(RDF.type, PERSON_CLASS):
+    has_injury = False
+    has_terminal_event = False
+    for event_uri in g.objects(person_uri, PROP_composedOf):
+        if (event_uri, RDF.type, INJURY_EVENT_CLASS) in g:
+            has_injury = True
+        if (event_uri, RDF.type, DEATH_EVENT_CLASS) in g or (event_uri, RDF.type, MISSING_EVENT_CLASS) in g:
+            has_terminal_event = True
+    if has_injury and not has_terminal_event:
+        invalid_injury_only_persons.append(person_uri)
+
+if invalid_injury_only_persons:
+    sample = ", ".join(str(u) for u in invalid_injury_only_persons[:5])
+    raise RuntimeError(
+        "Integrity error: Injury-only persons detected (must have Death or Missing). "
+        f"count={len(invalid_injury_only_persons)} sample={sample}"
+    )
+
 g.serialize(destination=OUTPUT_TTL, format="turtle")
 
 print("\n" + "="*60)
@@ -1695,6 +2009,8 @@ print(f"  - Added as literal (fallback): {count_cause_literal}")
 print(f"\nDétection d'accidents de circulation:")
 print(f"  - Accidents détectés (percuté/renversé/accident): {count_traffic_accidents}")
 print(f"  - Moyen de transport identifié: {count_transport_identified}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry: {count_event_country_from_geometry}")
 print("="*60)
 print(f"Output written to: {OUTPUT_TTL}")
 

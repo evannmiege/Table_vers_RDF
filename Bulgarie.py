@@ -3,20 +3,26 @@
 
 from datetime import datetime
 import re
+import time
 import unicodedata
+from urllib.parse import unquote
 
 import pandas as pd
 import pycountry
-from geopy.exc import GeocoderServiceError, GeocoderTimedOut
-from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderRateLimited, GeocoderServiceError, GeocoderTimedOut
+from geopy.geocoders import Photon
 from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS, XSD
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
     infer_source_category_key,
+    propagate_geometry_to_sibling_events,
 )
 
 
@@ -38,6 +44,34 @@ LOCATION_COORDINATE_OVERRIDES = {
     "vojnegovac": (43.0756042, 22.6351640),
     "village of vojnegovac": (43.0756042, 22.6351640),
 }
+
+INHUMATION_BURIAL_MARKERS = (
+    "buried",
+    "burial",
+    "cemetery",
+    "cemetary",
+    "grave",
+    "graveyard",
+    "interment",
+    "inhum",
+    "cimetiere",
+    "cimeti",
+)
+
+INHUMATION_NO_GEO_MARKERS = (
+    "morgue",
+    "hospital",
+    "family doesn't know",
+    "family doesnt know",
+    "unclear",
+    "unknown",
+    "not known",
+)
+
+GEOCODER_MIN_DELAY_SECONDS = 2.0
+GEOCODER_MAX_ATTEMPTS = 4
+GEOCODER_RATE_LIMIT_BACKOFF_SECONDS = 10.0
+GEOCODER_COUNTRY_HINT = "Bulgaria"
 
 
 def norm(value):
@@ -204,6 +238,18 @@ def get_value(row, names):
     return ""
 
 
+def get_raw_value(row, names):
+    for name in names:
+        if name in row.index:
+            value = row.get(name, "")
+            if value is None:
+                continue
+            text = str(value).strip()
+            if text and text.lower() not in {"nan", "none", "null"}:
+                return text
+    return ""
+
+
 def parse_birth_value(value):
     if is_missing(value):
         return None, None
@@ -266,9 +312,7 @@ def match_death_cause(raw_value, mapping_dict, thesaurus_map, mapping_nature):
 
 
 def details_indicate_inhumation(*values):
-    combined = " ".join(str(value).strip() for value in values if not is_missing(value))
-    text = norm(combined)
-    return any(keyword in text for keyword in ("buried", "burial", "cemetery", "cemetary", "grave", "inhum"))
+    return any(str(value).strip() for value in values if value is not None)
 
 
 def detect_transport_from_text(*values):
@@ -295,41 +339,59 @@ def parse_coordinates_from_text(value):
     if is_missing(value):
         return None, None
     text = str(value)
-    for pattern in (
-        r"([-+]?\d{1,2}\.\d+)\s*,\s*([-+]?\d{1,3}\.\d+)",
-        r"q=([-+]?\d{1,2}\.\d+),([-+]?\d{1,3}\.\d+)",
-    ):
-        match = re.search(pattern, text)
-        if match:
-            lat = float(match.group(1))
-            lon = float(match.group(2))
+
+    # Décoder les URL-encodées (ex: %C2%B0 → °, %22 → ")
+    text_decoded = unquote(text)
+
+    for candidate_text in (text, text_decoded):
+        # Décimal simple : lat, lon
+        for pattern in (
+            r"([-+]?\d{1,2}\.\d+)\s*,\s*([-+]?\d{1,3}\.\d+)",
+            r"q=([-+]?\d{1,2}\.\d+),([-+]?\d{1,3}\.\d+)",
+            # Google Maps @lat,lon,zoom
+            r"@([-+]?\d{1,2}\.\d+),([-+]?\d{1,3}\.\d+)",
+            # Google Maps data=...3d<lat>...4d<lon>
+            r"3d([-+]?\d{1,2}\.\d+)[^0-9]*4d([-+]?\d{1,3}\.\d+)",
+        ):
+            match = re.search(pattern, candidate_text)
+            if match:
+                lat = float(match.group(1))
+                lon = float(match.group(2))
+                if -90 <= lat <= 90 and -180 <= lon <= 180:
+                    return lat, lon
+
+        dms_match = re.search(
+            r"(\d{1,2})[°\s°]+(\d{1,2})['\s']+(\d{1,2}(?:\.\d+)?)[\"″\s]*([NS]).*?"
+            r"(\d{1,3})[°\s°]+(\d{1,2})['\s']+(\d{1,2}(?:\.\d+)?)[\"″\s]*([EW])",
+            candidate_text,
+            flags=re.IGNORECASE,
+        )
+        if not dms_match:
+            dms_match = re.search(
+                r"(\d{1,2})[^\d]+(\d{1,2})[^\d]+(\d{1,2}(?:\.\d+)?)\D*([NS]).*?"
+                r"(\d{1,3})[^\d]+(\d{1,2})[^\d]+(\d{1,2}(?:\.\d+)?)\D*([EW])",
+                candidate_text,
+                flags=re.IGNORECASE,
+            )
+        if dms_match:
+            lat_deg = float(dms_match.group(1))
+            lat_min = float(dms_match.group(2))
+            lat_sec = float(dms_match.group(3))
+            lat_ref = dms_match.group(4).upper()
+            lon_deg = float(dms_match.group(5))
+            lon_min = float(dms_match.group(6))
+            lon_sec = float(dms_match.group(7))
+            lon_ref = dms_match.group(8).upper()
+
+            lat = lat_deg + lat_min / 60 + lat_sec / 3600
+            lon = lon_deg + lon_min / 60 + lon_sec / 3600
+            if lat_ref == "S":
+                lat = -lat
+            if lon_ref == "W":
+                lon = -lon
             if -90 <= lat <= 90 and -180 <= lon <= 180:
                 return lat, lon
 
-    dms_match = re.search(
-        r"(\d{1,2})[^\d]+(\d{1,2})[^\d]+(\d{1,2}(?:\.\d+)?)\D*([NS]).*?"
-        r"(\d{1,3})[^\d]+(\d{1,2})[^\d]+(\d{1,2}(?:\.\d+)?)\D*([EW])",
-        text,
-        flags=re.IGNORECASE,
-    )
-    if dms_match:
-        lat_deg = float(dms_match.group(1))
-        lat_min = float(dms_match.group(2))
-        lat_sec = float(dms_match.group(3))
-        lat_ref = dms_match.group(4).upper()
-        lon_deg = float(dms_match.group(5))
-        lon_min = float(dms_match.group(6))
-        lon_sec = float(dms_match.group(7))
-        lon_ref = dms_match.group(8).upper()
-
-        lat = lat_deg + lat_min / 60 + lat_sec / 3600
-        lon = lon_deg + lon_min / 60 + lon_sec / 3600
-        if lat_ref == "S":
-            lat = -lat
-        if lon_ref == "W":
-            lon = -lon
-        if -90 <= lat <= 90 and -180 <= lon <= 180:
-            return lat, lon
     return None, None
 
 
@@ -346,9 +408,54 @@ def normalize_location_candidate(value):
     text = re.sub(r"\bmorgue\b", "", text, flags=re.IGNORECASE)
     text = re.sub(r"\bcemetary\b", "cemetery", text, flags=re.IGNORECASE)
     text = re.sub(r"\bregon\b", "region", text, flags=re.IGNORECASE)
+    # Supprimer les descriptions géographiques parasites (ex: "in Maritsa river")
+    text = re.sub(r",?\s*\bin\s+\w+\s+(?:river|lake|sea|canal|creek)\b", "", text, flags=re.IGNORECASE)
     text = re.sub(r"[:?]", " ", text)
     text = re.sub(r"\s+", " ", text).strip(" ,.-")
     return text or None
+
+
+def should_skip_place_of_death_geocoding(value):
+    candidate = normalize_location_candidate(value)
+    if candidate is None:
+        return True
+    return "region" in norm(candidate)
+
+
+def geocode_with_backoff(candidate, country_hint=GEOCODER_COUNTRY_HINT):
+    global last_geocode_request_ts
+
+    # Ajouter le pays comme hint si la valeur ne le mentionne pas déjà
+    if country_hint and country_hint.lower() not in candidate.lower():
+        query = f"{candidate}, {country_hint}"
+    else:
+        query = candidate
+
+    for attempt in range(GEOCODER_MAX_ATTEMPTS):
+        elapsed = time.monotonic() - last_geocode_request_ts
+        if elapsed < GEOCODER_MIN_DELAY_SECONDS:
+            time.sleep(GEOCODER_MIN_DELAY_SECONDS - elapsed)
+
+        try:
+            location = geolocator.geocode(query, timeout=10)
+            last_geocode_request_ts = time.monotonic()
+            return location
+        except GeocoderRateLimited:
+            last_geocode_request_ts = time.monotonic()
+            wait = GEOCODER_RATE_LIMIT_BACKOFF_SECONDS * (attempt + 1)
+            if attempt < GEOCODER_MAX_ATTEMPTS - 1:
+                time.sleep(wait)
+                continue
+            return None
+        except (GeocoderTimedOut, GeocoderServiceError):
+            last_geocode_request_ts = time.monotonic()
+            return None
+        except Exception:
+            last_geocode_request_ts = time.monotonic()
+            return None
+
+    return None
+
 
 
 def geocode_location_candidates(*values):
@@ -366,12 +473,8 @@ def geocode_location_candidates(*values):
             if lat is not None and lon is not None:
                 return lat, lon
             continue
-        try:
-            location = geolocator.geocode(candidate, timeout=10)
-        except (GeocoderTimedOut, GeocoderServiceError):
-            location = None
-        except Exception:
-            location = None
+
+        location = geocode_with_backoff(candidate)
 
         if location is not None:
             lat = float(location.latitude)
@@ -380,6 +483,55 @@ def geocode_location_candidates(*values):
             return lat, lon
 
         location_geocode_cache[cache_key] = (None, None)
+
+    return None, None
+
+
+def select_inhumation_geocode_candidate(*values):
+    for value in values:
+        candidate = normalize_location_candidate(value)
+        if candidate is None:
+            continue
+        candidate_norm = norm(candidate)
+        if any(marker in candidate_norm for marker in INHUMATION_NO_GEO_MARKERS):
+            continue
+        if parse_coordinates_from_text(candidate) != (None, None):
+            return candidate
+        if any(marker in candidate_norm for marker in INHUMATION_BURIAL_MARKERS):
+            cleaned = re.sub(r"\b(?:buried|burial|inhumed|interred)\s+in\s+", "", candidate, flags=re.IGNORECASE)
+            cleaned = re.sub(r"^\s*in\s+", "", cleaned, flags=re.IGNORECASE).strip(" ,.-")
+            return cleaned or candidate
+        tokens = candidate.split()
+        if 1 <= len(tokens) <= 5:
+            return candidate
+    return None
+
+
+def geocode_inhumation_candidate(candidate):
+    if is_missing(candidate):
+        return None, None
+    text = str(candidate).strip()
+    if not text:
+        return None, None
+    text_norm = norm(text)
+    if any(marker in text_norm for marker in INHUMATION_NO_GEO_MARKERS):
+        return None, None
+
+    aliases = {
+        "morroco": "Morocco",
+        "morrocco": "Morocco",
+        "cemetary": "cemetery",
+    }
+    lookup_value = aliases.get(text_norm, text)
+
+    location = geocode_with_backoff(lookup_value, country_hint=None)
+    if location is not None:
+        return float(location.latitude), float(location.longitude)
+
+    if re.search(r"\b(burgas|haskovo|yambol|sredets|stara zagora|vojnegovac|dimitrovgrad|sofia)\b", text_norm):
+        location = geocode_with_backoff(lookup_value, country_hint=GEOCODER_COUNTRY_HINT)
+        if location is not None:
+            return float(location.latitude), float(location.longitude)
 
     return None, None
 
@@ -435,8 +587,9 @@ g.bind("temp", TEMP)
 
 copy_all_class_hierarchy(g_ref, g)
 
-geolocator = Nominatim(user_agent="frontlet_bulgarie_geocoder")
+geolocator = Photon(user_agent="frontlet_bulgarie_geocoder")
 location_geocode_cache = {}
+last_geocode_request_ts = 0.0
 
 df = load_source_dataframe(SOURCE_PATH)
 if ROW_LIMIT:
@@ -465,6 +618,7 @@ PROP_birthPlace = find_by_label(g_ref, "birth place") or F.birthPlace
 PROP_composedOf = find_by_label(g_ref, "composedOf") or F.composedOf
 PROP_hasDeathCause = find_by_label(g_ref, "hasDeathCause") or F.hasDeathCause
 PROP_hasDeathNature = find_by_label(g_ref, "has death nature") or F.hasDeathNature
+PROP_hasDeathCountry = find_by_label(g_ref, "has death country") or F.hasDeathCountry
 PROP_transportType = find_by_label(g_ref, "transport type") or F.transportType
 PROP_transportName = find_by_label(g_ref, "transport name") or F.transportName
 PROP_sourcedBy = find_by_label(g_ref, "sourcedBy") or F.sourcedBy
@@ -481,12 +635,14 @@ count_person = 0
 count_death_events = 0
 count_sources = 0
 count_inhumation_events = 0
+count_inhumation_geocoded = 0
 count_cause_matched = 0
 count_cause_from_raw = 0
 count_nature_mapped = 0
 count_transports = 0
 count_geo_from_text = 0
 count_geocoded = 0
+count_geocode_skipped_region = 0
 count_additional_typed_events = 0
 created_transports = set()
 
@@ -500,8 +656,8 @@ for idx, row in df.iterrows():
     cause_val = get_value(row, ["Cause of death"])
     source_val = get_value(row, ["Source"])
     family_val = get_value(row, ["Family member/s"])
-    body_location_val = get_value(row, ["Body location"])
-    body_location_secondary_val = get_value(row, ["Body location.1"])
+    body_location_val = get_raw_value(row, ["Body location"])
+    body_location_secondary_val = get_raw_value(row, ["Body location.1"])
     place_of_death_val = get_value(row, ["Place of death"])
     text_chunks_for_typing = []
     text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Cause of death", "Place of death", "Body location", "Body location.1"], is_missing))
@@ -530,6 +686,7 @@ for idx, row in df.iterrows():
 
     g.add((person_uri, RDF.type, PERSON_CLASS))
     g.add((person_uri, PROP_composedOf, death_event_uri))
+    g.add((death_event_uri, F.livedBy, person_uri))
     g.add((person_uri, PROP_gender, gender_uris["unknown"]))
     g.add((death_event_uri, RDF.type, F.IndividualEvent))
     g.add((death_event_uri, RDF.type, DEATH_EVENT_CLASS))
@@ -538,6 +695,7 @@ for idx, row in df.iterrows():
 
     if not is_missing(name_val):
         g.add((person_uri, PROP_hasName, Literal(name_val)))
+        g.add((person_uri, F.hasOfficialName, Literal(name_val)))
 
     birth_country_uri = ensure_country_node(g, nationality_val)
     if birth_country_uri is not None:
@@ -580,7 +738,7 @@ for idx, row in df.iterrows():
     if not is_missing(place_of_death_val):
         g.add((death_event_uri, PROP_hasComment, Literal(f"Place of death: {place_of_death_val}")))
 
-    body_location_parts = [value for value in (body_location_val, body_location_secondary_val) if not is_missing(value)]
+    body_location_parts = [value for value in (body_location_val, body_location_secondary_val) if str(value).strip()]
     if body_location_parts:
         g.add((death_event_uri, PROP_hasComment, Literal(f"Body location: {' | '.join(body_location_parts)}")))
 
@@ -624,18 +782,22 @@ for idx, row in df.iterrows():
     if not geometry_from_text:
         lat, lon = parse_coordinates_from_text(body_location_secondary_val)
         geometry_from_text = lat is not None and lon is not None
-    if not geometry_from_text:
-        lat, lon = geocode_location_candidates(
-            place_of_death_val,
-            body_location_secondary_val,
-            body_location_val,
-            nationality_val,
-        )
+    skip_place_of_death_geocoding = should_skip_place_of_death_geocoding(place_of_death_val)
+    if not geometry_from_text and skip_place_of_death_geocoding:
+        count_geocode_skipped_region += 1
+    if not geometry_from_text and not skip_place_of_death_geocoding:
+        lat, lon = geocode_location_candidates(place_of_death_val)
+    geometry_geocoded_fallback = (lat is not None and lon is not None and not geometry_from_text)
     if lat is not None and lon is not None:
         geometry_uri = DATA[f"bulgarie_geometry_{row_num}"]
         g.add((death_event_uri, GEO.hasGeometry, geometry_uri))
         g.add((geometry_uri, RDF.type, GEO.Geometry))
-        g.add((geometry_uri, GEO.asWKT, Literal(f"POINT({lon} {lat})", datatype=GEO.wktLiteral)))
+        death_label = place_of_death_val if not is_missing(place_of_death_val) else body_location_val
+        wkt = build_wkt_for_location_precision(death_label, lat, lon, geometry_geocoded_fallback)
+        g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+        g.add((geometry_uri, F.hasPrecision, Literal(not geometry_geocoded_fallback, datatype=XSD.boolean)))
+        if geometry_geocoded_fallback and death_label and not is_missing(death_label):
+            g.add((death_event_uri, F.lieu, Literal(str(death_label).strip())))
         if geometry_from_text:
             count_geo_from_text += 1
         else:
@@ -646,10 +808,27 @@ for idx, row in df.iterrows():
         g.add((inhumation_uri, RDF.type, F.IndividualEvent))
         g.add((inhumation_uri, RDF.type, INHUMATION_CLASS))
         g.add((person_uri, PROP_composedOf, inhumation_uri))
+        g.add((inhumation_uri, F.livedBy, person_uri))
         g.add((death_event_uri, PROP_temporal_before, inhumation_uri))
         g.add((inhumation_uri, PROP_temporal_after, death_event_uri))
         if body_location_parts:
-            g.add((inhumation_uri, PROP_hasComment, Literal(" | ".join(body_location_parts))))
+            body_location_text = " | ".join(body_location_parts)
+            g.add((inhumation_uri, PROP_hasComment, Literal(f"Body location: {body_location_text}")))
+
+        inhumation_candidate = select_inhumation_geocode_candidate(body_location_val, body_location_secondary_val)
+        if inhumation_candidate is not None:
+            lat_i, lon_i = geocode_inhumation_candidate(inhumation_candidate)
+            if lat_i is not None and lon_i is not None:
+                inhumation_geom_uri = DATA[f"bulgarie_geometry_inhumation_{row_num}"]
+                g.add((inhumation_uri, GEO.hasGeometry, inhumation_geom_uri))
+                g.add((inhumation_geom_uri, RDF.type, GEO.Geometry))
+                inhumation_wkt = build_wkt_for_location_precision(inhumation_candidate, lat_i, lon_i, True)
+                g.add((inhumation_geom_uri, GEO.asWKT, Literal(inhumation_wkt, datatype=GEO.wktLiteral)))
+                g.add((inhumation_geom_uri, F.hasPrecision, Literal(False, datatype=XSD.boolean)))
+                g.add((inhumation_uri, F.lieu, Literal(str(inhumation_candidate).strip())))
+                count_inhumation_geocoded += 1
+            else:
+                g.add((inhumation_uri, PROP_hasComment, Literal(f"Inhumation non geocodee: {inhumation_candidate}")))
         count_inhumation_events += 1
 
     additional_counts = add_additional_typed_events(
@@ -678,14 +857,40 @@ for idx, row in df.iterrows():
         g.add((source_uri, RDF.type, SOURCE_CLASS))
         g.add((source_uri, RDFS.label, Literal(source_val)))
         source_category = infer_source_category_key(str(source_val))
-        SOURCE_SUBTYPE_MAP = {"family": F.Family, "media": F.Media, "civil_society": F.CivilSociety, "death_certificate": F.DeathCertificate, "official_document": F.OtherOfficialDocument}
+        if source_category is None:
+            src_norm = norm(source_val)
+            family_hints = ["family", "relative", "father", "mother", "brother", "sister"]
+            civil_hints = ["mission wings", "activist", "whatsapp group", "community", "volunteer", "ngo"]
+            media_hints = ["http", "www", "facebook", "twitter", "instagram", "youtube", "news", "media", "press"]
+            death_cert_hints = ["death certificate", "certificat de deces", "certificado de defuncion"]
+            official_hints = ["hospital", "ministry", "police", "court", "government", "consulate", "report", "verification"]
+
+            if any(kw in src_norm for kw in death_cert_hints):
+                source_category = "death_certificate"
+            elif any(kw in src_norm for kw in family_hints):
+                source_category = "family"
+            elif any(kw in src_norm for kw in civil_hints):
+                source_category = "civil_society"
+            elif any(kw in src_norm for kw in media_hints):
+                source_category = "media"
+            elif any(kw in src_norm for kw in official_hints):
+                source_category = "official_document"
+
+        SOURCE_SUBTYPE_MAP = {
+            "family": F.Family,
+            "media": F.Media,
+            "civil_society": F.CivilSociety,
+            "death_certificate": F.DeathCertificate,
+            "official_document": F.OfficialDocument,
+        }
         sub_type = SOURCE_SUBTYPE_MAP.get(source_category)
         if sub_type:
             g.add((source_uri, RDF.type, sub_type))
+        else:
+            # Triage obligatoire: toute source est classee dans une sous-categorie autorisee.
+            g.add((source_uri, RDF.type, F.OtherOfficialDocument))
         g.add((death_event_uri, PROP_sourcedBy, source_uri))
         count_sources += 1
-
-g.serialize(destination=OUTPUT_TTL, format="turtle")
 
 print("\n" + "=" * 62)
 print("Import Bulgarie complete")
@@ -694,6 +899,7 @@ print(f"Rows processed                 : {len(df)}")
 print(f"Persons created               : {count_person}")
 print(f"Death events created          : {count_death_events}")
 print(f"Inhumation events created     : {count_inhumation_events}")
+print(f"Inhumation geocoded           : {count_inhumation_geocoded}")
 print(f"Other typed events created    : {count_additional_typed_events}")
 print(f"Sources created               : {count_sources}")
 print(f"Cause instances from mapping  : {count_cause_matched}")
@@ -702,6 +908,21 @@ print(f"Death nature mapped           : {count_nature_mapped}")
 print(f"Transports created            : {count_transports}")
 print(f"Geometry from text coords     : {count_geo_from_text}")
 print(f"Geometry from geocoding       : {count_geocoded}")
+print(f"Geocoding skipped (region)    : {count_geocode_skipped_region}")
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "bulgarie")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "bulgarie")
+# Completer les deces sans pays de deces avec la valeur par defaut du jeu Bulgarie.
+default_death_country_uri = ensure_country_node(g, "Bulgaria")
+count_default_death_country_added = 0
+if default_death_country_uri is not None:
+    for death_uri in g.subjects(RDF.type, DEATH_EVENT_CLASS):
+        if (death_uri, PROP_hasDeathCountry, None) not in g:
+            g.add((death_uri, PROP_hasDeathCountry, default_death_country_uri))
+            count_default_death_country_added += 1
+g.serialize(destination=OUTPUT_TTL, format="turtle")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry  : {count_event_country_from_geometry}")
+print(f"Default death country added    : {count_default_death_country_added}")
 print("=" * 62)
 print(f"Output written to: {OUTPUT_TTL}")
 

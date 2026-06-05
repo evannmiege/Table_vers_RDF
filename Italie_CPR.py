@@ -20,10 +20,14 @@ from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
     infer_source_category_key,
+    propagate_geometry_to_sibling_events,
 )
 
 # -------------------- CONFIGURATION --------------------
@@ -36,6 +40,9 @@ GEOCODE_CACHE_PATH = "Italie_CPR/geocode_cache.json"
 GEOCODE_MIN_DELAY_SECONDS = 1.2
 GEOCODE_429_BACKOFF_SECONDS = 8.0
 GEOCODE_MAX_429_RETRIES = 2
+GEOCODE_MODE = os.environ.get("ITALIE_CPR_GEOCODE_MODE", "live").strip().lower()
+ALLOW_LIVE_GEOCODING = GEOCODE_MODE in ("online", "live", "refresh")
+REFRESH_CAMP_CACHE = os.environ.get("ITALIE_CPR_REFRESH_CAMP_CACHE", "1").strip().lower() not in ("0", "false", "no")
 
 # Espaces de noms par defaut
 F = Namespace("http://purl.org/frontierelethale/onto/")
@@ -144,6 +151,16 @@ def is_http_429_error(err):
     return "429" in txt or "too many requests" in txt
 
 
+def is_coordinate_in_italy_bbox(lat, lon):
+    """Quick geographic guardrail to keep CPR/CIE/CPT geocodes in Italy."""
+    try:
+        lat_f = float(lat)
+        lon_f = float(lon)
+    except Exception:
+        return False
+    return 35.0 <= lat_f <= 48.5 and 6.0 <= lon_f <= 19.5
+
+
 def sanitize_location_text(text):
     cleaned = str(text).strip()
     cleaned = cleaned.replace("’", "'")
@@ -197,40 +214,121 @@ def build_location_candidates(location_str):
     return deduped
 
 
+def is_camp_like_location(location_text):
+    txt = norm(location_text)
+    return bool(re.search(r"\b(cpt|cie|cpr|centro|detenzione|detention|hotspot)\b", txt))
+
+
+def select_best_camp_result(results, candidate):
+    """Select the best camp-like result deterministically from a geocoder result list."""
+    if not results:
+        return None
+
+    camp_tokens = (
+        "cpr", "cie", "cpt", "detention", "detenzione", "migrant", "immigration", "hotspot", "accoglienza",
+    )
+    cand_norm = norm(candidate)
+    ranked = []
+
+    for loc in results:
+        addr = norm(getattr(loc, "address", ""))
+        if not addr:
+            continue
+        score = 0
+        for token in camp_tokens:
+            if token in addr:
+                score += 1
+        if cand_norm and cand_norm in addr:
+            score += 2
+        ranked.append((score, addr, loc))
+
+    if not ranked:
+        return None
+
+    ranked.sort(key=lambda x: (-x[0], x[1]))
+    return ranked[0][2]
+
+
 def geocode_location(location_name, geocode_cache, max_retries=3):
     """
     Geocode un nom de lieu et retourne (latitude, longitude) ou (None, None).
     Cherche d'abord un cimetiere, sinon utilise le centroide de la ville.
     """
-    global GEOCODER_RATE_LIMITED
-
     if is_missing(location_name):
         return None, None
 
-    if GEOCODER_RATE_LIMITED:
-        return None, None
-
     location_str = str(location_name).strip()
+    camp_like = is_camp_like_location(location_str)
+
     cache_key = norm(location_str)
     cached = geocode_cache.get(cache_key)
+    cached_coords = None
     if isinstance(cached, dict) and "lat" in cached and "lon" in cached:
         try:
-            return float(cached["lat"]), float(cached["lon"])
+            cached_query = norm(cached.get("query", ""))
+            cached_provider = norm(cached.get("provider", ""))
+            if cached_query == "known_italy_camp_registry" or cached_provider == "registry":
+                # Drop legacy fixed-point cache entries so coordinates can refresh from live geocoding.
+                geocode_cache.pop(cache_key, None)
+                cached = None
+            else:
+                cached_coords = (float(cached["lat"]), float(cached["lon"]))
+                if not is_coordinate_in_italy_bbox(cached_coords[0], cached_coords[1]):
+                    geocode_cache.pop(cache_key, None)
+                    cached_coords = None
+                if not (camp_like and REFRESH_CAMP_CACHE and ALLOW_LIVE_GEOCODING):
+                    return cached_coords
         except Exception:
-            pass
-    # Intentionally do not short-circuit on NOT_FOUND: extraction rules can improve over time.
+            cached_coords = None
+
+    # Optional deterministic mode for strict reproducibility.
+    if not ALLOW_LIVE_GEOCODING:
+        return None, None
 
     candidates = build_location_candidates(location_str)
     if not candidates:
-        geocode_cache[cache_key] = "NOT_FOUND"
-        return None, None
+        return cached_coords if cached_coords is not None else (None, None)
 
     for candidate in candidates:
         for attempt in range(max_retries):
             try:
+                if camp_like:
+                    camp_queries = [
+                        f"cpr {candidate}",
+                        f"cie {candidate}",
+                        f"cpt {candidate}",
+                        f"detention center {candidate}",
+                        f"immigration detention {candidate}",
+                        f"centro di permanenza per il rimpatrio {candidate}",
+                    ]
+
+                    for camp_query in camp_queries:
+                        throttle_geocode_requests()
+                        camp_results = geolocator.geocode(
+                            camp_query,
+                            exactly_one=False,
+                            limit=6,
+                            timeout=10,
+                            country_codes="it",
+                        )
+                        best_camp = select_best_camp_result(camp_results, candidate)
+                        if best_camp is not None:
+                            lat = float(best_camp.latitude)
+                            lon = float(best_camp.longitude)
+                            if not is_coordinate_in_italy_bbox(lat, lon):
+                                continue
+                            geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": camp_query}
+                            return lat, lon
+
                 cemetery_query = f"cemetery {candidate}"
                 throttle_geocode_requests()
-                results = geolocator.geocode(cemetery_query, exactly_one=False, limit=5, timeout=10)
+                results = geolocator.geocode(
+                    cemetery_query,
+                    exactly_one=False,
+                    limit=5,
+                    timeout=10,
+                    country_codes="it",
+                )
 
                 if results:
                     cemetery_results = [
@@ -240,14 +338,18 @@ def geocode_location(location_name, geocode_cache, max_retries=3):
                     if len(cemetery_results) == 1:
                         lat = float(cemetery_results[0].latitude)
                         lon = float(cemetery_results[0].longitude)
+                        if not is_coordinate_in_italy_bbox(lat, lon):
+                            break
                         geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": candidate}
                         return lat, lon
 
                 throttle_geocode_requests()
-                location = geolocator.geocode(candidate, timeout=10)
+                location = geolocator.geocode(candidate, timeout=10, country_codes="it")
                 if location:
                     lat = float(location.latitude)
                     lon = float(location.longitude)
+                    if not is_coordinate_in_italy_bbox(lat, lon):
+                        break
                     geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": candidate}
                     return lat, lon
 
@@ -264,26 +366,25 @@ def geocode_location(location_name, geocode_cache, max_retries=3):
                         time.sleep(GEOCODE_429_BACKOFF_SECONDS * (retry_429 + 1))
                         try:
                             throttle_geocode_requests()
-                            location = geolocator.geocode(candidate, timeout=10)
+                            location = geolocator.geocode(candidate, timeout=10, country_codes="it")
                             if location:
                                 lat = float(location.latitude)
                                 lon = float(location.longitude)
+                                if not is_coordinate_in_italy_bbox(lat, lon):
+                                    continue
                                 geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": candidate}
                                 return lat, lon
                         except Exception:
                             pass
-                    GEOCODER_RATE_LIMITED = True
-                    geocode_cache[cache_key] = "NOT_FOUND"
                     return None, None
                 break
             except Exception as e:
                 if is_http_429_error(e):
-                    GEOCODER_RATE_LIMITED = True
-                    geocode_cache[cache_key] = "NOT_FOUND"
                     return None, None
                 break
 
-    geocode_cache[cache_key] = "NOT_FOUND"
+    if cached_coords is not None:
+        return cached_coords
     return None, None
 
 
@@ -345,6 +446,39 @@ def detect_traffic_accident_and_transport(cause_deces_text):
                 return True, transport_name
 
     return True, None
+
+
+def detect_transport_from_text(*values):
+    """Detect transport mode from one or more text fragments (it/fr/en)."""
+    text = " ".join(str(v) for v in values if v is not None and not is_missing(v))
+    txt = norm(text)
+    if txt == "":
+        return None
+
+    def _contains_term(haystack, term):
+        # Match term as full token(s) to avoid substring false positives
+        # such as "car" in "cardiaca" or "bus" in "busto".
+        parts = [re.escape(p) for p in term.split() if p]
+        if not parts:
+            return False
+        pattern = r"\\b" + r"\\s+".join(parts) + r"\\b"
+        return re.search(pattern, haystack) is not None
+
+    transport_patterns = [
+        ("small boat", ["barca", "barche", "barcone", "imbarcazione", "bateau", "boat", "ship", "ferry", "gommone"]),
+        ("train", ["train", "treno", "rail", "ferrovia"]),
+        ("truck", ["truck", "camion", "lorry", "tir", "semi-remorque"]),
+        ("bus", ["bus", "autobus", "autocar", "coach"]),
+        ("car", ["voiture", "auto", "automobile", "vehicule", "vehicle"]),
+        ("plane", ["plane", "avion", "aereo", "aircraft"]),
+        ("motorbike", ["moto", "motocyclette", "motorbike", "motorcycle", "scooter"]),
+        ("bicycle", ["velo", "bicycle", "bike", "cycliste"]),
+    ]
+
+    for token, keywords in transport_patterns:
+        if any(_contains_term(txt, k) for k in keywords):
+            return token
+    return None
 
 
 ITALIAN_COUNTRY_NAMES = {
@@ -440,7 +574,7 @@ def ensure_country_node(g, country_code_or_name):
         iso3 = getattr(cc, "alpha_3", None) or getattr(cc, "alpha_2", None)
         if not iso3:
             return None
-        uri = DATA["alpes_Country_" + iso3.upper()]
+        uri = DATA["italie_Country_" + iso3.upper()]
         if (uri, None, None) not in g:
             g.add((uri, RDF.type, F.Country))
             en_label = Literal(getattr(cc, "name", val), lang="en")
@@ -458,14 +592,14 @@ def ensure_country_node(g, country_code_or_name):
     slug = re.sub(r"[^a-z0-9_]", "_", norm(country_code_or_name))
     if slug in ("", "nan", "none", "n_a"):
         return None
-    uri = DATA["alpes_Country_" + slug]
+    uri = DATA["italie_Country_" + slug]
     if (uri, None, None) not in g:
         g.add((uri, RDF.type, F.Country))
         g.add((uri, RDFS.label, Literal(country_code_or_name)))
     return uri
 
 
-def create_age_node(g, age_value):
+def create_age_node(g, age_value, age_uri=None):
     """Create an Age node and return it."""
     if age_value is None or is_missing(age_value):
         return None
@@ -473,10 +607,10 @@ def create_age_node(g, age_value):
         age_num = int(float(str(age_value).strip()))
     except Exception:
         return None
-    bn = BNode()
-    g.add((bn, RDF.type, F.Age))
-    g.add((bn, F.hasAge, Literal(age_num, datatype=XSD.integer)))
-    return bn
+    age_node = age_uri if age_uri is not None else BNode()
+    g.add((age_node, RDF.type, F.Age))
+    g.add((age_node, F.hasAge, Literal(age_num, datatype=XSD.integer)))
+    return age_node
 
 
 def find_thesaurus_term_by_prefLabel_fr(g, label_fr):
@@ -710,6 +844,7 @@ PROP_composedOf = find_by_label(g_ref, "composedOf") or F.composedOf
 PROP_borderOUT = find_by_label(g_ref, "borderOUT") or F.borderOUT
 PROP_borderIN = find_by_label(g_ref, "borderIN") or F.borderIN
 PROP_hasAgeLink = find_by_label(g_ref, "aged") or F.aged
+PROP_hasAgeLiteral = find_by_label(g_ref, "hasAge") or F.hasAge
 PROP_temporal_before = find_by_label(g_ref, "before") or TEMP.before
 PROP_temporal_after = find_by_label(g_ref, "after") or TEMP.after
 PROP_transportType = find_by_label(g_ref, "transportType") or F.transportType
@@ -756,7 +891,7 @@ count_additional_typed_events = 0
 geocode_cache = load_geocode_cache(GEOCODE_CACHE_PATH)
 
 for idx, row in df.iterrows():
-    person_uri = DATA["alpes_Person_%d" % (idx + 1)]
+    person_uri = DATA["italie_Person_%d" % (idx + 1)]
     g.add((person_uri, RDF.type, PERSON_CLASS))
     count_person += 1
     collective_event_uri = None
@@ -766,16 +901,25 @@ for idx, row in df.iterrows():
     # NOMS (variable demandee: Nome)
     val = row.get("Nome", "")
     if val and not is_missing(val):
-        g.add((person_uri, PROP_hasName, Literal(str(val).strip())))
+        person_name = Literal(str(val).strip())
+        name_uri = DATA["italie_Name_%d" % (idx + 1)]
+        g.add((name_uri, RDFS.label, person_name))
+        # Lien objet explicite pour visualiser le nom comme noeud dans le graphe.
+        g.add((person_uri, PROP_hasName, name_uri))
+        g.add((person_uri, PROP_hasOfficialName, person_name))
+        g.add((person_uri, RDFS.label, person_name))
 
     # AGE (variable demandee: Età)
     age_node = None
     age_val = row.get("Età", "") or row.get("Eta", "")
     try:
         if age_val is not None and age_val != "" and not is_missing(age_val) and re.match(r"^\s*\d+(\.\d+)?\s*$", str(age_val)):
-            age_node = create_age_node(g, age_val)
+            age_uri = DATA["italie_Age_%d" % (idx + 1)]
+            age_node = create_age_node(g, age_val, age_uri=age_uri)
             if age_node:
                 g.add((person_uri, PROP_hasAgeLink, age_node))
+                for age_v in g.objects(age_node, F.hasAge):
+                    g.add((person_uri, PROP_hasAgeLiteral, age_v))
     except Exception:
         pass
 
@@ -801,7 +945,7 @@ for idx, row in df.iterrows():
 
     # EVENEMENT DE DECES
     # L'URI est liee a l'index de ligne CSV pour rendre les IDs exportes reproductibles.
-    event_uri = DATA["alpes_Death_%d" % (idx + 1)]
+    event_uri = DATA["italie_Death_%d" % (idx + 1)]
 
     if str(event_uri) not in created_death_events:
         g.add((event_uri, RDF.type, DEATH_EVENT_CLASS))
@@ -811,6 +955,9 @@ for idx, row in df.iterrows():
 
     g.add((person_uri, PROP_composedOf, event_uri))
     person_event_pairs = [(person_uri, event_uri)]
+
+    # CAUSE DE DECES (utilisee aussi pour certains fallbacks)
+    cause_deces_val = row.get("Causa della morta", "") or row.get("Causa della morte", "")
 
     # DATE DE DECES (variable demandee: Data decesso e evento critico)
     date_mort_val = row.get("Data decesso e evento critico", "") or row.get("Data decesso o evento critico", "")
@@ -845,11 +992,16 @@ for idx, row in df.iterrows():
                     g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
                     g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
                     g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
+            else:
+                weekday_name = infer_day_of_week_name(date_str, cause_deces_val, row.get("Struttura", ""))
+                if weekday_name:
+                    g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
+                    g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
+                    g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
         except Exception as e:
             print(f"Erreur parsing date pour ligne {idx + 1}: {date_mort_val} - {e}")
 
     # CAUSE DE DECES (variable demandee: Causa della morta)
-    cause_deces_val = row.get("Causa della morta", "") or row.get("Causa della morte", "")
     if cause_deces_val and not is_missing(cause_deces_val):
         uri, lbl, _ = match_death_cause(cause_deces_val, mapping_dict, thesaurus_map)
         cause_label = lbl if lbl else cause_deces_val
@@ -881,7 +1033,7 @@ for idx, row in df.iterrows():
         cause_deces_val,
     )
     for add_idx in range(missing_count):
-        miss_uri = DATA[f"alpes_MissingEvent_{idx + 1}_{add_idx + 1}"]
+        miss_uri = DATA[f"italie_MissingEvent_{idx + 1}_{add_idx + 1}"]
         g.add((miss_uri, RDF.type, MISSING_EVENT_CLASS))
         g.add((miss_uri, RDF.type, F.IndividualEvent))
         g.add((person_uri, PROP_composedOf, miss_uri))
@@ -893,7 +1045,7 @@ for idx, row in df.iterrows():
         count_missing_events += 1
 
     for add_idx in range(injury_count):
-        injury_uri = DATA[f"alpes_InjuryEvent_{idx + 1}_{add_idx + 1}"]
+        injury_uri = DATA[f"italie_InjuryEvent_{idx + 1}_{add_idx + 1}"]
         g.add((injury_uri, RDF.type, INJURY_EVENT_CLASS))
         g.add((injury_uri, RDF.type, F.IndividualEvent))
         g.add((person_uri, PROP_composedOf, injury_uri))
@@ -922,17 +1074,29 @@ for idx, row in df.iterrows():
             if is_suspicious:
                 count_geocode_failed += 1
             else:
-                wkt = f"POINT({float(lon_f)} {float(lat_f)})"
-                geometry_uri = DATA[f"alpes_geometry_{idx + 1}"]
+                wkt = build_wkt_for_location_precision(struttura_val, float(lat_f), float(lon_f), True)
+                geometry_uri = DATA[f"italie_geometry_{idx + 1}"]
                 g.add((event_uri, GEO.hasGeometry, geometry_uri))
                 g.add((geometry_uri, RDF.type, GEO.Geometry))
                 g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+                # Localisation toujours géocodée pour les CPR
+                g.add((geometry_uri, F.hasPrecision, Literal(False, datatype=XSD.boolean)))
+                if struttura_val and not is_missing(struttura_val):
+                    g.add((event_uri, F.lieu, Literal(str(struttura_val).strip())))
                 count_geocode_success += 1
         else:
             count_geocode_failed += 1
 
     # TRANSPORT (structure conservee)
     transport_val = row.get("transport", "") or row.get("Transport", "")
+    if is_missing(transport_val):
+        transport_val = detect_transport_from_text(
+            cause_deces_val,
+            row.get("Recit_passage_deces", ""),
+            row.get("Commentaire CDB", ""),
+            row.get("Commentaire SB", ""),
+            row.get("Struttura", ""),
+        )
     if not is_missing(transport_val):
         t_norm = norm(transport_val)
         is_human_transport = any(keyword in t_norm for keyword in ["marche", "nage", "pied", "humain"])
@@ -942,16 +1106,27 @@ for idx, row in df.iterrows():
                 g.add((event_uri, F.transportMode, THES_human))
         else:
             th_term = find_thesaurus_term_by_prefLabel_fr(g_ref, transport_val)
+            if th_term is None:
+                for s, p, o in g_ref.triples((None, SKOS.prefLabel, None)):
+                    if norm(transport_val) in norm(o):
+                        th_term = s
+                        break
+            if th_term is None:
+                for s, p, o in g_ref.triples((None, RDFS.label, None)):
+                    if norm(transport_val) in norm(o):
+                        th_term = s
+                        break
             if th_term is not None:
                 slug = re.sub(r"[^a-z0-9_]", "_", norm(transport_val))
                 if slug and slug not in ("nan", "none", ""):
-                    transport_uri = DATA["alpes_Transport_" + slug + "_" + str(idx + 1)]
+                    transport_uri = DATA["italie_Transport_" + slug + "_" + str(idx + 1)]
                     if str(transport_uri) not in created_transports:
                         g.add((transport_uri, RDF.type, TRANSPORT_CLASS))
                         g.add((transport_uri, RDF.type, th_term))
                         created_transports[str(transport_uri)] = transport_uri
                         count_transports += 1
                     g.add((event_uri, PROP_transportType, transport_uri))
+                    g.add((transport_uri, PROP_usedIn, event_uri))
 
                     embark_uri = DATA["EmbarkEvent_%d_%s" % (idx + 1, slug)]
                     if (embark_uri, None, None) not in g:
@@ -982,7 +1157,7 @@ for idx, row in df.iterrows():
     # RAPATRIEMENT (structure conservee)
     enterrement_text = str(row.get("Enterrement", "")).strip()
     if ("rapatrie" in norm(enterrement_text) or "rapatriement" in norm(enterrement_text)) and "?" not in enterrement_text:
-        repatriation_event_uri = DATA["alpes_Repatriation_%d" % (idx + 1)]
+        repatriation_event_uri = DATA["italie_Repatriation_%d" % (idx + 1)]
         g.add((repatriation_event_uri, RDF.type, F.Repatriation))
         g.add((repatriation_event_uri, RDF.type, F.IndividualEvent))
         g.add((person_uri, PROP_composedOf, repatriation_event_uri))
@@ -1007,6 +1182,7 @@ for idx, row in df.iterrows():
 
         lat_e = None
         lon_e = None
+        inhumation_geocoded_fallback = False
 
         try:
             if not is_missing(lat_ent) and not is_missing(lon_ent):
@@ -1021,15 +1197,20 @@ for idx, row in df.iterrows():
 
         if lat_e is None or lon_e is None:
             lat_e, lon_e = geocode_location(str(comm_enterrement).strip())
+            if lat_e is not None and lon_e is not None:
+                inhumation_geocoded_fallback = True
 
         if lat_e is not None and lon_e is not None:
             is_suspicious, reason = is_suspicious_coordinate(lat_e, lon_e)
             if not is_suspicious:
-                wkt_ent = f"POINT({lon_e} {lat_e})"
-                geometry_inhumation_uri = DATA[f"alpes_geometry_inhumation_{idx + 1}"]
+                wkt_ent = build_wkt_for_location_precision(comm_enterrement, lat_e, lon_e, False)
+                geometry_inhumation_uri = DATA[f"italie_geometry_inhumation_{idx + 1}"]
                 g.add((inhumation_event_uri, GEO.hasGeometry, geometry_inhumation_uri))
                 g.add((geometry_inhumation_uri, RDF.type, GEO.Geometry))
                 g.add((geometry_inhumation_uri, GEO.asWKT, Literal(wkt_ent, datatype=GEO.wktLiteral)))
+                g.add((geometry_inhumation_uri, F.hasPrecision, Literal(not inhumation_geocoded_fallback, datatype=XSD.boolean)))
+                if inhumation_geocoded_fallback and comm_enterrement and not is_missing(comm_enterrement):
+                    g.add((inhumation_event_uri, F.lieu, Literal(str(comm_enterrement).strip())))
 
         g.add((event_uri, TEMP.before, inhumation_event_uri))
         count_inhumation += 1
@@ -1058,11 +1239,19 @@ for idx, row in df.iterrows():
 
     # SOURCE (structure conservee)
     source_val = row.get("Source", "") or row.get("source", "")
+    if is_missing(source_val):
+        source_val = row.get("Struttura", "")
     if source_val and not is_missing(source_val):
         source_str = str(source_val).strip()
-        source_uri = DATA["alpes_Source_%d" % (idx + 1)]
+        source_uri = DATA["italie_Source_%d" % (idx + 1)]
         g.add((source_uri, RDF.type, F.Source))
-        source_category = infer_source_category_key(source_str)
+        source_norm = norm(source_str)
+        # Dans ce dataset, les sources de type camp/centre doivent etre
+        # classees en CivilSociety plutot qu'en document officiel.
+        if re.search(r"\b(cpr|cpt|cie|camp|centro)\b", source_norm):
+            source_category = "civil_society"
+        else:
+            source_category = infer_source_category_key(source_str)
         if source_category == "family":
             g.add((source_uri, RDF.type, F.Family))
         elif source_category == "media":
@@ -1072,6 +1261,9 @@ for idx, row in df.iterrows():
         elif source_category == "death_certificate":
             g.add((source_uri, RDF.type, F.DeathCertificate))
         elif source_category == "official_document":
+            g.add((source_uri, RDF.type, F.OfficialDocument))
+        else:
+            # Fallback explicite: une source doit appartenir a l'une des 6 classes.
             g.add((source_uri, RDF.type, F.OtherOfficialDocument))
 
         if source_str.lower().startswith("http"):
@@ -1085,8 +1277,11 @@ for idx, row in df.iterrows():
 
 
 # --------------------- Resume et sortie ------------------
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "italie_cpr")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "italie_cpr")
 g.serialize(destination=OUTPUT_TTL, format="turtle")
-save_geocode_cache(GEOCODE_CACHE_PATH, geocode_cache)
+if ALLOW_LIVE_GEOCODING:
+    save_geocode_cache(GEOCODE_CACHE_PATH, geocode_cache)
 
 print("\n" + "=" * 60)
 print("Import Italie_CPR complete.")
@@ -1113,7 +1308,10 @@ print(f"  - Moyen de transport identifie: {count_transport_identified}")
 print("\nGeocodage Struttura:")
 print(f"  - Geocodages reussis: {count_geocode_success}")
 print(f"  - Geocodages non resolus: {count_geocode_failed}")
-print(f"  - Rate limit detecte: {'oui' if GEOCODER_RATE_LIMITED else 'non'}")
+print("  - Rate limit detecte: non bloquant (style Alpes)")
+print(f"  - Mode geocodage: {'live' if ALLOW_LIVE_GEOCODING else 'cache-only'}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry: {count_event_country_from_geometry}")
 print("=" * 60)
 print(f"Output written to: {OUTPUT_TTL}")
 

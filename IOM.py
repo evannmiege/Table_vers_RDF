@@ -19,9 +19,13 @@ from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
+    propagate_geometry_to_sibling_events,
 )
 
 # -------------------- CONFIGURATION --------------------
@@ -748,7 +752,6 @@ def ensure_gender_instances(graph):
     entries = {
         "male": (DATA["iom_Gender_male"], "male", THES_male),
         "female": (DATA["iom_Gender_female"], "female", THES_female),
-        "unknown": (DATA["iom_Gender_unknown"], "unknown", None),
     }
     for _, (uri, label, match_uri) in entries.items():
         graph.add((uri, RDF.type, F.Gender))
@@ -1044,6 +1047,7 @@ created_collective_events = {}
 
 count_person = 0
 count_death_events = 0
+count_missing_events = 0
 count_transports = 0
 count_embark = 0
 count_collective_events = 0
@@ -1058,75 +1062,9 @@ count_death_certificates = 0
 count_additional_typed_events = 0
 
 for idx, row in df.iterrows():
-    person_uri = DATA["iom_Person_%d" % (idx+1)]
-    g.add((person_uri, RDF.type, PERSON_CLASS))
-    count_person += 1
-
     embark_uri = None
     repatriation_event_uri = None
     inhumation_event_uri = None
-
-    # NOMS (non présent dans ce jeu de données)
-    val = row.get("Nom_connu", "")
-    if val and not is_missing(val):
-        g.add((person_uri, PROP_hasName, Literal(str(val).strip())))
-
-    val = row.get("Nom_non_public", "")
-    if val and not is_missing(val):
-        g.add((person_uri, PROP_hasOfficialName, Literal(str(val).strip())))
-
-    val = row.get("Autre_nom", "")
-    if val and not is_missing(val):
-        g.add((person_uri, PROP_otherName, Literal(str(val).strip())))
-
-    # AGE
-    age_node = None
-    age_val = row.get("Age", "")
-    age_interval_node = None
-    try:
-        if age_val is not None and age_val != "" and not is_missing(age_val) and re.match(r"^\s*\d+(\.\d+)?\s*$", str(age_val)):
-            age_node = create_age_node(g, age_val, row_index=idx)
-            if age_node:
-                g.add((person_uri, PROP_hasAgeLink, age_node))
-        else:
-            age_from_text = parse_age_from_text(row.get("Article title", ""), row.get("Cause of Death", ""), row.get("Location of Death", ""))
-            if age_from_text is not None:
-                age_node = create_age_node(g, age_from_text, row_index=idx)
-                if age_node:
-                    g.add((person_uri, PROP_hasAgeLink, age_node))
-            else:
-                age_interval = parse_age_interval_from_text(row.get("Article title", ""), row.get("Cause of Death", ""), row.get("Location of Death", ""))
-                if age_interval is not None:
-                    age_interval_node = create_age_interval_node(g, age_interval, row_index=idx)
-                    if age_interval_node is not None:
-                        g.add((person_uri, PROP_hasAgeInterval, age_interval_node))
-    except Exception:
-        pass
-
-    # SEXE
-    # GENRE — depuis les comptages Number of Females / Number of Males
-    n_fem = parse_int_value(row.get("Number of Females", "")) or 0
-    n_mal = parse_int_value(row.get("Number of Males", "")) or 0
-    if n_fem > 0 and n_mal == 0:
-        g.set((person_uri, PROP_gender, GENDER_URIS["female"]))
-    elif n_mal > 0 and n_fem == 0:
-        g.set((person_uri, PROP_gender, GENDER_URIS["male"]))
-    else:
-        g.set((person_uri, PROP_gender, GENDER_URIS["unknown"]))
-
-    # LIEU DE NAISSANCE
-    birth_countries = ensure_country_nodes(g, row.get("Country of Origin", ""))
-    for birth_country in birth_countries:
-        g.add((person_uri, PROP_birthPlace, birth_country))
-
-    # COMMENTAIRES (non présent dans ce jeu de données)
-    comment_cdb = row.get("Commentaire CDB", "") or row.get("Commentaire_CDB", "")
-    if comment_cdb and not is_missing(comment_cdb):
-        g.add((person_uri, PROP_hasComment, Literal(str(comment_cdb).strip())))
-    
-    comment_sb = row.get("Commentaire SB", "") or row.get("Commentaire_SB", "")
-    if comment_sb and not is_missing(comment_sb):
-        g.add((person_uri, PROP_hasComment, Literal(str(comment_sb).strip())))
 
     # EVENEMENTS DE DECES / COLLECTIFS (pilotés par Total Dead and Missing)
     total_dead_missing = parse_int_value(row.get("Total Dead and Missing", "")) or parse_int_value(row.get("Nombre total de morts et de disparus", ""))
@@ -1137,6 +1075,18 @@ for idx, row in df.iterrows():
     number_missing_count = parse_int_value(row.get("Minimum Estimated Number of Missing", "")) or parse_int_value(row.get("Nombre minimum estimé de disparus", "")) or 0
     number_dead_count = max(0, number_dead_count)
     number_missing_count = max(0, number_missing_count)
+
+    counted_terminal_events = number_dead_count + number_missing_count
+    if counted_terminal_events == 0:
+        number_dead_count = total_dead_missing
+    elif counted_terminal_events < total_dead_missing:
+        if number_dead_count > 0 and number_missing_count == 0:
+            number_dead_count = total_dead_missing
+        else:
+            number_missing_count += total_dead_missing - counted_terminal_events
+    elif counted_terminal_events > total_dead_missing:
+        total_dead_missing = counted_terminal_events
+
     text_chunks_for_typing = []
     text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Article title", "Cause of Death", "Location of Death", "Location_of_death"], is_missing))
     text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Country of Origin", "Information Source", "URL"], is_missing))
@@ -1167,79 +1117,150 @@ for idx, row in df.iterrows():
             created_collective_events[str(collective_event_uri)] = collective_event_uri
             count_collective_events += 1
 
+    person_event_pairs = []
     event_uris = []
-    for death_idx in range(total_dead_missing):
-        # La forme d'URI reste stable entre relances et est indexee par ligne + rang de victime.
-        if total_dead_missing == 1:
-            event_uri = DATA["iom_Death_%d" % (idx+1)]
+    for death_idx in range(number_dead_count):
+        person_pos = len(person_event_pairs) + 1
+        person_uri = DATA[f"iom_Person_{idx+1}_{person_pos}"]
+        if total_dead_missing == 1 and number_dead_count == 1 and number_missing_count == 0:
+            event_uri = DATA[f"iom_Death_{idx+1}"]
         else:
-            event_uri = DATA["iom_Death_%d_%d" % (idx+1, death_idx+1)]
+            event_uri = DATA[f"iom_Death_{idx+1}_{death_idx+1}"]
 
-        if str(event_uri) not in created_death_events:
-            g.add((event_uri, RDF.type, DEATH_INJURY_EVENT_CLASS))
-            g.add((event_uri, RDF.type, F.IndividualEvent))
-            created_death_events[str(event_uri)] = event_uri
-            count_death_events += 1
-
+        g.add((person_uri, RDF.type, PERSON_CLASS))
+        g.add((event_uri, RDF.type, DEATH_EVENT_CLASS))
+        g.add((event_uri, RDF.type, DEATH_INJURY_EVENT_CLASS))
+        g.add((event_uri, RDF.type, F.IndividualEvent))
         g.add((person_uri, PROP_composedOf, event_uri))
         if collective_event_uri is not None:
             g.add((event_uri, F.group, collective_event_uri))
+        created_death_events[str(event_uri)] = event_uri
+        person_event_pairs.append((person_uri, event_uri))
         event_uris.append(event_uri)
+        count_person += 1
+        count_death_events += 1
 
-    # Injury doit etre modele en ante-mortem par rapport a un evenement death/missing existant.
-    # total_dead_missing est force a >= 1 ci-dessus, donc cet ancrage existe toujours.
-    injury_anchor_event_uri = event_uris[0] if event_uris else None
+    for missing_idx in range(number_missing_count):
+        person_pos = len(person_event_pairs) + 1
+        person_uri = DATA[f"iom_Person_{idx+1}_{person_pos}"]
+        event_uri = DATA[f"iom_Missing_{idx+1}_{missing_idx+1}"]
+
+        g.add((person_uri, RDF.type, PERSON_CLASS))
+        g.add((event_uri, RDF.type, MISSING_EVENT_CLASS))
+        g.add((event_uri, RDF.type, F.IndividualEvent))
+        g.add((person_uri, PROP_composedOf, event_uri))
+        if collective_event_uri is not None:
+            g.add((event_uri, F.group, collective_event_uri))
+        person_event_pairs.append((person_uri, event_uri))
+        event_uris.append(event_uri)
+        count_person += 1
+        count_missing_events += 1
+
+    # NOMS (non présent dans ce jeu de données)
+    val = row.get("Nom_connu", "")
+    if val and not is_missing(val):
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_hasName, Literal(str(val).strip())))
+
+    val = row.get("Nom_non_public", "")
+    if val and not is_missing(val):
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_hasOfficialName, Literal(str(val).strip())))
+
+    val = row.get("Autre_nom", "")
+    if val and not is_missing(val):
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_otherName, Literal(str(val).strip())))
+
+    # AGE
+    age_val = row.get("Age", "")
+    age_from_text = None
+    age_interval = None
+    try:
+        if age_val is not None and age_val != "" and not is_missing(age_val) and re.match(r"^\s*\d+(\.\d+)?\s*$", str(age_val)):
+            age_from_text = age_val
+        else:
+            age_from_text = parse_age_from_text(row.get("Article title", ""), row.get("Cause of Death", ""), row.get("Location of Death", ""))
+            if age_from_text is None:
+                age_interval = parse_age_interval_from_text(row.get("Article title", ""), row.get("Cause of Death", ""), row.get("Location of Death", ""))
+    except Exception:
+        age_from_text = None
+        age_interval = None
+
+    if age_from_text is not None:
+        for pair_idx, (person_uri, _) in enumerate(person_event_pairs, start=1):
+            age_node = create_age_node(g, age_from_text, row_index=(idx * 1000) + pair_idx)
+            if age_node:
+                g.add((person_uri, PROP_hasAgeLink, age_node))
+                for age_literal in g.objects(age_node, F.hasAge):
+                    g.add((person_uri, F.hasAge, age_literal))
+    elif age_interval is not None:
+        for pair_idx, (person_uri, _) in enumerate(person_event_pairs, start=1):
+            age_interval_node = create_age_interval_node(g, age_interval, row_index=(idx * 1000) + pair_idx)
+            if age_interval_node is not None:
+                g.add((person_uri, PROP_hasAgeInterval, age_interval_node))
+
+    # SEXE
+    n_fem = parse_int_value(row.get("Number of Females", "")) or 0
+    n_mal = parse_int_value(row.get("Number of Males", "")) or 0
+    if n_fem > 0 and n_mal == 0:
+        for person_uri, _ in person_event_pairs:
+            g.set((person_uri, PROP_gender, GENDER_URIS["female"]))
+    elif n_mal > 0 and n_fem == 0:
+        for person_uri, _ in person_event_pairs:
+            g.set((person_uri, PROP_gender, GENDER_URIS["male"]))
+
+    # LIEU DE NAISSANCE
+    birth_countries = ensure_country_nodes(g, row.get("Country of Origin", ""))
+    for birth_country in birth_countries:
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_birthPlace, birth_country))
+
+    # COMMENTAIRES (non présent dans ce jeu de données)
+    comment_cdb = row.get("Commentaire CDB", "") or row.get("Commentaire_CDB", "")
+    if comment_cdb and not is_missing(comment_cdb):
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_hasComment, Literal(str(comment_cdb).strip())))
+    
+    comment_sb = row.get("Commentaire SB", "") or row.get("Commentaire_SB", "")
+    if comment_sb and not is_missing(comment_sb):
+        for person_uri, _ in person_event_pairs:
+            g.add((person_uri, PROP_hasComment, Literal(str(comment_sb).strip())))
+
+    # Injury doit etre modele en ante-mortem / ante-disparition par rapport a une personne existante.
+    injury_anchor_pairs = person_event_pairs
 
     injury_count = estimate_injury_count_from_text(
         row.get("Article title", ""),
         row.get("Cause of Death", ""),
         row.get("Location of Death", ""),
     )
-    for injury_idx in range(injury_count):
+    injury_event_pairs = []
+    for injury_idx in range(min(injury_count, len(injury_anchor_pairs))):
         injury_uri = DATA[f"iom_InjuryEvent_{idx+1}_{injury_idx+1}"]
+        injury_person_uri, injury_anchor_event_uri = injury_anchor_pairs[injury_idx]
         g.add((injury_uri, RDF.type, INJURY_EVENT_CLASS))
         g.add((injury_uri, RDF.type, F.IndividualEvent))
-        g.add((person_uri, PROP_composedOf, injury_uri))
+        g.add((injury_person_uri, PROP_composedOf, injury_uri))
         if injury_anchor_event_uri is not None:
             g.add((injury_uri, PROP_temporal_before, injury_anchor_event_uri))
             g.add((injury_anchor_event_uri, PROP_temporal_after, injury_uri))
         if collective_event_uri is not None:
             g.add((injury_uri, F.group, collective_event_uri))
-        event_uris.append(injury_uri)
+        injury_event_pairs.append((injury_person_uri, injury_uri))
 
     # Utiliser le premier evenement individuel comme ancrage de ligne pour les proprietes aval.
     event_uri = event_uris[0]
 
-    # VICTIM STATE distribution per individual event:
-    # 1) dead x Number Dead, 2) missing x Minimum Estimated Number of Missing,
-    # 3) remaining events as other.
-    n_events = len(event_uris)
-    dead_to_assign = min(number_dead_count, n_events)
-    missing_to_assign = min(number_missing_count, max(0, n_events - dead_to_assign))
-
     for ev_pos, ev_uri in enumerate(event_uris):
-        if ev_pos < dead_to_assign:
+        if ev_pos < number_dead_count:
             g.add((ev_uri, PROP_hasVictimState, THES_victim_dead))
-        elif ev_pos < dead_to_assign + missing_to_assign:
+        else:
             g.add((ev_uri, PROP_hasVictimState, THES_victim_missing))
-        else:
-            g.add((ev_uri, PROP_hasVictimState, THES_victim_other))
-
-    # Typage plus précis des évènements individuels: Mort quand la mort est attestée,
-    # sinon Mort blessure comme classe générique quand l'évènement reste individuel
-    # sans preuve explicite de décès pour cette occurrence.
-    for ev_pos, ev_uri in enumerate(event_uris):
-        if ev_pos < dead_to_assign:
-            g.add((ev_uri, RDF.type, DEATH_EVENT_CLASS))
-            g.add((ev_uri, RDF.type, DEATH_INJURY_EVENT_CLASS))
-        elif ev_pos < dead_to_assign + missing_to_assign:
-            g.add((ev_uri, RDF.type, MISSING_EVENT_CLASS))
-        else:
-            g.add((ev_uri, RDF.type, DEATH_INJURY_EVENT_CLASS))
 
     additional_counts = add_additional_typed_events(
         g,
-        [(person_uri, ev_uri) for ev_uri in event_uris],
+        person_event_pairs,
         collective_event_uri,
         text_chunks_for_typing,
         ADDITIONAL_EVENT_SPECS,
@@ -1376,6 +1397,7 @@ for idx, row in df.iterrows():
     try:
         lat_f = None
         lon_f = None
+        death_geocoded_fallback = False
 
         if not is_missing(iom_coordinates_val):
             lat_f, lon_f = parse_coordinate_pair(iom_coordinates_val)
@@ -1387,6 +1409,7 @@ for idx, row in df.iterrows():
         if (lat_f is None or lon_f is None) and not is_missing(location_of_death):
             lat_f, lon_f = geocode_location(str(location_of_death).strip())
             if lat_f is not None and lon_f is not None:
+                death_geocoded_fallback = True
                 print(f"Géocodé depuis 'Location of Death' '{location_of_death}' -> ({lat_f}, {lon_f})")
 
         if lat_f is not None and lon_f is not None and math.isfinite(lat_f) and math.isfinite(lon_f):
@@ -1395,12 +1418,15 @@ for idx, row in df.iterrows():
             if is_suspicious:
                 print(f"  ⚠️  Coordonnée suspecte ignorée ({reason}): {lon_f}, {lat_f}")
             else:
-                wkt = f"POINT({lon_f} {lat_f})"
+                wkt = build_wkt_for_location_precision(location_of_death, lat_f, lon_f, death_geocoded_fallback)
                 for ev_pos, ev_uri in enumerate(event_uris, start=1):
                     geometry_uri = DATA[f"iom_geometry_{idx+1}_{ev_pos}"]
                     g.add((ev_uri, GEO.hasGeometry, geometry_uri))
                     g.add((geometry_uri, RDF.type, GEO.Geometry))
                     g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+                    g.add((geometry_uri, F.hasPrecision, Literal(not death_geocoded_fallback, datatype=XSD.boolean)))
+                    if death_geocoded_fallback and location_of_death and not is_missing(location_of_death):
+                        g.add((ev_uri, F.lieu, Literal(str(location_of_death).strip())))
                 geometry_added = True
     except Exception:
         geometry_added = False
@@ -1437,24 +1463,21 @@ for idx, row in df.iterrows():
         for ev_uri in event_uris:
             g.add((transport_uri, PROP_usedIn, ev_uri))
 
-        if THES_human is not None:
-            for ev_uri in event_uris:
-                g.add((ev_uri, F.transportMode, THES_human))
-
     # Le regroupement collectif est gere strictement via "Total Dead and Missing" ci-dessus.
 
     # RAPATRIEMENT
     enterrement_text = str(row.get("Article title", "")).strip()
     if ("repatriated" in norm(enterrement_text) or "repatriated" in norm(enterrement_text) or "repatriation" in norm(enterrement_text) or "repatriation" in norm(enterrement_text)) and "?" not in enterrement_text:
-        repatriation_event_uri = DATA["iom_Repatriation_%d" % (idx+1)]
-        g.add((repatriation_event_uri, RDF.type, CORPSE_REPATRIATION_CLASS))
-        g.add((repatriation_event_uri, RDF.type, F.IndividualEvent))
-        g.add((person_uri, PROP_composedOf, repatriation_event_uri))
-        g.add((event_uri, TEMP.before, repatriation_event_uri))
-        g.add((repatriation_event_uri, PROP_temporal_after, event_uri))
-        for birth_country in birth_countries:
-            g.add((repatriation_event_uri, PROP_targetCountry, birth_country))
-        count_repatriation += 1
+        for pair_idx, (person_uri, terminal_event_uri) in enumerate(person_event_pairs, start=1):
+            repatriation_event_uri = DATA[f"iom_Repatriation_{idx+1}_{pair_idx}"]
+            g.add((repatriation_event_uri, RDF.type, CORPSE_REPATRIATION_CLASS))
+            g.add((repatriation_event_uri, RDF.type, F.IndividualEvent))
+            g.add((person_uri, PROP_composedOf, repatriation_event_uri))
+            g.add((terminal_event_uri, TEMP.before, repatriation_event_uri))
+            g.add((repatriation_event_uri, PROP_temporal_after, terminal_event_uri))
+            for birth_country in birth_countries:
+                g.add((repatriation_event_uri, PROP_targetCountry, birth_country))
+            count_repatriation += 1
 
     # INHUMATION
     comm_enterrement = row.get("Article title ", "") or row.get("Location of Death ", "")
@@ -1464,19 +1487,13 @@ for idx, row in df.iterrows():
         and not is_missing(comm_enterrement)
         and any(keyword in comm_enterrement_norm for keyword in ["buried", "burial", "funeral", "interment"])
     ):
-        inhumation_event_uri = DATA["InhumationEvent_%d" % (idx+1)]
-        if (inhumation_event_uri, None, None) not in g:
-            g.add((inhumation_event_uri, RDF.type, F.Inhumation))
-            g.add((inhumation_event_uri, RDF.type, F.IndividualEvent))
-        
-        g.add((person_uri, PROP_composedOf, inhumation_event_uri))
-            
         # Récupérer les coordonnées existantes (non présents dans ce jeu de données)
         lat_ent = row.get("Coord_Lat_enterrement", "") or row.get("Coord_lat_enterrement", "")
         lon_ent = row.get("Coord_Long_enterrement", "") or row.get("Coord_long_enterrement", "")
         
         lat_e = None
         lon_e = None
+        inhumation_geocoded_fallback = False
         
         # Essayer d'utiliser les coordonnées existantes
         try:
@@ -1494,24 +1511,34 @@ for idx, row in df.iterrows():
         if lat_e is None or lon_e is None:
             lat_e, lon_e = geocode_location(str(comm_enterrement).strip())
             if lat_e is not None and lon_e is not None:
+                inhumation_geocoded_fallback = True
                 print(f"Géocodé '{comm_enterrement}' -> ({lat_e}, {lon_e})")
-        
-        # Ajouter la géométrie si coordonnées disponibles
-        if lat_e is not None and lon_e is not None:
-            # Vérifier si les coordonnées sont suspectes
-            is_suspicious, reason = is_suspicious_coordinate(lat_e, lon_e)
-            if is_suspicious:
-                print(f"  ⚠️  Coordonnée suspecte ignorée pour inhumation ({reason}): {lon_e}, {lat_e}")
-            else:
-                wkt_ent = f"POINT({lon_e} {lat_e})"
-                geometry_inhumation_uri = DATA[f"iom_geometry_inhumation_{idx+1}"]
-                g.add((inhumation_event_uri, GEO.hasGeometry, geometry_inhumation_uri))
-                g.add((geometry_inhumation_uri, RDF.type, GEO.Geometry))
-                g.add((geometry_inhumation_uri, GEO.asWKT, Literal(wkt_ent, datatype=GEO.wktLiteral)))
-        
-        g.add((event_uri, TEMP.before, inhumation_event_uri))
-        count_inhumation += 1
-        g.add((inhumation_event_uri, PROP_temporal_after, event_uri))
+
+        for pair_idx, (person_uri, terminal_event_uri) in enumerate(person_event_pairs, start=1):
+            inhumation_event_uri = DATA[f"InhumationEvent_{idx+1}_{pair_idx}"]
+            if (inhumation_event_uri, None, None) not in g:
+                g.add((inhumation_event_uri, RDF.type, F.Inhumation))
+                g.add((inhumation_event_uri, RDF.type, F.IndividualEvent))
+
+            g.add((person_uri, PROP_composedOf, inhumation_event_uri))
+
+            if lat_e is not None and lon_e is not None:
+                is_suspicious, reason = is_suspicious_coordinate(lat_e, lon_e)
+                if is_suspicious:
+                    print(f"  ⚠️  Coordonnée suspecte ignorée pour inhumation ({reason}): {lon_e}, {lat_e}")
+                else:
+                    wkt_ent = build_wkt_for_location_precision(comm_enterrement, lat_e, lon_e, False)
+                    geometry_inhumation_uri = DATA[f"iom_geometry_inhumation_{idx+1}_{pair_idx}"]
+                    g.add((inhumation_event_uri, GEO.hasGeometry, geometry_inhumation_uri))
+                    g.add((geometry_inhumation_uri, RDF.type, GEO.Geometry))
+                    g.add((geometry_inhumation_uri, GEO.asWKT, Literal(wkt_ent, datatype=GEO.wktLiteral)))
+                    g.add((geometry_inhumation_uri, F.hasPrecision, Literal(not inhumation_geocoded_fallback, datatype=XSD.boolean)))
+                    if inhumation_geocoded_fallback and comm_enterrement and not is_missing(comm_enterrement):
+                        g.add((inhumation_event_uri, F.lieu, Literal(str(comm_enterrement).strip())))
+
+            g.add((terminal_event_uri, TEMP.before, inhumation_event_uri))
+            count_inhumation += 1
+            g.add((inhumation_event_uri, PROP_temporal_after, terminal_event_uri))
     # SOURCE
     source_val = row.get("URL", "")
     source_str = str(source_val).strip() if source_val is not None else ""
@@ -1599,6 +1626,8 @@ for idx, row in df.iterrows():
                     g.add((ev_uri, PROP_hasDeathNature, nature_instance))
 
 # --------------------- Resume et sortie ------------------
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "iom")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "iom")
 g.serialize(destination=OUTPUT_TTL, format="turtle")
 
 print("\n" + "="*60)
@@ -1606,6 +1635,7 @@ print("Import IOM complete.")
 print("="*60)
 print(f"Rows processed (persons): {count_person}")
 print(f"Death events created: {count_death_events}")
+print(f"Missing events created: {count_missing_events}")
 print(f"Transport individuals created: {count_transports}")
 print(f"Embark events created: {count_embark}")
 print(f"Collective events created: {count_collective_events}")
@@ -1620,6 +1650,8 @@ print(f"  - Added as literal (fallback): {count_cause_literal}")
 print(f"\nDétection d'accidents de circulation:")
 print(f"  - Accidents détectés (percuté/renversé/accident): {count_traffic_accidents}")
 print(f"  - Moyen de transport identifié: {count_transport_identified}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry: {count_event_country_from_geometry}")
 print("="*60)
 print(f"Output written to: {OUTPUT_TTL}")
 

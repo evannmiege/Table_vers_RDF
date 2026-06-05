@@ -13,7 +13,14 @@ from geopy.exc import GeocoderServiceError, GeocoderTimedOut
 from geopy.geocoders import Nominatim
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS, XSD
-from event_text_utils import infer_day_of_week_name, infer_source_category_key
+from event_text_utils import (
+    add_event_country_from_geometry,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
+    infer_day_of_week_name,
+    infer_source_category_key,
+    propagate_geometry_to_sibling_events,
+)
 
 # -------------------- CONFIGURATION --------------------
 ONTO_PATH = "frontletOnto.ttl"
@@ -926,6 +933,7 @@ if (MISSING_EVENT_CLASS, RDF.type, URIRef("http://www.w3.org/2002/07/owl#Class")
         g.add((MISSING_EVENT_CLASS, RDFS.label, Literal("Missing", lang="en")))
 
 PROP_hasName = find_by_label(g_ref, "hasName") or F.hasName
+PROP_hasOfficialName = find_by_label(g_ref, "hasOfficialName") or F.hasOfficialName
 PROP_gender = find_by_label(g_ref, "has gender") or F.hasGender
 PROP_birthPlace = find_by_label(g_ref, "birth place") or F.birthPlace
 PROP_composedOf = find_by_label(g_ref, "composedOf") or F.composedOf
@@ -1110,12 +1118,15 @@ for idx, row in df.iterrows():
 
     # Determine geometry once per row and reuse for all individual events.
     lat, lon = parse_coordinates_from_fields(latitude_val, longitude_val)
+    geometry_geocoded_fallback = False
     if lat is not None and lon is not None:
         count_geo_from_csv += 1
     else:
         lat, lon = parse_coordinates_from_location(location_val)
         if lat is None or lon is None:
             lat, lon = geocode_location(location_val)
+            if lat is not None and lon is not None:
+                geometry_geocoded_fallback = True
         if lat is not None and lon is not None:
             count_geocoded += 1
         elif not is_missing(location_val):
@@ -1161,6 +1172,7 @@ for idx, row in df.iterrows():
 
         if not is_missing(name_val):
             g.add((person_uri, PROP_hasName, Literal(str(name_val).strip())))
+            g.add((person_uri, PROP_hasOfficialName, Literal(str(name_val).strip())))
 
         if normalized_gender == "male":
             g.add((person_uri, PROP_gender, GENDER_URIS["male"]))
@@ -1219,7 +1231,11 @@ for idx, row in df.iterrows():
             geometry_uri = DATA[f"allemagne_geometry_{row_num}_{victim_pos + 1}"]
             g.add((event_uri, GEO.hasGeometry, geometry_uri))
             g.add((geometry_uri, RDF.type, GEO.Geometry))
-            g.add((geometry_uri, GEO.asWKT, Literal(f"POINT({lon} {lat})", datatype=GEO.wktLiteral)))
+            wkt = build_wkt_for_location_precision(location_val, lat, lon, geometry_geocoded_fallback)
+            g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+            g.add((geometry_uri, F.hasPrecision, Literal(not geometry_geocoded_fallback, datatype=XSD.boolean)))
+            if geometry_geocoded_fallback and location_val and not is_missing(location_val):
+                g.add((event_uri, F.lieu, Literal(str(location_val).strip())))
 
         person_event_pairs.append((person_uri, event_uri))
 
@@ -1402,6 +1418,8 @@ if "summaries_text" in df.columns:
             count_summary_missing += 1
 
 # ------------------------ Sortie ------------------------
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "allemagne")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "allemagne")
 g.serialize(destination=OUTPUT_TTL, format="turtle")
 
 print("\n" + "=" * 62)
@@ -1425,6 +1443,8 @@ print(f"Geometry from geocoding       : {count_geocoded}")
 print(f"Geocoding unresolved/skipped  : {count_geocode_skipped}")
 print(f"Date fallback from morgue out : {count_date_from_morgue_taken}")
 print(f"Date fallback from morgue in  : {count_date_from_brought_to_morgue}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry : {count_event_country_from_geometry}")
 print("=" * 62)
 print(f"Output written to: {OUTPUT_TTL}")
 if count_summary_collective:

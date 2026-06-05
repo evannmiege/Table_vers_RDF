@@ -21,148 +21,6 @@ data:bulgarie_Gender_masculin a frontlet:Gender ;
     rdfs:label "masculin"@fr ;
     skos:closeMatch ns1:male .
 
-data:bulgarie_Person_1 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_1,
-        data:bulgarie_InhumationEvent_1 ;
-    frontlet:hasComment "Family member/s: Brother: Mohamad Al-Sheikh (+90 535 078 52 62)" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Mustafa Al-Sheikh" .
-
-data:bulgarie_Person_10 a frontlet:Person ;
-    frontlet:composedOf data:bulgarie_Death_10 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu .
-
-data:bulgarie_Person_11 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_11 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_11 ;
-    frontlet:hasComment "Date of Birth: 2007-01-01",
-        "Family member/s: cousin Fahd Faysal +35677074742" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Ahmad Sayeed Kassem Faysal" ;
-    frontlet:yearOfBirth 2007 .
-
-data:bulgarie_Person_12 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_12 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_12 ;
-    frontlet:hasComment "Date of Birth: 2001-04-01" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Rahmatullah Sediqi" ;
-    frontlet:yearOfBirth 2001 .
-
-data:bulgarie_Person_13 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_13 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_13 ;
-    frontlet:hasComment "Date of Birth: 1997-04-01",
-        "Family member/s: Rami's brother Muhammed Isa +905312280335" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Rami al Isa" ;
-    frontlet:yearOfBirth 1997 .
-
-data:bulgarie_Person_14 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_14 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_14 ;
-    frontlet:hasComment "Date of Birth: 1980-11-01",
-        "Family member/s: 4915738338722" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Fedaa Shelleh" ;
-    frontlet:yearOfBirth 1980 .
-
-data:bulgarie_Person_15 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_15 ;
-    frontlet:hasComment "Date of Birth: 2003-01-05",
-        "Family member/s: 905345717702" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Alaa Mustafa Al-Suwaid" ;
-    frontlet:yearOfBirth 2003 .
-
-data:bulgarie_Person_16 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_16 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_16 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Saif Ahmed Al-Ahmad" ;
-    frontlet:yearOfBirth 2001 .
-
-data:bulgarie_Person_17 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_17 ;
-    frontlet:hasComment "Family member/s: His brother: +90 553 884 86 55" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Muhammad Zakaria Salim Baroudi" ;
-    frontlet:yearOfBirth 1999 .
-
-data:bulgarie_Person_18 a frontlet:Person ;
-    frontlet:aged data:bulgarie_Age_18 ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_18 ;
-    frontlet:hasComment "Family member/s: Brother in Turkey: 05380163678" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Hamza Mutlac" ;
-    frontlet:yearOfBirth 1993 .
-
-data:bulgarie_Person_19 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_SYR ;
-    frontlet:composedOf data:bulgarie_Death_19 ;
-    frontlet:hasComment "Family member/s: Cousin in NL, speaks English: +31687220012" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Ahmad" .
-
-data:bulgarie_Person_2 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_AFG ;
-    frontlet:composedOf data:bulgarie_Death_2 ;
-    frontlet:hasComment "Family member/s: Father: Ghulam Mohammad" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Hussain Alami" .
-
-data:bulgarie_Person_3 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_AFG ;
-    frontlet:composedOf data:bulgarie_Death_3 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Fasel Rahmani" .
-
-data:bulgarie_Person_4 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_AFG ;
-    frontlet:composedOf data:bulgarie_Death_4 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Nour Haadzade" .
-
-data:bulgarie_Person_5 a frontlet:Person ;
-    frontlet:composedOf data:bulgarie_Death_5 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Mohammad Abdul Al-Ahab" .
-
-data:bulgarie_Person_6 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_MAR ;
-    frontlet:composedOf data:bulgarie_Death_6,
-        data:bulgarie_InhumationEvent_6 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Mohammad Hamani" .
-
-data:bulgarie_Person_7 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_MAR ;
-    frontlet:composedOf data:bulgarie_Death_7 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Abdi Mi Lah El-Idrisi" .
-
-data:bulgarie_Person_8 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_DZA ;
-    frontlet:composedOf data:bulgarie_Death_8 ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Mounsef Hasbalawi" .
-
-data:bulgarie_Person_9 a frontlet:Person ;
-    frontlet:birthPlace data:bulgarie_Country_AFG ;
-    frontlet:composedOf data:bulgarie_Death_9 ;
-    frontlet:hasComment "Family member/s: Mohammad Nasim Sharifi: +93 79 926 8003" ;
-    frontlet:hasGender data:bulgarie_Gender_inconnu ;
-    frontlet:hasName "Ahmad Javid Sharifi" .
-
 frontlet:AgeCategory a owl:Class ;
     rdfs:subClassOf frontlet:AgeInterval ;
     skos:definition "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en,
@@ -286,6 +144,10 @@ data:bulgarie_DeathCause_noyade a frontlet:DeathCause ;
     rdfs:label "noyade"@fr ;
     skos:closeMatch ns1:drowning .
 
+data:bulgarie_DeathCountry_SRB a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Serbia"@en .
+
 data:bulgarie_DeathNature_homicide a frontlet:DeathNature ;
     rdfs:label "homicide"@fr ;
     skos:closeMatch ns1:homicide .
@@ -293,6 +155,8 @@ data:bulgarie_DeathNature_homicide a frontlet:DeathNature ;
 data:bulgarie_Death_10 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Place of death: Village of Vojnegovac" ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_SRB ;
+    frontlet:livedBy data:bulgarie_Person_10 ;
     geo:hasGeometry data:bulgarie_geometry_10 ;
     time:dayOfWeek time:Monday ;
     time:inXSDDate "2022-09-26"^^xsd:date .
@@ -302,9 +166,12 @@ data:bulgarie_Death_11 a frontlet:Death,
     frontlet:hasComment "Body location: Hospital in Haskovo",
         "Place of death: Harmanli, in Maritsa river" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_noyade ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_accident ;
+    frontlet:livedBy data:bulgarie_Person_11 ;
     frontlet:sourcedBy data:bulgarie_Source_11_mission_wings_family ;
     frontlet:transportType data:bulgarie_Transport_boat ;
+    geo:hasGeometry data:bulgarie_geometry_11 ;
     time:dayOfWeek time:Saturday ;
     time:inXSDDate "2023-07-01"^^xsd:date .
 
@@ -313,8 +180,11 @@ data:bulgarie_Death_12 a frontlet:Death,
     frontlet:hasComment "Body location: Hospital in Burgas",
         "Place of death: Yambol/Burgas area" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:livedBy data:bulgarie_Person_12 ;
     frontlet:sourcedBy data:bulgarie_Source_12_mission_wings_italian_activists ;
+    geo:hasGeometry data:bulgarie_geometry_12 ;
     time:dayOfWeek time:Wednesday ;
     time:inXSDDate "2023-07-26"^^xsd:date .
 
@@ -323,8 +193,11 @@ data:bulgarie_Death_13 a frontlet:Death,
     frontlet:hasComment "Place of death: Sredets",
         "Raw death date: 26/27 July 2023" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:livedBy data:bulgarie_Person_13 ;
     frontlet:sourcedBy data:bulgarie_Source_13_ihab_rawi_family_members ;
+    geo:hasGeometry data:bulgarie_geometry_13 ;
     time:dayOfWeek time:Wednesday ;
     time:inXSDDate "2023-07-26"^^xsd:date .
 
@@ -334,6 +207,7 @@ data:bulgarie_Death_14 a frontlet:Death,
         "Place of death: Between Dennitsa and Stefan Karadjovo" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:livedBy data:bulgarie_Person_14 ;
     frontlet:sourcedBy data:bulgarie_Source_14_ihab_rawi_family_members ;
     time:dayOfWeek time:Wednesday ;
     time:inXSDDate "2023-07-26"^^xsd:date .
@@ -341,11 +215,14 @@ data:bulgarie_Death_14 a frontlet:Death,
 data:bulgarie_Death_15 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Place of death: https://maps.app.goo.gl/fBixTK8VQcrbX8TT7" ;
+    frontlet:livedBy data:bulgarie_Person_15 ;
     frontlet:sourcedBy data:bulgarie_Source_15_ihab_on_whatsapp_group .
 
 data:bulgarie_Death_16 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Place of death: https://maps.google.com/?q=42.279513,27.197288&entry=gps" ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
+    frontlet:livedBy data:bulgarie_Person_16 ;
     frontlet:sourcedBy data:bulgarie_Source_16_whatsapp_group ;
     geo:hasGeometry data:bulgarie_geometry_16 ;
     time:dayOfWeek time:Friday ;
@@ -354,6 +231,8 @@ data:bulgarie_Death_16 a frontlet:Death,
 data:bulgarie_Death_17 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Place of death: https://www.google.com/maps/place/42%C2%B004'37.9%22N+26%C2%B036'41.0%22E/@42.0771868,26.6088056,17z/data=!3m1!4b1!4m4!3m3!8m2!3d42.0771868!4d26.6113805?hl=en&entry=ttu" ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
+    frontlet:livedBy data:bulgarie_Person_17 ;
     frontlet:sourcedBy data:bulgarie_Source_17_whatsapp_group ;
     geo:hasGeometry data:bulgarie_geometry_17 .
 
@@ -363,7 +242,9 @@ data:bulgarie_Death_18 a frontlet:Death,
         "Place of death: 42.2020380, 27.04917809690",
         "Raw death date: 4/5 August 2023" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:livedBy data:bulgarie_Person_18 ;
     frontlet:sourcedBy data:bulgarie_Source_18_ihab_italian_group_mission_wings ;
     geo:hasGeometry data:bulgarie_geometry_18 ;
     time:dayOfWeek time:Friday ;
@@ -374,7 +255,9 @@ data:bulgarie_Death_19 a frontlet:Death,
     frontlet:hasComment "Body location: Burgas morgue",
         "Place of death: 42.2020380, 27.0491780" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_medical ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_medical ;
+    frontlet:livedBy data:bulgarie_Person_19 ;
     frontlet:sourcedBy data:bulgarie_Source_19_ihab_mission_wings ;
     geo:hasGeometry data:bulgarie_geometry_19 ;
     time:dayOfWeek time:Sunday ;
@@ -385,38 +268,189 @@ data:bulgarie_Death_2 a frontlet:Death,
     frontlet:hasComment "Place of death: Stara Zagora region" ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_accident_de_voiture ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_accident ;
+    frontlet:livedBy data:bulgarie_Person_2 ;
     frontlet:sourcedBy data:bulgarie_Source_2_hamid_mission_wings ;
     frontlet:transportType data:bulgarie_Transport_car .
 
 data:bulgarie_Death_3 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasComment "Place of death: Burgas region" .
+    frontlet:hasComment "Place of death: Burgas region" ;
+    frontlet:livedBy data:bulgarie_Person_3 .
 
 data:bulgarie_Death_4 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasComment "Place of death: Burgas region" .
+    frontlet:hasComment "Place of death: Burgas region" ;
+    frontlet:livedBy data:bulgarie_Person_4 .
 
 data:bulgarie_Death_5 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasComment "Place of death: Burgas region" .
+    frontlet:hasComment "Place of death: Burgas region" ;
+    frontlet:livedBy data:bulgarie_Person_5 .
 
 data:bulgarie_Death_7 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause data:bulgarie_DeathCause_arme ;
     frontlet:hasDeathNature data:bulgarie_DeathNature_homicide ;
+    frontlet:livedBy data:bulgarie_Person_7 ;
     frontlet:sourcedBy data:bulgarie_Source_7_burgas_hospital .
 
 data:bulgarie_Death_8 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Body location: https://www.google.com/maps/place/42%C2%B019'50.5%22N+27%C2%B017'52.3%22E/@42.3307039,27.295679,745m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x59b847249f71c2d4!8m2!3d42.3307!4d27.297873?coh=164777&entry=tt&shorturl=1 | Algeria",
         "Place of death: Burgas regon: https://www.google.com/maps/place/42%C2%B019'50.5%22N+27%C2%B017'52.3%22E/@42.3307039,27.295679,745m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x59b847249f71c2d4!8m2!3d42.3307!4d27.297873?coh=164777&entry=tt&shorturl=1" ;
+    frontlet:hasDeathCountry data:bulgarie_DeathCountry_BGR ;
+    frontlet:livedBy data:bulgarie_Person_8 ;
     frontlet:sourcedBy data:bulgarie_Source_8_sir_report_verification_by_bashar ;
     geo:hasGeometry data:bulgarie_geometry_8 .
 
 data:bulgarie_Death_9 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Place of death: Burgas region: https://drive.google.com/file/d/1jbZnoQyH39KJQfyo6tJxlRjoBISQGgo5/view" ;
+    frontlet:livedBy data:bulgarie_Person_9 ;
     frontlet:sourcedBy data:bulgarie_Source_9_facebook_https_www_facebook_com_photo_fbid_769526901624056_set_a_115561010353985 .
+
+data:bulgarie_Person_10 a frontlet:Person ;
+    frontlet:composedOf data:bulgarie_Death_10 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu .
+
+data:bulgarie_Person_11 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_11 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_11 ;
+    frontlet:hasComment "Date of Birth: 2007-01-01",
+        "Family member/s: cousin Fahd Faysal +35677074742" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad Sayeed Kassem Faysal" ;
+    frontlet:hasOfficialName "Ahmad Sayeed Kassem Faysal" ;
+    frontlet:yearOfBirth 2007 .
+
+data:bulgarie_Person_12 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_12 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_12 ;
+    frontlet:hasComment "Date of Birth: 2001-04-01" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Rahmatullah Sediqi" ;
+    frontlet:hasOfficialName "Rahmatullah Sediqi" ;
+    frontlet:yearOfBirth 2001 .
+
+data:bulgarie_Person_13 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_13 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_13 ;
+    frontlet:hasComment "Date of Birth: 1997-04-01",
+        "Family member/s: Rami's brother Muhammed Isa +905312280335" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Rami al Isa" ;
+    frontlet:hasOfficialName "Rami al Isa" ;
+    frontlet:yearOfBirth 1997 .
+
+data:bulgarie_Person_14 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_14 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_14 ;
+    frontlet:hasComment "Date of Birth: 1980-11-01",
+        "Family member/s: 4915738338722" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Fedaa Shelleh" ;
+    frontlet:hasOfficialName "Fedaa Shelleh" ;
+    frontlet:yearOfBirth 1980 .
+
+data:bulgarie_Person_15 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_15 ;
+    frontlet:hasComment "Date of Birth: 2003-01-05",
+        "Family member/s: 905345717702" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Alaa Mustafa Al-Suwaid" ;
+    frontlet:hasOfficialName "Alaa Mustafa Al-Suwaid" ;
+    frontlet:yearOfBirth 2003 .
+
+data:bulgarie_Person_16 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_16 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_16 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Saif Ahmed Al-Ahmad" ;
+    frontlet:hasOfficialName "Saif Ahmed Al-Ahmad" ;
+    frontlet:yearOfBirth 2001 .
+
+data:bulgarie_Person_17 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_17 ;
+    frontlet:hasComment "Family member/s: His brother: +90 553 884 86 55" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Muhammad Zakaria Salim Baroudi" ;
+    frontlet:hasOfficialName "Muhammad Zakaria Salim Baroudi" ;
+    frontlet:yearOfBirth 1999 .
+
+data:bulgarie_Person_18 a frontlet:Person ;
+    frontlet:aged data:bulgarie_Age_18 ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_18 ;
+    frontlet:hasComment "Family member/s: Brother in Turkey: 05380163678" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Hamza Mutlac" ;
+    frontlet:hasOfficialName "Hamza Mutlac" ;
+    frontlet:yearOfBirth 1993 .
+
+data:bulgarie_Person_19 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_19 ;
+    frontlet:hasComment "Family member/s: Cousin in NL, speaks English: +31687220012" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad" ;
+    frontlet:hasOfficialName "Ahmad" .
+
+data:bulgarie_Person_2 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_2 ;
+    frontlet:hasComment "Family member/s: Father: Ghulam Mohammad" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Hussain Alami" ;
+    frontlet:hasOfficialName "Hussain Alami" .
+
+data:bulgarie_Person_3 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_3 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Fasel Rahmani" ;
+    frontlet:hasOfficialName "Fasel Rahmani" .
+
+data:bulgarie_Person_4 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_4 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Nour Haadzade" ;
+    frontlet:hasOfficialName "Nour Haadzade" .
+
+data:bulgarie_Person_5 a frontlet:Person ;
+    frontlet:composedOf data:bulgarie_Death_5 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mohammad Abdul Al-Ahab" ;
+    frontlet:hasOfficialName "Mohammad Abdul Al-Ahab" .
+
+data:bulgarie_Person_7 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_MAR ;
+    frontlet:composedOf data:bulgarie_Death_7 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Abdi Mi Lah El-Idrisi" ;
+    frontlet:hasOfficialName "Abdi Mi Lah El-Idrisi" .
+
+data:bulgarie_Person_8 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_DZA ;
+    frontlet:composedOf data:bulgarie_Death_8 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mounsef Hasbalawi" ;
+    frontlet:hasOfficialName "Mounsef Hasbalawi" .
+
+data:bulgarie_Person_9 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_AFG ;
+    frontlet:composedOf data:bulgarie_Death_9 ;
+    frontlet:hasComment "Family member/s: Mohammad Nasim Sharifi: +93 79 926 8003" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Ahmad Javid Sharifi" ;
+    frontlet:hasOfficialName "Ahmad Javid Sharifi" .
 
 data:bulgarie_Source_11_mission_wings_family a frontlet:Family,
         frontlet:Source ;
@@ -479,6 +513,15 @@ data:bulgarie_Transport_car a frontlet:Transport ;
 data:bulgarie_geometry_10 a geo:Geometry ;
     geo:asWKT "POINT(22.635164 43.0756042)"^^geo:wktLiteral .
 
+data:bulgarie_geometry_11 a geo:Geometry ;
+    geo:asWKT "POINT(25.9015211 41.9302645)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_12 a geo:Geometry ;
+    geo:asWKT "POINT(27.5914059 42.0091016)"^^geo:wktLiteral .
+
+data:bulgarie_geometry_13 a geo:Geometry ;
+    geo:asWKT "POINT(27.1808724 42.3458456)"^^geo:wktLiteral .
+
 data:bulgarie_geometry_16 a geo:Geometry ;
     geo:asWKT "POINT(27.197288 42.279513)"^^geo:wktLiteral .
 
@@ -531,6 +574,7 @@ data:bulgarie_Death_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Body location: Brother didn't know but we found out it had been in Burgas morgue | Burgas cemetary",
         "Place of death: Burgas region" ;
+    frontlet:livedBy data:bulgarie_Person_1 ;
     frontlet:sourcedBy data:bulgarie_Source_1_ihab_rawi_syrian_activist_journalist_in_germany_46_76_746_62_72 ;
     temp:before data:bulgarie_InhumationEvent_1 ;
     time:dayOfWeek time:Tuesday ;
@@ -539,18 +583,38 @@ data:bulgarie_Death_1 a frontlet:Death,
 data:bulgarie_Death_6 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Body location: buried in Morroco" ;
+    frontlet:livedBy data:bulgarie_Person_6 ;
     frontlet:sourcedBy data:bulgarie_Source_6_burgas_hospital_confirmed_by_relatives ;
     temp:before data:bulgarie_InhumationEvent_6 .
 
 data:bulgarie_InhumationEvent_1 a frontlet:IndividualEvent,
         frontlet:Inhumation ;
     ns1:missingAfterTakingOver data:bulgarie_Death_1 ;
-    frontlet:hasComment "Brother didn't know but we found out it had been in Burgas morgue | Burgas cemetary" .
+    frontlet:hasComment "Brother didn't know but we found out it had been in Burgas morgue | Burgas cemetary" ;
+    frontlet:livedBy data:bulgarie_Person_1 .
 
 data:bulgarie_InhumationEvent_6 a frontlet:IndividualEvent,
         frontlet:Inhumation ;
     ns1:missingAfterTakingOver data:bulgarie_Death_6 ;
-    frontlet:hasComment "buried in Morroco" .
+    frontlet:hasComment "buried in Morroco" ;
+    frontlet:livedBy data:bulgarie_Person_6 .
+
+data:bulgarie_Person_1 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_SYR ;
+    frontlet:composedOf data:bulgarie_Death_1,
+        data:bulgarie_InhumationEvent_1 ;
+    frontlet:hasComment "Family member/s: Brother: Mohamad Al-Sheikh (+90 535 078 52 62)" ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mustafa Al-Sheikh" ;
+    frontlet:hasOfficialName "Mustafa Al-Sheikh" .
+
+data:bulgarie_Person_6 a frontlet:Person ;
+    frontlet:birthPlace data:bulgarie_Country_MAR ;
+    frontlet:composedOf data:bulgarie_Death_6,
+        data:bulgarie_InhumationEvent_6 ;
+    frontlet:hasGender data:bulgarie_Gender_inconnu ;
+    frontlet:hasName "Mohammad Hamani" ;
+    frontlet:hasOfficialName "Mohammad Hamani" .
 
 frontlet:AgeEntity a owl:Class ;
     skos:definition "Super class dealing with migrant age"@en,
@@ -617,12 +681,6 @@ time:Wednesday a time:DayOfWeek ;
 data:bulgarie_Country_AFG a frontlet:Country ;
     rdfs:label "Afghanistan"@en .
 
-frontlet:Country a owl:Class ;
-    rdfs:subClassOf geo:Feature ;
-    skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
-    skos:prefLabel "Country"@en,
-        "Pays"@fr .
-
 frontlet:DeathCause a owl:Class ;
     skos:definition "Manière précise dont un migrant est décédé"@fr .
 
@@ -643,6 +701,16 @@ frontlet:Age a owl:Class ;
         "Precise value of a migrant age. It can be negative for a prenatal loss or real in case of a less than one year old child"@en ;
     skos:prefLabel "Age"@en,
         "Age"@fr .
+
+frontlet:Country a owl:Class ;
+    rdfs:subClassOf geo:Feature ;
+    skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
+    skos:prefLabel "Country"@en,
+        "Pays"@fr .
+
+data:bulgarie_DeathCountry_BGR a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Bulgaria"@en .
 
 data:bulgarie_Country_SYR a frontlet:Country ;
     rdfs:label "Syrian Arab Republic"@en .

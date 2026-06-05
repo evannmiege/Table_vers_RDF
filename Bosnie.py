@@ -9,16 +9,21 @@ import unicodedata
 
 import pandas as pd
 import pycountry
-from geopy.exc import GeocoderServiceError, GeocoderTimedOut
-from geopy.geocoders import Nominatim
+import json
+from geopy.exc import GeocoderRateLimited, GeocoderServiceError, GeocoderTimedOut
+from geopy.geocoders import Photon
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS, XSD
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
     infer_source_category_key,
+    propagate_geometry_to_sibling_events,
 )
 
 # -------------------- CONFIGURATION --------------------
@@ -31,6 +36,11 @@ ROW_LIMIT = None
 
 GEOCODE_TIME_BUDGET_SEC = 30
 GEOCODE_MAX_AFTER_BUDGET = 10
+GEOCODE_CACHE_PATH = "Bosnie/geocode_cache.json"
+GEOCODER_MIN_DELAY_SECONDS = 1.5
+GEOCODER_MAX_ATTEMPTS = 4
+GEOCODER_RATE_LIMIT_BACKOFF_SECONDS = 10.0
+GEOCODER_COUNTRY_HINT = "Bosnia and Herzegovina"
 
 # Espaces de noms par defaut
 F = Namespace("http://purl.org/frontierelethale/onto/")
@@ -693,14 +703,33 @@ for _dow_name in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
     g.add((TIME[_dow_name], RDFS.label, Literal(_dow_name, lang="en")))
 ADDITIONAL_EVENT_SPECS = build_additional_event_specs(g_ref, F, find_by_label, exclude_names=["Inhumation"])
 
-geolocator = Nominatim(user_agent="frontlet_bosnie_geocoder")
-location_geocode_cache = {}
+geolocator = Photon(user_agent="frontlet_bosnie_geocoder")
+_last_geocode_ts = 0.0
+
+# Charger le cache fichier
+if os.path.exists(GEOCODE_CACHE_PATH):
+    try:
+        with open(GEOCODE_CACHE_PATH, encoding="utf-8") as _f:
+            location_geocode_cache = json.load(_f)
+    except Exception:
+        location_geocode_cache = {}
+else:
+    location_geocode_cache = {}
+
 geocode_start_time = time.time()
 geocode_after_budget_calls = 0
 
 
+def _save_geocode_cache():
+    try:
+        with open(GEOCODE_CACHE_PATH, "w", encoding="utf-8") as _f:
+            json.dump(location_geocode_cache, _f, ensure_ascii=False)
+    except Exception:
+        pass
+
+
 def geocode_location(location_name, max_retries=2):
-    global geocode_after_budget_calls
+    global geocode_after_budget_calls, _last_geocode_ts
 
     if is_missing(location_name):
         return None, None
@@ -708,32 +737,45 @@ def geocode_location(location_name, max_retries=2):
     location_str = str(location_name).strip()
     key = norm(location_str)
     if key in location_geocode_cache:
-        return location_geocode_cache[key]
+        cached = location_geocode_cache[key]
+        return (cached[0], cached[1]) if cached else (None, None)
 
     elapsed = time.time() - geocode_start_time
     if elapsed > GEOCODE_TIME_BUDGET_SEC and geocode_after_budget_calls >= GEOCODE_MAX_AFTER_BUDGET:
-        location_geocode_cache[key] = (None, None)
+        location_geocode_cache[key] = None
         return None, None
 
     if elapsed > GEOCODE_TIME_BUDGET_SEC:
         geocode_after_budget_calls += 1
 
-    for _ in range(max_retries):
+    query = location_str
+    if GEOCODER_COUNTRY_HINT.lower() not in query.lower():
+        query = f"{location_str}, {GEOCODER_COUNTRY_HINT}"
+
+    for attempt in range(GEOCODER_MAX_ATTEMPTS):
+        wait = GEOCODER_MIN_DELAY_SECONDS - (time.time() - _last_geocode_ts)
+        if wait > 0:
+            time.sleep(wait)
         try:
-            location = geolocator.geocode(location_str, timeout=8)
+            _last_geocode_ts = time.time()
+            location = geolocator.geocode(query, timeout=8)
             if location:
                 lat = float(location.latitude)
                 lon = float(location.longitude)
                 if not is_suspicious_coordinate(lat, lon):
-                    location_geocode_cache[key] = (lat, lon)
+                    location_geocode_cache[key] = [lat, lon]
                     return lat, lon
-            break
+            location_geocode_cache[key] = None
+            return None, None
+        except GeocoderRateLimited:
+            backoff = GEOCODER_RATE_LIMIT_BACKOFF_SECONDS * (2 ** attempt)
+            time.sleep(backoff)
         except (GeocoderTimedOut, GeocoderServiceError):
             continue
         except Exception:
             break
 
-    location_geocode_cache[key] = (None, None)
+    location_geocode_cache[key] = None
     return None, None
 
 
@@ -833,11 +875,13 @@ for idx, row in df.iterrows():
 
     # Determine geometry once per row and reuse for all individual events.
     lat, lon = parse_coordinates_from_location(location_val)
+    geometry_geocoded_fallback = False
     if lat is not None and lon is not None:
         count_geo_from_csv += 1
     else:
         lat, lon = geocode_location(location_val)
         if lat is not None and lon is not None:
+            geometry_geocoded_fallback = True
             count_geocoded += 1
         elif not is_missing(location_val):
             count_geocode_skipped += 1
@@ -877,11 +921,13 @@ for idx, row in df.iterrows():
         count_individual_events += 1
 
         g.add((person_uri, PROP_composedOf, event_uri))
+        g.add((event_uri, F.livedBy, person_uri))
         if collective_event_uri is not None:
             g.add((event_uri, PROP_group, collective_event_uri))
 
         if not is_missing(name_val):
             g.add((person_uri, PROP_hasName, Literal(str(name_val).strip())))
+            g.add((person_uri, F.hasOfficialName, Literal(str(name_val).strip())))
 
         if normalized_gender == "male":
             g.add((person_uri, PROP_gender, GENDER_URIS["male"]))
@@ -941,7 +987,11 @@ for idx, row in df.iterrows():
             geometry_uri = DATA[f"bosnie_geometry_{row_num}_{victim_pos + 1}"]
             g.add((event_uri, GEO.hasGeometry, geometry_uri))
             g.add((geometry_uri, RDF.type, GEO.Geometry))
-            g.add((geometry_uri, GEO.asWKT, Literal(f"POINT({lon} {lat})", datatype=GEO.wktLiteral)))
+            wkt = build_wkt_for_location_precision(location_val, lat, lon, geometry_geocoded_fallback)
+            g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
+            g.add((geometry_uri, F.hasPrecision, Literal(not geometry_geocoded_fallback, datatype=XSD.boolean)))
+            if geometry_geocoded_fallback and location_val and not is_missing(location_val):
+                g.add((event_uri, F.lieu, Literal(str(location_val).strip())))
 
         person_event_pairs.append((person_uri, event_uri))
 
@@ -1018,6 +1068,34 @@ for idx, row in df.iterrows():
         g.add((source_uri, RDF.type, SOURCE_CLASS))
 
         source_category = infer_source_category_key(source_label, source_url_val)
+        if source_category is None:
+            src_norm = norm(f"{source_label} {source_url_val}")
+            media_hints = [
+                "http", "www", "facebook", "twitter", "instagram", "youtube", "radio", "tv",
+                "news", "press", "journal", "article", "avaz", "klix", "n1", "blic", "danas",
+                "reuters", "ap", "ansa", "dw", "aljazeera", "medium", "portal", "vijesti",
+            ]
+            civil_hints = [
+                "ngo", "association", "civil society", "human rights", "red cross", "croix rouge",
+                "komrad", "no name kitchen", "watch the med", "alarm phone",
+            ]
+            family_hints = ["family", "famille", "mother", "father", "relative", "parent", "friends"]
+            death_cert_hints = ["death certificate", "certificat de deces", "certificado de defuncion"]
+            official_hints = [
+                "ministry", "police", "court", "government", "authority", "municipality",
+                "cemetery", "morgue", "hospital", "clinic", "consulate", "unhcr", "iom",
+            ]
+
+            if any(kw in src_norm for kw in death_cert_hints):
+                source_category = "death_certificate"
+            elif any(kw in src_norm for kw in family_hints):
+                source_category = "family"
+            elif any(kw in src_norm for kw in civil_hints):
+                source_category = "civil_society"
+            elif any(kw in src_norm for kw in media_hints):
+                source_category = "media"
+            elif any(kw in src_norm for kw in official_hints):
+                source_category = "official_document"
         if source_category == "family":
             g.add((source_uri, RDF.type, F.Family))
         elif source_category == "media":
@@ -1027,6 +1105,9 @@ for idx, row in df.iterrows():
         elif source_category == "death_certificate":
             g.add((source_uri, RDF.type, F.DeathCertificate))
         elif source_category == "official_document":
+            g.add((source_uri, RDF.type, F.OfficialDocument))
+        else:
+            # Triage obligatoire: aucune source ne doit rester uniquement en frontlet:Source.
             g.add((source_uri, RDF.type, F.OtherOfficialDocument))
 
         if source_label:
@@ -1039,8 +1120,6 @@ for idx, row in df.iterrows():
         count_sources += 1
 
 # ------------------------ Sortie ------------------------
-g.serialize(destination=OUTPUT_TTL, format="turtle")
-
 print("\n" + "=" * 62)
 print("Import Bosnie complete")
 print("=" * 62)
@@ -1062,6 +1141,12 @@ print(f"Geometry from geocoding       : {count_geocoded}")
 print(f"Geocoding unresolved/skipped  : {count_geocode_skipped}")
 print(f"Date fallback from morgue out : {count_date_from_morgue_taken}")
 print(f"Date fallback from morgue in  : {count_date_from_brought_to_morgue}")
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "bosnie")
+count_event_country_from_geometry = add_event_country_from_geometry(g, F, DATA, GEO, RDF, RDFS, Literal, "bosnie")
+g.serialize(destination=OUTPUT_TTL, format="turtle")
+_save_geocode_cache()
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry  : {count_event_country_from_geometry}")
 print("=" * 62)
 print(f"Output written to: {OUTPUT_TTL}")
 

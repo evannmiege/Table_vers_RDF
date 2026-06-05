@@ -671,12 +671,14 @@ frontlet_data:alpes_Death_1 a frontlet:Death,
 
 frontlet_data:alpes_Death_10 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Uton?? w Bugu. Cia?o 19-latka nurkowie wydobyli 20 pa?dziernika. Sekcja zw?ok wykaza?a, ?e przyczyn? ?mierci by?o utoni?cie. M??czyzna pochodzi? ze zrujnowanego miasta Homs w Syrii. Przebywa? w obozie dla uchod?ców w Jordanii, gdzie Syryjczycy schronili si? przed wojn? domow?. W obozie zacz?? studia." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_10 ;
     geo:hasGeometry frontlet_data:alpes_geometry_10 .
 
 frontlet_data:alpes_Death_11 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_CHN ;
     frontlet:hasNarrative "Przy ciele nie znaleziono dokumentów - nie uda?o si? ustali? to?samo?ci m??czyzny. Prawdopodobnie pochodzi? ze Sri Lanki." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_11 ;
     geo:hasGeometry frontlet_data:alpes_geometry_11 .
@@ -708,12 +710,14 @@ frontlet_data:alpes_Death_16 a frontlet:Death,
 
 frontlet_data:alpes_Death_17 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody m??czyzna z Syrii. Jego m?odszy brat prosi? o pomoc SG, gdy Mohammed jeszcze ?y?. Nie udzielono mu pomocy, brata z kolei wywieziono na stron? bia?orusk?." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_17 ;
     geo:hasGeometry frontlet_data:alpes_geometry_17 .
 
 frontlet_data:alpes_Death_18 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Dziecko, którego matk? by?a Avin Irfan Zahir. Avin urodzi?a przedwcze?nie - w 24 tygodniu ci??y. Dziecko by?o oczekiwane, mia?o wybrane imi?. Mia?o urodzi? si? w bezpiecznym kraju." ;
     geo:hasGeometry frontlet_data:alpes_geometry_18 .
 
@@ -728,12 +732,14 @@ frontlet_data:alpes_Death_2 a frontlet:Death,
 
 frontlet_data:alpes_Death_20 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "38-latka do szpitala w Hajnówce trafi?a 12 listopada. W lesie pod Narewk? znale?li j? wolontariusze z Grupy Granica. Temperatura jej cia?a wynosi?a 28 stopni, a oprócz hipotermii kobieta mia?a te? kwasic?. Poroni?a dwa dni pó?niej, b?d?c w 24 tygodniu ci??y. Nieprzytomna, zmar?a 3 grudnia wieczorem." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_20 ;
     geo:hasGeometry frontlet_data:alpes_geometry_20 .
 
 frontlet_data:alpes_Death_21 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Zmar? 12 grudnia 2021 r. Wed?ug wolontariuszy cia?o Nigeryjczyka znaleziono we wsi Olchówka w pobli?u domów mieszkalnych — zamarz?. Nie wiadomo, czy ba? si? zapuka?, czy te? nie mia? ju? si?." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_21 ;
     geo:hasGeometry frontlet_data:alpes_geometry_21 .
@@ -744,6 +750,7 @@ frontlet_data:alpes_Death_22 a frontlet:Death,
 
 frontlet_data:alpes_Death_23 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_SGP ;
     frontlet:hasNarrative "Jeme?czyk. Uton??. Towarzysze wyszli z lasu i poprosili s?u?by o pomoc w wyniesieniu cia?a, jednak wszyscy zostali wywiezieni do Bia?orusi." ;
     geo:hasGeometry frontlet_data:alpes_geometry_23 .
 
@@ -758,6 +765,7 @@ frontlet_data:alpes_Death_25 a frontlet:Death,
 
 frontlet_data:alpes_Death_26 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_BLR ;
     frontlet:hasNarrative """Wg ?ród?a: "We wtorek s?ynny jeme?ski YouTuber zmar? z g?odu w lasach Bia?orusi, próbuj?c przedosta? si? do Europy.
 ?ród?o bliskie jeme?skiemu YouTuberowi Abdulowi Majeedowi Khaledowi poda?o, ?e ten ostatni zmar? z g?odu i zm?czenia w bia?oruskich lasach, próbuj?c przedosta? si? do Europy.
 Khaled studiowa? studia podyplomowe w Malezji, zanim zdecydowa? si? wyemigrowa? do Europy przez Bia?oru?.\"""" ;
@@ -779,6 +787,7 @@ frontlet_data:alpes_Death_29 a frontlet:Death,
 
 frontlet_data:alpes_Death_3 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Cia?o m??czyzny stra?nicy graniczni znale?li na polu niedaleko Poniatowicz. Nie ustalono wieku, kraju pochodzenia ani to?samo?ci m??czyzny." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_3 ;
     geo:hasGeometry frontlet_data:alpes_geometry_3 .
@@ -837,16 +846,19 @@ frontlet_data:alpes_Death_4 a frontlet:Death,
 
 frontlet_data:alpes_Death_40 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     geo:hasGeometry frontlet_data:alpes_geometry_40 .
 
 frontlet_data:alpes_Death_41 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody m??czyzna z Etiopii. Zmar? w polskim lesie." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_41 ;
     geo:hasGeometry frontlet_data:alpes_geometry_41 .
 
 frontlet_data:alpes_Death_42 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     geo:hasGeometry frontlet_data:alpes_geometry_42 .
 
 frontlet_data:alpes_Death_43 a frontlet:Death,
@@ -871,12 +883,14 @@ frontlet_data:alpes_Death_46 a frontlet:Death,
 
 frontlet_data:alpes_Death_47 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Towarzyszy podró?y wywieziono do Bia?orusi, jej samej nie udzielono pomocy. Zmar?a w samotno?ci." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_47 ;
     geo:hasGeometry frontlet_data:alpes_geometry_47 .
 
 frontlet_data:alpes_Death_48 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Etiopczyk, cia?o znaleziono w polskim lesie. Okoliczno?ci ?mierci nie wyja?niono." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_48 ;
     geo:hasGeometry frontlet_data:alpes_geometry_48 .
@@ -887,6 +901,7 @@ frontlet_data:alpes_Death_49 a frontlet:Death,
 
 frontlet_data:alpes_Death_5 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_RUS ;
     frontlet:hasNarrative "Irakijka, zmar?a w nast?pstwie hipotermii. Pochowana w Iraku." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_5 ;
     geo:hasGeometry frontlet_data:alpes_geometry_5 .
@@ -966,12 +981,14 @@ frontlet_data:alpes_Death_64 a frontlet:Death,
 
 frontlet_data:alpes_Death_65 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody Jeme?czyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_65 ;
     geo:hasGeometry frontlet_data:alpes_geometry_65 .
 
 frontlet_data:alpes_Death_66 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody Syryjczyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_66 ;
     geo:hasGeometry frontlet_data:alpes_geometry_66 .
@@ -1027,6 +1044,7 @@ frontlet_data:alpes_Death_75 a frontlet:Death,
 
 frontlet_data:alpes_Death_76 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Prokuratura w Hajnówce prowadzi ?ledztwo w sprawie znalezienia w lutym 2024 w Puszczy Bia?owieskiej ludzkej czaszki. Z ekspertyz wynika, ?e nale?a?a ona do osoby z krajów Bliskiego Wschodu." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_76 ;
     geo:hasGeometry frontlet_data:alpes_geometry_76 .
@@ -1047,6 +1065,7 @@ frontlet_data:alpes_Death_79 a frontlet:Death,
 
 frontlet_data:alpes_Death_8 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Syryjczyk zmar? w wypadku samochodowym, w drodze z granicy po lepsze ?ycie." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_8 ;
     geo:hasGeometry frontlet_data:alpes_geometry_8 .
@@ -1067,6 +1086,7 @@ frontlet_data:alpes_Death_82 a frontlet:Death,
 
 frontlet_data:alpes_Death_83 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_BGD ;
     frontlet:sourcedBy frontlet_data:pologne_Source_83 ;
     geo:hasGeometry frontlet_data:alpes_geometry_83 .
 
@@ -1078,6 +1098,7 @@ frontlet_data:alpes_Death_85 a frontlet:Death,
 
 frontlet_data:alpes_Death_9 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Za?oga policyjnego ?mig?owca dostrzeg?a na polu cia?o m??czyzny. Zmar?y okaza? si? 24-letnim obywatelem Syrii. ?ledztwo nie wyja?ni?o przyczyny ?mierci." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_9 ;
     geo:hasGeometry frontlet_data:alpes_geometry_9 .
@@ -1147,6 +1168,26 @@ frontlet_data:alpes_geometry_83 a geo:Geometry ;
 
 frontlet_data:alpes_geometry_9 a geo:Geometry ;
     geo:asWKT "POINT(23.692513 53.4375049)"^^geo:wktLiteral .
+
+frontlet_data:pologne_DeathCountry_BGD a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Bangladesh"@en .
+
+frontlet_data:pologne_DeathCountry_BLR a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Belarus"@en .
+
+frontlet_data:pologne_DeathCountry_CHN a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "China"@en .
+
+frontlet_data:pologne_DeathCountry_RUS a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Russian Federation"@en .
+
+frontlet_data:pologne_DeathCountry_SGP a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Singapore"@en .
 
 frontlet_data:pologne_Source_10 a frontlet:Media,
         frontlet:Source ;
@@ -1478,6 +1519,10 @@ frontlet_data:alpes_Country_SYR a frontlet:Country ;
     frontlet:isoAlpha2 "SY" ;
     frontlet:isoAlpha3 "SYR" ;
     skos:notation "SYR" .
+
+frontlet_data:pologne_DeathCountry_POL a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Poland"@en .
 
 frontlet:Country a owl:Class ;
     rdfs:subClassOf geo:Feature ;

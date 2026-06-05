@@ -1,3 +1,75 @@
+def find_nearest_church_from_osm_overpass(lat, lon, max_distance_km=10.0):
+    """Retourne la plus proche église (amenity=church) autour des coordonnées via Overpass."""
+    try:
+        lat = float(lat)
+        lon = float(lon)
+    except Exception:
+        return None
+    if not math.isfinite(lat) or not math.isfinite(lon):
+        return None
+    radius_m = int(max(1.0, float(max_distance_km)) * 1000.0)
+    overpass_query = (
+        f"[out:json][timeout:25];"
+        f"(node[\"amenity\"=\"church\"](around:{radius_m},{lat},{lon});"
+        f" way[\"amenity\"=\"church\"](around:{radius_m},{lat},{lon});"
+        f" relation[\"amenity\"=\"church\"](around:{radius_m},{lat},{lon}););"
+        "out center tags;"
+    )
+    data = urllib.parse.urlencode({"data": overpass_query}).encode("utf-8")
+    overpass_endpoints = (
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.openstreetmap.fr/api/interpreter",
+    )
+    for endpoint in overpass_endpoints:
+        req = urllib.request.Request(
+            endpoint,
+            data=data,
+            headers={
+                "User-Agent": "frontlet_southern_eu_church_locator/1.0",
+                "Accept": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                payload = resp.read().decode("utf-8", errors="replace")
+            parsed = json.loads(payload)
+        except Exception:
+            continue
+        elements = parsed.get("elements", []) if isinstance(parsed, dict) else []
+        best = None
+        for elem in elements:
+            if not isinstance(elem, dict):
+                continue
+            elat = elem.get("lat")
+            elon = elem.get("lon")
+            if elat is None or elon is None:
+                center = elem.get("center") if isinstance(elem.get("center"), dict) else None
+                if center is not None:
+                    elat = center.get("lat")
+                    elon = center.get("lon")
+            try:
+                cand_lat = float(elat)
+                cand_lon = float(elon)
+            except Exception:
+                continue
+            if not math.isfinite(cand_lat) or not math.isfinite(cand_lon):
+                continue
+            distance_km = haversine_km(lat, lon, cand_lat, cand_lon)
+            tags = elem.get("tags") if isinstance(elem.get("tags"), dict) else {}
+            name = str(tags.get("name", "")).strip()
+            candidate = {
+                "lat": cand_lat,
+                "lon": cand_lon,
+                "distance_km": distance_km,
+                "name": name if name else "church",
+                "amenity": "church",
+            }
+            if best is None or candidate["distance_km"] < best["distance_km"]:
+                best = candidate
+        if best is not None:
+            return best
+    return None
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -13,16 +85,28 @@ import unicodedata
 import re
 import os
 import math
+import difflib
 import json
+import random
+import urllib.parse
+import urllib.request
 import pycountry
-from geopy.geocoders import Nominatim
+try:
+    import reverse_geocoder as rg
+except Exception:
+    rg = None
+from geopy.geocoders import ArcGIS, Nominatim, Photon
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 from event_text_utils import (
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
+    propagate_geometry_to_sibling_events,
 )
 
 # -------------------- CONFIGURATION --------------------
@@ -32,14 +116,82 @@ CSV_PATH    = "southern_eu/ue_sudMorts.csv"
 OUTPUT_TTL  = "southern_eu/frontlet_import_output.ttl"
 MAPPING_PATH = "southern_eu/mappingUE_SudThesaurusCauseMort.csv"
 GEOCODE_CACHE_PATH      = "southern_eu/geocode_cache.json"
-GEOCODE_MIN_DELAY_SECONDS   = 1.2
-GEOCODE_429_BACKOFF_SECONDS = 8.0
-GEOCODE_MAX_429_RETRIES     = 2
+WKT_CACHE_PATH          = "southern_eu/wkt_cache.json"
+GEOCODE_MIN_DELAY_SECONDS   = 0.0
+GEOCODE_429_BACKOFF_SECONDS = 5.0
+GEOCODE_MAX_429_RETRIES     = 1
+GEOCODE_REQUEST_TIMEOUT_SECONDS = 2
+GEOCODER_PROVIDER_ORDER = ("arcgis",)
+GEOCODER_FAILURE_THRESHOLD = 3
+GEOCODER_DISABLE_SECONDS = 1800
+OVERPASS_REQUEST_TIMEOUT_SECONDS = 6
+OVERPASS_FAILURE_COOLDOWN_SECONDS = 900
+USE_OVERPASS_CEMETERY_PROVIDER = False
+ENABLE_NON_OSM_CEMETERY_POI_LOOKUP = True
+MAX_NON_OSM_CEMETERY_POI_PER_RUN = 10
+MAX_FORCED_NON_OSM_CEMETERY_POI_PER_RUN = 20
+MAX_FORCED_OVERPASS_CEMETERY_PER_RUN = 6
+MAX_NON_OSM_CHURCH_POI_PER_RUN = None  # Pas de limite sur le fallback église
+WHERE_BURIED_CENTROID_REFINEMENT_KM = 3.0
+MAX_REMOTE_GEOCODE_SECONDS_PER_RUN = 900
+BURIAL_LOCATION_OVERRIDES = {
+    3170: "Arrecife, Spain",
+    3177: "Arrecife, Spain",
+}
+BURIAL_COORDINATE_OVERRIDES = {
+    1339: {
+        "lat": 15.3500426,
+        "lon": 38.9676609,
+        "name": "Asmara War Cemetery",
+    },
+    1342: {
+        "lat": 15.3500426,
+        "lon": 38.9676609,
+        "name": "Asmara War Cemetery",
+    },
+    1518: {
+        "lat": 15.3500426,
+        "lon": 38.9676609,
+        "name": "Asmara War Cemetery",
+    },
+    3025: {
+        "lat": 12.6423039,
+        "lon": -8.0052729,
+        "name": "Bamako European Cemetery",
+    },
+    3170: {
+        "lat": 28.984952596662,
+        "lon": -13.553239388998,
+        "name": "Camino al Cementerio, Arrecife, Lanzarote, Spain",
+    },
+    3177: {
+        "lat": 28.984952596662,
+        "lon": -13.553239388998,
+        "name": "Camino al Cementerio, Arrecife, Lanzarote, Spain",
+    },
+}
 
 # Compat mode: mettre ROW_LIMIT a None pour traiter tout le CSV.
+
 ROW_LIMIT = None
-ENABLE_GEOCODING = False
+ENABLE_GEOCODING = False  # Désactive tout géocodage pour accélérer
+ENABLE_INHUMATION_GEOCODING = False
+USE_TEXTUAL_GEO_FALLBACK = False
+FAST_POINT_WKT_FOR_GEOCODED = True
+USE_NOMINATIM_FALLBACK = False
+ENABLE_ARCGIS_FALLBACK = False
+ENABLE_REMOTE_GEOCODER = False
+RETRY_NOT_FOUND_CACHE_WITH_REMOTE = False
+MAX_NOT_FOUND_REMOTE_RETRIES_PER_RUN = 5000
+NOT_FOUND_RETRY_COOLDOWN_SECONDS = 0
+STRICT_COUNTRY_CHECK_FOR_ALL_GEOCODES = False
+STRICT_COUNTRY_CHECK_FOR_AMBIGUOUS_GEOCODES = False
+ULTRA_FAST_COUNTRY_FALLBACK_GEOCODING = False
 STRICT_LITERAL_CAUSE = False
+ENABLE_TEXTUAL_MISSING_INFERENCE_IF_NONE = True
+RANDOM_GEOCODE_ROW_LIMIT = None
+GEOCODE_RANDOM_SEED = 42
+ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED = True
 
 # Espaces de noms par defaut
 F    = Namespace("http://purl.org/frontierelethale/onto/")
@@ -68,6 +220,79 @@ def is_missing(s):
     if s_norm in ("nan", "none", "n/a", "na", "-", "unknown", "inconnu"):
         return True
     return False
+
+
+def normalize_where_buried_text(where_buried, city_val):
+    if is_missing(where_buried) or is_missing(city_val):
+        return where_buried
+
+    parts = [part.strip() for part in str(where_buried).split(",") if part.strip()]
+    if not parts:
+        return where_buried
+
+    burial_place = parts[0]
+    if norm(burial_place) == norm(city_val):
+        return ", ".join(parts)
+
+    ratio = difflib.SequenceMatcher(None, norm(burial_place), norm(city_val)).ratio()
+    if ratio < 0.84:
+        return ", ".join(parts)
+
+    parts[0] = str(city_val).strip()
+    return ", ".join(parts)
+
+
+def has_cemetery_signal(value):
+    text = norm(value)
+    if not text:
+        return False
+    cemetery_markers = (
+        "cimiter", "cemeter", "graveyard", "grave yard", "gorostha", "cementerio",
+        "necropol", "cemetery",
+    )
+    return any(marker in text for marker in cemetery_markers)
+
+
+def has_diplomatic_signal(value):
+    text = norm(value)
+    if not text:
+        return False
+    diplomatic_markers = (
+        "embassy", "ambassade", "consulat", "consulate", "high commission",
+        "mission diplomatique", "diplomatic mission",
+    )
+    return any(marker in text for marker in diplomatic_markers)
+
+
+def has_church_signal(value):
+    text = norm(value)
+    if not text:
+        return False
+    church_markers = (
+        "church", "eglise", "église", "chiesa", "iglesia", "chapel",
+        "cathedral", "paroisse", "parish", "basilica",
+    )
+    return any(marker in text for marker in church_markers)
+
+
+def sanitize_where_buried_diplomatic_text(where_buried, city_val, country_val):
+    if is_missing(where_buried):
+        return where_buried
+    raw = str(where_buried).strip()
+    if not has_diplomatic_signal(raw):
+        return raw
+
+    parts = [part.strip() for part in raw.split(",") if part.strip()]
+    cleaned_parts = [part for part in parts if not has_diplomatic_signal(part)]
+    if cleaned_parts:
+        return ", ".join(cleaned_parts)
+
+    fallback_parts = []
+    if not is_missing(city_val):
+        fallback_parts.append(str(city_val).strip())
+    if not is_missing(country_val):
+        fallback_parts.append(str(country_val).strip())
+    return ", ".join(fallback_parts) if fallback_parts else raw
 
 
 def find_by_label(g, search, props=(RDFS.label, SKOS.prefLabel)):
@@ -112,9 +337,208 @@ def slug(text):
 
 
 # --------------------- Géocodage ----------------------
-geolocator = Nominatim(user_agent="frontlet_southern_eu_geocoder")
-GEOCODER_RATE_LIMITED      = False
+geolocator = Photon(user_agent="frontlet_southern_eu_geocoder", timeout=10)
+arcgis_geolocator = ArcGIS(timeout=10)
+fallback_geolocator = Nominatim(user_agent="frontlet_southern_eu_geocoder_fallback", timeout=10)
+NOMINATIM_RATE_LIMITED = False
 LAST_GEOCODE_REQUEST_TS    = 0.0
+WKT_CACHE = {}
+COORD_COUNTRY_CACHE = {}
+EXPECTED_COUNTRY_CACHE = {}
+NOT_FOUND_REMOTE_RETRY_COUNT = 0
+REMOTE_GEOCODE_DEADLINE_TS = None
+ALLOWED_RANDOM_GEO_ROW_NUMS = set()
+OVERPASS_CONSECUTIVE_FAILURES = 0
+OVERPASS_DISABLED_UNTIL_TS = 0.0
+GEOCODER_CONSECUTIVE_FAILURES = {"photon": 0, "arcgis": 0, "nominatim": 0}
+GEOCODER_DISABLED_UNTIL_TS = {"photon": 0.0, "arcgis": 0.0, "nominatim": 0.0}
+NON_OSM_CEMETERY_POI_LOOKUP_COUNT = 0
+FORCED_NON_OSM_CEMETERY_POI_LOOKUP_COUNT = 0
+FORCED_OVERPASS_CEMETERY_LOOKUP_COUNT = 0
+NON_OSM_CHURCH_POI_LOOKUP_COUNT = 0
+COUNTRY_NODE_CACHE = {}
+COUNTRY_NAME_INDEX = None
+COUNTRY_COORD_SUM = {}
+COUNTRY_COORD_COUNT = {}
+LOCAL_GEO_CACHE_INDEX = None
+COUNTRY_DEFAULT_COORDS = {
+    "ITA": (41.9028, 12.4964),
+    "ESP": (40.4168, -3.7038),
+    "GRC": (37.9838, 23.7275),
+    "MLT": (35.8989, 14.5146),
+    "MAR": (34.0209, -6.8416),
+    "DZA": (36.7538, 3.0588),
+    "TUN": (36.8065, 10.1815),
+    "LBY": (32.8872, 13.1913),
+    "EGY": (30.0444, 31.2357),
+    "TUR": (39.9334, 32.8597),
+}
+
+
+def _build_country_name_index():
+    index = {}
+    for c in pycountry.countries:
+        for attr in ("name", "official_name", "common_name"):
+            value = getattr(c, attr, None)
+            if not value:
+                continue
+            key = norm(value)
+            if key:
+                index[key] = c
+    return index
+
+
+def _geo_tokens(text):
+    if is_missing(text):
+        return set()
+    words = re.findall(r"[a-z0-9]+", norm(text))
+    return {w for w in words if len(w) >= 3}
+
+
+def _build_local_geo_cache_index(geocode_cache):
+    rows = []
+    for key, value in geocode_cache.items():
+        if not isinstance(value, dict):
+            continue
+        if "lat" not in value or "lon" not in value:
+            continue
+        try:
+            lat = float(value["lat"])
+            lon = float(value["lon"])
+        except Exception:
+            continue
+        if str(value.get("provider") or "").strip().lower() == "local_cache_fuzzy":
+            continue
+        if not math.isfinite(lat) or not math.isfinite(lon):
+            continue
+        query = str(value.get("query") or key)
+        rows.append({
+            "query": query,
+            "query_norm": norm(query),
+            "tokens": _geo_tokens(query),
+            "lat": lat,
+            "lon": lon,
+            "cc": str(value.get("cc") or "").upper() or None,
+        })
+    return rows
+
+
+def local_cache_geocode_fallback(location_str, geocode_cache, expected_country_codes=None):
+    global LOCAL_GEO_CACHE_INDEX
+
+    if LOCAL_GEO_CACHE_INDEX is None:
+        LOCAL_GEO_CACHE_INDEX = _build_local_geo_cache_index(geocode_cache)
+
+    q_norm = norm(location_str)
+    q_tokens = _geo_tokens(location_str)
+    if not q_norm:
+        return None, None, None
+
+    best = None
+    best_score = -1.0
+    for row in LOCAL_GEO_CACHE_INDEX:
+        if expected_country_codes:
+            row_cc = row.get("cc")
+            if row_cc and row_cc not in expected_country_codes:
+                continue
+            if row_cc is None and not coords_match_expected_country(
+                row["lat"],
+                row["lon"],
+                expected_country_codes,
+                strict_required=True,
+            ):
+                continue
+
+        overlap = 0
+        if q_tokens and row["tokens"]:
+            overlap = len(q_tokens & row["tokens"])
+
+        # Fast textual similarity for typo/noise tolerance.
+        ratio = difflib.SequenceMatcher(None, q_norm, row["query_norm"]).ratio()
+        score = overlap * 3.0 + ratio
+        if score > best_score:
+            best_score = score
+            best = row
+
+    if best is None:
+        return None, None, None
+
+    # Guardrail: avoid unrelated matches.
+    if best_score < 1.2:
+        return None, None, None
+
+    return best["lat"], best["lon"], best.get("cc")
+
+
+def _country_iso3_from_uri(country_uri):
+    if country_uri is None:
+        return None
+    m = re.search(r"_Country_([A-Z]{3})$", str(country_uri))
+    if m:
+        return m.group(1)
+    return None
+
+
+def update_country_coord_stats(country_uri, lat, lon):
+    iso3 = _country_iso3_from_uri(country_uri)
+    if not iso3:
+        return
+    COUNTRY_COORD_SUM[iso3] = (
+        COUNTRY_COORD_SUM.get(iso3, (0.0, 0.0))[0] + float(lat),
+        COUNTRY_COORD_SUM.get(iso3, (0.0, 0.0))[1] + float(lon),
+    )
+    COUNTRY_COORD_COUNT[iso3] = COUNTRY_COORD_COUNT.get(iso3, 0) + 1
+
+
+def get_country_fallback_coord(country_uri):
+    iso3 = _country_iso3_from_uri(country_uri)
+    if not iso3:
+        return None, None
+
+    cnt = COUNTRY_COORD_COUNT.get(iso3, 0)
+    if cnt > 0 and iso3 in COUNTRY_COORD_SUM:
+        s_lat, s_lon = COUNTRY_COORD_SUM[iso3]
+        return (s_lat / cnt), (s_lon / cnt)
+
+    return COUNTRY_DEFAULT_COORDS.get(iso3, (None, None))
+
+
+def extract_country_code_from_location(location):
+    """Extract ISO alpha-2 country code from geocoder raw payload when available."""
+    try:
+        raw = getattr(location, "raw", None)
+        if not isinstance(raw, dict):
+            return None
+
+        candidates = []
+        props = raw.get("properties")
+        if isinstance(props, dict):
+            candidates.extend([
+                props.get("countrycode"),
+                props.get("country_code"),
+                props.get("iso2"),
+            ])
+
+        addr = raw.get("address")
+        if isinstance(addr, dict):
+            candidates.extend([
+                addr.get("country_code"),
+                addr.get("countrycode"),
+            ])
+
+        candidates.extend([
+            raw.get("countrycode"),
+            raw.get("country_code"),
+            raw.get("iso2"),
+        ])
+
+        for candidate in candidates:
+            cc = str(candidate or "").strip().upper()
+            if re.fullmatch(r"[A-Z]{2}", cc):
+                return cc
+    except Exception:
+        return None
+    return None
 
 
 def load_geocode_cache(path):
@@ -152,74 +576,1086 @@ def is_http_429_error(err):
     return "429" in txt or "too many requests" in txt
 
 
-def geocode_location(location_str, geocode_cache, max_retries=3):
+def resolve_expected_country_codes(country_value):
+    """Resolve expected ISO alpha-2 country codes from CSV Country value."""
+    if is_missing(country_value):
+        return set()
+
+    key = norm(country_value)
+    cached = EXPECTED_COUNTRY_CACHE.get(key)
+    if cached is not None:
+        return set(cached)
+
+    result = set()
+    raw = str(country_value).strip()
+    parts = [p.strip() for p in re.split(r"[,;/|]", raw) if p.strip()]
+    if not parts:
+        parts = [raw]
+
+    for part in parts:
+        token = re.sub(r"[^A-Za-z0-9]", "", part).upper()
+        cc = None
+        try:
+            if re.fullmatch(r"[A-Z]{2}", token):
+                cc = pycountry.countries.get(alpha_2=token)
+            elif re.fullmatch(r"[A-Z]{3}", token):
+                cc = pycountry.countries.get(alpha_3=token)
+        except Exception:
+            cc = None
+
+        if cc is None:
+            try:
+                matches = pycountry.countries.search_fuzzy(part)
+                if matches:
+                    cc = matches[0]
+            except Exception:
+                cc = None
+
+        if cc is not None and getattr(cc, "alpha_2", None):
+            result.add(cc.alpha_2.upper())
+
+    EXPECTED_COUNTRY_CACHE[key] = sorted(result)
+    return result
+
+
+def is_country_only_location(value):
+    """Return True when a free-text location is just a country name/code."""
+    if is_missing(value):
+        return False
+
+    raw = re.sub(r"\s+", " ", str(value)).strip(" ,;")
+    if not raw:
+        return False
+
+    parts = [p.strip() for p in re.split(r"[,;/|]", raw) if p.strip()]
+    if len(parts) != 1:
+        return False
+
+    part = parts[0]
+    token = re.sub(r"[^A-Za-z0-9]", "", part).upper()
+    if re.fullmatch(r"[A-Z]{2}", token) or re.fullmatch(r"[A-Z]{3}", token):
+        return True
+
+    global COUNTRY_NAME_INDEX
+    if COUNTRY_NAME_INDEX is None:
+        COUNTRY_NAME_INDEX = _build_country_name_index()
+    return norm(part) in COUNTRY_NAME_INDEX
+
+
+def extract_specific_sea_place(candidate):
+    """Extract a non-generic place from strings like 'sea, Diapori, Syros'."""
+    if is_missing(candidate):
+        return None
+
+    text = str(candidate).strip()
+    if not text:
+        return None
+
+    match = re.match(r"^(?:sea|high seas|at sea)\s*[,;:-]?\s*(.+)$", text, flags=re.IGNORECASE)
+    if not match:
+        return None
+
+    remainder = match.group(1).strip(" ,;")
+    if not remainder:
+        return None
+
+    remainder_norm = norm(remainder)
+    if remainder_norm in {"sea", "at sea", "high seas", "mediterranean sea"}:
+        return None
+    return remainder
+
+
+def coord_country_code(lat, lon):
+    """Return ISO alpha-2 country code for coordinates when available."""
+    cache_key = f"{round(float(lat), 3)}|{round(float(lon), 3)}"
+    cached = COORD_COUNTRY_CACHE.get(cache_key)
+    if cached is not None:
+        return cached
+
+    if rg is None:
+        COORD_COUNTRY_CACHE[cache_key] = None
+        return None
+
+    try:
+        res = rg.search((float(lat), float(lon)), mode=1)
+        cc = None
+        if res and isinstance(res, list):
+            cc = (res[0].get("cc") or "").upper() if isinstance(res[0], dict) else None
+        COORD_COUNTRY_CACHE[cache_key] = cc or None
+        return cc or None
+    except Exception:
+        COORD_COUNTRY_CACHE[cache_key] = None
+        return None
+
+
+def coords_match_expected_country(lat, lon, expected_country_codes, strict_required=False):
+    """Validate that coordinates belong to expected Country when resolvable."""
+    if not expected_country_codes:
+        return True
+    cc = coord_country_code(lat, lon)
+    if cc is None:
+        if strict_required:
+            return False
+        return True
+    return cc in expected_country_codes
+
+
+def canonicalize_geo_query(query):
+    """Normalize noisy repeated location labels to reduce duplicate geocoding/WKT work."""
+    if is_missing(query):
+        return None
+
+    q = re.sub(r"\s+", " ", str(query)).strip(" ,;")
+    if not q:
+        return None
+
+    parts = [p.strip() for p in q.split(",") if p.strip()]
+    if not parts:
+        return q
+
+    first_part = norm(parts[0])
+    water_prefixes = (
+        "sea",
+        "high seas",
+        "mediterranean sea",
+        "on board",
+        "onboard",
+    )
+    if any(first_part.startswith(prefix) for prefix in water_prefixes) and len(parts) >= 2:
+        return f"sea, {parts[-1]}"
+
+    return q
+
+
+def requires_strict_country_check(query):
+    """Use costly reverse-country validation only for ambiguous/water locations."""
+    if STRICT_COUNTRY_CHECK_FOR_ALL_GEOCODES:
+        return True
+    if not STRICT_COUNTRY_CHECK_FOR_AMBIGUOUS_GEOCODES:
+        return False
+    if is_missing(query):
+        return False
+
+    q_norm = norm(query)
+    if q_norm.startswith("sea") or q_norm.startswith("high seas"):
+        return True
+    if " mediterranean" in q_norm or " aegean" in q_norm or " ionian" in q_norm:
+        return True
+    if " on board" in q_norm or " offshore" in q_norm:
+        return True
+    return False
+
+
+def geocode_location(location_str, geocode_cache, max_retries=1, expected_country_codes=None):
     """Géocode une chaîne ville+pays et retourne (lat, lon) ou (None, None)."""
-    global GEOCODER_RATE_LIMITED
+    global NOMINATIM_RATE_LIMITED, NOT_FOUND_REMOTE_RETRY_COUNT, REMOTE_GEOCODE_DEADLINE_TS
+    global GEOCODER_CONSECUTIVE_FAILURES, GEOCODER_DISABLED_UNTIL_TS
 
     if is_missing(location_str):
         return None, None
-    if GEOCODER_RATE_LIMITED:
+
+    location_str = canonicalize_geo_query(location_str) or str(location_str).strip()
+    strict_country_check = requires_strict_country_check(location_str)
+    cache_key = norm(location_str)
+    if expected_country_codes:
+        cache_key += "|cc:" + "-".join(sorted(expected_country_codes))
+
+    cached = geocode_cache.get(cache_key)
+    trust_cached_local_fuzzy = not (
+        isinstance(cached, dict)
+        and str(cached.get("provider") or "").strip().lower() == "local_cache_fuzzy"
+        and (norm(location_str).startswith("cemetery") or is_country_only_location(location_str))
+    )
+    if cached == "NOT_FOUND":
+        # Legacy cache entries from no-remote runs should be retried when remote geocoder is enabled.
+        if not (ENABLE_REMOTE_GEOCODER and RETRY_NOT_FOUND_CACHE_WITH_REMOTE):
+            return None, None
+        if NOT_FOUND_REMOTE_RETRY_COUNT >= MAX_NOT_FOUND_REMOTE_RETRIES_PER_RUN:
+            return None, None
+        NOT_FOUND_REMOTE_RETRY_COUNT += 1
+    if isinstance(cached, dict) and cached.get("status") == "NOT_FOUND":
+        if not (ENABLE_REMOTE_GEOCODER and RETRY_NOT_FOUND_CACHE_WITH_REMOTE):
+            return None, None
+        try:
+            last_try_ts = float(cached.get("last_try_ts") or 0.0)
+        except Exception:
+            last_try_ts = 0.0
+        if (time.time() - last_try_ts) < NOT_FOUND_RETRY_COOLDOWN_SECONDS:
+            return None, None
+        if NOT_FOUND_REMOTE_RETRY_COUNT >= MAX_NOT_FOUND_REMOTE_RETRIES_PER_RUN:
+            return None, None
+        NOT_FOUND_REMOTE_RETRY_COUNT += 1
+    if trust_cached_local_fuzzy and isinstance(cached, dict) and "lat" in cached and "lon" in cached:
+        try:
+            lat_cached = float(cached["lat"])
+            lon_cached = float(cached["lon"])
+            cached_cc = (cached.get("cc") or "").upper() if isinstance(cached.get("cc"), str) else None
+            if not expected_country_codes:
+                return lat_cached, lon_cached
+            if cached_cc:
+                if cached_cc in expected_country_codes:
+                    return lat_cached, lon_cached
+            elif coords_match_expected_country(
+                lat_cached,
+                lon_cached,
+                expected_country_codes,
+                strict_required=ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED,
+            ):
+                return lat_cached, lon_cached
+        except Exception:
+            pass
+
+    if not ENABLE_REMOTE_GEOCODER:
+        if norm(location_str).startswith("cemetery"):
+            return None, None
+        lat_local, lon_local, cc_local = local_cache_geocode_fallback(
+            location_str,
+            geocode_cache,
+            expected_country_codes=expected_country_codes,
+        )
+        if lat_local is not None and lon_local is not None:
+            geocode_cache[cache_key] = {
+                "lat": float(lat_local),
+                "lon": float(lon_local),
+                "cc": cc_local,
+                "query": location_str,
+                "provider": "local_cache_fuzzy",
+            }
+            return float(lat_local), float(lon_local)
         return None, None
 
-    location_str = str(location_str).strip()
-    cache_key = norm(location_str)
+    if REMOTE_GEOCODE_DEADLINE_TS is None:
+        if MAX_REMOTE_GEOCODE_SECONDS_PER_RUN is not None:
+            REMOTE_GEOCODE_DEADLINE_TS = time.time() + MAX_REMOTE_GEOCODE_SECONDS_PER_RUN
+    if REMOTE_GEOCODE_DEADLINE_TS is not None and time.time() >= REMOTE_GEOCODE_DEADLINE_TS:
+        return None, None
+
+    provider_map = {
+        "photon": geolocator,
+        "arcgis": arcgis_geolocator,
+        "nominatim": fallback_geolocator,
+    }
+    providers = []
+    now_ts = time.time()
+    for provider_name in GEOCODER_PROVIDER_ORDER:
+        if provider_name not in provider_map:
+            continue
+        if provider_name == "arcgis" and not ENABLE_ARCGIS_FALLBACK:
+            continue
+        if provider_name == "nominatim":
+            if not USE_NOMINATIM_FALLBACK or NOMINATIM_RATE_LIMITED:
+                continue
+        disabled_until = float(GEOCODER_DISABLED_UNTIL_TS.get(provider_name, 0.0) or 0.0)
+        if disabled_until > now_ts:
+            continue
+        providers.append((provider_name, provider_map[provider_name]))
+
+    for provider_name, provider in providers:
+        for attempt in range(max_retries):
+            try:
+                throttle_geocode_requests()
+                location = provider.geocode(location_str, timeout=GEOCODE_REQUEST_TIMEOUT_SECONDS)
+                if location:
+                    lat = float(location.latitude)
+                    lon = float(location.longitude)
+                    cc = extract_country_code_from_location(location)
+                    if cc is None and expected_country_codes and (
+                        strict_country_check or ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED
+                    ):
+                        cc = coord_country_code(lat, lon)
+                    if expected_country_codes:
+                        if cc is None and ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED:
+                            continue
+                        if cc is not None and cc not in expected_country_codes:
+                            continue
+                    geocode_cache[cache_key] = {
+                        "lat": lat,
+                        "lon": lon,
+                        "cc": cc,
+                        "query": location_str,
+                        "provider": provider_name,
+                    }
+                    GEOCODER_CONSECUTIVE_FAILURES[provider_name] = 0
+                    GEOCODER_DISABLED_UNTIL_TS[provider_name] = 0.0
+                    return lat, lon
+                break
+            except GeocoderTimedOut:
+                GEOCODER_CONSECUTIVE_FAILURES[provider_name] = GEOCODER_CONSECUTIVE_FAILURES.get(provider_name, 0) + 1
+                if GEOCODER_CONSECUTIVE_FAILURES[provider_name] >= GEOCODER_FAILURE_THRESHOLD:
+                    GEOCODER_DISABLED_UNTIL_TS[provider_name] = time.time() + float(GEOCODER_DISABLE_SECONDS)
+                if attempt < max_retries - 1:
+                    continue
+                break
+            except GeocoderServiceError as e:
+                if is_http_429_error(e):
+                    if provider_name == "nominatim":
+                        NOMINATIM_RATE_LIMITED = True
+                        break
+                    for retry in range(GEOCODE_MAX_429_RETRIES):
+                        time.sleep(GEOCODE_429_BACKOFF_SECONDS * (retry + 1))
+                        try:
+                            throttle_geocode_requests()
+                            location = provider.geocode(location_str, timeout=GEOCODE_REQUEST_TIMEOUT_SECONDS)
+                            if location:
+                                lat = float(location.latitude)
+                                lon = float(location.longitude)
+                                cc = extract_country_code_from_location(location)
+                                if cc is None and expected_country_codes and (
+                                    strict_country_check or ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED
+                                ):
+                                    cc = coord_country_code(lat, lon)
+                                if expected_country_codes:
+                                    if cc is None and ENFORCE_COUNTRY_MATCH_WHEN_PROVIDED:
+                                        continue
+                                    if cc is not None and cc not in expected_country_codes:
+                                        continue
+                                geocode_cache[cache_key] = {
+                                    "lat": lat,
+                                    "lon": lon,
+                                    "cc": cc,
+                                    "query": location_str,
+                                    "provider": provider_name,
+                                }
+                                GEOCODER_CONSECUTIVE_FAILURES[provider_name] = 0
+                                GEOCODER_DISABLED_UNTIL_TS[provider_name] = 0.0
+                                return lat, lon
+                        except Exception:
+                            continue
+                GEOCODER_CONSECUTIVE_FAILURES[provider_name] = GEOCODER_CONSECUTIVE_FAILURES.get(provider_name, 0) + 1
+                if GEOCODER_CONSECUTIVE_FAILURES[provider_name] >= GEOCODER_FAILURE_THRESHOLD:
+                    GEOCODER_DISABLED_UNTIL_TS[provider_name] = time.time() + float(GEOCODER_DISABLE_SECONDS)
+                break
+            except Exception as e:
+                if is_http_429_error(e) and provider_name == "nominatim":
+                    NOMINATIM_RATE_LIMITED = True
+                GEOCODER_CONSECUTIVE_FAILURES[provider_name] = GEOCODER_CONSECUTIVE_FAILURES.get(provider_name, 0) + 1
+                if GEOCODER_CONSECUTIVE_FAILURES[provider_name] >= GEOCODER_FAILURE_THRESHOLD:
+                    GEOCODER_DISABLED_UNTIL_TS[provider_name] = time.time() + float(GEOCODER_DISABLE_SECONDS)
+                break
+
+    geocode_cache[cache_key] = {
+        "status": "NOT_FOUND",
+        "last_try_ts": time.time(),
+        "query": location_str,
+    }
+    return None, None
+
+
+def find_cemetery_poi_non_osm(where_buried_text, geocode_cache, expected_country_codes=None, force_lookup=False):
+    """Find a cemetery POI from Where_buried using non-OSM providers (ArcGIS).
+
+    Returns dict(lat, lon, name, distance_km, amenity) or None.
+    """
+    global NON_OSM_CEMETERY_POI_LOOKUP_COUNT, FORCED_NON_OSM_CEMETERY_POI_LOOKUP_COUNT
+
+    if not ENABLE_NON_OSM_CEMETERY_POI_LOOKUP or is_missing(where_buried_text):
+        return None
+
+    wb_text = canonicalize_geo_query(str(where_buried_text).strip())
+    if is_missing(wb_text):
+        return None
+
+    wb_norm = norm(wb_text)
+    priority_lookup = "gela" in wb_norm
+    if (
+        not priority_lookup
+        and not force_lookup
+        and MAX_NON_OSM_CEMETERY_POI_PER_RUN is not None
+        and NON_OSM_CEMETERY_POI_LOOKUP_COUNT >= int(MAX_NON_OSM_CEMETERY_POI_PER_RUN)
+    ):
+        return None
+    if (
+        force_lookup
+        and MAX_FORCED_NON_OSM_CEMETERY_POI_PER_RUN is not None
+        and FORCED_NON_OSM_CEMETERY_POI_LOOKUP_COUNT >= int(MAX_FORCED_NON_OSM_CEMETERY_POI_PER_RUN)
+    ):
+        return None
+
+    cache_key = f"poi_cemetery|{norm(wb_text)}"
+    if expected_country_codes:
+        cache_key += "|cc:" + "-".join(sorted(expected_country_codes))
 
     cached = geocode_cache.get(cache_key)
     if isinstance(cached, dict) and "lat" in cached and "lon" in cached:
         try:
-            return float(cached["lat"]), float(cached["lon"])
+            cached_name = str(cached.get("name") or "")
+            if has_diplomatic_signal(cached_name):
+                raise ValueError("cached cemetery POI diplomatic mismatch")
+            c_lat = float(cached["lat"])
+            c_lon = float(cached["lon"])
+            if expected_country_codes and not coords_match_expected_country(
+                c_lat,
+                c_lon,
+                expected_country_codes,
+                strict_required=True,
+            ):
+                raise ValueError("cached cemetery POI country mismatch")
+            return {
+                "lat": c_lat,
+                "lon": c_lon,
+                "name": cached_name if cached_name else f"cemetery, {wb_text}",
+                "distance_km": 0.0,
+                "amenity": "cemetery",
+            }
+        except Exception:
+            pass
+    if isinstance(cached, dict) and cached.get("status") == "NOT_FOUND":
+        if not priority_lookup and not force_lookup:
+            return None
+
+    ref_lat, ref_lon = geocode_location(
+        wb_text,
+        geocode_cache,
+        expected_country_codes=expected_country_codes,
+    )
+
+    poi_timeout = max(5, int(GEOCODE_REQUEST_TIMEOUT_SECONDS))
+
+    # Fast probe: one direct Italian/Latinate cemetery query often resolves city cemeteries precisely.
+    try:
+        probe = arcgis_geolocator.geocode(
+            f"cimitero, {wb_text}",
+            timeout=poi_timeout,
+            exactly_one=True,
+        )
+    except Exception:
+        probe = None
+    if probe is not None:
+        try:
+            p_lat = float(probe.latitude)
+            p_lon = float(probe.longitude)
+            if math.isfinite(p_lat) and math.isfinite(p_lon):
+                if expected_country_codes and not coords_match_expected_country(
+                    p_lat,
+                    p_lon,
+                    expected_country_codes,
+                    strict_required=True,
+                ):
+                    raise ValueError("probe cemetery POI country mismatch")
+                p_address = str(getattr(probe, "address", "") or "").strip()
+                p_norm = norm(p_address)
+                if has_diplomatic_signal(p_norm):
+                    raise ValueError("probe cemetery POI diplomatic mismatch")
+                if any(k in p_norm for k in ("cimiter", "cemeter", "graveyard")):
+                    geocode_cache[cache_key] = {
+                        "lat": p_lat,
+                        "lon": p_lon,
+                        "name": p_address if p_address else f"cemetery, {wb_text}",
+                        "query": wb_text,
+                        "provider": "arcgis_poi_probe",
+                    }
+                    return {
+                        "lat": p_lat,
+                        "lon": p_lon,
+                        "name": p_address if p_address else f"cemetery, {wb_text}",
+                        "distance_km": 0.0,
+                        "amenity": "cemetery",
+                    }
         except Exception:
             pass
 
-    for attempt in range(max_retries):
-        try:
-            throttle_geocode_requests()
-            location = geolocator.geocode(location_str, timeout=10)
-            if location:
-                lat = float(location.latitude)
-                lon = float(location.longitude)
-                geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": location_str}
-                return lat, lon
-            geocode_cache[cache_key] = "NOT_FOUND"
-            return None, None
-        except GeocoderTimedOut:
-            if attempt < max_retries - 1:
-                time.sleep(1)
-                continue
-            break
-        except GeocoderServiceError as e:
-            if is_http_429_error(e):
-                for retry in range(GEOCODE_MAX_429_RETRIES):
-                    time.sleep(GEOCODE_429_BACKOFF_SECONDS * (retry + 1))
-                    try:
-                        throttle_geocode_requests()
-                        location = geolocator.geocode(location_str, timeout=10)
-                        if location:
-                            lat = float(location.latitude)
-                            lon = float(location.longitude)
-                            geocode_cache[cache_key] = {"lat": lat, "lon": lon, "query": location_str}
-                            return lat, lon
-                    except Exception:
-                        pass
-                GEOCODER_RATE_LIMITED = True
-                geocode_cache[cache_key] = "NOT_FOUND"
-                return None, None
-            break
-        except Exception as e:
-            if is_http_429_error(e):
-                GEOCODER_RATE_LIMITED = True
-                geocode_cache[cache_key] = "NOT_FOUND"
-                return None, None
-            break
+    queries = [
+        f"cemetery, {wb_text}",
+        f"cimitero, {wb_text}",
+        f"graveyard, {wb_text}",
+    ]
 
-    geocode_cache[cache_key] = "NOT_FOUND"
+    NON_OSM_CEMETERY_POI_LOOKUP_COUNT += 1
+    if force_lookup:
+        FORCED_NON_OSM_CEMETERY_POI_LOOKUP_COUNT += 1
+
+    best = None
+    tokens = _build_cemetery_name_tokens(wb_text)
+
+    for query in queries:
+        try:
+            results = arcgis_geolocator.geocode(
+                query,
+                timeout=poi_timeout,
+                exactly_one=False,
+            )
+        except Exception:
+            results = None
+
+        if not results:
+            continue
+        if not isinstance(results, list):
+            results = [results]
+
+        # Si aucun cimetière n'est trouvé, on place systématiquement le point sur l'église de la ville (fallback)
+        # Cette stratégie permet de garantir que l'inhumation est toujours localisée sur un lieu religieux pertinent.
+        for loc in results[:8]:
+            try:
+                lat = float(loc.latitude)
+                lon = float(loc.longitude)
+            except Exception:
+                continue
+            if not math.isfinite(lat) or not math.isfinite(lon):
+                continue
+
+            cc = extract_country_code_from_location(loc)
+            if expected_country_codes and cc is not None and cc not in expected_country_codes:
+                continue
+            if expected_country_codes and not coords_match_expected_country(
+                lat,
+                lon,
+                expected_country_codes,
+                strict_required=True,
+            ):
+                continue
+
+            address = str(getattr(loc, "address", "") or "").strip()
+            addr_norm = norm(address)
+            if has_diplomatic_signal(addr_norm):
+                continue
+            score = 0
+
+            if any(k in addr_norm for k in ("cimiter", "cemeter", "graveyard")):
+                score += 50
+            for tok in tokens:
+                if tok in addr_norm:
+                    score += 8
+
+            distance_km = 0.0
+            if ref_lat is not None and ref_lon is not None:
+                distance_km = haversine_km(float(ref_lat), float(ref_lon), lat, lon)
+                score += max(0.0, 30.0 - min(distance_km, 30.0))
+
+            candidate = {
+                "lat": lat,
+                "lon": lon,
+                "name": address if address else f"cemetery, {wb_text}",
+                "distance_km": distance_km,
+                "amenity": "cemetery",
+                "score": score,
+            }
+
+            if (
+                best is None
+                or candidate["score"] > best["score"]
+                or (
+                    candidate["score"] == best["score"]
+                    and candidate["distance_km"] < best["distance_km"]
+                )
+            ):
+                best = candidate
+
+    if best is None:
+        geocode_cache[cache_key] = {
+            "status": "NOT_FOUND",
+            "last_try_ts": time.time(),
+            "query": wb_text,
+            "provider": "arcgis_poi",
+        }
+        return None
+
+    geocode_cache[cache_key] = {
+        "lat": best["lat"],
+        "lon": best["lon"],
+        "name": best["name"],
+        "query": wb_text,
+        "provider": "arcgis_poi",
+    }
+    return {
+        "lat": best["lat"],
+        "lon": best["lon"],
+        "name": best["name"],
+        "distance_km": best["distance_km"],
+        "amenity": "cemetery",
+    }
+
+
+def find_church_poi_non_osm(location_text, geocode_cache, expected_country_codes=None):
+    """Find a church POI around a city/location using ArcGIS and cache the best candidate."""
+    global NON_OSM_CHURCH_POI_LOOKUP_COUNT
+
+    if is_missing(location_text):
+        return None
+    # Pas de limite sur le fallback église
+
+    query_text = canonicalize_geo_query(str(location_text).strip())
+    if is_missing(query_text):
+        return None
+
+    cache_key = f"poi_church|{norm(query_text)}"
+    if expected_country_codes:
+        cache_key += "|cc:" + "-".join(sorted(expected_country_codes))
+
+    cached = geocode_cache.get(cache_key)
+    if isinstance(cached, dict) and "lat" in cached and "lon" in cached:
+        try:
+            lat = float(cached["lat"])
+            lon = float(cached["lon"])
+            cached_name = str(cached.get("name") or "")
+            if not has_church_signal(cached_name):
+                raise ValueError("cached church POI is not church-like")
+            if expected_country_codes and not coords_match_expected_country(
+                lat,
+                lon,
+                expected_country_codes,
+                strict_required=True,
+            ):
+                raise ValueError("cached church POI country mismatch")
+            return {
+                "lat": lat,
+                "lon": lon,
+                "name": cached_name if cached_name else f"church, {query_text}",
+                "distance_km": 0.0,
+                "amenity": "church",
+            }
+        except Exception:
+            pass
+    if isinstance(cached, dict) and cached.get("status") == "NOT_FOUND":
+        return None
+
+    NON_OSM_CHURCH_POI_LOOKUP_COUNT += 1
+
+    ref_lat, ref_lon = geocode_location(
+        query_text,
+        geocode_cache,
+        expected_country_codes=expected_country_codes,
+    )
+
+    church_queries = (
+        f"church, {query_text}",
+        f"chiesa, {query_text}",
+        f"iglesia, {query_text}",
+    )
+
+    best = None
+    tokens = _build_cemetery_name_tokens(query_text)
+    poi_timeout = max(5, int(GEOCODE_REQUEST_TIMEOUT_SECONDS))
+
+    for query in church_queries:
+        try:
+            results = arcgis_geolocator.geocode(
+                query,
+                timeout=poi_timeout,
+                exactly_one=False,
+            )
+        except Exception:
+            results = None
+        if not results:
+            continue
+        if not isinstance(results, list):
+            results = [results]
+
+        for loc in results[:8]:
+            try:
+                lat = float(loc.latitude)
+                lon = float(loc.longitude)
+            except Exception:
+                continue
+            if not math.isfinite(lat) or not math.isfinite(lon):
+                continue
+            if expected_country_codes and not coords_match_expected_country(
+                lat,
+                lon,
+                expected_country_codes,
+                strict_required=True,
+            ):
+                continue
+
+            address = str(getattr(loc, "address", "") or "").strip()
+            addr_norm = norm(address)
+            if has_diplomatic_signal(addr_norm):
+                continue
+            if not has_church_signal(addr_norm):
+                continue
+
+            score = 0.0
+            if has_church_signal(addr_norm):
+                score += 45.0
+            for tok in tokens:
+                if tok in addr_norm:
+                    score += 7.0
+
+            distance_km = 0.0
+            if ref_lat is not None and ref_lon is not None:
+                distance_km = haversine_km(float(ref_lat), float(ref_lon), lat, lon)
+                score += max(0.0, 30.0 - min(distance_km, 30.0))
+
+            candidate = {
+                "lat": lat,
+                "lon": lon,
+                "name": address if address else f"church, {query_text}",
+                "distance_km": distance_km,
+                "amenity": "church",
+                "score": score,
+            }
+            if (
+                best is None
+                or candidate["score"] > best["score"]
+                or (
+                    candidate["score"] == best["score"]
+                    and candidate["distance_km"] < best["distance_km"]
+                )
+            ):
+                best = candidate
+
+    if best is None:
+        # Fallback Overpass OSM direct si rien trouvé
+        # On tente de géocoder la ville pour obtenir lat/lon
+        city_lat, city_lon = None, None
+        if query_text:
+            city_lat, city_lon = geocode_location(query_text, geocode_cache, expected_country_codes=expected_country_codes)
+        if city_lat is not None and city_lon is not None:
+            overpass_church = find_nearest_church_from_osm_overpass(city_lat, city_lon, max_distance_km=10.0)
+            if overpass_church is not None:
+                geocode_cache[cache_key] = {
+                    "lat": overpass_church["lat"],
+                    "lon": overpass_church["lon"],
+                    "name": overpass_church["name"],
+                    "query": query_text,
+                    "provider": "overpass_church_poi",
+                }
+                return overpass_church
+        geocode_cache[cache_key] = {
+            "status": "NOT_FOUND",
+            "last_try_ts": time.time(),
+            "query": query_text,
+            "provider": "arcgis_church_poi",
+        }
+        return None
+
+    geocode_cache[cache_key] = {
+        "lat": best["lat"],
+        "lon": best["lon"],
+        "name": best["name"],
+        "query": query_text,
+        "provider": "arcgis_church_poi",
+    }
+    return {
+        "lat": best["lat"],
+        "lon": best["lon"],
+        "name": best["name"],
+        "distance_km": best["distance_km"],
+        "amenity": "church",
+    }
+
+
+def extract_lat_lon_from_text(*values):
+    """Try to extract decimal latitude/longitude pairs from free-text fields."""
+    for raw in values:
+        if is_missing(raw):
+            continue
+        text = str(raw)
+        match = re.search(r"(-?\d{1,2}(?:\.\d+)?)\s*[,;/]\s*(-?\d{1,3}(?:\.\d+)?)", text)
+        if not match:
+            continue
+        try:
+            lat = float(match.group(1))
+            lon = float(match.group(2))
+        except Exception:
+            continue
+        if -90.0 <= lat <= 90.0 and -180.0 <= lon <= 180.0:
+            return lat, lon
     return None, None
 
 
+def build_primary_geo_query(row):
+    """Location priority: Location_of_death -> Where_found/Wheefound."""
+    country = str(row.get("Country", "") or "").strip()
+    city = str(row.get("City/Town/Village", "") or "").strip()
+    location_of_death = str(row.get("Location_of_death", "") or "").strip()
+    where_found = str(
+        row.get("Where_found", "")
+        or row.get("Wheefound", "")
+        or row.get("Where found", "")
+        or ""
+    ).strip()
+
+    sea_only_markers = {
+        "sea",
+        "at sea",
+        "high seas",
+        "mediterranean sea",
+    }
+    # Prefixes that signal water/vessel context → fall back to city
+    sea_prefix_markers = (
+        "sea",
+        "high seas",
+        "on board",
+        "offshore",
+        "overboard",
+        "at sea",
+    )
+
+    for candidate in (location_of_death, where_found):
+        if is_missing(candidate):
+            continue
+        candidate_norm = norm(candidate)
+        specific_sea_place = extract_specific_sea_place(candidate)
+        if specific_sea_place:
+            if not is_missing(country) and norm(country) not in norm(specific_sea_place):
+                return f"{specific_sea_place}, {country}"
+            return specific_sea_place
+        if (
+            candidate_norm in sea_only_markers
+            or any(candidate_norm.startswith(p) for p in sea_prefix_markers)
+        ) and not is_missing(city):
+            if not is_missing(country) and norm(country) not in norm(city):
+                return f"{city}, {country}"
+            return city
+        if not is_missing(country) and norm(country) not in norm(candidate):
+            return f"{candidate}, {country}"
+        return candidate
+    return None
+
+
+def build_textual_geo_fallback(row):
+    """Last-resort textual geocoding query when no dedicated location column is usable."""
+    country = str(row.get("Country", "") or "").strip()
+    route = str(row.get("Route", "") or row.get("Migration route", "") or "").strip()
+    context_bits = []
+    for col in ("Circumstances", "Details_of_incident", "Other_information"):
+        value = row.get(col, "")
+        if is_missing(value):
+            continue
+        cleaned = re.sub(r"\s+", " ", str(value)).strip()
+        if cleaned:
+            context_bits.append(cleaned)
+
+    base_parts = []
+    if not is_missing(route):
+        base_parts.append(route)
+    if context_bits:
+        base_parts.append(" ".join(context_bits)[:180])
+    if not is_missing(country):
+        base_parts.append(country)
+
+    if not base_parts:
+        return None
+    return ", ".join(base_parts)
+
+
+def load_wkt_cache(path):
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
+    return {}
+
+
+def save_wkt_cache(path, cache):
+    try:
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(cache, fh, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+
+def safe_build_wkt(location_label, lat, lon, geocoded_fallback):
+    """Build WKT without failing on Windows cp1252 consoles."""
+    if FAST_POINT_WKT_FOR_GEOCODED and bool(geocoded_fallback):
+        return f"POINT({float(lon)} {float(lat)})"
+
+    normalized_label = canonicalize_geo_query(location_label) or str(location_label)
+    cache_key = f"{norm(normalized_label)}|{round(float(lat), 5)}|{round(float(lon), 5)}|{1 if geocoded_fallback else 0}"
+    cached_wkt = WKT_CACHE.get(cache_key)
+    if cached_wkt is not None:
+        return cached_wkt
+
+    try:
+        wkt = build_wkt_for_location_precision(normalized_label, float(lat), float(lon), geocoded_fallback)
+    except UnicodeEncodeError:
+        wkt = f"POINT({float(lon)} {float(lat)})"
+
+    WKT_CACHE[cache_key] = wkt
+    return wkt
+
+
+def _build_cemetery_name_tokens(raw_text):
+    if is_missing(raw_text):
+        return []
+    text = norm(raw_text)
+    words = re.findall(r"[a-z0-9]+", text)
+    stopwords = {
+        "cemetery", "graveyard", "grave", "yard", "burial", "ground",
+        "cimetiere", "cimitero", "cementerio", "de", "du", "des", "del",
+        "della", "di", "la", "le", "les", "the", "and", "et", "in",
+    }
+    tokens = [w for w in words if len(w) >= 3 and w not in stopwords]
+    return tokens
+
+
+def _score_cemetery_name_match(cemetery_name, where_buried_hint):
+    if is_missing(cemetery_name) or is_missing(where_buried_hint):
+        return 0
+
+    name_norm = norm(cemetery_name)
+    hint_norm = norm(where_buried_hint)
+    if not name_norm or not hint_norm:
+        return 0
+
+    # Exact or near-exact textual overlap gets highest priority.
+    if name_norm in hint_norm or hint_norm in name_norm:
+        return 1000
+
+    tokens = _build_cemetery_name_tokens(where_buried_hint)
+    if not tokens:
+        return 0
+
+    matches = sum(1 for tok in tokens if tok in name_norm)
+    return matches
+
+
+def find_nearest_cemetery_from_death_location(death_lat, death_lon, max_distance_km, min_distance_km=0.0, where_buried_hint=None, force_lookup=False):
+    """Return nearest OSM cemetery-like amenity around death coordinates.
+
+    Uses Overpass with strict amenity filter (grave_yard|cemetery) and returns
+    a dict with lat/lon/name/distance when a nearby cemetery exists.
+    """
+    try:
+        death_lat = float(death_lat)
+        death_lon = float(death_lon)
+    except Exception:
+        return None
+
+    if not USE_OVERPASS_CEMETERY_PROVIDER and not force_lookup:
+        return None
+
+    if not math.isfinite(death_lat) or not math.isfinite(death_lon):
+        return None
+
+    radius_m = int(max(1.0, float(max_distance_km)) * 1000.0)
+    overpass_query = (
+        "[out:json][timeout:25];"
+        "("
+        f"node[\"amenity\"~\"^(grave_yard|cemetery)$\"](around:{radius_m},{death_lat},{death_lon});"
+        f"way[\"amenity\"~\"^(grave_yard|cemetery)$\"](around:{radius_m},{death_lat},{death_lon});"
+        f"relation[\"amenity\"~\"^(grave_yard|cemetery)$\"](around:{radius_m},{death_lat},{death_lon});"
+        f"node[\"landuse\"=\"cemetery\"](around:{radius_m},{death_lat},{death_lon});"
+        f"way[\"landuse\"=\"cemetery\"](around:{radius_m},{death_lat},{death_lon});"
+        f"relation[\"landuse\"=\"cemetery\"](around:{radius_m},{death_lat},{death_lon});"
+        ");"
+        "out center tags;"
+    )
+
+    global OVERPASS_CONSECUTIVE_FAILURES, OVERPASS_DISABLED_UNTIL_TS, FORCED_OVERPASS_CEMETERY_LOOKUP_COUNT
+
+    if (
+        force_lookup
+        and MAX_FORCED_OVERPASS_CEMETERY_PER_RUN is not None
+        and FORCED_OVERPASS_CEMETERY_LOOKUP_COUNT >= int(MAX_FORCED_OVERPASS_CEMETERY_PER_RUN)
+    ):
+        return None
+    if force_lookup:
+        FORCED_OVERPASS_CEMETERY_LOOKUP_COUNT += 1
+
+    now_ts = time.time()
+    if OVERPASS_DISABLED_UNTIL_TS and now_ts < OVERPASS_DISABLED_UNTIL_TS:
+        return None
+
+    data = urllib.parse.urlencode({"data": overpass_query}).encode("utf-8")
+    parsed = None
+    overpass_endpoints = (
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.openstreetmap.fr/api/interpreter",
+    )
+
+    for endpoint in overpass_endpoints:
+        req = urllib.request.Request(
+            endpoint,
+            data=data,
+            headers={
+                "User-Agent": "frontlet_southern_eu_cemetery_locator/1.0",
+                "Accept": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=OVERPASS_REQUEST_TIMEOUT_SECONDS) as resp:
+                payload = resp.read().decode("utf-8", errors="replace")
+            parsed = json.loads(payload)
+            OVERPASS_CONSECUTIVE_FAILURES = 0
+            OVERPASS_DISABLED_UNTIL_TS = 0.0
+            break
+        except Exception:
+            continue
+
+    if parsed is None:
+        OVERPASS_CONSECUTIVE_FAILURES += 1
+        if OVERPASS_CONSECUTIVE_FAILURES >= 2:
+            OVERPASS_DISABLED_UNTIL_TS = time.time() + float(OVERPASS_FAILURE_COOLDOWN_SECONDS)
+        return None
+
+    elements = parsed.get("elements", []) if isinstance(parsed, dict) else []
+    best = None
+    best_matching_name = None
+
+    for elem in elements:
+        if not isinstance(elem, dict):
+            continue
+        lat = elem.get("lat")
+        lon = elem.get("lon")
+        if lat is None or lon is None:
+            center = elem.get("center") if isinstance(elem.get("center"), dict) else None
+            if center is not None:
+                lat = center.get("lat")
+                lon = center.get("lon")
+        try:
+            cand_lat = float(lat)
+            cand_lon = float(lon)
+        except Exception:
+            continue
+        if not math.isfinite(cand_lat) or not math.isfinite(cand_lon):
+            continue
+
+        distance_km = haversine_km(death_lat, death_lon, cand_lat, cand_lon)
+        if distance_km < float(min_distance_km) or distance_km > float(max_distance_km):
+            continue
+
+        tags = elem.get("tags") if isinstance(elem.get("tags"), dict) else {}
+        amenity = str(tags.get("amenity", "")).strip().lower()
+        landuse = str(tags.get("landuse", "")).strip().lower()
+        if amenity not in {"grave_yard", "cemetery"} and landuse != "cemetery":
+            continue
+
+        name = str(tags.get("name", "")).strip()
+        name_match_score = _score_cemetery_name_match(name, where_buried_hint)
+        candidate = {
+            "lat": cand_lat,
+            "lon": cand_lon,
+            "distance_km": distance_km,
+            "name": name if name else "cemetery",
+            "amenity": amenity or landuse or "cemetery",
+            "name_match_score": name_match_score,
+        }
+
+        if name_match_score > 0:
+            if (
+                best_matching_name is None
+                or candidate["name_match_score"] > best_matching_name["name_match_score"]
+                or (
+                    candidate["name_match_score"] == best_matching_name["name_match_score"]
+                    and candidate["distance_km"] < best_matching_name["distance_km"]
+                )
+            ):
+                best_matching_name = candidate
+
+        if best is None or candidate["distance_km"] < best["distance_km"]:
+            best = candidate
+
+    return best_matching_name or best
+
+
 # --------------------- Pays ---------------------------
-def ensure_country_node(g, country_code_or_name, prefix="ue_sud"):
+def ensure_country_node(g, country_code_or_name, prefix="southern_eu"):
+    global COUNTRY_NAME_INDEX
+
     if is_missing(country_code_or_name):
         return None
+
+    cache_key = (prefix, norm(country_code_or_name))
+    cached_uri = COUNTRY_NODE_CACHE.get(cache_key)
+    if cached_uri is not None:
+        return cached_uri
 
     val = str(country_code_or_name).strip()
     val = re.sub(r"[*\s]+$", "", val).strip()
@@ -239,12 +1675,9 @@ def ensure_country_node(g, country_code_or_name, prefix="ue_sud"):
         cc = None
 
     if cc is None:
-        try:
-            matches = pycountry.countries.search_fuzzy(val)
-            if matches:
-                cc = matches[0]
-        except Exception:
-            cc = None
+        if COUNTRY_NAME_INDEX is None:
+            COUNTRY_NAME_INDEX = _build_country_name_index()
+        cc = COUNTRY_NAME_INDEX.get(norm(val))
 
     if cc is not None:
         iso3 = getattr(cc, "alpha_3", None) or getattr(cc, "alpha_2", None)
@@ -258,6 +1691,7 @@ def ensure_country_node(g, country_code_or_name, prefix="ue_sud"):
             g.add((uri, F.isoAlpha2, Literal(getattr(cc, "alpha_2", ""))))
             g.add((uri, F.isoAlpha3, Literal(getattr(cc, "alpha_3", ""))))
             g.add((uri, SKOS.notation, Literal(getattr(cc, "alpha_3", ""))))
+        COUNTRY_NODE_CACHE[cache_key] = uri
         return uri
 
     # Repli: URI basee sur le slug
@@ -269,6 +1703,7 @@ def ensure_country_node(g, country_code_or_name, prefix="ue_sud"):
         g.add((uri, RDF.type, F.Country))
         g.add((uri, RDF.type, F.Countrydeath))
         g.add((uri, RDFS.label, Literal(val)))
+    COUNTRY_NODE_CACHE[cache_key] = uri
     return uri
 
 
@@ -281,7 +1716,7 @@ def create_age_node(g, age_value, node_suffix):
         age_num = int(float(str(age_value).strip()))
     except Exception:
         return None
-    age_uri = DATA[f"ue_sud_Age_{node_suffix}"]
+    age_uri = DATA[f"southern_eu_Age_{node_suffix}"]
     g.add((age_uri, RDF.type, F.Age))
     g.add((age_uri, F.hasAge, Literal(age_num, datatype=XSD.integer)))
     g.add((age_uri, RDFS.label, Literal(f"{age_num} years old", lang="en")))
@@ -293,7 +1728,7 @@ def create_age_interval_node(g, age_value, node_suffix):
     if is_missing(age_value):
         return None
     label = str(age_value).strip()
-    age_uri = DATA[f"ue_sud_AgeInterval_{node_suffix}"]
+    age_uri = DATA[f"southern_eu_AgeInterval_{node_suffix}"]
     g.add((age_uri, RDF.type, F.AgeInterval))
     g.add((age_uri, RDFS.label, Literal(label)))
     g.add((age_uri, SKOS.prefLabel, Literal(label)))
@@ -365,7 +1800,7 @@ def load_mapping_csv(mapping_path):
             mdf = pd.read_csv(StringIO(raw), sep=";", dtype=str)
 
         columns_by_norm = {norm(c): c for c in mdf.columns}
-        src_col = columns_by_norm.get("ue_sud")
+        src_col = columns_by_norm.get("southern_eu") or columns_by_norm.get("ue_sud")
         thes_col = columns_by_norm.get("thesaurus")
         nature_col = columns_by_norm.get("nature")
 
@@ -452,11 +1887,46 @@ CONTROL_KEYWORDS = (
     "detain",
 )
 REPATRIATION_KEYWORDS = ("repatri",)
+MISSING_KEYWORDS = (
+    "disparu",
+    "disparue",
+    "disparus",
+    "disparues",
+    "disparition",
+    "missing",
+    "not found",
+    "body not found",
+    "never found",
+    "unaccounted",
+)
+CEMETERY_KEYWORDS = (
+    "cemet",
+    "cimeti",
+    "graveyard",
+    "grave yard",
+    "burial ground",
+    "cimiter",
+    "cementer",
+)
+INHUMATION_MIN_DISTANCE_KM = 0.05
+INHUMATION_MAX_DISTANCE_KM = 20.0
+INHUMATION_SAME_CITY_MAX_DISTANCE_KM = 12.0
 
 
 def contains_any_keyword(value, keywords):
     text = norm(value)
     return bool(text) and any(keyword in text for keyword in keywords)
+
+
+def haversine_km(lat1, lon1, lat2, lon2):
+    """Great-circle distance in kilometers between two WGS84 points."""
+    r = 6371.0088
+    phi1 = math.radians(float(lat1))
+    phi2 = math.radians(float(lat2))
+    d_phi = math.radians(float(lat2) - float(lat1))
+    d_lam = math.radians(float(lon2) - float(lon1))
+    a = math.sin(d_phi / 2.0) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(d_lam / 2.0) ** 2
+    return 2.0 * r * math.asin(math.sqrt(a))
 
 
 def build_tagged_comment(row, columns):
@@ -466,6 +1936,31 @@ def build_tagged_comment(row, columns):
         if not is_missing(value):
             parts.append(f"{column}: {str(value).strip()}")
     return "; ".join(parts)
+
+
+def extract_first_url(*values):
+    """Extract first HTTP/HTTPS URL found in free-text values."""
+    url_pattern = re.compile(r"https?://[^\s\]\[\)\(\"'<>;]+", re.IGNORECASE)
+    for raw in values:
+        if is_missing(raw):
+            continue
+        match = url_pattern.search(str(raw))
+        if match:
+            return match.group(0).strip()
+    return None
+
+
+def build_event_context_narrative(row):
+    """Build concise narrative context from incident/circumstances fields."""
+    parts = []
+    for col in ("Details_of_incident", "Circumstances", "Other_information"):
+        value = row.get(col, "")
+        if is_missing(value):
+            continue
+        cleaned = re.sub(r"\s+", " ", str(value)).strip()
+        if cleaned:
+            parts.append(cleaned)
+    return " ; ".join(parts) if parts else None
 
 
 def infer_death_nature_from_causes(primary_cause, secondary_cause):
@@ -574,6 +2069,7 @@ CORPSE_ANALYSIS_CLASS = find_by_label(g_ref, "Corpse analysis") or F.CorpseAnaly
 CONTROL_EVENT_CLASS = find_by_label(g_ref, "Control") or F.Control
 CORPSE_REPATRIATION_CLASS = find_by_label(g_ref, "Corpse repatriation") or F.CorpseRepatriation
 INHUMATION_EVENT_CLASS = find_by_label(g_ref, "Inhumation") or F.Inhumation
+DISAPPEARANCE_EVENT_CLASS = find_by_label(g_ref, "Disappearance") or F.Disappearance
 PROP_composedOf     = find_by_label(g_ref, "composedOf")   or F.composedOf
 PROP_birthPlace     = find_by_label(g_ref, "birth place")  or F.birthPlace
 PROP_hasAgeLink     = find_by_label(g_ref, "aged")         or F.aged
@@ -584,6 +2080,7 @@ PROP_certificate    = find_by_label(g_ref, "certificate")  or F.certificate
 PROP_hasAuthority   = find_by_label(g_ref, "has an implicated authority") or F.hasAuthority
 PROP_hasComment     = find_by_label(g_ref, "hasComment")   or F.hasComment
 PROP_hasNarrative   = find_by_label(g_ref, "hasNarrative") or F.hasNarrative
+PROP_hasWebLink     = find_by_label(g_ref, "has web link") or F.hasWebLink
 PROP_targetCountry  = find_by_label(g_ref, "target country") or F.targetCountry
 PROP_hasType        = find_by_label(g_ref, "has type") or F.hasType
 PROP_howLongDead    = find_by_label(g_ref, "how long dead") or F.howLongDead
@@ -599,466 +2096,76 @@ if (PROP_howLongDead, RDF.type, None) not in g:
 
 THES_male   = T.male
 THES_female = T.female
-THES_human  = T.human
 
 # Instances frontlet:Gender (comme IOM)
-GENDER_MALE_URI    = DATA["ue_sud_Gender_male"]
-GENDER_FEMALE_URI  = DATA["ue_sud_Gender_female"]
-GENDER_UNKNOWN_URI = DATA["ue_sud_Gender_unknown"]
-for _guri, _glabel, _gthes in [
-    (GENDER_MALE_URI,    "male",    THES_male),
-    (GENDER_FEMALE_URI,  "female",  T.female),
-    (GENDER_UNKNOWN_URI, "unknown", None),
-]:
-    g.add((_guri, RDF.type, F.Gender))
-    g.add((_guri, RDFS.label, Literal(_glabel, lang="en")))
-    if _gthes is not None:
-        g.add((_guri, SKOS.exactMatch, _gthes))
 
-# Ressource partagée pour garder un lien Age même si la source est vide
-AGE_UNKNOWN_URI = DATA["ue_sud_Age_unknown"]
-g.add((AGE_UNKNOWN_URI, RDF.type, F.AgeInterval))
-g.add((AGE_UNKNOWN_URI, RDFS.label, Literal("unknown", lang="en")))
-g.add((AGE_UNKNOWN_URI, SKOS.prefLabel, Literal("unknown", lang="en")))
+# Chargement du DataFrame principal
+df = pd.read_csv(CSV_PATH, encoding="latin1", sep=';')
+if ROW_LIMIT is not None:
+    df = df.head(ROW_LIMIT)
+count_person = 0
+count_missing_inferred = 0
 
-ADDITIONAL_EVENT_SPECS = build_additional_event_specs(
-    g_ref,
-    F,
-    find_by_label,
-    exclude_names=["Inhumation", "Control", "CorpseRepatriation", "Injury", "CorpseAnalysis"],
-)
-
-# Nœuds Certainty (3 niveaux)
-CERTAINTY_URIS = {}
-for _n in (1, 2, 3):
-    _uri = DATA[f"ue_sud_Certainty_{_n}"]
-    g.add((_uri, RDF.type, F.Certainty))
-    CERTAINTY_URIS[str(_n)] = _uri
-
-# -------------------- Lecture du CSV --------------------
-encodings_to_try = ["utf-8", "utf-8-sig", "cp1252", "latin-1"]
-df = None
-for _enc in encodings_to_try:
-    try:
-        df = pd.read_csv(
-            CSV_PATH, sep=";", engine="python", dtype=str,
-            keep_default_na=False, na_values=["", "NaN", "nan"],
-            encoding=_enc,
-        )
-        break
-    except UnicodeDecodeError:
-        continue
-if df is None:
-    with open(CSV_PATH, "rb") as fh:
-        raw = fh.read().decode("utf-8", errors="replace")
-    from io import StringIO
-    df = pd.read_csv(StringIO(raw), sep=";", engine="python", dtype=str,
-                     keep_default_na=False, na_values=["", "NaN", "nan"])
-
-# Supprimer les colonnes Unnamed
-df = df[[c for c in df.columns if not c.startswith("Unnamed")]]
-
-print(f"CSV chargé : {len(df)} lignes, {len(df.columns)} colonnes.")
-
-if ROW_LIMIT is not None and ROW_LIMIT > 0:
-    df = df.head(ROW_LIMIT).copy()
-    print(f"Mode compat activé: traitement limité à {len(df)} lignes.")
-
-# ------------------- Traitement des lignes ----------------
-count_person           = 0
-count_death_events     = 0
-count_cause_matched    = 0
-count_cause_literal    = 0
-count_sources          = 0
-count_certificates     = 0
-count_control_events   = 0
-count_corpse_analysis  = 0
-count_inhumation       = 0
-count_repatriation     = 0
-count_collective_events = 0
-count_geocode_success  = 0
-count_geocode_failed   = 0
-count_death_nature     = 0
+count_disappearance_events = 0
+count_control_events = 0
+count_inhumation = 0
+count_repatriation = 0
 count_additional_typed_events = 0
+count_cause_matched = 0
+count_cause_literal = 0
+count_death_nature = 0
+count_geocode_success = 0
+count_geocode_failed = 0
+count_geom_propagated = 0
+count_event_country_from_geometry = 0
 
 created_collective_events = {}
 geocode_cache = load_geocode_cache(GEOCODE_CACHE_PATH)
+WKT_CACHE = load_wkt_cache(WKT_CACHE_PATH)
 
 for idx, row in df.iterrows():
-    row_num = idx + 1  # indexe a partir de 1
-
-    person_uri = DATA[f"ue_sud_Person_{row_num}"]
+    row_num = idx + 1
+    person_uri = DATA[f"southern_eu_Person_{row_num}"]
     g.add((person_uri, RDF.type, PERSON_CLASS))
-    count_person += 1
 
-    # ---- GENRE ----
-    sex_val = str(row.get("Sex", "") or "").strip().lower()
-    if sex_val in ("male", "m", "homme"):
-        g.set((person_uri, PROP_gender, GENDER_MALE_URI))
-    elif sex_val in ("female", "f", "femme"):
-        g.set((person_uri, PROP_gender, GENDER_FEMALE_URI))
-    else:
-        g.set((person_uri, PROP_gender, GENDER_UNKNOWN_URI))
-
-    # ---- ÂGE ----
-    age_val  = row.get("Age", "")
-    est_age  = row.get("Estimated_age", "")
-
-    age_node = None
-    if not is_missing(age_val) and re.match(r"^\s*\d+(\.\d+)?\s*$", str(age_val)):
-        age_node = create_age_node(g, age_val, row_num)
-    elif not is_missing(est_age):
-        age_node = create_age_interval_node(g, est_age, row_num)
-    elif not is_missing(age_val):
-        # valeur non-entière (ex. "25-30") → AgeInterval
-        age_node = create_age_interval_node(g, age_val, row_num)
-
-    if age_node is None:
-        age_node = AGE_UNKNOWN_URI
-    g.add((person_uri, PROP_hasAgeLink, age_node))
-
-    # ---- NATIONALITÉ (pays d'origine) ----
-    nationality = row.get("Stated_nationality", "") or row.get("Guessed_nationality", "")
-    birth_country = None
-    if not is_missing(nationality):
-        birth_country = ensure_country_node(g, nationality)
-    if birth_country:
-        g.add((person_uri, PROP_birthPlace, birth_country))
-
-    # ---- COMMENTAIRE (apparence, ethnicity) ----
-    comment_parts = []
-    for col in ("Descriptions_of_race/ethnicity", "Features", "Personal_items"):
-        v = row.get(col, "")
-        if v and not is_missing(v):
-            comment_parts.append(str(v).strip())
-    if comment_parts:
-        g.add((person_uri, PROP_hasComment, Literal("; ".join(comment_parts))))
-    text_chunks_for_typing = []
-    text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Details_of_incident", "Circumstances", "Other_information", "Primary_cause", "Secondary_cause"], is_missing))
-    text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Where buried", "Judicial_authority", "City/Town/Village", "Country"], is_missing))
-
-    # ---- ÉVÉNEMENT DÉCÈS ----
-    event_uri = DATA[f"ue_sud_Death_{row_num}"]
-    g.add((event_uri, RDF.type, DEATH_EVENT_CLASS))
-    g.add((event_uri, RDF.type, F.IndividualEvent))
-    g.add((person_uri, PROP_composedOf, event_uri))
-    count_death_events += 1
-
-    # ---- DURÉE AVANT DÉCOUVERTE ----
-    how_long_dead = row.get("How_long_dead", "")
-    if not is_missing(how_long_dead):
-        g.add((event_uri, PROP_howLongDead, Literal(str(how_long_dead).strip())))
-
-    # ---- DATE DE DÉCÈS ----
-    day   = str(row.get("Day_died",   "") or "").strip()
-    month = str(row.get("Month_died", "") or "").strip()
-    year  = str(row.get("Year_died",  "") or "").strip()
-    if day and month and year and re.match(r"^\d+$", day) and re.match(r"^\d+$", month) and re.match(r"^\d{4}$", year):
-        date_str = f"{day.zfill(2)}/{month.zfill(2)}/{year}"
-        g.add((event_uri, TIME.inXSDDate, Literal(date_str)))
-        weekday_name = infer_day_of_week_name(date_str)
-        if weekday_name:
-            g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
-            g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
-            g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
-
-    # ---- PAYS OÙ LE DÉCÈS A EU LIEU ----
+    # Recherche du lieu d'inhumation (cimetière ou église uniquement, PAS de fallback pays/ville)
+    where_buried = row.get("Where buried", "")
     country_val = row.get("Country", "")
-    if not is_missing(country_val):
-        country_uri = ensure_country_node(g, country_val)
-        if country_uri:
-            g.add((event_uri, F.countrydeath, country_uri))
-    else:
-        country_uri = None
+    city_val = row.get("City/Town/Village", "")
+    wb_country_codes = resolve_expected_country_codes(country_val)
 
-    # ---- CAUSE DE DÉCÈS ----
-    # Règle stricte: clé UE_Sud = Primary_cause ; valeur utilisée = Thesaurus.
-    primary   = row.get("Primary_cause",   "") or ""
-    secondary = row.get("Secondary_cause", "") or ""
+    burial_point = None
+    # 1. Cimetière (ArcGIS/OSM)
+    if not is_missing(where_buried):
+        burial_point = find_cemetery_poi_non_osm(where_buried, geocode_cache, expected_country_codes=wb_country_codes, force_lookup=True)
+    # 2. Si pas de cimetière, tenter église (ArcGIS/OSM)
+    if burial_point is None and not is_missing(city_val):
+        burial_point = find_church_poi_non_osm(city_val, geocode_cache, expected_country_codes=wb_country_codes)
 
-    if primary and not is_missing(primary):
-        mapped_cause_label = mapping_dict.get(norm(primary), "")
-        if not is_missing(mapped_cause_label):
-            mapped_cause_label = str(mapped_cause_label).strip()
-            cause_thes_uri = thesaurus_map.get(norm(mapped_cause_label))
-            cause_instance = create_or_get_concept_instance(
-                g,
-                DEATH_CAUSE_CLASS,
-                "ue_sud_DeathCause",
-                mapped_cause_label,
-                thesaurus_uri=cause_thes_uri,
-            )
-            if cause_instance is not None:
-                g.add((event_uri, PROP_hasDeathCause, cause_instance))
-                if cause_thes_uri is not None:
-                    count_cause_matched += 1
-                else:
-                    count_cause_literal += 1
-
-    # ---- NATURE DU DÉCÈS ----
-    # Règle stricte: clé UE_Sud = Primary_cause ; valeur utilisée = Nature.
-    nature_val = mapping_nature.get(norm(primary or ""), "")
-    if not is_missing(nature_val):
-        nature_label = str(nature_val).strip()
-        nature_thes_uri = nature_thesaurus_map.get(norm(nature_label))
-        nature_instance = create_or_get_concept_instance(
-            g,
-            DEATH_NATURE_CLASS,
-            "ue_sud_DeathNature",
-            nature_label,
-            thesaurus_uri=nature_thes_uri,
-        )
-        if nature_instance is not None:
-            g.add((event_uri, PROP_hasDeathNature, nature_instance))
-            count_death_nature += 1
-
-    # ---- CERTITUDE ----
-    certainty_val = str(row.get("Certainty", "") or "").strip()
-    if certainty_val in CERTAINTY_URIS:
-        g.add((event_uri, F.hasCertainty, CERTAINTY_URIS[certainty_val]))
-
-    # ---- MODE DE TRANSPORT ----
-    route_val = str(row.get("Route", "") or row.get("Migration route", "") or "").strip().lower()
-    transport_context = " ".join(
-        [
-            route_val,
-            str(row.get("Primary_cause", "") or "").strip().lower(),
-            str(row.get("Secondary_cause", "") or "").strip().lower(),
-            str(row.get("Circumstances", "") or "").strip().lower(),
-            str(row.get("Details_of_incident", "") or "").strip().lower(),
-        ]
-    )
-    if any(k in transport_context for k in ("land", "overland", "on foot", "foot", "pied", "terre", "walk", "desert")):
-        g.add((event_uri, F.transportMode, THES_human))
-    elif any(k in transport_context for k in ("drown", "drowning", "boat", "ship", "vessel", "ferry", "raft", "sea", "mediterranean")):
-        g.add((event_uri, F.transportMode, T.boat))
-    elif any(k in transport_context for k in ("truck", "lorry", "vehicle", "car", "van", "bus", "train", "rail")):
-        g.add((event_uri, F.transportMode, T.landVehicle))
-
-    # ---- SOURCES & CERTIFICATS ----
-    has_death_cert  = norm(row.get("Death_certificate",  "") or "") in ("yes", "oui", "1")
-    has_cemetery    = norm(row.get("Cemetery_register",  "") or "") in ("yes", "oui", "1")
-    has_coroner     = norm(row.get("Coroner_archive",     "") or "") in ("yes", "oui", "1")
-    has_other_docs  = norm(row.get("Other_documents",     "") or "") in ("yes", "oui", "1")
-
-    has_any_source = has_death_cert or has_cemetery or has_coroner or has_other_docs
-
-    if has_death_cert:
-        cert_uri = DATA[f"DeathCertificate_{row_num}"]
-        g.add((cert_uri, RDF.type, F.DeathCertificate))
-        if not is_missing(how_long_dead):
-            g.add((cert_uri, PROP_howLongDead, Literal(str(how_long_dead).strip())))
-        g.add((event_uri, PROP_certificate, cert_uri))
-        count_certificates += 1
-
-    if has_any_source:
-        source_uri = DATA[f"ue_sud_Source_{row_num}"]
-        g.add((source_uri, RDF.type, F.Source))
-        if has_death_cert:
-            g.add((source_uri, RDF.type, F.DeathCertificate))
-        if has_coroner or has_other_docs or has_cemetery:
-            g.add((source_uri, RDF.type, F.OtherOfficialDocument))
-        g.add((event_uri, PROP_sourcedBy, source_uri))
-        count_sources += 1
-
-    # ---- ÉVÉNEMENTS INDIVIDUELS COMPLÉMENTAIRES ----
-    # Le deces reste l'evenement principal pour ce jeu de donnees.
-    # La creation de CorpseAnalysis est volontairement desactivee pour eviter une sur-representation.
-
-    control_narratives = []
-    for control_col in ("Details_of_incident", "Circumstances"):
-        control_value = row.get(control_col, "")
-        if contains_any_keyword(control_value, CONTROL_KEYWORDS):
-            control_narratives.append(str(control_value).strip())
-    if control_narratives:
-        control_uri = DATA[f"ue_sud_Control_{row_num}"]
-        trigger_str = "; ".join(
-            str(row.get(col, "")).strip()
-            for col in ("Details_of_incident", "Circumstances")
-            if contains_any_keyword(row.get(col, ""), CONTROL_KEYWORDS)
-        )
-        authority_val = str(row.get("Judicial_authority", "")).strip()
-        control_comment = f"[Contrôle : {trigger_str}]" + ("; " + authority_val if not is_missing(authority_val) else "")
-        create_individual_event(
-            g,
-            person_uri,
-            control_uri,
-            CONTROL_EVENT_CLASS,
-            related_event_uri=event_uri,
-            relation_to_related="before",
-            comment=control_comment,
-            narrative="; ".join(control_narratives),
-            country_uri=country_uri,
-            how_long_dead=how_long_dead,
-        )
-        authority = row.get("Judicial_authority", "")
-        if not is_missing(authority):
-            g.add((control_uri, PROP_hasAuthority, Literal(str(authority).strip())))
-        count_control_events += 1
-
-    # ---- ÉVÉNEMENT COLLECTIF (Incident_number) ----
-    incident_val = str(row.get("Incident_number", "") or "").strip()
-    city_val     = str(row.get("City/Town/Village", "") or "").strip()
-    if incident_val and not is_missing(incident_val):
-        city_slug = slug(city_val) if not is_missing(city_val) else "unknown"
-        incident_slug = slug(incident_val)
-        if incident_slug == "":
-            incident_slug = "unknown"
-        collective_key = f"{city_slug}_{incident_slug}"
-        collective_uri = DATA[f"ue_sud_CollectiveEvent_{collective_key}"]
-        is_new_collective = str(collective_uri) not in created_collective_events
-        if is_new_collective:
-            g.add((collective_uri, RDF.type, F.CollectiveEvent))
-            created_collective_events[str(collective_uri)] = collective_uri
-            count_collective_events += 1
-        g.add((event_uri, F.group, collective_uri))
-
-        details = row.get("Details_of_incident", "")
-        if details and not is_missing(details) and is_new_collective:
-            g.add((collective_uri, PROP_hasNarrative, Literal(str(details).strip())))
-
-    # ---- GÉOCODAGE (City/Town/Village + Country) ----
-    geo_query = None
-    if not is_missing(city_val):
-        country_name = row.get("Country", "")
-        if not is_missing(country_name):
-            geo_query = f"{city_val}, {country_name}"
-        else:
-            geo_query = city_val
-
-    if ENABLE_GEOCODING and geo_query:
-        lat_f, lon_f = geocode_location(geo_query, geocode_cache)
-        if lat_f is not None and lon_f is not None and math.isfinite(float(lat_f)) and math.isfinite(float(lon_f)):
-            wkt = f"POINT({float(lon_f)} {float(lat_f)})"
-            geom_uri = DATA[f"ue_sud_geometry_{row_num}"]
-            g.add((event_uri, GEO.hasGeometry, geom_uri))
-            g.add((geom_uri, RDF.type, GEO.Geometry))
-            g.add((geom_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
-            count_geocode_success += 1
-        else:
-            count_geocode_failed += 1
-
-    # ---- INHUMATION (Lieu d'enterrement / Cemetery_register) ----
-    where_buried = row.get("Where buried", "") or row.get("Where_buried", "") or ""
-    is_repatriated = contains_any_keyword(where_buried, REPATRIATION_KEYWORDS)
-
-    if is_repatriated:
-        repatriation_uri = DATA[f"ue_sud_CorpseRepatriation_{row_num}"]
-        extra_vals = "; ".join(
-            str(row.get(col, "")).strip()
-            for col in ("Date_burial_authorised", "Date_buried")
-            if not is_missing(row.get(col, ""))
-        )
-        repatriation_comment = f"[Rapatriement du corps : {where_buried.strip()}]" + ("; " + extra_vals if extra_vals else "")
-        create_individual_event(
-            g,
-            person_uri,
-            repatriation_uri,
-            CORPSE_REPATRIATION_CLASS,
-            related_event_uri=event_uri,
-            relation_to_related="after",
-            comment=repatriation_comment,
-            country_uri=country_uri,
-            target_country_uri=birth_country,
-            how_long_dead=how_long_dead,
-        )
-        count_repatriation += 1
-
-    trigger_inhumation = ((not is_missing(where_buried)) and not is_repatriated) or has_cemetery
-
-    if trigger_inhumation:
+    # Si trouvé, écrire la géométrie sur le TTL
+    if burial_point is not None:
         inhumation_uri = DATA[f"InhumationEvent_{row_num}"]
-        inhumation_triggers = []
-        if not is_missing(where_buried) and not is_repatriated:
-            inhumation_triggers.append(where_buried.strip())
-        if has_cemetery:
-            inhumation_triggers.append("registre du cimetière")
-        extra_vals = "; ".join(
-            str(row.get(col, "")).strip()
-            for col in ("Date_burial_authorised", "Date_buried")
-            if not is_missing(row.get(col, ""))
-        )
-        inhumation_comment = f"[Inhumation : {'; '.join(inhumation_triggers)}]" + ("; " + extra_vals if extra_vals else "")
-        create_individual_event(
-            g,
-            person_uri,
-            inhumation_uri,
-            INHUMATION_EVENT_CLASS,
-            related_event_uri=event_uri,
-            relation_to_related="after",
-            comment=inhumation_comment,
-            country_uri=country_uri,
-            how_long_dead=how_long_dead,
-        )
-        g.add((inhumation_uri, T.missingAfterTakingOver, event_uri))
-
-        if ENABLE_GEOCODING and not is_missing(where_buried):
-            inhumation_lat, inhumation_lon = geocode_location(
-                f"{where_buried}, {row.get('Country', '')}".strip(", "),
-                geocode_cache,
-            )
-            if inhumation_lat is not None and inhumation_lon is not None:
-                if math.isfinite(float(inhumation_lat)) and math.isfinite(float(inhumation_lon)):
-                    wkt_inh = f"POINT({float(inhumation_lon)} {float(inhumation_lat)})"
-                    geom_inh_uri = DATA[f"ue_sud_geometry_inhumation_{row_num}"]
-                    g.add((inhumation_uri, GEO.hasGeometry, geom_inh_uri))
-                    g.add((geom_inh_uri, RDF.type, GEO.Geometry))
-                    g.add((geom_inh_uri, GEO.asWKT, Literal(wkt_inh, datatype=GEO.wktLiteral)))
-
-        count_inhumation += 1
-
-    additional_counts = add_additional_typed_events(
-        g,
-        [(person_uri, event_uri)],
-        collective_uri if incident_val and not is_missing(incident_val) else None,
-        text_chunks_for_typing,
-        ADDITIONAL_EVENT_SPECS,
-        DATA,
-        "ue_sud",
-        row_num,
-        F,
-        RDF,
-        Literal,
-        PROP_composedOf,
-        F.group,
-        PROP_temporal_before,
-        PROP_temporal_after,
-        PROP_hasComment,
-        PROP_hasNarrative,
-    )
-    count_additional_typed_events += sum(additional_counts.values())
-
-# --------------------- Resume et sortie ------------------
-# Nettoyage strict: supprimer toute instance Injury et les liens associes.
-injury_nodes = set(g.subjects(RDF.type, F.Injury))
-for _inj in injury_nodes:
-    for _person in list(g.subjects(PROP_composedOf, _inj)):
-        g.remove((_person, PROP_composedOf, _inj))
-    for _s, _p, _o in list(g.triples((_inj, None, None))):
-        g.remove((_s, _p, _o))
-    for _s, _p, _o in list(g.triples((None, None, _inj))):
-        g.remove((_s, _p, _o))
-
-# Nettoyage de securite: conserver uniquement les liens `countrydeath` dans les donnees exportees.
-for _s, _p, _o in list(g.triples((None, F.country, None))):
-    g.remove((_s, _p, _o))
-
-g.serialize(destination=OUTPUT_TTL, format="turtle")
-save_geocode_cache(GEOCODE_CACHE_PATH, geocode_cache)
-
-print("\n" + "=" * 60)
-print("Import UE Sud (southern_eu) complete.")
-print("=" * 60)
-print(f"Rows processed (persons)    : {count_person}")
-print(f"Death events created        : {count_death_events}")
-print(f"Collective events created   : {count_collective_events}")
-print(f"Certificates created        : {count_certificates}")
-print(f"Sources created             : {count_sources}")
-print(f"Corpse analysis events      : {count_corpse_analysis}")
+        g.add((inhumation_uri, RDF.type, INHUMATION_EVENT_CLASS))
+        g.add((person_uri, PROP_composedOf, inhumation_uri))
+        inhumation_lat = float(burial_point["lat"])
+        inhumation_lon = float(burial_point["lon"])
+        amenity = burial_point.get("amenity", "cemetery")
+        label_base = str(burial_point.get("name") or amenity).strip()
+        burial_label = f"Cemetery: {label_base}" if amenity == "cemetery" else f"Church: {label_base}"
+        wkt_inh = safe_build_wkt(burial_label, inhumation_lat, inhumation_lon, True)
+        geom_inh_uri = DATA[f"southern_eu_geometry_inhumation_{row_num}"]
+        g.add((inhumation_uri, GEO.hasGeometry, geom_inh_uri))
+        g.add((geom_inh_uri, RDF.type, GEO.Geometry))
+        g.add((geom_inh_uri, GEO.asWKT, Literal(wkt_inh, datatype=GEO.wktLiteral)))
+        g.add((geom_inh_uri, F.hasPrecision, Literal(False, datatype=XSD.boolean)))
+        g.add((inhumation_uri, F.lieu, Literal(burial_label)))
+    # Sinon, ne rien écrire (pas de fallback pays/ville)
+        # ...existing code...
 print(f"Control events created      : {count_control_events}")
 print(f"Inhumation events created   : {count_inhumation}")
 print(f"Repatriation events created : {count_repatriation}")
 print(f"Other typed events created  : {count_additional_typed_events}")
+print(f"Disappearance events created: {count_disappearance_events}")
 print()
 print("Cause décès - mapping thesaurus :")
 print(f"  - Matched to thesaurus URI : {count_cause_matched}")
@@ -1068,7 +2175,10 @@ print()
 print("Géocodage :")
 print(f"  - Réussis   : {count_geocode_success}")
 print(f"  - Non résolus: {count_geocode_failed}")
-print(f"  - Rate limit : {'oui' if GEOCODER_RATE_LIMITED else 'non'}")
+print(f"  - Nominatim rate limit : {'oui' if NOMINATIM_RATE_LIMITED else 'non'}")
+print(f"  - Disparitions inférées (texte): {count_missing_inferred}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry: {count_event_country_from_geometry}")
 print("=" * 60)
 print(f"Output written to: {OUTPUT_TTL}")
 

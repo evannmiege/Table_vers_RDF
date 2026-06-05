@@ -26,11 +26,16 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 from event_text_utils import (
+    _country_name_from_coordinates,
     add_additional_typed_events,
+    add_event_country_from_geometry,
     build_additional_event_specs,
+    build_cemetery_geocode_cache,
+    build_wkt_for_location_precision,
     collect_text_values_from_row,
     infer_day_of_week_name,
     infer_source_category_key,
+    propagate_geometry_to_sibling_events,
 )
 
 
@@ -118,6 +123,125 @@ def parse_int_value(value):
         return int(text)
     except Exception:
         return None
+
+
+def _extract_numeric_count(text, keyword_pattern):
+    patterns = [
+        rf"\b(\d{{1,4}})\s+(?:{keyword_pattern})\b",
+        rf"(?:{keyword_pattern})\s*[:\-]?\s*(\d{{1,4}})\b",
+        rf"(?:{keyword_pattern}).{{0,40}}\b(\d{{1,4}})\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if not match:
+            continue
+        try:
+            value = int(match.group(1))
+            if value > 0:
+                return value
+        except Exception:
+            continue
+    return None
+
+
+def _detect_custom_event_target_counts(text_chunks, total_dead_missing, number_dead, number_missing, number_survivors):
+    text = norm(" | ".join(str(v) for v in text_chunks if v is not None))
+    if text == "":
+        return {"injury": 0, "corpse_repatriation": 0, "trace": 0}
+
+    injury_count = 0
+    injury_trigger = re.search(r"\binjur(?:y|ed|ies)\b|\bwound(?:ed)?\b|\bbless(?:e|es|ure|ures)?\b", text)
+    alive_injury_hint = re.search(
+        r"\bsurviv(?:or|ors)\b|\brescu(?:e|ed|ing)\b|\bstable\b|\brecover(?:ing|ed)?\b|"
+        r"\balive\b|\bhospitali[sz]ed\b|\bsent to hospital\b|\bunder treatment\b",
+        text,
+    )
+    if injury_trigger and not alive_injury_hint:
+        parsed_injuries = _extract_numeric_count(text, r"injur(?:y|ed|ies)|wound(?:ed)?|bless(?:e|es|ure|ures)?")
+        injury_count = min(parsed_injuries or total_dead_missing, total_dead_missing)
+
+    repat_count = 0
+    repat_trigger = re.search(
+        r"\brepatriat\w*\b|\brapatriement\b|\bbody returned\b|\bremains repatriated\b|\bcorpse repatriation\b",
+        text,
+    )
+    if repat_trigger and number_dead > 0:
+        parsed_repat = _extract_numeric_count(text, r"repatriat\w*|rapatriement|bodies|body|remains|corpses?")
+        repat_count = min(parsed_repat or number_dead, number_dead)
+
+    trace_count = 0
+    trace_trigger = re.search(
+        r"\bwithout\s+(?:any\s+|a\s+)?trace\b|\bno\s+trace\b|\bsans\s+trace\b|\bsin\s+rastro\b|\bdisappeared\s+without\s+a\s+trace\b",
+        text,
+    )
+    if trace_trigger and number_missing > 0:
+        parsed_trace = _extract_numeric_count(text, r"missing|disappeared|trace")
+        trace_count = min(parsed_trace or number_missing, number_missing)
+
+    return {
+        "injury": injury_count,
+        "corpse_repatriation": repat_count,
+        "trace": trace_count,
+    }
+
+
+def _add_custom_events(
+    graph,
+    row_num,
+    data_ns,
+    person_event_pairs,
+    death_pairs,
+    missing_pairs,
+    collective_event_uri,
+    counts,
+    classes,
+    F,
+    RDF,
+    Literal,
+    prop_composed_of,
+    prop_group,
+    prop_temporal_before,
+    prop_temporal_after,
+    prop_has_comment,
+    prop_has_narrative,
+    narrative_text,
+):
+    created = {"injury": 0, "corpse_repatriation": 0, "trace": 0}
+
+    def _create_event(person_uri, base_event_uri, event_uri, event_class_uri, label, is_post_mortem):
+        graph.add((event_uri, RDF.type, event_class_uri))
+        graph.add((event_uri, RDF.type, F.IndividualEvent))
+        graph.add((person_uri, prop_composed_of, event_uri))
+        if collective_event_uri is not None:
+            graph.add((event_uri, prop_group, collective_event_uri))
+        if is_post_mortem:
+            graph.add((base_event_uri, prop_temporal_before, event_uri))
+            graph.add((event_uri, prop_temporal_after, base_event_uri))
+        else:
+            graph.add((event_uri, prop_temporal_before, base_event_uri))
+            graph.add((base_event_uri, prop_temporal_after, event_uri))
+        graph.add((event_uri, prop_has_comment, Literal(f"Detected event type: {label}")))
+        graph.add((event_uri, prop_has_narrative, Literal(narrative_text[:800])))
+
+    injury_target = min(counts.get("injury", 0), len(person_event_pairs))
+    for idx, (person_uri, base_event_uri) in enumerate(person_event_pairs[:injury_target], start=1):
+        event_uri = data_ns[f"missing_injuryEvent_{row_num}_{idx}"]
+        _create_event(person_uri, base_event_uri, event_uri, classes["injury"], "Injury", is_post_mortem=False)
+        created["injury"] += 1
+
+    repat_target = min(counts.get("corpse_repatriation", 0), len(death_pairs))
+    for idx, (person_uri, base_event_uri) in enumerate(death_pairs[:repat_target], start=1):
+        event_uri = data_ns[f"missing_corpseRepatriationEvent_{row_num}_{idx}"]
+        _create_event(person_uri, base_event_uri, event_uri, classes["corpse_repatriation"], "CorpseRepatriation", is_post_mortem=True)
+        created["corpse_repatriation"] += 1
+
+    trace_target = min(counts.get("trace", 0), len(missing_pairs))
+    for idx, (person_uri, base_event_uri) in enumerate(missing_pairs[:trace_target], start=1):
+        event_uri = data_ns[f"missing_traceEvent_{row_num}_{idx}"]
+        _create_event(person_uri, base_event_uri, event_uri, classes["trace"], "Trace", is_post_mortem=False)
+        created["trace"] += 1
+
+    return created
 
 
 def month_to_number(month_name):
@@ -262,6 +386,10 @@ def ensure_country_node(g, country_code_or_name):
     if is_missing(country_code_or_name):
         return None
 
+    cache_key = norm(country_code_or_name)
+    if cache_key in country_uri_cache:
+        return country_uri_cache[cache_key]
+
     val = str(country_code_or_name).strip()
     cc = None
     sval = re.sub(r"[^A-Za-z0-9]", "", val).upper()
@@ -292,10 +420,12 @@ def ensure_country_node(g, country_code_or_name):
             g.add((uri, F.isoAlpha2, Literal(getattr(cc, "alpha_2", ""))))
             g.add((uri, F.isoAlpha3, Literal(getattr(cc, "alpha_3", ""))))
             g.add((uri, SKOS.notation, Literal(getattr(cc, "alpha_3", ""))))
+        country_uri_cache[cache_key] = uri
         return uri
 
     candidate = find_by_label(g, country_code_or_name)
     if candidate:
+        country_uri_cache[cache_key] = candidate
         return candidate
 
     slug = re.sub(r"[^a-z0-9_]", "_", norm(country_code_or_name)).strip("_")
@@ -306,6 +436,7 @@ def ensure_country_node(g, country_code_or_name):
     if (uri, None, None) not in g:
         g.add((uri, RDF.type, F.Country))
         g.add((uri, RDFS.label, Literal(str(country_code_or_name).strip())))
+    country_uri_cache[cache_key] = uri
     return uri
 
 
@@ -447,6 +578,7 @@ input_path = resolve_input_path()
 df = read_input_table(input_path)
 print(f"Input table: {input_path}")
 print(f"Rows to process: {len(df)}")
+records = df.to_dict(orient="records")
 
 
 # ---------------------- Preparation ----------------------
@@ -492,6 +624,44 @@ geocoding_cache = {}
 MAX_DEATH_LOCATION_GEOCODING_CALLS = 10
 death_location_geocoding_calls = 0
 death_location_geocoding_success = 0
+country_uri_cache = {}
+death_country_uri_cache = {}
+dayofweek_initialized = set()
+
+
+def ensure_death_country_node(g, country_name):
+    if is_missing(country_name):
+        return None
+
+    key = norm(country_name)
+    if key in death_country_uri_cache:
+        return death_country_uri_cache[key]
+
+    try:
+        country_obj = pycountry.countries.lookup(str(country_name).strip())
+        country_label = getattr(country_obj, "name", str(country_name).strip())
+        country_code = getattr(country_obj, "alpha_3", "")
+        country_alpha2 = getattr(country_obj, "alpha_2", "")
+    except Exception:
+        country_label = str(country_name).strip()
+        country_code = re.sub(r"[^A-Za-z0-9]", "", country_label).upper()[:12]
+        country_alpha2 = ""
+
+    if not country_code:
+        death_country_uri_cache[key] = None
+        return None
+    if country_alpha2 == "EH":
+        death_country_uri_cache[key] = None
+        return None
+
+    uri = DATA[f"missing_DeathCountry_{country_code}"]
+    if (uri, RDF.type, F.DeathCountry) not in g:
+        g.add((uri, RDF.type, F.DeathCountry))
+        g.add((uri, RDF.type, F.Country))
+        g.add((uri, RDFS.label, Literal(country_label, lang="en")))
+
+    death_country_uri_cache[key] = uri
+    return uri
 
 
 def geocode_location(location_name, max_retries=3):
@@ -546,28 +716,12 @@ count_cause_literal = 0
 count_nature_mapped = 0
 count_website_date_invalid = 0
 count_additional_typed_events = 0
+count_event_country_inline = 0
+count_injury_events = 0
+count_corpse_repatriation_events = 0
+count_trace_events = 0
 
-for idx, row in df.iterrows():
-    row_num = idx + 1
-
-    person_uri = DATA[f"missing_Person_{row_num}"]
-    g.add((person_uri, RDF.type, PERSON_CLASS))
-    count_person += 1
-
-    n_female = parse_int_value(row.get("Number of Females", "")) or 0
-    n_male = parse_int_value(row.get("Number of Males", "")) or 0
-    if n_female > 0 and n_male == 0:
-        g.add((person_uri, PROP_gender, THES_female))
-    elif n_male > 0 and n_female == 0:
-        g.add((person_uri, PROP_gender, THES_male))
-
-    # Country of Origin -> frontlet:Country
-    country_origin = row.get("Country of Origin", "")
-    birth_country = ensure_country_node(g, country_origin)
-    if birth_country is not None:
-        g.add((person_uri, PROP_birthPlace, birth_country))
-        if not is_missing(country_origin):
-            g.add((birth_country, RDFS.label, Literal(str(country_origin).strip())))
+for row_num, row in enumerate(records, start=1):
 
     # Multiplicite derivee de Total Number of Dead and Missing
     total_dead_missing = parse_int_value(row.get("Total Number of Dead and Missing", ""))
@@ -577,12 +731,120 @@ for idx, row in df.iterrows():
     number_dead = parse_int_value(row.get("Number of Dead", ""))
     number_missing = parse_int_value(row.get("Minimum Estimated Number of Missing", ""))
     number_survivors = parse_int_value(row.get("Number of Survivors", ""))
+    n_female = parse_int_value(row.get("Number of Females", "")) or 0
+    n_male = parse_int_value(row.get("Number of Males", "")) or 0
 
     number_dead = max(0, number_dead or 0)
     number_missing = max(0, number_missing or 0)
+
+    country_origin = row.get("Country of Origin", "")
+    birth_country = ensure_country_node(g, country_origin)
+
+    event_date, website_invalid = build_event_date(
+        row.get("Website Date", ""),
+        row.get("Reported Month", ""),
+        row.get("Incident year", ""),
+    )
+    weekday_name = infer_day_of_week_name(event_date) if event_date is not None else None
+    if website_invalid:
+        count_website_date_invalid += 1
+
+    lat_f, lon_f = parse_coordinate_pair(row.get("Coordinates", ""))
+    geometry_geocoded_fallback = False
+    if lat_f is None or lon_f is None:
+        lat_f, lon_f = extract_coordinates_from_text(row.get("Coordinates", ""))
+
+    location_of_death = row.get("Location of death", "")
+    if (lat_f is None or lon_f is None) and not is_missing(location_of_death):
+        lat_geo, lon_geo = geocode_location(location_of_death)
+        if lat_geo is not None and lon_geo is not None:
+            lat_f, lon_f = lat_geo, lon_geo
+            geometry_geocoded_fallback = True
+            death_location_geocoding_success += 1
+
+    row_wkt = None
+    row_add_location_literal = False
+    row_death_country_uri = None
+    if lat_f is not None and lon_f is not None and math.isfinite(lat_f) and math.isfinite(lon_f):
+        suspicious, reason = is_suspicious_coordinate(lat_f, lon_f)
+        if not suspicious:
+            row_wkt = build_wkt_for_location_precision(location_of_death, lat_f, lon_f, geometry_geocoded_fallback)
+            row_add_location_literal = geometry_geocoded_fallback and bool(location_of_death) and not is_missing(location_of_death)
+            country_name_from_coords = _country_name_from_coordinates(lat_f, lon_f)
+            row_death_country_uri = ensure_death_country_node(g, country_name_from_coords)
+        else:
+            print(f"Warning: suspicious coordinate ignored ({reason}) at row {row_num}: {lon_f}, {lat_f}")
+
     text_chunks_for_typing = []
     text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Cause of Death", "Location of death", "Country of Origin"], is_missing))
     text_chunks_for_typing.extend(collect_text_values_from_row(row, ["Information Source", "Article title", "URL"], is_missing))
+
+    # Precompute cause, nature and transport once per row (applied to each terminal event).
+    cause_uri = None
+    cause_lbl = None
+    nature_uri = None
+    transport_mode = None
+    cause_val = row.get("Cause of Death", "")
+    if not is_missing(cause_val):
+        cause_uri, cause_lbl = match_death_cause(cause_val, mapping_dict, thesaurus_map)
+
+        nature_label = mapping_nature.get(norm(cause_val))
+        if nature_label:
+            nature_slug = re.sub(r"[^a-z0-9_]", "_", norm(nature_label)).strip("_") or "unknown"
+            nature_uri = DATA[f"missing_DeathNature_{nature_slug}"]
+            if (nature_uri, RDF.type, F.DeathNature) not in g:
+                g.add((nature_uri, RDF.type, F.DeathNature))
+                g.add((nature_uri, RDFS.label, Literal(str(nature_label).strip())))
+
+        cause_text = norm(cause_val)
+        route_text = norm(row.get("Migration route", ""))
+        if any(k in cause_text for k in ("drown", "drowning", "boat", "ship", "vessel", "ferry", "raft", "sea")):
+            transport_mode = T.boat if hasattr(T, "boat") else None
+        elif any(k in (cause_text + " " + route_text) for k in ("truck", "lorry", "vehicle", "car", "van", "bus", "train", "rail")):
+            transport_mode = T.landVehicle if hasattr(T, "landVehicle") else THES_human
+        elif any(k in route_text for k in ("land", "overland", "on foot", "foot", "desert", "walk")):
+            transport_mode = THES_human
+
+    # Create source node once per row, then link all terminal events to it.
+    source_uri = None
+    information_source = row.get("Information Source", "")
+    article_title = row.get("Article title", "")
+    url = row.get("URL", "")
+    has_source_payload = any(not is_missing(v) for v in (information_source, article_title, url))
+    if has_source_payload:
+        source_uri = DATA[f"missing_Source_{row_num}"]
+        g.add((source_uri, RDF.type, F.Source))
+
+        _combined_mm_source = " ".join(
+            filter(
+                None,
+                [
+                    str(information_source).strip() if not is_missing(information_source) else "",
+                    str(article_title).strip() if not is_missing(article_title) else "",
+                    str(url).strip() if not is_missing(url) else "",
+                ],
+            )
+        )
+        _mm_source_category = infer_source_category_key(_combined_mm_source)
+        _MM_SOURCE_SUBTYPE_MAP = {
+            "family": F.Family,
+            "media": F.Media,
+            "civil_society": F.CivilSociety,
+            "death_certificate": F.DeathCertificate,
+            "official_document": F.OtherOfficialDocument,
+        }
+        _mm_sub_type = _MM_SOURCE_SUBTYPE_MAP.get(_mm_source_category, F.Media)
+        g.add((source_uri, RDF.type, _mm_sub_type))
+
+        if not is_missing(information_source):
+            source_txt = str(information_source).strip()
+            g.add((source_uri, PROP_sourceInformation, Literal(source_txt)))
+            g.add((source_uri, RDFS.label, Literal(source_txt)))
+        if not is_missing(article_title):
+            g.add((source_uri, PROP_sourceArticleTitle, Literal(str(article_title).strip())))
+        if not is_missing(url):
+            g.add((source_uri, PROP_hasWebLink, Literal(str(url).strip())))
+        count_sources += 1
 
     collective_event_uri = None
     if total_dead_missing >= 2:
@@ -602,23 +864,41 @@ for idx, row in df.iterrows():
                 g.add((collective_event_uri, PROP_numberOfSurvivors, Literal(number_survivors, datatype=XSD.integer)))
             count_collective_events += 1
 
-    event_uris = []
     death_idx = 0
     missing_idx = 0
+    person_event_pairs = []
     for event_pos in range(total_dead_missing):
-        # Garder des familles d'URI separees pour distinguer clairement Death et Missing a l'export.
+        # 1 événement terminal = 1 personne
         if event_pos < number_dead:
             death_idx += 1
             if number_dead == 1:
                 event_uri = DATA[f"missing_Death_{row_num}"]
+                person_uri = DATA[f"missing_Person_{row_num}_death"]
             else:
                 event_uri = DATA[f"missing_Death_{row_num}_{death_idx}"]
+                person_uri = DATA[f"missing_Person_{row_num}_death_{death_idx}"]
         else:
             missing_idx += 1
             if number_missing == 1:
                 event_uri = DATA[f"missing_MissingEvent_{row_num}"]
+                person_uri = DATA[f"missing_Person_{row_num}_missing"]
             else:
                 event_uri = DATA[f"missing_MissingEvent_{row_num}_{missing_idx}"]
+                person_uri = DATA[f"missing_Person_{row_num}_missing_{missing_idx}"]
+
+
+        g.add((person_uri, RDF.type, PERSON_CLASS))
+        count_person += 1
+        count_individual_events += 1
+
+        if n_female > 0 and n_male == 0:
+            g.add((person_uri, PROP_gender, THES_female))
+        elif n_male > 0 and n_female == 0:
+            g.add((person_uri, PROP_gender, THES_male))
+
+        # Country of Origin -> frontlet:Country
+        if birth_country is not None:
+            g.add((person_uri, PROP_birthPlace, birth_country))
 
         g.add((event_uri, RDF.type, INDIVIDUAL_EVENT_CLASS))
         g.add((event_uri, RDF.type, DEATH_INJURY_CLASS))
@@ -630,15 +910,97 @@ for idx, row in df.iterrows():
             g.add((event_uri, RDF.type, MISSING_CLASS))
 
         g.add((person_uri, PROP_composedOf, event_uri))
+        person_event_pairs.append((person_uri, event_uri))
         if collective_event_uri is not None:
             g.add((event_uri, PROP_group, collective_event_uri))
 
-        event_uris.append(event_uri)
-        count_individual_events += 1
+        # Date logic
+        if event_date is not None:
+            g.add((event_uri, TIME.inXSDDate, Literal(event_date)))
+            if weekday_name:
+                g.add((event_uri, TIME.dayOfWeek, TIME[weekday_name]))
+                if weekday_name not in dayofweek_initialized:
+                    g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
+                    g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
+                    dayofweek_initialized.add(weekday_name)
 
+        # Cause of Death -> thesaurus DeathCause
+        if not is_missing(cause_val):
+            if cause_uri is not None:
+                g.add((event_uri, PROP_hasDeathCause, cause_uri))
+                count_cause_matched += 1
+            elif cause_lbl:
+                g.add((event_uri, PROP_hasDeathCause, Literal(cause_lbl)))
+                count_cause_literal += 1
+
+            if nature_uri is not None:
+                g.add((event_uri, PROP_hasDeathNature, nature_uri))
+                count_nature_mapped += 1
+
+            if transport_mode is not None:
+                g.add((event_uri, F.transportMode, transport_mode))
+
+        # Geometrie: coordonnees en priorite, geocoder Location of death si absent
+        if row_wkt is not None:
+            geometry_uri = DATA[f"missing_geometry_{row_num}_{event_pos+1}"]
+            g.add((event_uri, GEO.hasGeometry, geometry_uri))
+            g.add((geometry_uri, RDF.type, GEO.Geometry))
+            g.add((geometry_uri, GEO.asWKT, Literal(row_wkt, datatype=GEO.wktLiteral)))
+            g.add((geometry_uri, F.hasPrecision, Literal(not geometry_geocoded_fallback, datatype=XSD.boolean)))
+            if row_add_location_literal:
+                g.add((event_uri, F.lieu, Literal(str(location_of_death).strip())))
+            if row_death_country_uri is not None:
+                g.add((event_uri, F.hasDeathCountry, row_death_country_uri))
+                count_event_country_inline += 1
+
+        if source_uri is not None:
+            g.add((event_uri, PROP_sourcedBy, source_uri))
+
+    # Custom typing for Injury / CorpseRepatriation / Trace with strict constraints.
+    death_pairs = person_event_pairs[:number_dead]
+    missing_pairs = person_event_pairs[number_dead:number_dead + number_missing]
+    custom_text_chunks = []
+    custom_text_chunks.extend(collect_text_values_from_row(row, ["Article title", "Cause of Death", "Incident Type", "Location of death", "Information Source"], is_missing))
+    custom_targets = _detect_custom_event_target_counts(
+        custom_text_chunks,
+        total_dead_missing,
+        number_dead,
+        number_missing,
+        number_survivors,
+    )
+    custom_counts = _add_custom_events(
+        g,
+        row_num,
+        DATA,
+        person_event_pairs,
+        death_pairs,
+        missing_pairs,
+        collective_event_uri,
+        custom_targets,
+        {
+            "injury": INJURY_CLASS,
+            "corpse_repatriation": find_by_label(g_ref, "Corpse repatriation") or F.CorpseRepatriation,
+            "trace": find_by_label(g_ref, "Trace") or F.Trace,
+        },
+        F,
+        RDF,
+        Literal,
+        PROP_composedOf,
+        PROP_group,
+        PROP_temporal_before,
+        PROP_temporal_after,
+        PROP_sourceArticleTitle,
+        PROP_sourceArticleTitle,
+        " | ".join(custom_text_chunks),
+    )
+    count_injury_events += custom_counts.get("injury", 0)
+    count_corpse_repatriation_events += custom_counts.get("corpse_repatriation", 0)
+    count_trace_events += custom_counts.get("trace", 0)
+
+    # Additional event typing once per row (applied to all person-event pairs).
     additional_counts = add_additional_typed_events(
         g,
-        [(person_uri, ev_uri) for ev_uri in event_uris],
+        person_event_pairs,
         collective_event_uri,
         text_chunks_for_typing,
         ADDITIONAL_EVENT_SPECS,
@@ -657,119 +1019,10 @@ for idx, row in df.iterrows():
     )
     count_additional_typed_events += sum(additional_counts.values())
 
-    # Date logic
-    event_date, website_invalid = build_event_date(
-        row.get("Website Date", ""),
-        row.get("Reported Month", ""),
-        row.get("Incident year", ""),
-    )
-    if website_invalid:
-        count_website_date_invalid += 1
-    if event_date is not None:
-        weekday_name = infer_day_of_week_name(event_date)
-        for ev_uri in event_uris:
-            g.add((ev_uri, TIME.inXSDDate, Literal(event_date)))
-            if weekday_name:
-                g.add((ev_uri, TIME.dayOfWeek, TIME[weekday_name]))
-                g.add((TIME[weekday_name], RDF.type, TIME.DayOfWeek))
-                g.add((TIME[weekday_name], RDFS.label, Literal(weekday_name, lang="en")))
-
-    # Cause of Death -> thesaurus DeathCause
-    cause_val = row.get("Cause of Death", "")
-    if not is_missing(cause_val):
-        cause_uri, cause_lbl = match_death_cause(cause_val, mapping_dict, thesaurus_map)
-        if cause_uri is not None:
-            for ev_uri in event_uris:
-                g.add((ev_uri, PROP_hasDeathCause, cause_uri))
-            count_cause_matched += 1
-        elif cause_lbl:
-            for ev_uri in event_uris:
-                g.add((ev_uri, PROP_hasDeathCause, Literal(cause_lbl)))
-            count_cause_literal += 1
-
-        nature_label = mapping_nature.get(norm(cause_val))
-        if nature_label:
-            nature_slug = re.sub(r"[^a-z0-9_]", "_", norm(nature_label)).strip("_") or "unknown"
-            nature_uri = DATA[f"missing_DeathNature_{nature_slug}"]
-            if (nature_uri, RDF.type, F.DeathNature) not in g:
-                g.add((nature_uri, RDF.type, F.DeathNature))
-                g.add((nature_uri, RDFS.label, Literal(str(nature_label).strip())))
-            for ev_uri in event_uris:
-                g.add((ev_uri, PROP_hasDeathNature, nature_uri))
-            count_nature_mapped += 1
-
-        cause_text = norm(cause_val)
-        route_text = norm(row.get("Migration route", ""))
-        transport_mode = None
-        if any(k in cause_text for k in ("drown", "drowning", "boat", "ship", "vessel", "ferry", "raft", "sea")):
-            transport_mode = T.boat if hasattr(T, "boat") else None
-        elif any(k in (cause_text + " " + route_text) for k in ("truck", "lorry", "vehicle", "car", "van", "bus", "train", "rail")):
-            transport_mode = T.landVehicle if hasattr(T, "landVehicle") else THES_human
-        elif any(k in route_text for k in ("land", "overland", "on foot", "foot", "desert", "walk")):
-            transport_mode = THES_human
-        if transport_mode is not None:
-            for ev_uri in event_uris:
-                g.add((ev_uri, F.transportMode, transport_mode))
-
-    # Geometrie: coordonnees en priorite, geocoder Location of death si absent
-    lat_f, lon_f = parse_coordinate_pair(row.get("Coordinates", ""))
-    if lat_f is None or lon_f is None:
-        lat_f, lon_f = extract_coordinates_from_text(row.get("Coordinates", ""))
-
-    location_of_death = row.get("Location of death", "")
-    if (lat_f is None or lon_f is None) and not is_missing(location_of_death):
-        if death_location_geocoding_calls < MAX_DEATH_LOCATION_GEOCODING_CALLS:
-            death_location_geocoding_calls += 1
-            lat_geo, lon_geo = geocode_location(location_of_death)
-            if lat_geo is not None and lon_geo is not None:
-                lat_f, lon_f = lat_geo, lon_geo
-                death_location_geocoding_success += 1
-
-    if lat_f is not None and lon_f is not None and math.isfinite(lat_f) and math.isfinite(lon_f):
-        suspicious, reason = is_suspicious_coordinate(lat_f, lon_f)
-        if not suspicious:
-            wkt = f"POINT({lon_f} {lat_f})"
-            for ev_pos, ev_uri in enumerate(event_uris, start=1):
-                geometry_uri = DATA[f"missing_geometry_{row_num}_{ev_pos}"]
-                g.add((ev_uri, GEO.hasGeometry, geometry_uri))
-                g.add((geometry_uri, RDF.type, GEO.Geometry))
-                g.add((geometry_uri, GEO.asWKT, Literal(wkt, datatype=GEO.wktLiteral)))
-        else:
-            print(f"Warning: suspicious coordinate ignored ({reason}) at row {row_num}: {lon_f}, {lat_f}")
-
-    # Source: Information Source, titre de l'article, URL
-    information_source = row.get("Information Source", "")
-    article_title = row.get("Article title", "")
-    url = row.get("URL", "")
-
-    has_source_payload = any(not is_missing(v) for v in (information_source, article_title, url))
-    if has_source_payload:
-        source_uri = DATA[f"missing_Source_{row_num}"]
-        g.add((source_uri, RDF.type, F.Source))
-        _combined_mm_source = " ".join(filter(None, [str(information_source).strip() if not is_missing(information_source) else "", str(article_title).strip() if not is_missing(article_title) else ""]))
-        _mm_source_category = infer_source_category_key(_combined_mm_source)
-        _MM_SOURCE_SUBTYPE_MAP = {"family": F.Family, "media": F.Media, "civil_society": F.CivilSociety, "death_certificate": F.DeathCertificate, "official_document": F.OtherOfficialDocument}
-        _mm_sub_type = _MM_SOURCE_SUBTYPE_MAP.get(_mm_source_category)
-        if _mm_sub_type:
-            g.add((source_uri, RDF.type, _mm_sub_type))
-
-        if not is_missing(information_source):
-            source_txt = str(information_source).strip()
-            g.add((source_uri, PROP_sourceInformation, Literal(source_txt)))
-            g.add((source_uri, RDFS.label, Literal(source_txt)))
-
-        if not is_missing(article_title):
-            g.add((source_uri, PROP_sourceArticleTitle, Literal(str(article_title).strip())))
-
-        if not is_missing(url):
-            g.add((source_uri, PROP_hasWebLink, Literal(str(url).strip())))
-
-        for ev_uri in event_uris:
-            g.add((ev_uri, PROP_sourcedBy, source_uri))
-        count_sources += 1
-
 
 # --------------------- Resume et sortie ------------------
+count_geom_propagated = propagate_geometry_to_sibling_events(g, F, GEO, RDF, Literal, "missing_migrants")
+count_event_country_from_geometry = count_event_country_inline
 g.serialize(destination=OUTPUT_TTL, format="turtle")
 
 print("\n" + "=" * 60)
@@ -782,6 +1035,9 @@ print(f"Sources created: {count_sources}")
 print(f"Cause matched to thesaurus URI: {count_cause_matched}")
 print(f"Cause fallback literal: {count_cause_literal}")
 print(f"DeathNature linked: {count_nature_mapped}")
+print(f"Injury events created: {count_injury_events}")
+print(f"Corpse repatriation events created: {count_corpse_repatriation_events}")
+print(f"Trace events created: {count_trace_events}")
 print(f"Other typed events created: {count_additional_typed_events}")
 print(f"Website Date invalid format count: {count_website_date_invalid}")
 print(
@@ -789,6 +1045,8 @@ print(
     f"{death_location_geocoding_calls}/{MAX_DEATH_LOCATION_GEOCODING_CALLS}"
 )
 print(f"Location-of-death geocoding successes: {death_location_geocoding_success}")
+print(f"Geometry propagated to siblings: {count_geom_propagated}")
+print(f"Event countries from geometry: {count_event_country_from_geometry}")
 print("=" * 60)
 print(f"Output written to: {OUTPUT_TTL}")
 
