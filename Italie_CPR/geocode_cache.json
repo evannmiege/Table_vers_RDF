@@ -1,3 +1,277 @@
 {
-  "cpt di caltanissetta": "NOT_FOUND"
+  "cpt di caltanissetta||||italy_only": "NOT_FOUND",
+  "cpt di caltanissetta||camp_amenity_italy_only": {
+    "lat": 37.4412,
+    "lon": 14.0082,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt lampedusa||camp_amenity_italy_only": {
+    "lat": 35.5111342,
+    "lon": 12.5962914,
+    "query": "Cpt Lampedusa, Italy",
+    "provider": "Photon"
+  },
+  "cpt ponte galeria, roma||camp_amenity_italy_only": {
+    "lat": 41.8589,
+    "lon": 12.357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt serraino vulpitta, trapani||camp_amenity_italy_only": {
+    "lat": 37.9117,
+    "lon": 12.5357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt lamezia terme||camp_amenity_italy_only": {
+    "lat": 38.9645069,
+    "lon": 16.3021451,
+    "query": "Cpt Lamezia Terme, Italy",
+    "provider": "Photon"
+  },
+  "cpt caltanissetta||camp_amenity_italy_only": {
+    "lat": 37.4412,
+    "lon": 14.0082,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt bologna||camp_amenity_italy_only": {
+    "lat": 44.536,
+    "lon": 11.29,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt ragusa||camp_amenity_italy_only": {
+    "lat": 36.9256833,
+    "lon": 14.7307456,
+    "query": "CPT Ragusa, Italy",
+    "provider": "Photon"
+  },
+  "cpt modena||camp_amenity_italy_only": {
+    "lat": 44.65,
+    "lon": 10.9252,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie torino||camp_amenity_italy_only": {
+    "lat": 45.106,
+    "lon": 7.683,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie pian del lago, caltanissetta||camp_amenity_italy_only": {
+    "lat": 37.4412,
+    "lon": 14.0082,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie ponte galeria, roma||camp_amenity_italy_only": {
+    "lat": 41.8589,
+    "lon": 12.357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie, milano||camp_amenity_italy_only": {
+    "lat": 45.4978,
+    "lon": 9.1237,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie bologna||camp_amenity_italy_only": {
+    "lat": 44.536,
+    "lon": 11.29,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie gradisca d'isonzo||camp_amenity_italy_only": {
+    "lat": 45.8926,
+    "lon": 13.5006,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cie crotone, sant’anna di isola capo rizzuto||camp_amenity_italy_only": {
+    "lat": 38.9973566,
+    "lon": 17.0797212,
+    "query": "Cie Crotone, Sant'Anna di Isola Capo Rizzuto, Italy",
+    "provider": "Photon"
+  },
+  "cie bari||camp_amenity_italy_only": {
+    "lat": 41.1429,
+    "lon": 16.7607,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "ponte galeria||camp_amenity_italy_only": {
+    "lat": 41.8589,
+    "lon": 12.357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr brindisi||camp_amenity_italy_only": {
+    "lat": 40.6835,
+    "lon": 17.9773,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr torino||camp_amenity_italy_only": {
+    "lat": 45.106,
+    "lon": 7.683,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr caltanissetta||camp_amenity_italy_only": {
+    "lat": 37.4412,
+    "lon": 14.0082,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr gradisca d'isonzo||camp_amenity_italy_only": {
+    "lat": 45.8926,
+    "lon": 13.5006,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr restinco, brindisi||camp_amenity_italy_only": {
+    "lat": 40.6835,
+    "lon": 17.9773,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr ponte galeria, roma||camp_amenity_italy_only": {
+    "lat": 41.8589,
+    "lon": 12.357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "brindisi||camp_amenity_italy_only": {
+    "lat": 40.6835,
+    "lon": 17.9773,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "palazzo san gervasio||camp_amenity_italy_only": {
+    "lat": 40.9916,
+    "lon": 15.8547,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "brindisi restinco||camp_amenity_italy_only": {
+    "lat": 40.6835,
+    "lon": 17.9773,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr ponte galeria||camp_amenity_italy_only": {
+    "lat": 41.8589,
+    "lon": 12.357,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpr di palazzo san gervasio||camp_amenity_italy_only": {
+    "lat": 40.9916,
+    "lon": 15.8547,
+    "query": "known_italy_camp_registry",
+    "provider": "registry"
+  },
+  "cpt ponte galeria, roma": {
+    "lat": 41.8075032,
+    "lon": 12.3190161,
+    "query": "cpr Ponte Galeria, Roma"
+  },
+  "cpt serraino vulpitta, trapani": {
+    "lat": 37.9003731,
+    "lon": 12.7116255,
+    "query": "Trapani, Italy"
+  },
+  "cpt lamezia terme": {
+    "lat": 38.9645069,
+    "lon": 16.3021451,
+    "query": "Lamezia Terme"
+  },
+  "cpt caltanissetta": {
+    "lat": 37.4684779,
+    "lon": 14.0348551,
+    "query": "cpr Caltanissetta"
+  },
+  "cpt bologna": {
+    "lat": 44.7271232,
+    "lon": 11.5466881,
+    "query": "cpr Bologna"
+  },
+  "cpt ragusa": {
+    "lat": 42.6491029,
+    "lon": 18.0939501,
+    "query": "Ragusa"
+  },
+  "cie torino": {
+    "lat": 45.0634989,
+    "lon": 7.6253724,
+    "query": "cpr Torino"
+  },
+  "cie pian del lago, caltanissetta": {
+    "lat": 37.4685336,
+    "lon": 14.0380351,
+    "query": "Pian Lago, Caltanissetta"
+  },
+  "cie ponte galeria, roma": {
+    "lat": 41.8075032,
+    "lon": 12.3190161,
+    "query": "cpr Cie Ponte Galeria, Roma"
+  },
+  "cie bologna": {
+    "lat": 44.7271232,
+    "lon": 11.5466881,
+    "query": "cpr Bologna"
+  },
+  "cie gradisca d'isonzo": {
+    "lat": 45.8888234,
+    "lon": 13.4778739,
+    "query": "cpr Gradisca D'Isonzo"
+  },
+  "cie crotone, sant’anna di isola capo rizzuto": {
+    "lat": 38.9973566,
+    "lon": 17.0797212,
+    "query": "Crotone, Sant'Anna Isola Capo Rizzuto"
+  },
+  "ponte galeria": {
+    "lat": 41.8183404,
+    "lon": 12.3447724,
+    "query": "Ponte Galeria"
+  },
+  "cpr brindisi": {
+    "lat": 40.6330299,
+    "lon": 17.8724854,
+    "query": "cpr Cpr Brindisi"
+  },
+  "cpr caltanissetta": {
+    "lat": 37.4684779,
+    "lon": 14.0348551,
+    "query": "Cpr Caltanissetta"
+  },
+  "cpr gradisca d'isonzo": {
+    "lat": 45.8888234,
+    "lon": 13.4778739,
+    "query": "cpr Cpr Gradisca D'Isonzo"
+  },
+  "cpr torino": {
+    "lat": 45.0634989,
+    "lon": 7.6253724,
+    "query": "cpr Cpr Torino"
+  },
+  "cpr restinco, brindisi": {
+    "lat": 40.6330299,
+    "lon": 17.8724854,
+    "query": "cpr Cpr Restinco, Brindisi"
+  },
+  "cpr ponte galeria, roma": {
+    "lat": 41.8075032,
+    "lon": 12.3190161,
+    "query": "cpr Cpr Ponte Galeria, Roma"
+  },
+  "brindisi": {
+    "lat": 40.6358599,
+    "lon": 17.6884975,
+    "query": "Brindisi"
+  }
 }

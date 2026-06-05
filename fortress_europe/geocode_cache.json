@@ -1,38 +1,2314 @@
 {
-  "Alborán": [
+  "Agathonissi||Greece": [
+    37.4604562,
+    26.9676675
+  ],
+  "Ahrax Point||Malta": [
+    35.9983795,
+    14.367515
+  ],
+  "Al-Hoceima||Morocco": [
+    35.202941,
+    -5.5510167
+  ],
+  "Alborán||Spain": [
     35.9396041,
     -3.0352319
   ],
-  "Brindisi": [
+  "Alessandria||Egypt": [
+    30.9432983,
+    29.765645
+  ],
+  "Alexandroupoli||Greece": [
+    40.845666,
+    25.8778814
+  ],
+  "Algeciras||Spain": [
+    36.1311725,
+    -5.4473991
+  ],
+  "Algeri||Algeria": [
+    28.0000272,
+    2.9999825
+  ],
+  "Almeria||Spain": [
+    36.8733891,
+    -2.4444694
+  ],
+  "Almerìa||Spain": [
+    36.8733891,
+    -2.4444694
+  ],
+  "Andalucia||Spain": [
+    37.3399964,
+    -4.5811614
+  ],
+  "Andalusia||Spain": [
+    37.3399964,
+    -4.5811614
+  ],
+  "Annaba||Algeria": [
+    36.8982165,
+    7.7549272
+  ],
+  "Annata||Algeria": [
+    36.8982165,
+    7.7549272
+  ],
+  "Apani||Italy": [
+    40.6965339,
+    17.8254725
+  ],
+  "Arguineguin||Spain": [
+    27.8374095,
+    -15.6591297
+  ],
+  "Arzew||Algeria": [
+    35.856348,
+    -0.313678
+  ],
+  "Bad Muskau||Germany": [
+    51.5470046,
+    14.7215146
+  ],
+  "Bahia Feliz||Spain": [
+    27.7816903,
+    -15.5176042
+  ],
+  "Bahren-Forst||Germany": [
+    51.250884,
+    12.7694068
+  ],
+  "Bahren-Zelz||Germany": [
+    51.6396221,
+    14.7452989
+  ],
+  "Balerna||Switzerland": [
+    45.8491908,
+    9.0070811
+  ],
+  "Baltim||Egypt": [
+    31.554444,
+    31.090278
+  ],
+  "Barbate||Spain": [
+    36.1923983,
+    -5.9192837
+  ],
+  "Bari da Durazzo||Italy": [
+    41.1146285,
+    16.6945637
+  ],
+  "Ben Guerdane||Tunisia": [
+    33.1525506,
+    11.2065271
+  ],
+  "Bengasi||Libya": [
+    32.1200168,
+    20.0812174
+  ],
+  "Benzù||Spain": [
+    35.9160806,
+    -5.3730766
+  ],
+  "Bertinoro||Italy": [
+    44.148665,
+    12.134235
+  ],
+  "Bizerbe||Tunisia": [
+    37.2720905,
+    9.8708565
+  ],
+  "Bizzerbugia||Malta": [
+    35.8269478,
+    14.5274189
+  ],
+  "Borg Borolos||Egypt": [
+    30.9994696,
+    29.7294322
+  ],
+  "Bouharoun||Algeria": [
+    36.6248757,
+    2.657232
+  ],
+  "Bousfer||Algeria": [
+    35.7012331,
+    -0.8103918
+  ],
+  "Brieskow-Frinkenheerd||Germany": [
+    52.2535985,
+    14.5767928
+  ],
+  "Brindisi||Italy": [
     40.6358599,
     17.6884975
   ],
-  "Calais": [
+  "Béthioua||Algeria": [
+    35.805837,
+    -0.267936
+  ],
+  "Cabo de Gata||Spain": [
+    36.7210296,
+    -2.1932327
+  ],
+  "Cabo de Palos||Algeria": [
+    37.6332578,
+    -0.6931348
+  ],
+  "Cadice||Spain": [
+    41.2441489,
+    0.7274204
+  ],
+  "Cadiz||Spain": [
+    36.5297438,
+    -6.2928976
+  ],
+  "Calabria||Italy": [
+    39.0565974,
+    16.5249864
+  ],
+  "Calais||France": [
     50.9524769,
     1.8538446
   ],
-  "Europa": [
-    51.0,
-    10.0
+  "Canarie||Western Sahara": [
+    24.1797324,
+    -13.7667848
   ],
-  "Fuerteventura": [
+  "Cap Barbars||Western Sahara": [
+    24.1797324,
+    -13.7667848
+  ],
+  "Cap Carbon||Algeria": [
+    36.7760997,
+    5.1031481
+  ],
+  "Cap Falcon||Algeria": [
+    35.7709895,
+    -0.8007618
+  ],
+  "Capo Cavallo||Italy": [
+    40.839035,
+    9.7131929
+  ],
+  "Cartegena||Spain": [
+    37.5995046,
+    -0.9835695
+  ],
+  "Casamance||Senegal": [
+    12.5951481,
+    -15.6823131
+  ],
+  "Castelvetrano||Italy": [
+    37.6828513,
+    12.7955336
+  ],
+  "Castro||Italy": [
+    45.802987,
+    10.06706
+  ],
+  "Catania||Italy": [
+    37.5023612,
+    15.0873718
+  ],
+  "Cesine||Italy": [
+    41.1526781,
+    14.396803
+  ],
+  "Cesme||Greece": [
+    35.3412118,
+    25.1300797
+  ],
+  "Ceuta||Spain": [
+    35.888361,
+    -5.304138
+  ],
+  "Chiclana||Spain": [
+    38.3115637,
+    -3.0428203
+  ],
+  "Chios||Greece": [
+    38.3758132,
+    26.0646552
+  ],
+  "Chott Meriem||Tunisia": [
+    36.7189536,
+    10.3642733
+  ],
+  "Cittadella dei Maccheri||Italy": [
+    39.2225373,
+    9.1168452
+  ],
+  "Coldrerio||Switzerland": [
+    45.8538378,
+    8.9871005
+  ],
+  "Cormons||Italy": [
+    45.954628,
+    13.4620352
+  ],
+  "Coruna||Spain": [
+    43.3466447,
+    -8.4127029
+  ],
+  "Creta||Greece": [
+    35.5188345,
+    23.8882336
+  ],
+  "Cuevas del Almanzora||Spain": [
+    37.2961366,
+    -1.8807223
+  ],
+  "Dakar||Senegal": [
+    14.693425,
+    -17.447938
+  ],
+  "Dakhla||Western Sahara": [
+    24.1797324,
+    -13.7667848
+  ],
+  "Daros Khoudos||Senegal": [
+    15.1048994,
+    -16.8685636
+  ],
+  "Darro||Spain": [
+    37.3491909,
+    -3.2933648
+  ],
+  "Delimara||Malta": [
+    35.8219807,
+    14.5587814
+  ],
+  "Dingli||Malta": [
+    35.8604202,
+    14.3816818
+  ],
+  "Dique Sur de Melilla||Morocco": [
+    35.2716721,
+    -2.9320137
+  ],
+  "Dover||France": [
+    51.0149083,
+    1.5270969
+  ],
+  "El Hierro||Spain": [
+    27.7435084,
+    -18.0381796
+  ],
+  "Essex||United Kingdom": [
+    51.7704679,
+    0.4646698
+  ],
+  "Estepona||Spain": [
+    36.4268068,
+    -5.1468484
+  ],
+  "Europa||Algeria": [
+    36.465237,
+    7.4292831
+  ],
+  "Evia||Greece": [
+    37.9856018,
+    23.728787
+  ],
+  "Felixstowe||United Kingdom": [
+    51.9642959,
+    1.3289938
+  ],
+  "Fnideq||Morocco": [
+    35.7614806,
+    -5.399416
+  ],
+  "Forst||Germany": [
+    50.3663225,
+    6.9316495
+  ],
+  "Frankfurt||Germany": [
+    50.1106444,
+    8.6820917
+  ],
+  "Frigole||Italy": [
+    40.4283799,
+    18.2457478
+  ],
+  "Fuerteventura||Spain": [
     28.4003769,
     -14.0048697
   ],
-  "Gran Canaria": [
+  "Garabuli||Libya": [
+    32.7920513,
+    13.7375842
+  ],
+  "Gatwick||United Kingdom": [
+    51.1540772,
+    -0.1823226
+  ],
+  "Gela||Italy": [
+    37.0664363,
+    14.2502445
+  ],
+  "Gemisti||Greece": [
+    40.96301,
+    26.3309264
+  ],
+  "Genova||Italy": [
+    44.40726,
+    8.9338624
+  ],
+  "Genschmar||Germany": [
+    52.6130522,
+    14.5442925
+  ],
+  "Ghazaouet||Algeria": [
+    35.093863,
+    -1.86322
+  ],
+  "Gomera||Spain": [
+    28.1192356,
+    -17.2257471
+  ],
+  "Gorizia||Italy": [
+    45.9441278,
+    13.6252288
+  ],
+  "Gorlitz||Germany": [
+    51.1563185,
+    14.991018
+  ],
+  "Gran Canaria||Spain": [
     27.9580004,
     -15.6062305
   ],
-  "Lampedusa": [
+  "Granada||Spain": [
+    37.1734995,
+    -3.5995337
+  ],
+  "Granadilla||Spain": [
+    40.2369055,
+    -6.0471736
+  ],
+  "Gross Breesen||Germany": [
+    51.9921804,
+    14.6939417
+  ],
+  "Guben||Germany": [
+    51.9503235,
+    14.7153567
+  ],
+  "Görlitz||Germany": [
+    51.1563185,
+    14.991018
+  ],
+  "Heathrow||United Kingdom": [
+    51.467739,
+    -0.4587801
+  ],
+  "Hoceima||Spain": [
+    43.2569085,
+    -2.9325321
+  ],
+  "Hohenwutzen||Germany": [
+    52.8444731,
+    14.1202165
+  ],
+  "Kafr Al-Shaykh||Egypt": [
+    31.2365124,
+    30.8348713
+  ],
+  "Kafr Al-Sheikh||Egypt": [
+    31.1089385,
+    30.9426981
+  ],
+  "Kafr Sheikh||Egypt": [
+    31.3814765,
+    30.8513566
+  ],
+  "Kafr Sheykh||Egypt": [
+    31.3814765,
+    30.8513566
+  ],
+  "Kalolymnos||Greece": [
+    37.061206,
+    27.0867999
+  ],
+  "Kastanies||Greece": [
+    41.6455761,
+    26.4753534
+  ],
+  "Kastanjes||Greece": [
+    41.6455761,
+    26.4753534
+  ],
+  "Kastoria||Greece": [
+    40.5216577,
+    21.2636504
+  ],
+  "Kato Zakros||Greece": [
+    35.0975254,
+    26.262803
+  ],
+  "Kenitra||Morocco": [
+    34.26457,
+    -6.570169
+  ],
+  "Keuner Wehr||Germany": [
+    47.6286078,
+    7.9046417
+  ],
+  "Khiareh||Iran, Islamic Republic of": [
+    52.4609514,
+    13.2999621
+  ],
+  "Kidal||Algeria": [
+    20.2292001,
+    0.9934041
+  ],
+  "Kienitz||Germany": [
+    52.6734721,
+    14.4387675
+  ],
+  "Kipi||Greece": [
+    40.9535104,
+    26.306757
+  ],
+  "Kipsdorf||Germany": [
+    50.8031435,
+    13.6750461
+  ],
+  "Kobeln||Germany": [
+    51.2485312,
+    13.3427799
+  ],
+  "Koenigs Wusterhausen||Germany": [
+    52.2994511,
+    13.6244389
+  ],
+  "Kos||Greece": [
+    36.7936933,
+    27.0848266
+  ],
+  "Koungou||France": [
+    -12.735753,
+    45.2067459
+  ],
+  "Kufrah||Libya": [
+    23.3323776,
+    22.0840331
+  ],
+  "Kélibia||Tunisia": [
+    36.8456561,
+    11.0935701
+  ],
+  "Laayoun||Western Sahara": [
+    26.7300936,
+    -12.9766773
+  ],
+  "Lampedusa||Italy": [
     35.5111342,
     12.5962914
   ],
-  "Lesvos": [
+  "Lanzarote||Spain": [
+    29.0397081,
+    -13.6362916
+  ],
+  "Las Palmas||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "Lebus||Germany": [
+    52.4271025,
+    14.5338189
+  ],
+  "Lecce||Italy": [
+    40.1522173,
+    18.2260628
+  ],
+  "Lesbos||Greece": [
     39.1758419,
     25.9989135
   ],
-  "Naila": [
-    50.3283229,
-    11.6969688
+  "Lesvos||Greece": [
+    39.1974817,
+    26.0136151
+  ],
+  "Licata||Italy": [
+    37.1016426,
+    13.9376618
+  ],
+  "Lisbona||Portugal": [
+    38.7165683,
+    -9.1436273
+  ],
+  "Lodenau||Germany": [
+    51.3812112,
+    14.9588407
+  ],
+  "Londra||France": [
+    44.2037894,
+    0.613302
+  ],
+  "Los Barrios||Spain": [
+    36.1853519,
+    -5.4933701
+  ],
+  "Los Caños||Spain": [
+    40.8250251,
+    -5.9429224
+  ],
+  "Los Cristianos||Spain": [
+    28.0526298,
+    -16.717
+  ],
+  "Los Lances||Spain": [
+    36.0300253,
+    -5.624059
+  ],
+  "Lykofos||Greece": [
+    41.1200275,
+    26.2892849
+  ],
+  "Mahdia||Tunisia": [
+    35.503642,
+    11.0682429
+  ],
+  "Majicavo||France": [
+    -12.7442495,
+    45.2190802
+  ],
+  "Malaga||Spain": [
+    36.7960087,
+    -4.5473784
+  ],
+  "Marbella||Spain": [
+    36.4962994,
+    -4.9494047
+  ],
+  "Mare||Italy": [
+    43.7089096,
+    10.3851667
+  ],
+  "Marina di Modica||Italy": [
+    36.712695,
+    14.775637
+  ],
+  "Marsa||Algeria": [
+    36.8091281,
+    3.2546039
+  ],
+  "Marsala||Italy": [
+    37.7979221,
+    12.4342091
+  ],
+  "Mazara del Vallo||Italy": [
+    37.6537292,
+    12.5886912
+  ],
+  "Melilla||Spain": [
+    35.2929115,
+    -2.9507202
+  ],
+  "Menton||France": [
+    43.7753495,
+    7.5029213
+  ],
+  "Mers El-Hadjadj||Algeria": [
+    35.7948853,
+    -0.1652125
+  ],
+  "Mesa Roldan||Spain": [
+    36.9417012,
+    -1.9067104
+  ],
+  "Messina||Italy": [
+    38.1937571,
+    15.5542082
+  ],
+  "Motril||Spain": [
+    36.7450888,
+    -3.5207655
+  ],
+  "Murcia||Spain": [
+    37.9923795,
+    -1.1305431
+  ],
+  "Murzuq||Libya": [
+    24.5351182,
+    15.2592288
+  ],
+  "Nador||Morocco": [
+    35.1739922,
+    -2.9281198
+  ],
+  "Naila||Western Sahara": [
+    24.1797324,
+    -13.7667848
+  ],
+  "Nea Vissa||Greece": [
+    38.0449272,
+    23.7409584
+  ],
+  "Nieder Neuendorf||Germany": [
+    52.6091387,
+    13.2008816
+  ],
+  "Nouadhibou||Mauritania": [
+    20.9127045,
+    -17.0503094
+  ],
+  "Nouakchott||Mauritania": [
+    18.0792379,
+    -15.9780071
+  ],
+  "Níjar||Spain": [
+    36.962894,
+    -2.2063758
+  ],
+  "Ognina||Italy": [
+    36.9792207,
+    15.2636642
+  ],
+  "Oran||Algeria": [
+    35.7044415,
+    -0.6502981
+  ],
+  "Ostritz||Germany": [
+    51.014934,
+    14.9327975
+  ],
+  "Ostriz||Germany": [
+    51.014934,
+    14.9327975
+  ],
+  "Otranto||Italy": [
+    40.1456661,
+    18.490757
+  ],
+  "Oujda||Morocco": [
+    34.677874,
+    -1.929306
+  ],
+  "Palermo||Italy": [
+    38.1112268,
+    13.3524434
+  ],
+  "Parigi||France": [
+    49.4774129,
+    3.4082106
+  ],
+  "Perejil||Spain": [
+    41.3274445,
+    -1.5491439
+  ],
+  "Podrosche||Germany": [
+    51.4694003,
+    14.9455374
+  ],
+  "Porto Empedocle||Italy": [
+    37.2883127,
+    13.52755
+  ],
+  "Portopalo||Italy": [
+    36.6833979,
+    15.1341299
+  ],
+  "Portopalo di Capo Passero||Italy": [
+    36.6833979,
+    15.1341299
+  ],
+  "Portopalo di Capopassero||Italy": [
+    36.6833979,
+    15.1341299
+  ],
+  "Pozzallo||Italy": [
+    36.7265294,
+    14.8465811
+  ],
+  "Presevo||Serbia": [
+    42.3095217,
+    21.6490102
+  ],
+  "Preveza||Greece": [
+    38.9571673,
+    20.7516209
+  ],
+  "Psalidi||Greece": [
+    36.8811889,
+    27.3404101
+  ],
+  "Puglia||Italy": [
+    40.9842539,
+    16.6210027
+  ],
+  "Punta Acebuche||Spain": [
+    36.063317,
+    -5.4669693
+  ],
+  "Punta Almina||Spain": [
+    35.8982649,
+    -5.2808315
+  ],
+  "Punta de Trápana||Spain": [
+    35.2951489,
+    -2.9331516
+  ],
+  "Qarbouli||Libya": [
+    32.7397549,
+    13.7255419
+  ],
+  "Rabat||Morocco": [
+    34.0218454,
+    -6.8408929
+  ],
+  "Ragusa||Italy": [
+    36.9256833,
+    14.7307456
+  ],
+  "Ras El Hamra||Algeria": [
+    35.7708817,
+    5.5617595
+  ],
+  "Rashid||Egypt": [
+    31.4048922,
+    30.4221213
+  ],
+  "Ratzdorf||Germany": [
+    52.0687086,
+    14.7518004
+  ],
+  "Reggio Calabria||Italy": [
+    38.1035389,
+    15.6397556
+  ],
+  "Rodi||Greece": [
+    36.4437233,
+    28.227369
+  ],
+  "Roquebrune||Italy": [
+    43.7518405,
+    7.43866
+  ],
+  "Roquetas de Mar||Spain": [
+    36.7630203,
+    -2.6115886
+  ],
+  "Rota||Spain": [
+    36.6228636,
+    -6.3599595
+  ],
+  "Rothenburg||Germany": [
+    49.3658042,
+    10.1629182
+  ],
+  "Sabratah||Libya": [
+    32.7893892,
+    12.4970214
+  ],
+  "Sachsen||Germany": [
+    50.9295798,
+    13.4585052
+  ],
+  "Sacratif||Spain": [
+    36.6937673,
+    -3.4682205
+  ],
+  "Sada||France": [
+    -12.8518289,
+    45.0993169
+  ],
+  "Sagar||Germany": [
+    51.5123732,
+    14.7592407
+  ],
+  "Said Biilal Janzur||Libya": [
+    33.564537,
+    35.3984623
+  ],
+  "Saint Hilaire Cottes||France": [
+    50.5703444,
+    2.4140311
+  ],
+  "Saint Louis||Senegal": [
+    16.0280445,
+    -16.5048686
+  ],
+  "Saint Malo||France": [
+    48.649518,
+    -2.0260409
+  ],
+  "Saint Michel de Maurienne||France": [
+    45.2178751,
+    6.4750846
+  ],
+  "Saint-Omer||France": [
+    50.7515771,
+    2.2534183
+  ],
+  "Salerno||Italy": [
+    40.4194416,
+    15.3106085
+  ],
+  "Salobrena||Spain": [
+    36.765067,
+    -3.5938505
+  ],
+  "Samos||Greece": [
+    37.7246162,
+    26.8192919
+  ],
+  "San Roque||Spain": [
+    36.2100586,
+    -5.3868293
+  ],
+  "Sardegna||Algeria": [
+    40.9421902,
+    9.5083874
+  ],
+  "Seminara||Italy": [
+    38.3352574,
+    15.8717134
+  ],
+  "Sfax||Tunisia": [
+    34.7394361,
+    10.7604024
+  ],
+  "Sicilia||Tunisia": [
+    36.8152224,
+    10.3034424
+  ],
+  "Sidi Da'ud||Tunisia": [
+    37.117497,
+    9.6719674
+  ],
+  "Sidi Ifni||Morocco": [
+    29.3791253,
+    -10.1715632
+  ],
+  "Siracusa||Italy": [
+    37.0315752,
+    15.2124277
+  ],
+  "Skhirat||Morocco": [
+    33.850672,
+    -7.028026
+  ],
+  "Skikda||Algeria": [
+    36.7545115,
+    6.8856255
+  ],
+  "Sospel||France": [
+    43.8785647,
+    7.4498235
+  ],
+  "Soufli||Greece": [
+    41.1941684,
+    26.302313
+  ],
+  "Soulou||France": [
+    45.344803,
+    2.5724745
+  ],
+  "Spezia||Italy": [
+    44.238366,
+    9.6912326
+  ],
+  "Sredets||Bulgaria": [
+    42.3458456,
+    27.1808724
+  ],
+  "Tabarqa||Tunisia": [
+    36.9545614,
+    8.7573829
+  ],
+  "Tajoura||Libya": [
+    32.7577067,
+    13.4449659
+  ],
+  "Tajura||Italy": [
+    32.8857192,
+    13.3590409
+  ],
+  "Tanezrouft||Algeria": [
+    22.9699443,
+    5.4993904
+  ],
+  "Tangeri||Morocco": [
+    35.7291936,
+    -5.9129695
+  ],
+  "Adra||Spain": [
+    36.748834,
+    -3.0203617
+  ],
+  "Agadez||Niger": [
+    16.972556,
+    7.990739
+  ],
+  "Agadir||Morocco": [
+    30.4205162,
+    -9.5838532
+  ],
+  "Agaete||Spain": [
+    28.1008499,
+    -15.7023479
+  ],
+  "Agia Triada||Greece": [
+    38.3549721,
+    22.9094725
+  ],
+  "Agios Antonios||Greece": [
+    36.6631907,
+    27.1360753
+  ],
+  "Agrigento||Italy": [
+    37.3122991,
+    13.57465
+  ],
+  "Al Hoceima||Morocco": [
+    35.202941,
+    -5.5510167
+  ],
+  "Al-Sheikh||Egypt": [
+    31.1089385,
+    30.9426981
+  ],
+  "Alboran||Morocco": [
+    30.9146106,
+    -7.8794068
+  ],
+  "Alexandria||Egypt": [
+    31.1991806,
+    29.8951716
+  ],
+  "Alexandroupolis||Greece": [
+    40.845666,
+    25.8778814
+  ],
+  "Algarrobo||Spain": [
+    36.7732439,
+    -4.0399307
+  ],
+  "Algericas||Spain": [
+    36.1311725,
+    -5.4473991
+  ],
+  "Algesiras||Spain": [
+    36.1311725,
+    -5.4473991
+  ],
+  "Alicante||Spain": [
+    38.3436365,
+    -0.4881708
+  ],
+  "Alimini||Italy": [
+    40.2012299,
+    18.459414
+  ],
+  "Amphiloxia||Greece": [
+    38.8990098,
+    21.2324453
+  ],
+  "Amsterdam||Netherlands": [
+    52.3730796,
+    4.8924534
+  ],
+  "Ancona||Italy": [
+    43.4801189,
+    13.2187279
+  ],
+  "Anjouan||France": [
+    -12.7827505,
+    45.2545734
+  ],
+  "Antwerp||Belgium": [
+    51.2211097,
+    4.3997081
+  ],
+  "Antwerpen||Belgium": [
+    51.2211097,
+    4.3997081
+  ],
+  "Arlit||Algeria": [
+    36.826172,
+    -2.5237294
+  ],
+  "Atene||Greece": [
+    37.9858141,
+    23.7276187
+  ],
+  "Atlanterra||Spain": [
+    36.1040183,
+    -5.8201377
+  ],
+  "Augusta||Italy": [
+    37.2369363,
+    15.2196575
+  ],
+  "Aurith||Germany": [
+    52.2411592,
+    14.701352
+  ],
+  "Ayr||United Kingdom": [
+    55.4628044,
+    -4.6302502
+  ],
+  "Bardia||Libya": [
+    31.756018,
+    25.081821
+  ],
+  "Bari||Italy": [
+    41.1257843,
+    16.8620293
+  ],
+  "Barranco Hondo||Spain": [
+    28.399842,
+    -16.3580444
+  ],
+  "Barrosa||Spain": [
+    36.3431776,
+    -6.1669856
+  ],
+  "Beheira||Egypt": [
+    30.7915206,
+    30.3465488
+  ],
+  "Belcastro||Italy": [
+    38.985569,
+    16.8576992
+  ],
+  "Belgrado||Serbia": [
+    44.7966946,
+    20.4696208
+  ],
+  "Belyounes||Morocco": [
+    35.8806081,
+    -5.3861678
+  ],
+  "Benzù a Ceuta||Spain": [
+    35.9078657,
+    -5.3498551
+  ],
+  "Bolonia||Spain": [
+    36.0822306,
+    -5.7640221
+  ],
+  "Bosnia||Croatia": [
+    42.5555843,
+    18.4380795
+  ],
+  "Boujdour||Western Sahara": [
+    26.116658,
+    -14.4824893
+  ],
+  "Bouzedjar||Algeria": [
+    35.5802687,
+    -1.14895
+  ],
+  "Bretagna||France": [
+    43.8866119,
+    0.1384708
+  ],
+  "Béni-Haoua||Algeria": [
+    36.5304451,
+    1.5692626
+  ],
+  "Cabo||Spain": [
+    40.1845515,
+    -4.4573374
+  ],
+  "Cagliari||Italy": [
+    39.2171994,
+    9.113311
+  ],
+  "Cala Pisana||Italy": [
+    35.5050908,
+    12.6256611
+  ],
+  "Calahonda||Spain": [
+    36.7013089,
+    -3.4177163
+  ],
+  "Calamocarro||Spain": [
+    35.9116924,
+    -5.3568835
+  ],
+  "Calblanque e||Spain": [
+    37.6003393,
+    -0.7683385
+  ],
+  "Caleta||Spain": [
+    29.231296,
+    -13.502333
+  ],
+  "Canaria||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "Canarie||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "Cap||Tunisia": [
+    37.3468505,
+    9.7423082
+  ],
+  "Cap Blanc||Mauritania": [
+    16.8230153,
+    -12.8149007
+  ],
+  "Capo Passero||Italy": [
+    36.6888926,
+    15.1541193
+  ],
+  "Carboneras||Spain": [
+    36.9968699,
+    -1.8946552
+  ],
+  "Cartagena||Algeria": [
+    25.6818599,
+    -100.0933712
+  ],
+  "Casablanca||Morocco": [
+    33.5945144,
+    -7.6200284
+  ],
+  "Castres||France": [
+    43.6117518,
+    2.2391124
+  ],
+  "Catalina||Spain": [
+    39.5713703,
+    2.6374913
+  ],
+  "Catanzaro||Italy": [
+    38.8299603,
+    16.4315569
+  ],
+  "Cedar||Greece": [
+    43.2663199,
+    -77.6438569
+  ],
+  "Cefalonia||Greece": [
+    38.2660322,
+    20.5373903
+  ],
+  "Cerano||Italy": [
+    45.410966,
+    8.780039
+  ],
+  "Ceuta||Morocco": [
+    31.5150585,
+    -9.7702861
+  ],
+  "Ceuta di||Spain": [
+    35.8925437,
+    -5.323303
+  ],
+  "Ceuta e Castillejos||Spain": [
+    40.4598788,
+    -3.694067
+  ],
+  "Chaâbia||Algeria": [
+    36.2486446,
+    5.3718551
+  ],
+  "Chebba||Tunisia": [
+    35.2365477,
+    11.1129712
+  ],
+  "Chioggia||Italy": [
+    45.2179083,
+    12.2270656
+  ],
+  "Château Vert||Algeria": [
+    36.8881534,
+    6.8947004
+  ],
+  "Coquelles||France": [
+    50.9363698,
+    1.8000938
+  ],
+  "Corfù||Greece": [
+    39.591337,
+    19.8596189
+  ],
+  "Crotone||Italy": [
+    39.1873894,
+    16.8782819
+  ],
+  "Dar Kebdani||Morocco": [
+    35.1192286,
+    -3.3338008
+  ],
+  "Deuil-la-Barre||France": [
+    48.9756423,
+    2.3275141
+  ],
+  "Djogué||Senegal": [
+    16.0557733,
+    -16.4224145
+  ],
+  "Dodecaneso||Greece": [
+    36.2954691,
+    28.1625366
+  ],
+  "Dorset||United Kingdom": [
+    50.7968369,
+    -2.3447323
+  ],
+  "Dover di||United Kingdom": [
+    52.0595054,
+    -1.3659763
+  ],
+  "Draouch||Algeria": [
+    36.8877853,
+    8.0888254
+  ],
+  "Dunkerque||France": [
+    51.0347708,
+    2.3772525
+  ],
+  "Durazzo||Albania": [
+    41.4161998,
+    19.4593705
+  ],
+  "Eastbourne||United Kingdom": [
+    50.7664372,
+    0.2781546
+  ],
+  "Eisenhuttenstadt||Germany": [
+    52.1448863,
+    14.6294413
+  ],
+  "Eisenstadt||Hungary": [
+    47.3291821,
+    17.04997
+  ],
+  "El Ejido||Spain": [
+    36.7775854,
+    -2.7907041
+  ],
+  "El Marsa||Spain": [
+    38.077771,
+    -0.7322531
+  ],
+  "El-Aaiun||Morocco": [
+    27.154512,
+    -13.1953921
+  ],
+  "Europa||Germany": [
+    48.2649865,
+    7.720728
+  ],
+  "Farmakonisi||Greece": [
+    37.2911621,
+    27.0856968
+  ],
+  "Farmakonissi||Greece": [
+    37.2911621,
+    27.0856968
+  ],
+  "Fernetti||Italy": [
+    45.6939868,
+    13.8169513
+  ],
+  "Figueres||Spain": [
+    42.2666314,
+    2.9638434
+  ],
+  "Fouka||Tunisia": [
+    36.7940778,
+    10.1051164
+  ],
+  "Foum el Oeud||Western Sahara": [
+    27.1596725,
+    -13.3366457
+  ],
+  "Fournous||Greece": [
+    41.054035,
+    23.659525
+  ],
+  "Fuente Caballo a Ceuta||Spain": [
+    35.8855028,
+    -5.3112739
+  ],
+  "Gotland||Sweden": [
+    57.4174802,
+    18.5369579
+  ],
+  "Gran||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "Guadalmesì||Spain": [
+    36.0693151,
+    -5.5298824
+  ],
+  "Hamburg||Germany": [
+    53.5501721,
+    10.0013165
+  ],
+  "Havre||France": [
+    49.4938975,
+    0.1079732
+  ],
+  "Hios||Greece": [
+    37.9644554,
+    23.6059519
+  ],
+  "Huelva||Spain": [
+    37.2575874,
+    -6.9484945
+  ],
+  "Hull||United Kingdom": [
+    53.7623863,
+    -0.3301214
+  ],
+  "Igoumenitsa||Greece": [
+    39.5045005,
+    20.2639166
+  ],
+  "Ikaria||Greece": [
+    37.5999295,
+    26.1516894
+  ],
+  "Imola||Italy": [
+    44.3535145,
+    11.7141233
+  ],
+  "Ital||Greece": [
+    39.6745269,
+    20.0684865
+  ],
+  "Janzur||Libya": [
+    32.8254462,
+    13.0262526
+  ],
+  "Jijel||Algeria": [
+    36.7292188,
+    5.9607776
+  ],
+  "Kalamos||Greece": [
+    38.2846853,
+    23.8631552
+  ],
+  "Kalymnos||Greece": [
+    37.0025735,
+    26.9923072
+  ],
+  "Karlovasi||Greece": [
+    37.7936495,
+    26.6954613
+  ],
+  "Kastellorizo||Greece": [
+    36.15154,
+    29.5936973
+  ],
+  "Kelibia||Tunisia": [
+    36.8456561,
+    11.0935701
+  ],
+  "Kerkenah||Tunisia": [
+    34.6938658,
+    11.1362029
+  ],
+  "Kerkennah||Tunisia": [
+    34.6434455,
+    11.0375795
+  ],
+  "Khoms||Libya": [
+    32.652183,
+    14.26801
+  ],
+  "Khums||Libya": [
+    32.7177153,
+    11.9896415
+  ],
+  "Kokkari||Greece": [
+    37.7784895,
+    26.8915334
+  ],
+  "Kolda||Senegal": [
+    12.8921154,
+    -14.9400971
+  ],
+  "Komotini||Greece": [
+    41.1182,
+    25.4035708
+  ],
+  "Korinthos||Greece": [
+    37.907524,
+    22.8830079
+  ],
+  "Laayoune||Morocco": [
+    27.154512,
+    -13.1953921
+  ],
+  "Latakia||Syrian Arab Republic": [
+    52.5082769,
+    13.350166
+  ],
+  "Layun||Western Sahara": [
+    24.1797324,
+    -13.7667848
+  ],
+  "Lefkada||Greece": [
+    38.7065734,
+    20.6416779
+  ],
+  "Leros||Greece": [
+    37.0079289,
+    26.4675911
+  ],
+  "Lesbo||Greece": [
+    39.1758419,
+    25.9989135
+  ],
+  "Leuca||Italy": [
+    39.7967494,
+    18.3544897
+  ],
+  "Leuven||Belgium": [
+    50.879202,
+    4.7011675
+  ],
+  "Linosa||Italy": [
+    35.85944,
+    12.8632659
+  ],
+  "Lompoul||Senegal": [
+    15.4623754,
+    -16.6880559
+  ],
+  "Londra||United Kingdom": [
+    51.5801445,
+    -0.1233136
+  ],
+  "Madama||Niger": [
+    21.9469663,
+    13.6469273
+  ],
+  "Maluk||Italy": [
+    35.4951575,
+    12.6128654
+  ],
+  "Manilva||Spain": [
+    36.3769979,
+    -5.2489786
+  ],
+  "Marettimo||Italy": [
+    37.9691201,
+    12.0587426
+  ],
+  "Marina||Italy": [
+    40.104304,
+    15.540468
+  ],
+  "Marina de Casares||Spain": [
+    36.3750719,
+    -5.222628
+  ],
+  "Marsiglia da Tangeri||France": [
+    43.5140159,
+    6.4775325
+  ],
+  "Martil Tetouan||Morocco": [
+    35.62287,
+    -5.2997495
+  ],
+  "Megisti||Greece": [
+    36.1438108,
+    29.5873555
+  ],
+  "Mestre||Italy": [
+    45.4943063,
+    12.2418053
+  ],
+  "Metline||Tunisia": [
+    37.242385,
+    10.0482537
+  ],
+  "Mgarr||Malta": [
+    35.9194409,
+    14.3665109
+  ],
+  "Mithimna||Greece": [
+    35.5011384,
+    23.7123573
+  ],
+  "Mithymna||Greece": [
+    39.3683006,
+    26.1774391
+  ],
+  "Mliha di||France": [
+    -12.7506904,
+    45.0554761
+  ],
+  "Mogan||Spain": [
+    27.8838269,
+    -15.7229909
+  ],
+  "Mohéli||France": [
+    50.7948973,
+    2.2501809
+  ],
+  "Molyvos||Greece": [
+    39.3685079,
+    26.1737266
+  ],
+  "Monastir||Tunisia": [
+    35.7707582,
+    10.8280511
+  ],
+  "Monfalcone||Italy": [
+    45.8049454,
+    13.5330592
+  ],
+  "Mostaganem||Algeria": [
+    35.928808,
+    0.089978
+  ],
+  "Mrirt||Morocco": [
+    33.161,
+    -5.566
+  ],
+  "Muro||Italy": [
+    40.752517,
+    15.485759
+  ],
+  "Naa'ila||Western Sahara": [
+    22.2828252,
+    114.1524447
+  ],
+  "Naxos||Greece": [
+    37.0600105,
+    25.4707567
+  ],
+  "Nilo||Egypt": [
+    -25.5597963,
+    -49.2344726
+  ],
+  "Oinusses||Greece": [
+    38.5235706,
+    26.2274072
+  ],
+  "Ostsee||Germany": [
+    54.2081189,
+    9.5721775
+  ],
+  "Oued Saboun||Algeria": [
+    36.9085445,
+    7.1185855
+  ],
+  "Palmas||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "Palo||Italy": [
+    41.057532,
+    16.700782
+  ],
+  "Pasaia||Spain": [
+    43.3239952,
+    -1.9200587
+  ],
+  "Patrasso||France": [
+    44.7536113,
+    3.7288865
+  ],
+  "Pemba||Tanzania, United Republic of": [
+    38.9128027,
+    -77.048333
+  ],
+  "Pserimos||Greece": [
+    36.9395904,
+    27.1400718
+  ],
+  "Punta Aceituno||Spain": [
+    36.8731665,
+    -4.0821261
+  ],
+  "Punta Sabinal||Spain": [
+    37.5784522,
+    -1.248528
+  ],
+  "Punta Spada||Italy": [
+    35.4930709,
+    12.6052058
+  ],
+  "Rades||Tunisia": [
+    36.767891,
+    10.2724617
+  ],
+  "Rafah||Egypt": [
+    31.2584705,
+    34.236419
+  ],
+  "Roccella Jonica||Italy": [
+    38.321976,
+    16.400907
+  ],
+  "Roquetas||Spain": [
+    36.7630203,
+    -2.6115886
+  ],
+  "Rotterdam||Netherlands": [
+    51.9244424,
+    4.47775
+  ],
+  "Saint Michel||France": [
+    49.9186556,
+    4.1340444
+  ],
+  "Saita||Greece": [
+    37.9723997,
+    23.7321004
+  ],
+  "Salonicco||Greece": [
+    40.6335673,
+    22.9540467
+  ],
+  "San Foca||Italy": [
+    40.3018629,
+    18.4037947
+  ],
+  "Sant'Antioco||Italy": [
+    39.0695371,
+    8.4509044
+  ],
+  "Sejnane||Tunisia": [
+    37.1813033,
+    9.4756365
+  ],
+  "Sicilia||Italy": [
+    37.587794,
+    14.155048
+  ],
+  "Sicilia da||Libya": [
+    -15.8479723,
+    -47.8861138
+  ],
+  "Sidi Boughaba||Morocco": [
+    34.2153023,
+    -6.695446
+  ],
+  "Sidi Daoud||Tunisia": [
+    37.0213301,
+    10.9134484
+  ],
+  "Sidi Yacoub||Algeria": [
+    35.1550151,
+    -0.7741312
+  ],
+  "Siviglia||Spain": [
+    41.8384757,
+    1.7383738
+  ],
+  "Sofia||Austria": [
+    48.1845322,
+    16.3534162
+  ],
+  "Souda||Greece": [
+    35.4871175,
+    24.0659027
+  ],
+  "Suez||Egypt": [
+    29.974498,
+    32.537086
+  ],
+  "Symi||Greece": [
+    36.5904011,
+    27.8411975
+  ],
+  "Syros||Greece": [
+    37.4385101,
+    24.9123772
+  ],
+  "Tamanghasset||Algeria": [
+    22.8674455,
+    5.9634972
+  ],
+  "Tan-Tan||Morocco": [
+    28.437553,
+    -11.098664
+  ],
+  "Tarajal||Spain": [
+    35.8717228,
+    -5.3434273
+  ],
+  "Tarfaya||Morocco": [
+    27.5370175,
+    -12.5761152
+  ],
+  "Tarifa||Spain": [
+    36.0129082,
+    -5.6050213
+  ],
+  "Teboulba||Tunisia": [
+    35.6417897,
+    10.9658372
+  ],
+  "Teguise||Spain": [
+    29.0588907,
+    -13.5501877
+  ],
+  "Tenerife||Spain": [
+    28.2935785,
+    -16.6214471
+  ],
+  "Tenés||Algeria": [
+    36.5080818,
+    1.3078072
+  ],
+  "Tetouan||Morocco": [
+    35.5697958,
+    -5.3746918
+  ],
+  "Thessaloniki||Greece": [
+    40.6403167,
+    22.9352716
+  ],
+  "Tigaki||Greece": [
+    36.8885738,
+    27.1831601
+  ],
+  "Tilos a||Greece": [
+    36.4293005,
+    27.3163394
+  ],
+  "Torre a Mare||Italy": [
+    41.087781,
+    17.0006678
+  ],
+  "Torre del Puerco||Spain": [
+    36.3312043,
+    -6.1612976
+  ],
+  "Torremolinos||Spain": [
+    36.6242841,
+    -4.4995448
+  ],
+  "Trani||Italy": [
+    41.180172,
+    16.1466408
+  ],
+  "Tripoli||Libya": [
+    32.896672,
+    13.1777923
+  ],
+  "Tsichranta||Greece": [
+    39.3058672,
+    26.1188894
+  ],
+  "Tuineje||Spain": [
+    28.3256078,
+    -14.0460201
+  ],
+  "Tunisi||Tunisia": [
+    33.8439408,
+    9.400138
+  ],
+  "Unito||United Kingdom": [
+    54.7023545,
+    -3.2765753
+  ],
+  "Vagia||Greece": [
+    37.1288202,
+    24.4625855
+  ],
+  "Valona||Albania": [
+    40.4113694,
+    19.4240895
+  ],
+  "Venezia||Italy": [
+    45.4371908,
+    12.3345898
+  ],
+  "Venezia da||Italy": [
+    45.4307118,
+    12.3307751
+  ],
+  "Ventimiglia||Italy": [
+    43.826485,
+    7.5495174
+  ],
+  "Vieste||Italy": [
+    41.8827595,
+    16.1791791
+  ],
+  "Vysna Rybnica||Slovakia": [
+    48.8210084,
+    22.1759768
+  ],
+  "Zakynthos||Greece": [
+    37.7891384,
+    20.7900896
+  ],
+  "Zarzis||Tunisia": [
+    33.5036797,
+    11.1097173
+  ],
+  "Zarzis e||Tunisia": [
+    33.4789011,
+    11.1098716
+  ],
+  "Zasieki||Germany": [
+    47.9040868,
+    12.1486507
+  ],
+  "Zawiyah||Libya": [
+    32.7596665,
+    12.7355967
+  ],
+  "Zels-Bahren||Germany": [
+    51.250884,
+    12.7694068
+  ],
+  "Zentendorf||Germany": [
+    51.2785618,
+    15.0294685
+  ],
+  "Zittau||Germany": [
+    50.8960964,
+    14.8064807
+  ],
+  "Zlitan||Libya": [
+    32.4752669,
+    14.560685
+  ],
+  "Zliten||Libya": [
+    32.467562,
+    14.56564
+  ],
+  "Zonqor Point||Malta": [
+    35.867239,
+    14.5723545
+  ],
+  "Zuawrah||Libya": [
+    32.9327858,
+    12.0806069
+  ],
+  "Zurigo||Germany": [
+    48.1350157,
+    11.5693996
+  ],
+  "Zuwara||Libya": [
+    32.9514378,
+    12.0155015
+  ],
+  "Zuwara di||Libya": [
+    32.9514378,
+    12.0155015
+  ],
+  "Zuwarah||Libya": [
+    32.9514378,
+    12.0155015
+  ],
+  "a Salobrena||Spain": [
+    36.765067,
+    -3.5938505
+  ],
+  "bordo||Italy": [
+    46.0504896,
+    8.1805904
+  ],
+  "bordo anche||Italy": [
+    39.2679309,
+    8.5380672
+  ],
+  "bordo del mercantile||Spain": [
+    37.7075922,
+    -3.9743494
+  ],
+  "bordo dell||Spain": [
+    43.5987301,
+    -7.9209947
+  ],
+  "bordo dell'imbarcazione||Spain": [
+    42.1122819,
+    1.1290396
+  ],
+  "bordo della nave||Italy": [
+    45.5860247,
+    10.2878573
+  ],
+  "bordo delle ultime||Spain": [
+    42.1122819,
+    1.1290396
+  ],
+  "bordo dopo che||Cyprus": [
+    44.760108,
+    -0.683209
+  ],
+  "bordo due morti||Spain": [
+    41.0041995,
+    -6.745554
+  ],
+  "bordo per ipotermia||Spain": [
+    42.6918236,
+    0.7072433
+  ],
+  "bordo soccorso||Italy": [
+    43.1388407,
+    12.2351863
+  ],
+  "causare||Italy": [
+    38.4265318,
+    16.5499036
+  ],
+  "cento metri dalla||Spain": [
+    40.9117179,
+    0.8335302
+  ],
+  "chiave||Spain": [
+    41.1578858,
+    1.1090516
+  ],
+  "circa mezzo miglio||Italy": [
+    43.065638,
+    12.5685879
+  ],
+  "colpi||Egypt": [
+    32.8123636,
+    -93.7587894
+  ],
+  "cui||Egypt": [
+    30.0182462,
+    31.4120471
+  ],
+  "da Malta||Malta": [
+    41.2696978,
+    -7.2599812
+  ],
+  "dalla capitale||Libya": [
+    -35.2965236,
+    149.1295736
+  ],
+  "dalle coste libiche||Libya": [
+    41.0770964,
+    -85.1432164
+  ],
+  "dare||Libya": [
+    -6.8164909,
+    39.2825901
+  ],
+  "del paese||Algeria": [
+    28.5781112,
+    77.1727873
+  ],
+  "dell||Malta": [
+    45.4365396,
+    12.3469289
+  ],
+  "dell'isola||Malta": [
+    38.1695645,
+    13.2271706
+  ],
+  "della Libia||Libya": [
+    41.9195711,
+    12.4911935
+  ],
+  "delle||Italy": [
+    44.3941164,
+    8.0973529
+  ],
+  "delle Canarie||Spain": [
+    28.1288694,
+    -15.4349015
+  ],
+  "delle coste libiche||Libya": [
+    62.6437218,
+    12.424049
+  ],
+  "dieci miglia dalla||Italy": [
+    45.2386557,
+    9.1446926
+  ],
+  "due miglia||Spain": [
+    42.5717873,
+    -0.5487831
+  ],
+  "francese||France": [
+    43.5527647,
+    11.9406134
+  ],
+  "galla||Italy": [
+    44.4209525,
+    12.197091
+  ],
+  "greca||Greece": [
+    37.9765247,
+    23.7329255
+  ],
+  "insieme agli altri||Italy": [
+    39.241785,
+    9.1041429
+  ],
+  "mare||Greece": [
+    35.3445782,
+    25.1369057
+  ],
+  "mezz'aria alla rete||Spain": [
+    42.1450203,
+    -7.8482416
+  ],
+  "morte||France": [
+    45.0313973,
+    5.8536932
+  ],
+  "morte nella jungle||France": [
+    44.6815697,
+    10.4226973
+  ],
+  "nascondersi all'interno||United Kingdom": [
+    54.6526564,
+    -6.2287441
+  ],
+  "nascondersi nel vano||United Kingdom": [
+    55.0643489,
+    -1.5193326
+  ],
+  "nuoto||Spain": [
+    42.5959912,
+    -6.7205916
+  ],
+  "nuoto l'enclave spagnola||Spain": [
+    40.8404282,
+    14.2473812
+  ],
+  "oggi||Spain": [
+    39.5379438,
+    2.4507786
+  ],
+  "ottobre recuperato||Italy": [
+    45.4921106,
+    12.2442183
+  ],
+  "ovest||Algeria": [
+    37.0899088,
+    15.295765
+  ],
+  "passare||Egypt": [
+    30.0840001,
+    31.2475289
+  ],
+  "piedi||Bulgaria": [
+    18.4057866,
+    -66.0817786
+  ],
+  "più||Niger": [
+    22.9833333,
+    11.3666667
+  ],
+  "poca distanza||Italy": [
+    46.3634789,
+    11.4287619
+  ],
+  "poche centinaia||Italy": [
+    43.4001637,
+    11.5076007
+  ],
+  "poche miglia||Italy": [
+    45.5246507,
+    10.2664712
+  ],
+  "salire||France": [
+    45.5006082,
+    6.152017
+  ],
+  "sangue||Bulgaria": [
+    11.5502031,
+    104.9280366
+  ],
+  "soli||Italy": [
+    39.3402402,
+    9.4024788
+  ],
+  "soli sei mesi||France": [
+    48.85605,
+    2.35035
+  ],
+  "tuffarsi||Italy": [
+    38.4395779,
+    16.4410604
+  ],
+  "una spiaggia||Tunisia": [
+    45.5503383,
+    11.5438832
+  ],
+  "vela naufraga lungo||Italy": [
+    41.5565688,
+    12.5310794
+  ],
+  "venti metri dalla||Spain": [
+    45.4612401,
+    11.7480753
+  ],
+  "Altinkoy": [
+    40.7098253,
+    31.312537
+  ],
+  "Aslanyazi": [
+    35.9448412,
+    36.1637367
+  ],
+  "Aydin": [
+    37.8483767,
+    27.8435878
+  ],
+  "Ayvac": [
+    38.6358928,
+    27.2119241
+  ],
+  "Ayvacik": [
+    38.6358928,
+    27.2119241
+  ],
+  "Ayval": [
+    40.655326,
+    35.2377493
+  ],
+  "Ayvalik": [
+    40.9469641,
+    69.5272584
+  ],
+  "Ayvalik e Dikili": [
+    39.0779407,
+    26.8913492
+  ],
+  "Balikesir": [
+    39.5400798,
+    28.0228793
+  ],
+  "Bodrum": [
+    37.0343987,
+    27.430651
+  ],
+  "Canakkale": [
+    40.0549886,
+    26.9278292
+  ],
+  "Carikci": [
+    39.4960395,
+    16.9461255
+  ],
+  "Catalca": [
+    41.1436804,
+    28.4605154
+  ],
+  "Didim": [
+    37.3696865,
+    27.2684841
+  ],
+  "Didimi": [
+    37.3849969,
+    27.2565683
+  ],
+  "Didimo": [
+    12.5571187,
+    23.3503981
+  ],
+  "Dikili": [
+    39.0749706,
+    26.8892495
+  ],
+  "Dogubayazit": [
+    39.5483366,
+    44.0793593
+  ],
+  "Dydyma": [
+    37.3849969,
+    27.2565683
+  ],
+  "Edirne": [
+    41.6759327,
+    26.5587225
+  ],
+  "Egeo": [
+    20.5923021,
+    -103.35861
+  ],
+  "Ercis": [
+    39.0289887,
+    43.3591059
+  ],
+  "Habur": [
+    37.1156056,
+    42.3538082
+  ],
+  "Hatay": [
+    36.2025471,
+    36.1602908
+  ],
+  "Izmir": [
+    38.23166,
+    27.02997
+  ],
+  "Kulp": [
+    38.5004269,
+    41.0119973
+  ],
+  "Kusadasi": [
+    50.8230292,
+    4.353436
+  ],
+  "Küçükkuyu": [
+    39.5465429,
+    26.6045282
+  ],
+  "Malkara": [
+    40.8930819,
+    26.9023798
+  ],
+  "Menderes": [
+    38.2551566,
+    27.1381399
+  ],
+  "Mugla": [
+    41.6168221,
+    24.4922278
+  ],
+  "Muradiye": [
+    38.6511748,
+    27.328427
+  ],
+  "Pirlanta": [
+    -20.685,
+    -43.3
+  ],
+  "Seferihisar": [
+    38.1950292,
+    26.8342193
+  ],
+  "Van": [
+    38.3249599,
+    43.6589825
+  ],
+  "Yukari Bakracli": [
+    40.603121,
+    42.2392612
+  ],
+  "bordo della barca": [
+    20.2716163,
+    -102.5511887
+  ],
+  "bordo immigrati": [
+    -17.3875612,
+    15.8931291
+  ],
+  "bordo immigrati precipita": [
+    11.0686848,
+    42.6375571
+  ],
+  "immigrati": [
+    1.1274932,
+    104.0566717
+  ],
+  "un parco nazionale a Ku": [
+    41.8065551,
+    13.8059759
+  ],
+  "una ragazza che": [
+    45.6768387,
+    6.3926195
   ]
 }

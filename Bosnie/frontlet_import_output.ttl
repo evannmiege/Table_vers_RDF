@@ -18,13 +18,6 @@ frontlet:AgeCategory a owl:Class ;
     skos:definition "General age categories found in migrations tales when the authors do not have the exact age of the migrant. These categories are predefined intervals."@en,
         "Catégories d'âge génériques que l'on retrouve dans les récits de migrations lorsque l'on a pas l'information sur l'âge réel d'un migrant. Ces catégories représentent des intervalles prédéfinis."@fr .
 
-frontlet:CivilSociety a owl:Class ;
-    rdfs:subClassOf frontlet:Source ;
-    skos:definition "The information source comes from a civil society orgnism (NGO)"@en,
-        "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ;
-    skos:prefLabel "Civil society"@en,
-        "Sociétée civile"@fr .
-
 frontlet:Control a owl:Class ;
     rdfs:subClassOf frontlet:IndividualEvent ;
     skos:definition "Ante mortem event consisting in a police control or an NGO grouping migrant names with a date and a place"@en,
@@ -165,6 +158,7 @@ frontlet_data:bosnie_Death_100_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_SRB ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Donji Šepak ; Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_100_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_100_https_www_klix_ba_vijesti_bih_tijelo_migranta_pronadjeno_na_obali_drine_kod_zvornika_190705029_fbclid_iwar3cfs6g4jqvojqcchaddkkjw7krpbzejx3sxnj8jdsw_swnicutzjypn7o ;
     geo:hasGeometry frontlet_data:bosnie_geometry_100_1 ;
@@ -176,6 +170,7 @@ frontlet_data:bosnie_Death_101_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_101_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_101_https_www_facebook_com_groups_2524520394244390_permalink_2674861255876969 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_101_1 ;
@@ -187,6 +182,7 @@ frontlet_data:bosnie_Death_102_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_102_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_102_https_www_facebook_com_solidarnostbosnia_posts_2818308558180311 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_102_1 ;
@@ -207,6 +203,7 @@ frontlet_data:bosnie_Death_104_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_104_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_104_https_www_facebook_com_photo_fbid_2392076110857180_set_gm_2618538201509275_erim_info_provided_by_komrad ;
     geo:hasGeometry frontlet_data:bosnie_geometry_104_1 ;
@@ -216,6 +213,7 @@ frontlet_data:bosnie_Death_104_1 a frontlet:Death,
 frontlet_data:bosnie_Death_105_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_105_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_105_https_www_facebook_com_photo_fbid_10205973532094117_set_pcb_2601355813227514_https_medium_com_izbjeglicke_price_remembering_youssef_tracing_the_hidden_violence_along_the_eus_external_border_8030675f4b7 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_105_1 ;
@@ -227,6 +225,7 @@ frontlet_data:bosnie_Death_106_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_chute ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_106_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_106_https_www_facebook_com_groups_2524520394244390_permalink_2594080140621748 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_106_1 ;
@@ -238,6 +237,7 @@ frontlet_data:bosnie_Death_10_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bihac" ;
     frontlet:livedBy frontlet_data:bosnie_Person_10_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_10_damir_sesad_zaki ;
     geo:hasGeometry frontlet_data:bosnie_geometry_10_1 .
@@ -247,6 +247,7 @@ frontlet_data:bosnie_Death_110_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_110_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_110_https_www_facebook_com_solidarnostbosnia_photos_a_1862322253778951_2626952337315935 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_110_1 ;
@@ -258,6 +259,7 @@ frontlet_data:bosnie_Death_111_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_111_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_111_https_radiosarajevo_ba_vijesti_crna_hronika_novi_detalji_tragedije_nastradao_migrant_u_spasavanju_povrijedena_dva_policajca_326310 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_111_1 ;
@@ -297,6 +299,7 @@ frontlet_data:bosnie_Death_117_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_117_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_117_https_www_klix_ba_vijesti_crna_hronika_migrant_iz_pakistana_od_meningitisa_preminuo_u_bolnici_u_bihacu_180726059_https_nellaterradeicevapi_wordpress_com_2018_12_13_gli_invisibili ;
     geo:hasGeometry frontlet_data:bosnie_geometry_117_1 ;
@@ -308,6 +311,7 @@ frontlet_data:bosnie_Death_118_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_118_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_118_https_www_glassrpske_com_lat_novosti_vijesti_dana_gradjani_u_bihacu_uznemireni_stradao_jos_jedan_migrant_265034 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_118_1 ;
@@ -351,6 +355,7 @@ frontlet_data:bosnie_Death_123_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_123_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_123_1 ;
     time:dayOfWeek time:Monday ;
@@ -379,6 +384,7 @@ frontlet_data:bosnie_Death_126_1 a frontlet:Death,
     frontlet:hasComment "Taken from the morgue by the funeral agency" ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_accident_de_transport ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_126_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_126_1 ;
     time:dayOfWeek time:Thursday ;
@@ -390,6 +396,7 @@ frontlet_data:bosnie_Death_127_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_danger_naturel ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_127_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_127_1 ;
     time:dayOfWeek time:Saturday ;
@@ -410,6 +417,7 @@ frontlet_data:bosnie_Death_129_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_129_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_129_1 ;
     time:dayOfWeek time:Saturday ;
@@ -420,6 +428,7 @@ frontlet_data:bosnie_Death_12_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Orlova?a, Janja" ;
     frontlet:livedBy frontlet_data:bosnie_Person_12_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_12_https_mondo_ba_info_crna_hronika_a1234707_iz_rijeke_drine_izvuceno_bezivotno_tijelo_html ;
     geo:hasGeometry frontlet_data:bosnie_geometry_12_1 ;
@@ -432,6 +441,7 @@ frontlet_data:bosnie_Death_130_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_130_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_130_1 ;
     time:dayOfWeek time:Saturday ;
@@ -443,6 +453,7 @@ frontlet_data:bosnie_Death_131_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_131_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_131_1 ;
     time:dayOfWeek time:Saturday ;
@@ -452,6 +463,7 @@ frontlet_data:bosnie_Death_132_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Taken from the morgue by the funeral agency" ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_132_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_132_1 ;
     time:dayOfWeek time:Monday ;
@@ -472,6 +484,7 @@ frontlet_data:bosnie_Death_134_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_134_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_134_1 ;
     time:dayOfWeek time:Friday ;
@@ -499,6 +512,7 @@ frontlet_data:bosnie_Death_138_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_une_voiture ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_138_1 ;
     frontlet:transportType frontlet_data:bosnie_Transport_car_138 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_138_1 ;
@@ -564,6 +578,7 @@ frontlet_data:bosnie_Death_144_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_144_1 ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_144 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_144_1 ;
@@ -583,6 +598,7 @@ frontlet_data:bosnie_Death_146_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Taken from the morgue by the funeral agency" ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_146_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_146_1 ;
     time:dayOfWeek time:Tuesday ;
@@ -594,6 +610,7 @@ frontlet_data:bosnie_Death_147_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_147_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_147_1 ;
     time:dayOfWeek time:Tuesday ;
@@ -613,6 +630,7 @@ frontlet_data:bosnie_Death_14_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bijeljinja ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_14_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_14_https_www_facebook_com_radiotelevizijahit_posts_pfbid0gpxyxf9xcqaktwmh56mkytgof7wrkznvm2vytm7xgv4bwgcfcki8mmiv3bjse9ull ;
     geo:hasGeometry frontlet_data:bosnie_geometry_14_1 ;
@@ -643,6 +661,7 @@ frontlet_data:bosnie_Death_152_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_danger_naturel ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_152_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_152_1 ;
     time:dayOfWeek time:Thursday ;
@@ -663,6 +682,7 @@ frontlet_data:bosnie_Death_154_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_danger_naturel ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_154_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_154_1 ;
     time:dayOfWeek time:Thursday ;
@@ -718,6 +738,7 @@ frontlet_data:bosnie_Death_15_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Orlovo polje ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_15_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_15_https_mojabijeljina_com_izvadjeno_tijelo_u_orlovom_polju_slike_su_uznemirujuceg_sadrzaja_fbclid_iwar3zh_qoanqnwagkvg4g8uxktozbnnvxo3iok0gj2w8mzqqskd4tfrwxh38 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_15_1 ;
@@ -779,6 +800,7 @@ frontlet_data:bosnie_Death_16_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Zvornik ; Trši? ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_16_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_16_https_zvornicki_ba_u_rijeci_drini_u_zvorniku_pronadeno_bezivotno_tijelo_migranta_koji_je_pokusao_ilegalno_preci_granicu_fbclid_iwar3_b0pnx_qd5xez_cj7v2xc_huqfxl6foj9h5aandp9all6i07mvq2e75u ;
     geo:hasGeometry frontlet_data:bosnie_geometry_16_1 ;
@@ -800,6 +822,7 @@ frontlet_data:bosnie_Death_173_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_danger_naturel ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_173_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_173_1 ;
     time:dayOfWeek time:Thursday ;
@@ -820,6 +843,7 @@ frontlet_data:bosnie_Death_175_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_175_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_175_1 ;
     time:dayOfWeek time:Friday ;
@@ -831,6 +855,7 @@ frontlet_data:bosnie_Death_176_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_asphyxie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_176_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_176_1 ;
     time:dayOfWeek time:Monday ;
@@ -842,6 +867,7 @@ frontlet_data:bosnie_Death_178_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_178_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_178_1 ;
     time:dayOfWeek time:Thursday ;
@@ -861,6 +887,7 @@ frontlet_data:bosnie_Death_17_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bratunac ; Dubravice ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_17_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_17_https_www_rtvbn_com_4043653_na_obali_drine_pronadjeno_tijelo_muskarca ;
     geo:hasGeometry frontlet_data:bosnie_geometry_17_1 ;
@@ -873,6 +900,7 @@ frontlet_data:bosnie_Death_180_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_accident_de_transport ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_180_1 ;
     frontlet:transportType frontlet_data:bosnie_Transport_car_180 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_180_1 ;
@@ -919,6 +947,7 @@ frontlet_data:bosnie_Death_185_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_185_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_185_1 ;
     time:dayOfWeek time:Tuesday ;
@@ -937,6 +966,7 @@ frontlet_data:bosnie_Death_187_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_danger_naturel ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_187_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_187_1 ;
     time:dayOfWeek time:Monday ;
@@ -946,6 +976,7 @@ frontlet_data:bosnie_Death_188_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Taken from the morgue by the funeral agency" ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_188_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_188_1 ;
     time:dayOfWeek time:Thursday ;
@@ -955,6 +986,7 @@ frontlet_data:bosnie_Death_189_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasComment "Brought to Morgue" ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_189_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_189_1 ;
     time:dayOfWeek time:Thursday ;
@@ -965,6 +997,7 @@ frontlet_data:bosnie_Death_18_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_18_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_18_4d_report ;
     geo:hasGeometry frontlet_data:bosnie_geometry_18_1 ;
@@ -1114,6 +1147,7 @@ frontlet_data:bosnie_Death_19_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Velika Kladuša ; Johovica" ;
     frontlet:livedBy frontlet_data:bosnie_Person_19_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_19_https_m_facebook_com_story_php_story_fbid_621551433337248_id_100064471908840_mibextid_nif5oz ;
     geo:hasGeometry frontlet_data:bosnie_geometry_19_1 ;
@@ -1125,6 +1159,7 @@ frontlet_data:bosnie_Death_1_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Lohovo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_1_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_1_fire_in_a_house_apprarently_due_to_bad_installation ;
     geo:hasGeometry frontlet_data:bosnie_geometry_1_1 .
@@ -1539,6 +1574,7 @@ frontlet_data:bosnie_Death_209_1 a frontlet:Death,
 frontlet_data:bosnie_Death_20_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Sarajevo ; camp Blažuj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_20_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_20_https_libyaupdate_com_lifeless_body_of_libyan_citizen_found_in_migration_camp_near_sarajevo_fbclid_iwar0okp3auravdwzyv9qv8mlg5swcya15pgfps2uplk078l_ps0h5xzsyg7o ;
     geo:hasGeometry frontlet_data:bosnie_geometry_20_1 ;
@@ -1736,6 +1772,7 @@ frontlet_data:bosnie_Death_21_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bijeljina ; Janje ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_21_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_21_https_radiosarajevo_ba_vijesti_crna_hronika_strava_u_bijeljini_iz_drine_izvuceno_bezivotno_tijelo_obavlja_se_obdukcija_491677 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_21_1 ;
@@ -1859,6 +1896,7 @@ frontlet_data:bosnie_Death_22_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_22_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_22_https_krajina_ba_u_velikoj_kladusi_pronadjeno_bezivotno_tijelo_migranta_iz_maroka_fbclid_iwar21_gpwwyv77czpoj_wvkjeugtdxyy32v4mom4dqh7cm5yjjbdq0ha8s50_4d_contacts ;
     geo:hasGeometry frontlet_data:bosnie_geometry_22_1 ;
@@ -3261,6 +3299,7 @@ frontlet_data:bosnie_Death_28_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Srbac ; Kaoci" ;
     frontlet:livedBy frontlet_data:bosnie_Person_28_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_28_https_danas_hr_crna_kronika_pronadeno_tijelo_migranta_u_slavonskom_brodu_vise_dana_bilo_u_vodi_7fd26e78_8791_11ed_907a_16119f4b4797_erim_info_by_family_and_friends ;
     geo:hasGeometry frontlet_data:bosnie_geometry_28_1 ;
@@ -3358,6 +3397,7 @@ frontlet_data:bosnie_Death_2_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Lohovo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_2_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_2_fire_in_a_house_apprarently_due_to_bad_installation ;
     geo:hasGeometry frontlet_data:bosnie_geometry_2_1 .
@@ -3463,6 +3503,7 @@ frontlet_data:bosnie_Death_30_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_accident_de_transport ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Iza?i? border crossing" ;
     frontlet:livedBy frontlet_data:bosnie_Person_30_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_30_https_gpmaljevac_com_gp_izacic_migrant_smrtno_stradao_ispod_podvozja_teretnog_kamiona ;
     geo:hasGeometry frontlet_data:bosnie_geometry_30_1 ;
@@ -3563,6 +3604,7 @@ frontlet_data:bosnie_Death_31_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_31_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_31_https_www_klix_ba_vijesti_crna_hronika_muskarac_se_utopio_u_bihacu_bezivotno_tijelo_pronadjeno_u_uni_220513141 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_31_1 ;
@@ -3675,6 +3717,7 @@ frontlet_data:bosnie_Death_32_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_a_feu ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_32_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_32_https_www_blic_rs_vesti_republika_srpska_gradani_i_dalje_uznemireni_uhapsen_trojac_osumnjicen_za_ubistvo_migranta_u_bihacu_4w1hw74_fbclid_iwar3azamjrd9p4h9oy6_zgwpsvgtaf4xraq967k3kwwchkwv9sfsqcfhezc8 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_32_1 ;
@@ -3725,6 +3768,7 @@ frontlet_data:bosnie_Death_33_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Donji Hadzici" ;
     frontlet:livedBy frontlet_data:bosnie_Person_33_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_33_https_unitedagainstrefugeedeaths_eu_wp_content_uploads_2014_06_listofdeathsactual_pdf ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_33 ;
@@ -3736,6 +3780,7 @@ frontlet_data:bosnie_Death_36_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Sarajevo ; Blažuj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_36_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_36_https_www_klix_ba_vijesti_crna_hronika_teretni_voz_tokom_noci_usmrtio_migranta_kod_sarajeva_210910044_utm_medium_status_utm_source_facebook_utm_content_210910044_utm_campaign_klix_ba_20facebook_20status_fbclid_iwar1ysqgtqzbv_bot5dnqfgsxbxopvedvr1oqm_wtpghbppkud_ybycu7_l8 ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_36 ;
@@ -3747,6 +3792,7 @@ frontlet_data:bosnie_Death_37_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Sarajevo ; Blažuj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_37_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_37_https_www_klix_ba_vijesti_crna_hronika_preminuo_muskarac_kojeg_je_veceras_udario_voz_u_blazuju_210903131_fbclid_iwar2cc_fol2tyikaskcskxrfusgdhs7ycujp_9pjeyui1ijihohbrjin57ru ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_37 ;
@@ -3759,6 +3805,7 @@ frontlet_data:bosnie_Death_38_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bijeljina ; River Janja ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_38_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_38_https_avaz_ba_vijesti_crna_hronika_674510_drina_uzima_zivote_migrantima_fbclid_iwar0hgd1jnv8klzcvln_rgacrodczfammzwt5n0bvstvrd8bwgj1rqtjhkss ;
     geo:hasGeometry frontlet_data:bosnie_geometry_38_1 ;
@@ -3770,6 +3817,7 @@ frontlet_data:bosnie_Death_3_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Lohovo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_3_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_3_fire_in_a_house_apprarently_due_to_bad_installation ;
     geo:hasGeometry frontlet_data:bosnie_geometry_3_1 .
@@ -3778,6 +3826,7 @@ frontlet_data:bosnie_Death_40_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Sarajevo ; Blažuj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_40_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_40_https_avaz_ba_vijesti_crna_hronika_672729_nakon_sto_je_voz_usmrtio_migranta_policija_pocela_uvidaj_masinovoda_ce_biti_alkotestiran_fbclid_iwar1ysqgtqzbv_bot5dnqfgsxbxopvedvr1oqm_wtpghbppkud_ybycu7_l8 ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_40 ;
@@ -3790,6 +3839,7 @@ frontlet_data:bosnie_Death_43_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_pendaison ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_suicide ;
+    frontlet:lieu "Lipa ; Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_43_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_43_https_www_slobodnaevropa_org_a_migranti_bosna_humanitarna_kriza_31334603_html_https_srpskainfo_com_migrant_pronaden_mrtav_pa_uslijedili_nemiri_u_kampu_lipa_povrijedena_dva_policajaca_ispaljeni_hici_upozorenja ;
     geo:hasGeometry frontlet_data:bosnie_geometry_43_1 ;
@@ -3801,6 +3851,7 @@ frontlet_data:bosnie_Death_44_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_44_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_44_https_www_klix_ba_vijesti_crna_hronika_migrant_otisao_na_unu_da_se_okupa_pa_se_utopio_policija_pronasla_tijelo_210614114_fbclid_iwar19zpgxondmu_gusuraedrb9sjsweqlq52_kroyjua0azw8ifubqwq61tg ;
     geo:hasGeometry frontlet_data:bosnie_geometry_44_1 ;
@@ -3812,6 +3863,7 @@ frontlet_data:bosnie_Death_47_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Doboj ; Luš?ani ; River Sava" ;
     frontlet:livedBy frontlet_data:bosnie_Person_47_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_47_https_ebrod_org_2021_06_04_iz_save_najvjerovatnije_izvadeno_bezivotno_tijelo_migranta ;
     geo:hasGeometry frontlet_data:bosnie_geometry_47_1 ;
@@ -3823,6 +3875,7 @@ frontlet_data:bosnie_Death_48_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_48_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_48_https_hayat_ba_uzas_u_bihacu_iz_une_izvuceno_tijelo_migranta_iz_afganistana_394322_fbclid_iwar2cc_fol2tyikaskcskxrfusgdhs7ycujp_9pjeyui1ijihohbrjin57ru ;
     geo:hasGeometry frontlet_data:bosnie_geometry_48_1 ;
@@ -3834,6 +3887,7 @@ frontlet_data:bosnie_Death_49_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_electrocution ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bradina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_49_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_49_electrocuted_between_two_train_wagons_coming_from_sarajevo_body_found_at_bradina_station_bosnia ;
     geo:hasGeometry frontlet_data:bosnie_geometry_49_1 ;
@@ -3849,6 +3903,7 @@ frontlet_data:bosnie_Death_51_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_51_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_51_https_www_24sata_hr_news_migrant_u_tucnjavi_ubijen_nozem_726593 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_51_1 ;
@@ -3860,6 +3915,7 @@ frontlet_data:bosnie_Death_52_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_52_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_52_presumed_drowned_body_found_on_bank_of_drina_river_in_zvornik_ba_at_bosnian_serbian_border ;
     geo:hasGeometry frontlet_data:bosnie_geometry_52_1 .
@@ -3869,6 +3925,7 @@ frontlet_data:bosnie_Death_53_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_SRB ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Donji Šepak ; Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_53_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_53_https_www_rtvbn_com_3994920_na_obali_rijeke_drine_pronadjeno_tijelo_muskarca ;
     geo:hasGeometry frontlet_data:bosnie_geometry_53_1 ;
@@ -3905,6 +3962,7 @@ frontlet_data:bosnie_Death_57_1 a frontlet:Death,
 frontlet_data:bosnie_Death_58_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_58_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_58_erim_info_by_komarad ;
     geo:hasGeometry frontlet_data:bosnie_geometry_58_1 ;
@@ -3979,6 +4037,7 @@ frontlet_data:bosnie_Death_69_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Orlovo polje ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_69_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_69_https_avaz_ba_vijesti_crna_hronika_578773_za_dva_dana_dva_utopljenika_u_drini_fbclid_iwar2d5ss0lfsodgltbes_eofrh8ntd6im0arvdzrp_zxr3nzy9fr373cnrg ;
     geo:hasGeometry frontlet_data:bosnie_geometry_69_1 ;
@@ -4065,6 +4124,7 @@ frontlet_data:bosnie_Death_79_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Sarajevo ; Blažuj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_79_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_79_https_www_sarajevotimes_com_one_migrant_killed_by_train_in_bosnian_capital ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_79 ;
@@ -4093,6 +4153,7 @@ frontlet_data:bosnie_Death_81_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_81_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_81_https_www_klix_ba_vijesti_crna_hronika_migrant_iz_maroka_preminuo_igrajuci_mali_nogomet_na_terenu_fis_a_u_sarajevu_200206178_fbclid_iwar2agna6tiwhcnz7ghce7yfilnnlezsjm_rpcu5whuzkzaps9ohj_fhs0hm ;
     geo:hasGeometry frontlet_data:bosnie_geometry_81_1 ;
@@ -4104,6 +4165,7 @@ frontlet_data:bosnie_Death_82_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_82_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_82_https_avaz_ba_vijesti_crna_hronika_547179_migrant_iz_maroka_umro_od_upale_pluca_fbclid_iwar36efiij2sqmokvbvnjfhvrorls_swh4xrq_d0cqzvgqh_e1vsmcz8zssg ;
     geo:hasGeometry frontlet_data:bosnie_geometry_82_1 ;
@@ -4176,6 +4238,7 @@ frontlet_data:bosnie_Death_8_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bihac" ;
     frontlet:livedBy frontlet_data:bosnie_Person_8_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_8_damir_sesad_zaki_in_one_case_came_brother_to_identifiy_him ;
     geo:hasGeometry frontlet_data:bosnie_geometry_8_1 .
@@ -4185,6 +4248,7 @@ frontlet_data:bosnie_Death_90_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_90_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_90_http_arhiva_h_alter_org_vijesti_migrante_se_kuje_dok_je_vruce_https_www_bilten_org_p_40270 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_90_1 ;
@@ -4194,6 +4258,7 @@ frontlet_data:bosnie_Death_90_1 a frontlet:Death,
 frontlet_data:bosnie_Death_91_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_91_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_91_https_www_facebook_com_solidarnostbosnia_photos_a_221612114516648_2916025318408634 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_91_1 ;
@@ -4204,6 +4269,7 @@ frontlet_data:bosnie_Death_92_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_percussion_par_un_train ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_92_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_92_https_www_dnevno_ba_vijesti_crna_kronika_vlak_usmrtio_migranta_svjedoci_tvrde_da_je_spavao_174594_https_www_facebook_com_solidarnostbosnia_photos_a_1862322253778951_2849121441765689 ;
     frontlet:transportType frontlet_data:bosnie_Transport_train_92 ;
@@ -4223,6 +4289,7 @@ frontlet_data:bosnie_Death_94_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha? ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_94_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_94_https_www_facebook_com_photo_fbid_2841868552507614_set_gm_2785413048155122 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_94_1 ;
@@ -4234,6 +4301,7 @@ frontlet_data:bosnie_Death_96_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_medical ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_medical ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_96_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_96_https_imemc_org_article_corpse_of_missing_palestinian_found_in_bosnia_and_herzegovina ;
     geo:hasGeometry frontlet_data:bosnie_geometry_96_1 ;
@@ -4252,6 +4320,7 @@ frontlet_data:bosnie_Death_98_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_pendaison ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_suicide ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_98_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_98_https_www_faktor_ba_vijest_tragedija_u_sarajevu_migrant_se_bacio_pod_gras_ov_autobus_46578_fbclid_iwar0hyqwojiv_4mfsy9fbgz82kubrd_vlsbngdfwuy24nedjosoi1gpwa8wc ;
     geo:hasGeometry frontlet_data:bosnie_geometry_98_1 ;
@@ -4263,6 +4332,7 @@ frontlet_data:bosnie_Death_9_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Bihac" ;
     frontlet:livedBy frontlet_data:bosnie_Person_9_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_9_damir_sesad_zaki ;
     geo:hasGeometry frontlet_data:bosnie_geometry_9_1 .
@@ -7650,7 +7720,8 @@ frontlet_data:bosnie_Source_109_https_www_vecernji_hr_vijesti_migranti_se_ugusil
     rdfs:label "https://www.vecernji.hr/vijesti/migranti-se-ugusili-u-bihacu-prona-ena-tri-spaljena-tijela-1318850 ; https://www.infomigrants.net/en/post/17218/migrants-dying-in-bosnia-red-cross" ;
     frontlet:hasComment "https://www.vecernji.hr/vijesti/migranti-se-ugusili-u-bihacu-prona-ena-tri-spaljena-tijela-1318850 ; https://www.infomigrants.net/en/post/17218/migrants-dying-in-bosnia-red-cross" .
 
-frontlet_data:bosnie_Source_10_damir_sesad_zaki a frontlet:Source ;
+frontlet_data:bosnie_Source_10_damir_sesad_zaki a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "Damir Sesad / Zaki" ;
     frontlet:hasComment "Damir Sesad / Zaki" .
 
@@ -7679,11 +7750,13 @@ frontlet_data:bosnie_Source_114_https_radiosarajevo_ba_vijesti_bosna_i_hercegovi
     rdfs:label "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/cazin-preminuo-migrant-iz-sirije-koji-je-bio-smjesten-u-sedri/317838 ; https://nellaterradeicevapi.wordpress.com/2018/12/13/gli-invisibili/" ;
     frontlet:hasComment "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/cazin-preminuo-migrant-iz-sirije-koji-je-bio-smjesten-u-sedri/317838 ; https://nellaterradeicevapi.wordpress.com/2018/12/13/gli-invisibili/" .
 
-frontlet_data:bosnie_Source_115_cemetery_zvornik a frontlet:Source ;
+frontlet_data:bosnie_Source_115_cemetery_zvornik a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Cemetery Zvornik" ;
     frontlet:hasComment "Cemetery Zvornik" .
 
-frontlet_data:bosnie_Source_116_cemetery_zvornik a frontlet:Source ;
+frontlet_data:bosnie_Source_116_cemetery_zvornik a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Cemetery Zvornik" ;
     frontlet:hasComment "Cemetery Zvornik" .
 
@@ -7747,7 +7820,7 @@ frontlet_data:bosnie_Source_17_https_www_rtvbn_com_4043653_na_obali_drine_pronad
     rdfs:label "https://www.rtvbn.com/4043653/na-obali-drine-pronadjeno-tijelo-muskarca" ;
     frontlet:hasComment "https://www.rtvbn.com/4043653/na-obali-drine-pronadjeno-tijelo-muskarca" .
 
-frontlet_data:bosnie_Source_18_4d_report a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_18_4d_report a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "4D report" ;
     frontlet:hasComment "4D report" .
@@ -7787,7 +7860,8 @@ frontlet_data:bosnie_Source_19_https_m_facebook_com_story_php_story_fbid_6215514
     rdfs:label "https://m.facebook.com/story.php?story_fbid=621551433337248&id=100064471908840&mibextid=Nif5oz" ;
     frontlet:hasComment "https://m.facebook.com/story.php?story_fbid=621551433337248&id=100064471908840&mibextid=Nif5oz" .
 
-frontlet_data:bosnie_Source_1_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Source ;
+frontlet_data:bosnie_Source_1_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Media,
+        frontlet:Source ;
     rdfs:label "Fire in a house apprarently due to bad installation" ;
     frontlet:hasComment "Fire in a house apprarently due to bad installation" .
 
@@ -7826,7 +7900,8 @@ frontlet_data:bosnie_Source_210_aegean_boat_report_turkish_coast_guard a frontle
     rdfs:label "Aegean Boat Report, Turkish Coast Guard" ;
     frontlet:hasComment "https://bit.ly/2moJgav, https://bit.ly/2kAum0u" .
 
-frontlet_data:bosnie_Source_214_iom_turkey a frontlet:Source ;
+frontlet_data:bosnie_Source_214_iom_turkey a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "IOM Turkey" .
 
 frontlet_data:bosnie_Source_215_europa_press a frontlet:Media,
@@ -7844,7 +7919,7 @@ frontlet_data:bosnie_Source_217_el_dario_ministry_of_internal_affairs_of_una_san
     rdfs:label "El Dario, Ministry of Internal Affairs of Una-Sana Canton" ;
     frontlet:hasComment "https://bit.ly/2GT8uWZ" .
 
-frontlet_data:bosnie_Source_219_sid_border_police_via_iom_serbia a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_219_sid_border_police_via_iom_serbia a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "Šid Border Police via IOM Serbia" .
 
@@ -7853,7 +7928,7 @@ frontlet_data:bosnie_Source_21_https_radiosarajevo_ba_vijesti_crna_hronika_strav
     rdfs:label "https://radiosarajevo.ba/vijesti/crna-hronika/strava-u-bijeljini-iz-drine-izvuceno-bezivotno-tijelo-obavlja-se-obdukcija/491677" ;
     frontlet:hasComment "https://radiosarajevo.ba/vijesti/crna-hronika/strava-u-bijeljini-iz-drine-izvuceno-bezivotno-tijelo-obavlja-se-obdukcija/491677" .
 
-frontlet_data:bosnie_Source_220_north_macedonia_ministry_of_interior_via_iom_skopje a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_220_north_macedonia_ministry_of_interior_via_iom_skopje a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "North Macedonia Ministry of Interior via IOM Skopje" .
 
@@ -7872,7 +7947,7 @@ frontlet_data:bosnie_Source_224_n1_unhcr a frontlet:Media,
     rdfs:label "N1, UNHCR" ;
     frontlet:hasComment "http://bit.ly/2KRMVYv, http://bit.ly/2ZvBkmg" .
 
-frontlet_data:bosnie_Source_225_iom_skopje_north_macedonia_ministry_of_interior a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_225_iom_skopje_north_macedonia_ministry_of_interior a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "IOM Skopje, North Macedonia Ministry of Interior" .
 
@@ -7916,7 +7991,7 @@ frontlet_data:bosnie_Source_232_ap a frontlet:Media,
     rdfs:label "AP" ;
     frontlet:hasComment "https://bit.ly/2m9NfHN" .
 
-frontlet_data:bosnie_Source_235_iom_north_macedonia_ministry_of_interior_of_north_macedonia a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_235_iom_north_macedonia_ministry_of_interior_of_north_macedonia a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "IOM North Macedonia, Ministry of Interior of North Macedonia" .
 
@@ -7960,7 +8035,7 @@ frontlet_data:bosnie_Source_246_no_name_kitchen_via_balkan_insight_are_you_syrio
     rdfs:label "No Name Kitchen via Balkan Insight, Are you Syrious?, Ministry of Internal Affairs of Una-Sana Canton" ;
     frontlet:hasComment "http://bit.ly/2T07YbV, http://bit.ly/2VZylRn" .
 
-frontlet_data:bosnie_Source_248_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_248_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "Ministry of Internal Affairs of the Una-Sana Canton" .
 
@@ -8117,11 +8192,13 @@ frontlet_data:bosnie_Source_299_https_www_portalnovosti_com_mrtva_tisina a front
     rdfs:label "https://www.portalnovosti.com/mrtva-tisina" ;
     frontlet:hasComment "https://www.portalnovosti.com/mrtva-tisina" .
 
-frontlet_data:bosnie_Source_29_cemetery_zvornik a frontlet:Source ;
+frontlet_data:bosnie_Source_29_cemetery_zvornik a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Cemetery Zvornik" ;
     frontlet:hasComment "Cemetery Zvornik" .
 
-frontlet_data:bosnie_Source_2_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Source ;
+frontlet_data:bosnie_Source_2_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Media,
+        frontlet:Source ;
     rdfs:label "Fire in a house apprarently due to bad installation" ;
     frontlet:hasComment "Fire in a house apprarently due to bad installation" .
 
@@ -8150,7 +8227,8 @@ frontlet_data:bosnie_Source_305_https_www_nezavisne_com_novosti_hronika_bezivotn
     rdfs:label "https://www.nezavisne.com/novosti/hronika/Bezivotno-" ;
     frontlet:hasComment "https://www.nezavisne.com/novosti/hronika/Bezivotno-" .
 
-frontlet_data:bosnie_Source_306_tijelo_migranta_pronadjeno_na_obali_drine_kod_zvornika_508845 a frontlet:Source ;
+frontlet_data:bosnie_Source_306_tijelo_migranta_pronadjeno_na_obali_drine_kod_zvornika_508845 a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "tijelo-migranta-pronadjeno-na-obali-Drine-kod- Zvornika/508845" ;
     frontlet:hasComment "tijelo-migranta-pronadjeno-na-obali-Drine-kod- Zvornika/508845" .
 
@@ -8179,7 +8257,8 @@ frontlet_data:bosnie_Source_310_http_radio_mreznica_hr_kupa_mogla_izbaciti_tijel
     rdfs:label "http://radio-mreznica.hr/kupa-mogla-izbaciti-tijelo-jos-barem-jednog-stradalog-migranta/" ;
     frontlet:hasComment "http://radio-mreznica.hr/kupa-mogla-izbaciti-tijelo-jos-barem-jednog-stradalog-migranta/" .
 
-frontlet_data:bosnie_Source_311_www_republika_rs_hronika_hronika_48262_poginuli_migranti_kod_rume a frontlet:Source ;
+frontlet_data:bosnie_Source_311_www_republika_rs_hronika_hronika_48262_poginuli_migranti_kod_rume a frontlet:Media,
+        frontlet:Source ;
     rdfs:label "www.republika.rs/hronika/hronika/48262/poginuli-migranti-kod-rume" ;
     frontlet:hasComment "www.republika.rs/hronika/hronika/48262/poginuli-migranti-kod-rume" .
 
@@ -8233,7 +8312,8 @@ frontlet_data:bosnie_Source_320_https_www_klix_ba_vijesti_crna_hronika_migrant_i
     rdfs:label "https://www.klix.ba/vijesti/crna-hronika/migrant-iz-maroka-ubijen-u-velikoj-kladusi/180616013" ;
     frontlet:hasComment "https://www.klix.ba/vijesti/crna-hronika/migrant-iz-maroka-ubijen-u-velikoj-kladusi/180616013" .
 
-frontlet_data:bosnie_Source_321_dnevnik_hr_vijesti_svijet_u_sloveniji_pronadjeno_truplo_migranta_u_stanju_raspadanja_522068_html a frontlet:Source ;
+frontlet_data:bosnie_Source_321_dnevnik_hr_vijesti_svijet_u_sloveniji_pronadjeno_truplo_migranta_u_stanju_raspadanja_522068_html a frontlet:Media,
+        frontlet:Source ;
     rdfs:label "dnevnik.hr/vijesti/svijet/u-sloveniji-pronadjeno-truplo-migranta-u-stanju-raspadanja-522068.html" ;
     frontlet:hasComment "dnevnik.hr/vijesti/svijet/u-sloveniji-pronadjeno-truplo-migranta-u-stanju-raspadanja-522068.html" .
 
@@ -8252,7 +8332,8 @@ frontlet_data:bosnie_Source_324_http_rs_n1info_com_vesti_a408580_ubijeni_migrant
     rdfs:label "http://rs.n1info.com/Vesti/a408580/Ubijeni-migranti-kod-Rume.html" ;
     frontlet:hasComment "http://rs.n1info.com/Vesti/a408580/Ubijeni-migranti-kod-Rume.html" .
 
-frontlet_data:bosnie_Source_326_mondo_ba_a822864_info_hronika_migrant_se_utopio_u_drini_html a frontlet:Source ;
+frontlet_data:bosnie_Source_326_mondo_ba_a822864_info_hronika_migrant_se_utopio_u_drini_html a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "mondo.ba/a822864/Info/Hronika/Migrant-se-utopio-u-Drini.html" ;
     frontlet:hasComment "mondo.ba/a822864/Info/Hronika/Migrant-se-utopio-u-Drini.html" .
 
@@ -8301,11 +8382,13 @@ frontlet_data:bosnie_Source_33_https_unitedagainstrefugeedeaths_eu_wp_content_up
     rdfs:label "https://unitedagainstrefugeedeaths.eu/wp-content/uploads/2014/06/ListofDeathsActual.pdf" ;
     frontlet:hasComment "https://unitedagainstrefugeedeaths.eu/wp-content/uploads/2014/06/ListofDeathsActual.pdf" .
 
-frontlet_data:bosnie_Source_34_erim_info_by_komrad_sandra_mukelji a frontlet:Source ;
+frontlet_data:bosnie_Source_34_erim_info_by_komrad_sandra_mukelji a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIM info by Komrad (Sandra Mukelji?)" ;
     frontlet:hasComment "ERIM info by Komrad (Sandra Mukelji?)" .
 
-frontlet_data:bosnie_Source_35_erim_info_provided_by_komrad a frontlet:Source ;
+frontlet_data:bosnie_Source_35_erim_info_provided_by_komrad a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIM info provided by Komrad" ;
     frontlet:hasComment "ERIM info provided by Komrad" .
 
@@ -8324,11 +8407,13 @@ frontlet_data:bosnie_Source_38_https_avaz_ba_vijesti_crna_hronika_674510_drina_u
     rdfs:label "https://avaz.ba/vijesti/crna-hronika/674510/drina-uzima-zivote-migrantima?fbclid=IwAR0HGD1jNV8KLZcVLN-rgACRodcZFaMmZWt5N0bvSTvrD8BWgj1rqTjhKSs" ;
     frontlet:hasComment "https://avaz.ba/vijesti/crna-hronika/674510/drina-uzima-zivote-migrantima?fbclid=IwAR0HGD1jNV8KLZcVLN-rgACRodcZFaMmZWt5N0bvSTvrD8BWgj1rqTjhKSs" .
 
-frontlet_data:bosnie_Source_39_erim_info_by_komrad a frontlet:Source ;
+frontlet_data:bosnie_Source_39_erim_info_by_komrad a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIM info by Komrad" ;
     frontlet:hasComment "ERIM info by Komrad" .
 
-frontlet_data:bosnie_Source_3_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Source ;
+frontlet_data:bosnie_Source_3_fire_in_a_house_apprarently_due_to_bad_installation a frontlet:Media,
+        frontlet:Source ;
     rdfs:label "Fire in a house apprarently due to bad installation" ;
     frontlet:hasComment "Fire in a house apprarently due to bad installation" .
 
@@ -8342,7 +8427,8 @@ frontlet_data:bosnie_Source_41_https_ba_n1info_com_english_news_five_year_old_bo
     rdfs:label "https://ba.n1info.com/english/news/five-year-old-boy-from-migrant-family-drowns-in-una-river/ ; https://balkans.aljazeera.net/news/balkan/2021/7/30/bih-petogodisnji-djecak-iz-porodice-ilegalnih-migranata-utopio-se-u-uni ; https://www.dnevnik.si/1042970435/slovenija/utopljeni-decek-v-obmejni-reki-oddaljena-posledica-vojne" ;
     frontlet:hasComment "https://ba.n1info.com/english/news/five-year-old-boy-from-migrant-family-drowns-in-una-river/ ; https://balkans.aljazeera.net/news/balkan/2021/7/30/bih-petogodisnji-djecak-iz-porodice-ilegalnih-migranata-utopio-se-u-uni ; https://www.dnevnik.si/1042970435/slovenija/utopljeni-decek-v-obmejni-reki-oddaljena-posledica-vojne" .
 
-frontlet_data:bosnie_Source_42_zvornik_cemetery a frontlet:Source ;
+frontlet_data:bosnie_Source_42_zvornik_cemetery a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Zvornik cemetery" ;
     frontlet:hasComment "Zvornik cemetery" .
 
@@ -8376,7 +8462,8 @@ frontlet_data:bosnie_Source_48_https_hayat_ba_uzas_u_bihacu_iz_une_izvuceno_tije
     rdfs:label "https://hayat.ba/uzas-u-bihacu-iz-une-izvuceno-tijelo-migranta-iz-afganistana/394322/?fbclid=IwAR2CC_fol2TyiKASKcSkXrFUSgDHS7yCujP_9Pjeyui1ijIhOHBrJIn57rU" ;
     frontlet:hasComment "https://hayat.ba/uzas-u-bihacu-iz-une-izvuceno-tijelo-migranta-iz-afganistana/394322/?fbclid=IwAR2CC_fol2TyiKASKcSkXrFUSgDHS7yCujP_9Pjeyui1ijIhOHBrJIn57rU" .
 
-frontlet_data:bosnie_Source_49_electrocuted_between_two_train_wagons_coming_from_sarajevo_body_found_at_bradina_station_bosnia a frontlet:Source ;
+frontlet_data:bosnie_Source_49_electrocuted_between_two_train_wagons_coming_from_sarajevo_body_found_at_bradina_station_bosnia a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "electrocuted between two train wagons coming from Sarajevo, body found at Bradina station (Bosnia)" ;
     frontlet:hasComment "electrocuted between two train wagons coming from Sarajevo, body found at Bradina station (Bosnia)" .
 
@@ -8390,7 +8477,8 @@ frontlet_data:bosnie_Source_51_https_www_24sata_hr_news_migrant_u_tucnjavi_ubije
     rdfs:label "https://www.24sata.hr/news/migrant-u-tucnjavi-ubijen-nozem-726593" ;
     frontlet:hasComment "https://www.24sata.hr/news/migrant-u-tucnjavi-ubijen-nozem-726593" .
 
-frontlet_data:bosnie_Source_52_presumed_drowned_body_found_on_bank_of_drina_river_in_zvornik_ba_at_bosnian_serbian_border a frontlet:Source ;
+frontlet_data:bosnie_Source_52_presumed_drowned_body_found_on_bank_of_drina_river_in_zvornik_ba_at_bosnian_serbian_border a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "presumed drowned, body found on bank of Drina river in Zvornik (BA) at Bosnian-Serbian border" ;
     frontlet:hasComment "presumed drowned, body found on bank of Drina river in Zvornik (BA) at Bosnian-Serbian border" .
 
@@ -8404,7 +8492,7 @@ frontlet_data:bosnie_Source_54_https_www_facebook_com_messenger_media_thread_id_
     rdfs:label "https://www.facebook.com/messenger_media/?thread_id=3162228243879003&attachment_id=1782547988592281&message_id=mid.%24gAAs8B6Ms1Ft8AbIOc110GzFwwcDI" ;
     frontlet:hasComment "https://www.facebook.com/messenger_media/?thread_id=3162228243879003&attachment_id=1782547988592281&message_id=mid.%24gAAs8B6Ms1Ft8AbIOc110GzFwwcDI" .
 
-frontlet_data:bosnie_Source_55_erim_info_by_komrad_sandra_mukelji_died_in_the_hospital_in_bihac a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_55_erim_info_by_komrad_sandra_mukelji_died_in_the_hospital_in_bihac a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "ERIM info by Komrad (Sandra Mukelji?) / died in the hospital in Bihac" ;
     frontlet:hasComment "ERIM info by Komrad (Sandra Mukelji?) / died in the hospital in Bihac" .
@@ -8419,7 +8507,8 @@ frontlet_data:bosnie_Source_57_https_radiosarajevo_ba_vijesti_bosna_i_hercegovin
     rdfs:label "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/dvojici-tragicno-stradalih-migranata-u-bih-klanjana-dzenaza-jedan-je-ukopan-ka-nn/392771?fbclid=IwAR0Z01iXCqOQMvoWTbiFU6rRJofDLU0us74K3gGqLvx42Na8Rxphd8Gew78 ; https://www.haber.ba/vijesti/crna-hronika/822892-dvojici-tragicno-stradalih-migranata-u-bih-klanjana-dzenaza-jedan-je-ukopan-kao-nn ; https://www.sarajevotimes.com/169579-2/" ;
     frontlet:hasComment "https://radiosarajevo.ba/vijesti/bosna-i-hercegovina/dvojici-tragicno-stradalih-migranata-u-bih-klanjana-dzenaza-jedan-je-ukopan-ka-nn/392771?fbclid=IwAR0Z01iXCqOQMvoWTbiFU6rRJofDLU0us74K3gGqLvx42Na8Rxphd8Gew78 ; https://www.haber.ba/vijesti/crna-hronika/822892-dvojici-tragicno-stradalih-migranata-u-bih-klanjana-dzenaza-jedan-je-ukopan-kao-nn ; https://www.sarajevotimes.com/169579-2/" .
 
-frontlet_data:bosnie_Source_58_erim_info_by_komarad a frontlet:Source ;
+frontlet_data:bosnie_Source_58_erim_info_by_komarad a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "ERIM info by Komarad" ;
     frontlet:hasComment "ERIM info by Komarad" .
 
@@ -8428,7 +8517,7 @@ frontlet_data:bosnie_Source_59_https_www_vecernji_ba_vijesti_na_obali_drine_pron
     rdfs:label "https://www.vecernji.ba/vijesti/na-obali-drine-pronadeno-tijelo-muskarca-1434233" ;
     frontlet:hasComment "https://www.vecernji.ba/vijesti/na-obali-drine-pronadeno-tijelo-muskarca-1434233" .
 
-frontlet_data:bosnie_Source_5_one_man_died_after_police_attacked_the_migrants_boat_in_sava_other_migrants_are_now_in_germany_and_dont_wanna_talk_anymore a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_5_one_man_died_after_police_attacked_the_migrants_boat_in_sava_other_migrants_are_now_in_germany_and_dont_wanna_talk_anymore a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "one man died after police attacked the migrants boat in Sava / other migrants are now in Germany and dont wanna talk anymore" ;
     frontlet:hasComment "one man died after police attacked the migrants boat in Sava / other migrants are now in Germany and dont wanna talk anymore" .
@@ -8448,15 +8537,18 @@ frontlet_data:bosnie_Source_62_https_www_klix_ba_vijesti_crna_hronika_u_blizini_
     rdfs:label "https://www.klix.ba/vijesti/crna-hronika/u-blizini-kampa-u-blazuju-kod-sarajeva-pronadjeno-tijelo-migranta/200724015?fbclid=IwAR0CPBEIcZ1pGtKXz8KsmKZovaLoi9g2HNIr0mloLr4be6yq6KbFYYKEQas" ;
     frontlet:hasComment "https://www.klix.ba/vijesti/crna-hronika/u-blizini-kampa-u-blazuju-kod-sarajeva-pronadjeno-tijelo-migranta/200724015?fbclid=IwAR0CPBEIcZ1pGtKXz8KsmKZovaLoi9g2HNIr0mloLr4be6yq6KbFYYKEQas" .
 
-frontlet_data:bosnie_Source_63_erim_info_by_komrad a frontlet:Source ;
+frontlet_data:bosnie_Source_63_erim_info_by_komrad a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIM info by Komrad" ;
     frontlet:hasComment "ERIM info by Komrad" .
 
-frontlet_data:bosnie_Source_64_erim_info_by_komrad a frontlet:Source ;
+frontlet_data:bosnie_Source_64_erim_info_by_komrad a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIM info by Komrad" ;
     frontlet:hasComment "ERIM info by Komrad" .
 
-frontlet_data:bosnie_Source_65_erim_personal_exchange a frontlet:Source ;
+frontlet_data:bosnie_Source_65_erim_personal_exchange a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "ERIM personal exchange" ;
     frontlet:hasComment "ERIM personal exchange" .
 
@@ -8490,7 +8582,8 @@ frontlet_data:bosnie_Source_71_erim_info_provided_by_zelenilo_karlovac_https_por
     rdfs:label "ERIM info provided by Zelenilo Karlovac ; https://portalnovosti.com/nadgrobna-tisina?fbclid=IwAR2fqyqOdWIrbp_8dUKhyE_-vQR_qYhA10CBT8oELpMH52dA9PwkFMopHU8 ; https://nsd.se/bli-prenumerant/artikel/1l7p4y1l" ;
     frontlet:hasComment "ERIM info provided by Zelenilo Karlovac ; https://portalnovosti.com/nadgrobna-tisina?fbclid=IwAR2fqyqOdWIrbp_8dUKhyE_-vQR_qYhA10CBT8oELpMH52dA9PwkFMopHU8 ; https://nsd.se/bli-prenumerant/artikel/1l7p4y1l" .
 
-frontlet_data:bosnie_Source_72_erim_presonal_exchange a frontlet:Source ;
+frontlet_data:bosnie_Source_72_erim_presonal_exchange a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "ERIM presonal exchange" ;
     frontlet:hasComment "ERIM presonal exchange" .
 
@@ -8529,7 +8622,8 @@ frontlet_data:bosnie_Source_79_https_www_sarajevotimes_com_one_migrant_killed_by
     rdfs:label "https://www.sarajevotimes.com/one-migrant-killed-by-train-in-bosnian-capital/" ;
     frontlet:hasComment "https://www.sarajevotimes.com/one-migrant-killed-by-train-in-bosnian-capital/" .
 
-frontlet_data:bosnie_Source_7_was_only_19_had_a_wife_and_a_child a frontlet:Source ;
+frontlet_data:bosnie_Source_7_was_only_19_had_a_wife_and_a_child a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "was only 19 had a wife and a child" ;
     frontlet:hasComment "was only 19 had a wife and a child" .
 
@@ -8563,7 +8657,8 @@ frontlet_data:bosnie_Source_85_https_medium_com_are_you_syrious_ays_daily_digest
     rdfs:label "https://medium.com/are-you-syrious/ays-daily-digest-9-10-19-violent-refugee-deaths-on-the-rise-in-bosnia-ca47a1f71a63" ;
     frontlet:hasComment "https://medium.com/are-you-syrious/ays-daily-digest-9-10-19-violent-refugee-deaths-on-the-rise-in-bosnia-ca47a1f71a63" .
 
-frontlet_data:bosnie_Source_86_nicole_e_mail_with_consulate a frontlet:Source ;
+frontlet_data:bosnie_Source_86_nicole_e_mail_with_consulate a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Nicole E-Mail with Consulate" ;
     frontlet:hasComment "Nicole E-Mail with Consulate" .
 
@@ -8582,7 +8677,8 @@ frontlet_data:bosnie_Source_89_https_www_klix_ba_vijesti_crna_hronika_obdukcija_
     rdfs:label "https://www.klix.ba/vijesti/crna-hronika/obdukcija-pokazala-migrant-cije-je-tijelo-pronadjeno-kod-cazina-se-utopio/191004072 ; https://medium.com/are-you-syrious/ays-daily-digest-9-10-19-violent-refugee-deaths-on-the-rise-in-bosnia-ca47a1f71a63" ;
     frontlet:hasComment "https://www.klix.ba/vijesti/crna-hronika/obdukcija-pokazala-migrant-cije-je-tijelo-pronadjeno-kod-cazina-se-utopio/191004072 ; https://medium.com/are-you-syrious/ays-daily-digest-9-10-19-violent-refugee-deaths-on-the-rise-in-bosnia-ca47a1f71a63" .
 
-frontlet_data:bosnie_Source_8_damir_sesad_zaki_in_one_case_came_brother_to_identifiy_him a frontlet:Source ;
+frontlet_data:bosnie_Source_8_damir_sesad_zaki_in_one_case_came_brother_to_identifiy_him a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "Damir Sesad / Zaki / in one case came brother to identifiy him," ;
     frontlet:hasComment "Damir Sesad / Zaki / in one case came brother to identifiy him," .
 
@@ -8611,7 +8707,8 @@ frontlet_data:bosnie_Source_94_https_www_facebook_com_photo_fbid_284186855250761
     rdfs:label "https://www.facebook.com/photo?fbid=2841868552507614&set=gm.2785413048155122" ;
     frontlet:hasComment "https://www.facebook.com/photo?fbid=2841868552507614&set=gm.2785413048155122" .
 
-frontlet_data:bosnie_Source_95_erim_info_by_komrad a frontlet:Source ;
+frontlet_data:bosnie_Source_95_erim_info_by_komrad a frontlet:CivilSociety,
+        frontlet:Source ;
     rdfs:label "ERIm info by Komrad" ;
     frontlet:hasComment "ERIm info by Komrad" .
 
@@ -8635,7 +8732,8 @@ frontlet_data:bosnie_Source_99_http_www_sarajevotimes_com_migrant_died_in_tuzla_
     rdfs:label "http://www.sarajevotimes.com/migrant-died-in-tuzla-clinical-centre-due-to-bleeding/?fbclid=IwAR0fishDgsLg-gee6VmRpgqQZEQ1twJSFan2c2FbH9EHSqmaBREMp884ASE" ;
     frontlet:hasComment "http://www.sarajevotimes.com/migrant-died-in-tuzla-clinical-centre-due-to-bleeding/?fbclid=IwAR0fishDgsLg-gee6VmRpgqQZEQ1twJSFan2c2FbH9EHSqmaBREMp884ASE" .
 
-frontlet_data:bosnie_Source_9_damir_sesad_zaki a frontlet:Source ;
+frontlet_data:bosnie_Source_9_damir_sesad_zaki a frontlet:OtherOfficialDocument,
+        frontlet:Source ;
     rdfs:label "Damir Sesad / Zaki" ;
     frontlet:hasComment "Damir Sesad / Zaki" .
 
@@ -8709,303 +8807,403 @@ frontlet_data:bosnie_Transport_train_92 a frontlet:Transport ;
     frontlet:transportName "train" .
 
 frontlet_data:bosnie_geometry_100_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1710758 44.5330473)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_101_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_102_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_104_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_105_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_106_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_107_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_108_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_109_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_10_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.86896 44.8146563)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_110_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_111_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_115_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_116_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_117_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_118_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_119_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_123_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_126_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_127_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_129_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_12_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.8648087 43.7093098)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_130_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_131_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_132_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_134_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_135_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_138_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_144_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_146_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_147_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_14_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.3024769 44.7327329)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_152_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_154_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_15_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.5471105 44.939314)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_16_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_170_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_173_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_175_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_176_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_177_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_178_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_17_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.2951464 44.2593083)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_180_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_185_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_187_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_188_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_189_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_18_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_19_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.7931789 45.0909306)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_1_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.9351668 44.7727362)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_20_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.2648019 43.8389188)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_21_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.0991306 44.6774884)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_22_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8069257 45.1843299)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_28_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(17.6124941 45.0935319)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_29_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_2_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.9351668 44.7727362)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_30_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1330137 43.5492515)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_31_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_32_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_33_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.2153155 43.8299412)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_34_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_35_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_36_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.258022 43.8401451)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_37_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.258022 43.8401451)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_38_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.257731 44.6777367)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_39_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_3_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.9351668 44.7727362)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_40_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.258022 43.8401451)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_41_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.4266248 43.8577806)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_42_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_43_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(16.0846352 44.6910234)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_44_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_45_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.3432927 43.9018326)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_46_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8583008 44.7930477)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_47_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.0853462 44.7287178)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_48_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_49_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.0187127 43.7448719)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_50_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(17.9858051 44.6129188)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_51_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_52_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1046033 44.3835146)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_53_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(19.1710758 44.5330473)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_55_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_58_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_5_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(17.5961467 44.3053476)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_63_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_64_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_69_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.5471105 44.939314)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_79_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.258022 43.8401451)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_81_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_82_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_8_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.86896 44.8146563)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_90_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_91_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_92_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_94_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.874005 44.8130537)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_95_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_96_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.8608082 44.8012904)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_98_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(18.427801 43.8598337)"^^geo:wktLiteral .
 
 frontlet_data:bosnie_geometry_9_1 a geo:Geometry ;
+    frontlet:hasPrecision false ;
     geo:asWKT "POINT(15.86896 44.8146563)"^^geo:wktLiteral .
 
 thes:female a owl:NamedIndividual ;
@@ -9225,6 +9423,7 @@ frontlet_data:bosnie_Death_107_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_107_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_107_https_www_vecernji_hr_vijesti_migranti_se_ugusili_u_bihacu_prona_ena_tri_spaljena_tijela_1318850_https_www_infomigrants_net_en_post_17218_migrants_dying_in_bosnia_red_cross ;
     temp:before frontlet_data:bosnie_InhumationEvent_107_1 ;
@@ -9237,6 +9436,7 @@ frontlet_data:bosnie_Death_108_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_108_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_108_https_www_vecernji_hr_vijesti_migranti_se_ugusili_u_bihacu_prona_ena_tri_spaljena_tijela_1318850_https_www_infomigrants_net_en_post_17218_migrants_dying_in_bosnia_red_cross ;
     temp:before frontlet_data:bosnie_InhumationEvent_108_1 ;
@@ -9249,6 +9449,7 @@ frontlet_data:bosnie_Death_109_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_incendie ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_109_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_109_https_www_vecernji_hr_vijesti_migranti_se_ugusili_u_bihacu_prona_ena_tri_spaljena_tijela_1318850_https_www_infomigrants_net_en_post_17218_migrants_dying_in_bosnia_red_cross ;
     temp:before frontlet_data:bosnie_InhumationEvent_109_1 ;
@@ -9259,6 +9460,7 @@ frontlet_data:bosnie_Death_109_1 a frontlet:Death,
 frontlet_data:bosnie_Death_115_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_115_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_115_cemetery_zvornik ;
     temp:before frontlet_data:bosnie_InhumationEvent_115_1 ;
@@ -9271,6 +9473,7 @@ frontlet_data:bosnie_Death_116_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_116_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_116_cemetery_zvornik ;
     temp:before frontlet_data:bosnie_InhumationEvent_116_1 ;
@@ -9284,6 +9487,7 @@ frontlet_data:bosnie_Death_119_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_119_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_119_https_www_vecernji_hr_vijesti_migrant_iz_maroka_ubijen_u_velikoj_kladusi_1252474 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_119_1 ;
@@ -9297,6 +9501,7 @@ frontlet_data:bosnie_Death_135_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_chute ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Velika Kladuša" ;
     frontlet:livedBy frontlet_data:bosnie_Person_135_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_135_1 ;
     time:dayOfWeek time:Friday ;
@@ -9359,6 +9564,7 @@ frontlet_data:bosnie_Death_170_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Sarajevo" ;
     frontlet:livedBy frontlet_data:bosnie_Person_170_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_170_1 ;
     time:dayOfWeek time:Friday ;
@@ -9381,6 +9587,7 @@ frontlet_data:bosnie_Death_177_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_177_1 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_177_1 ;
     time:dayOfWeek time:Wednesday ;
@@ -9431,6 +9638,7 @@ frontlet_data:bosnie_Death_29_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_29_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_29_cemetery_zvornik ;
     temp:before frontlet_data:bosnie_InhumationEvent_29_1 ;
@@ -9441,6 +9649,7 @@ frontlet_data:bosnie_Death_29_1 a frontlet:Death,
 frontlet_data:bosnie_Death_34_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_34_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_34_erim_info_by_komrad_sandra_mukelji ;
     temp:before frontlet_data:bosnie_InhumationEvent_34_1 ;
@@ -9453,6 +9662,7 @@ frontlet_data:bosnie_Death_35_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_inconnu ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_inconnu ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_35_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_35_erim_info_provided_by_komrad ;
     temp:before frontlet_data:bosnie_InhumationEvent_35_1 ;
@@ -9463,6 +9673,7 @@ frontlet_data:bosnie_Death_35_1 a frontlet:Death,
 frontlet_data:bosnie_Death_39_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_39_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_39_erim_info_by_komrad ;
     temp:before frontlet_data:bosnie_InhumationEvent_39_1 ;
@@ -9475,6 +9686,7 @@ frontlet_data:bosnie_Death_41_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Novi Grad ; River Una" ;
     frontlet:livedBy frontlet_data:bosnie_Person_41_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_41_https_ba_n1info_com_english_news_five_year_old_boy_from_migrant_family_drowns_in_una_river_https_balkans_aljazeera_net_news_balkan_2021_7_30_bih_petogodisnji_djecak_iz_porodice_ilegalnih_migranata_utopio_se_u_uni_https_www_dnevnik_si_1042970435_slovenija_utopljeni_decek_v_obmejni_reki_oddaljena_posledica_vojne ;
     temp:before frontlet_data:bosnie_InhumationEvent_41_1 ;
@@ -9485,6 +9697,7 @@ frontlet_data:bosnie_Death_41_1 a frontlet:Death,
 frontlet_data:bosnie_Death_42_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Zvornik ; River Drina" ;
     frontlet:livedBy frontlet_data:bosnie_Person_42_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_42_zvornik_cemetery ;
     temp:before frontlet_data:bosnie_InhumationEvent_42_1 ;
@@ -9498,6 +9711,7 @@ frontlet_data:bosnie_Death_45_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Sarajevo ; Vogoš?a" ;
     frontlet:livedBy frontlet_data:bosnie_Person_45_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_45_https_www_klix_ba_vijesti_bih_preminuo_migrant_koji_je_sinoc_izboden_u_vogosci_210611019_fbclid_iwar19zpgxondmu_gusuraedrb9sjsweqlq52_kroyjua0azw8ifubqwq61tg_https_avaz_ba_vijesti_crna_hronika_658397_policija_identificirala_migranta_koji_je_ubijen_u_vogosci_napadac_jos_nije_uhapsen_fbclid_iwar1xesrf1nrbc8jlxngvb_cvukx2totrn_5gqmabfnccqhe7vqhkxj2b8hi ;
     geo:hasGeometry frontlet_data:bosnie_geometry_45_1 ;
@@ -9510,6 +9724,7 @@ frontlet_data:bosnie_Death_46_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Biha? ; Žegar" ;
     frontlet:livedBy frontlet_data:bosnie_Person_46_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_46_https_www_bljesak_info_vijesti_crna_kronika_migranti_sukob_ubojstvo_350206_https_avaz_ba_vijesti_bih_657224_uzas_u_zegarskom_polju_kod_bihaca_jedan_migrant_donesen_mrtav_ispred_kuce_drugi_tesko_povrijeden ;
     geo:hasGeometry frontlet_data:bosnie_geometry_46_1 ;
@@ -9522,6 +9737,7 @@ frontlet_data:bosnie_Death_50_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_arme_blanche ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_homicide ;
+    frontlet:lieu "Tešanj" ;
     frontlet:livedBy frontlet_data:bosnie_Person_50_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_50_https_hayat_ba_objavljeni_detalji_stravicnog_ubistva_migranta_u_tesnju_353158 ;
     geo:hasGeometry frontlet_data:bosnie_geometry_50_1 ;
@@ -9531,6 +9747,7 @@ frontlet_data:bosnie_Death_50_1 a frontlet:Death,
 frontlet_data:bosnie_Death_55_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_55_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_55_erim_info_by_komrad_sandra_mukelji_died_in_the_hospital_in_bihac ;
     temp:before frontlet_data:bosnie_InhumationEvent_55_1 ;
@@ -9544,6 +9761,7 @@ frontlet_data:bosnie_Death_5_1 a frontlet:Death,
     frontlet:hasDeathCause frontlet_data:bosnie_DeathCause_noyade ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
     frontlet:hasDeathNature frontlet_data:bosnie_DeathNature_accident ;
+    frontlet:lieu "Gradisska" ;
     frontlet:livedBy frontlet_data:bosnie_Person_5_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_5_one_man_died_after_police_attacked_the_migrants_boat_in_sava_other_migrants_are_now_in_germany_and_dont_wanna_talk_anymore ;
     geo:hasGeometry frontlet_data:bosnie_geometry_5_1 ;
@@ -9553,6 +9771,7 @@ frontlet_data:bosnie_Death_5_1 a frontlet:Death,
 frontlet_data:bosnie_Death_63_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_63_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_63_erim_info_by_komrad ;
     temp:before frontlet_data:bosnie_InhumationEvent_63_1 ;
@@ -9563,6 +9782,7 @@ frontlet_data:bosnie_Death_63_1 a frontlet:Death,
 frontlet_data:bosnie_Death_64_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_64_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_64_erim_info_by_komrad ;
     temp:before frontlet_data:bosnie_InhumationEvent_64_1 ;
@@ -9593,6 +9813,7 @@ frontlet_data:bosnie_Death_78_1 a frontlet:Death,
 frontlet_data:bosnie_Death_95_1 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:bosnie_DeathCountry_BIH ;
+    frontlet:lieu "Biha?" ;
     frontlet:livedBy frontlet_data:bosnie_Person_95_1 ;
     frontlet:sourcedBy frontlet_data:bosnie_Source_95_erim_info_by_komrad ;
     temp:before frontlet_data:bosnie_InhumationEvent_95_1 ;
@@ -9760,7 +9981,8 @@ frontlet_data:bosnie_InjuryEvent_99_1 a frontlet:IndividualEvent,
     temp:before frontlet_data:bosnie_Death_99_1 ;
     time:inXSDDate "2019-07-29"^^xsd:date .
 
-frontlet_data:bosnie_Source_198_hellenic_coast_guard_via_iom_greece a frontlet:Source ;
+frontlet_data:bosnie_Source_198_hellenic_coast_guard_via_iom_greece a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "Hellenic Coast Guard via IOM Greece" .
 
 frontlet_data:bosnie_Source_208_ekathimerini_hellenic_coast_guard_via_iom_greece a frontlet:Media,
@@ -9803,7 +10025,7 @@ frontlet_data:bosnie_Source_242_slovenian_police_via_iom_slovenia_total_slovenia
     rdfs:label "Slovenian Police via IOM Slovenia, Total Slovenia News, L&apos;Avenir, L&apos;Orient-Le Jour" ;
     frontlet:hasComment "http://bit.ly/2LqJ04q, https://bit.ly/2L59hoU, https://bit.ly/2rCDncq" .
 
-frontlet_data:bosnie_Source_250_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_250_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "Ministry of Internal Affairs of the Una-Sana Canton" .
 
@@ -9911,13 +10133,6 @@ frontlet:Event a owl:Class ;
     skos:prefLabel "Event"@en,
         "Evènement"@fr .
 
-frontlet:OfficialDocument a owl:Class ;
-    rdfs:subClassOf frontlet:Source ;
-    skos:definition "Official document attesting the passage or the death of a migrant"@en,
-        "Document officiel attestant du passage ou de la mort d'un migrant"@fr ;
-    skos:prefLabel "Official document"@en,
-        "Document officiel"@fr .
-
 frontlet_data:bosnie_CollectiveEvent_194 a frontlet:CollectiveEvent ;
     frontlet:numberDead 3 ;
     frontlet:numberMissing 0 ;
@@ -10005,7 +10220,7 @@ frontlet_data:bosnie_Source_247_unhcr_blic_ministry_of_internal_affairs_of_una_s
     rdfs:label "UNHCR, Blic, Ministry of Internal Affairs of Una-Sana Canton" ;
     frontlet:hasComment "http://bit.ly/30gRsrW" .
 
-frontlet_data:bosnie_Source_249_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OtherOfficialDocument,
+frontlet_data:bosnie_Source_249_ministry_of_internal_affairs_of_the_una_sana_canton a frontlet:OfficialDocument,
         frontlet:Source ;
     rdfs:label "Ministry of Internal Affairs of the Una-Sana Canton" .
 
@@ -10156,6 +10371,13 @@ frontlet_data:bosnie_Source_244_iom_serbia a frontlet:Media,
     rdfs:label "IOM Serbia" ;
     frontlet:hasComment "http://bit.ly/2Qzo6Sx" .
 
+frontlet:CivilSociety a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "The information source comes from a civil society orgnism (NGO)"@en,
+        "La source d'information vient d'un organisme type sociétée civile (ONG)"@fr ;
+    skos:prefLabel "Civil society"@en,
+        "Sociétée civile"@fr .
+
 frontlet_data:bosnie_CollectiveEvent_204 a frontlet:CollectiveEvent ;
     frontlet:numberDead 7 ;
     frontlet:numberMissing 0 ;
@@ -10170,10 +10392,12 @@ frontlet_data:bosnie_DeathCause_asphyxie a frontlet:DeathCause ;
     rdfs:label "asphyxie"@fr ;
     skos:closeMatch thes:asphyxia .
 
-frontlet_data:bosnie_Source_204_iom_greece a frontlet:Source ;
+frontlet_data:bosnie_Source_204_iom_greece a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "IOM Greece" .
 
-frontlet_data:bosnie_Source_211_iom_greece a frontlet:Source ;
+frontlet_data:bosnie_Source_211_iom_greece a frontlet:OfficialDocument,
+        frontlet:Source ;
     rdfs:label "IOM Greece" .
 
 frontlet_data:bosnie_DeathCause_arme_a_feu a frontlet:DeathCause ;
@@ -10199,13 +10423,6 @@ frontlet:Age a owl:Class ;
     skos:prefLabel "Age"@en,
         "Age"@fr .
 
-frontlet:OtherOfficialDocument a owl:Class ;
-    rdfs:subClassOf frontlet:OfficialDocument ;
-    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
-        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
-    skos:prefLabel "Other offical document"@en,
-        "Autre document officiel"@fr .
-
 frontlet_data:bosnie_CollectiveEvent_254 a frontlet:CollectiveEvent ;
     frontlet:numberDead 11 ;
     frontlet:numberMissing 0 ;
@@ -10215,6 +10432,13 @@ frontlet_data:bosnie_Source_254_http_bit_ly_37zwmiw a frontlet:Media,
         frontlet:Source ;
     rdfs:label "http://bit.ly/37ZwMIW" ;
     frontlet:hasComment "http://bit.ly/37ZwMIW" .
+
+frontlet:OtherOfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
+        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Other offical document"@en,
+        "Autre document officiel"@fr .
 
 frontlet_data:bosnie_CollectiveEvent_201 a frontlet:CollectiveEvent ;
     frontlet:numberDead 12 ;
@@ -10312,6 +10536,13 @@ frontlet_data:bosnie_DeathCause_arme_blanche a frontlet:DeathCause ;
 
 frontlet:DeathCause a owl:Class ;
     skos:definition "Manière précise dont un migrant est décédé"@fr .
+
+frontlet:OfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:Source ;
+    skos:definition "Official document attesting the passage or the death of a migrant"@en,
+        "Document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Official document"@en,
+        "Document officiel"@fr .
 
 frontlet_data:bosnie_Country_AFG a frontlet:Country ;
     rdfs:label "Afghanistan"@en ;

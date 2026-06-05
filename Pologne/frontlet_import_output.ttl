@@ -4,482 +4,488 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix thes: <http://data/frontlet/thesaurus#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-frontlet_data:alpes_Person_1 a frontlet:Person ;
-    frontlet:composedOf frontlet_data:alpes_Death_1 .
-
-frontlet_data:alpes_Person_10 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 19 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_10 .
-
-frontlet_data:alpes_Person_11 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 30 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_demokratyczna_republika_konga ;
-    frontlet:composedOf frontlet_data:alpes_Death_11 .
-
-frontlet_data:alpes_Person_12 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
-    frontlet:composedOf frontlet_data:alpes_Death_12 .
-
-frontlet_data:alpes_Person_13 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
-    frontlet:composedOf frontlet_data:alpes_Death_13 .
-
-frontlet_data:alpes_Person_14 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 25 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
-    frontlet:composedOf frontlet_data:alpes_Death_14 .
-
-frontlet_data:alpes_Person_15 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 35 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
-    frontlet:composedOf frontlet_data:alpes_Death_15 .
-
-frontlet_data:alpes_Person_16 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 44 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_palestyna ;
-    frontlet:composedOf frontlet_data:alpes_Death_16 .
-
-frontlet_data:alpes_Person_17 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 20 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_17 .
-
-frontlet_data:alpes_Person_18 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 24 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
-    frontlet:composedOf frontlet_data:alpes_Death_18 .
-
-frontlet_data:alpes_Person_19 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 25 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_19 .
-
-frontlet_data:alpes_Person_2 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 29 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_2 .
-
-frontlet_data:alpes_Person_20 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 38 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kurdyjka_z_iraku ;
-    frontlet:composedOf frontlet_data:alpes_Death_20 .
-
-frontlet_data:alpes_Person_21 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 31 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_NGA ;
-    frontlet:composedOf frontlet_data:alpes_Death_21 .
-
-frontlet_data:alpes_Person_22 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
-    frontlet:composedOf frontlet_data:alpes_Death_22 .
-
-frontlet_data:alpes_Person_23 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 26 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_23 .
-
-frontlet_data:alpes_Person_24 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kurd_z_iraku ;
-    frontlet:composedOf frontlet_data:alpes_Death_24 .
-
-frontlet_data:alpes_Person_25 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_GIN ;
-    frontlet:composedOf frontlet_data:alpes_Death_25 .
-
-frontlet_data:alpes_Person_26 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_26 .
-
-frontlet_data:alpes_Person_27 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 50 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_27 .
-
-frontlet_data:alpes_Person_28 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 21 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
-    frontlet:composedOf frontlet_data:alpes_Death_28 .
-
-frontlet_data:alpes_Person_29 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_29 .
-
-frontlet_data:alpes_Person_3 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
-    frontlet:composedOf frontlet_data:alpes_Death_3 .
-
-frontlet_data:alpes_Person_30 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 21 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SDN ;
-    frontlet:composedOf frontlet_data:alpes_Death_30 .
-
-frontlet_data:alpes_Person_31 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_31 .
-
-frontlet_data:alpes_Person_32 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_afryka_po__nocna ;
-    frontlet:composedOf frontlet_data:alpes_Death_32 .
-
-frontlet_data:alpes_Person_33 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_afryka_po__nocna ;
-    frontlet:composedOf frontlet_data:alpes_Death_33 .
-
-frontlet_data:alpes_Person_34 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 22 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_34 .
-
-frontlet_data:alpes_Person_35 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 20 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_35 .
-
-frontlet_data:alpes_Person_36 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 66 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_36 .
-
-frontlet_data:alpes_Person_37 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 30 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_37 .
-
-frontlet_data:alpes_Person_38 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_TGO ;
-    frontlet:composedOf frontlet_data:alpes_Death_38 .
-
-frontlet_data:alpes_Person_39 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 33 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_39 .
-
-frontlet_data:alpes_Person_4 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 37 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_4 .
-
-frontlet_data:alpes_Person_40 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_40 .
-
-frontlet_data:alpes_Person_41 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 30 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
-    frontlet:composedOf frontlet_data:alpes_Death_41 .
-
-frontlet_data:alpes_Person_42 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_42 .
-
-frontlet_data:alpes_Person_43 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 31 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_43 .
-
-frontlet_data:alpes_Person_44 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_kraj_arabski ;
-    frontlet:composedOf frontlet_data:alpes_Death_44 .
-
-frontlet_data:alpes_Person_45 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 22 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_45 .
-
-frontlet_data:alpes_Person_46 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_46 .
-
-frontlet_data:alpes_Person_47 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 28 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
-    frontlet:composedOf frontlet_data:alpes_Death_47 .
-
-frontlet_data:alpes_Person_48 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 23 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
-    frontlet:composedOf frontlet_data:alpes_Death_48 .
-
-frontlet_data:alpes_Person_49 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 44 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_CMR ;
-    frontlet:composedOf frontlet_data:alpes_Death_49 .
-
-frontlet_data:alpes_Person_5 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 38 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_5 .
-
-frontlet_data:alpes_Person_50 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_nieznany ;
-    frontlet:composedOf frontlet_data:alpes_Death_50 .
-
-frontlet_data:alpes_Person_51 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_ETH ;
-    frontlet:composedOf frontlet_data:alpes_Death_51 .
-
-frontlet_data:alpes_Person_52 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 23 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_52 .
-
-frontlet_data:alpes_Person_53 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 27 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_53 .
-
-frontlet_data:alpes_Person_54 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_54 .
-
-frontlet_data:alpes_Person_55 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_55 .
-
-frontlet_data:alpes_Person_56 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_56 .
-
-frontlet_data:alpes_Person_57 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 41 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_57 .
-
-frontlet_data:alpes_Person_58 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_58 .
-
-frontlet_data:alpes_Person_59 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 58 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_59 .
-
-frontlet_data:alpes_Person_6 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_6 .
-
-frontlet_data:alpes_Person_60 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 37 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_60 .
-
-frontlet_data:alpes_Person_61 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 25 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_61 .
-
-frontlet_data:alpes_Person_62 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_62 .
-
-frontlet_data:alpes_Person_63 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 14 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_CMR ;
-    frontlet:composedOf frontlet_data:alpes_Death_63 .
-
-frontlet_data:alpes_Person_64 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_64 .
-
-frontlet_data:alpes_Person_65 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_65 .
-
-frontlet_data:alpes_Person_66 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_66 .
-
-frontlet_data:alpes_Person_67 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_EGY ;
-    frontlet:composedOf frontlet_data:alpes_Death_67 .
-
-frontlet_data:alpes_Person_68 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_68 .
-
-frontlet_data:alpes_Person_69 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SOM ;
-    frontlet:composedOf frontlet_data:alpes_Death_69 .
-
-frontlet_data:alpes_Person_7 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 16 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_IRQ ;
-    frontlet:composedOf frontlet_data:alpes_Death_7 .
-
-frontlet_data:alpes_Person_70 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_70 .
-
-frontlet_data:alpes_Person_71 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 23 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_71 .
-
-frontlet_data:alpes_Person_72 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_72 .
-
-frontlet_data:alpes_Person_73 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 30 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_DZA ;
-    frontlet:composedOf frontlet_data:alpes_Death_73 .
-
-frontlet_data:alpes_Person_74 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:composedOf frontlet_data:alpes_Death_74 .
-
-frontlet_data:alpes_Person_75 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_jemen ;
-    frontlet:composedOf frontlet_data:alpes_Death_75 .
-
-frontlet_data:alpes_Person_76 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_prawdopodobnie_bliski_wscho_d ;
-    frontlet:composedOf frontlet_data:alpes_Death_76 .
-
-frontlet_data:alpes_Person_77 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_77 .
-
-frontlet_data:alpes_Person_78 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 32 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_PAK ;
-    frontlet:composedOf frontlet_data:alpes_Death_78 .
-
-frontlet_data:alpes_Person_79 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge "Unknown" ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_79 .
-
-frontlet_data:alpes_Person_8 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 33 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_8 .
-
-frontlet_data:alpes_Person_80 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 28 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_80 .
-
-frontlet_data:alpes_Person_81 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_etiopia_ ;
-    frontlet:composedOf frontlet_data:alpes_Death_81 .
-
-frontlet_data:alpes_Person_82 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 36 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_AFG ;
-    frontlet:composedOf frontlet_data:alpes_Death_82 .
-
-frontlet_data:alpes_Person_83 a frontlet:Person ;
-    frontlet:birthPlace frontlet_data:alpes_Country_bd_nd ;
-    frontlet:composedOf frontlet_data:alpes_Death_83 .
-
-frontlet_data:alpes_Person_84 a frontlet:Person ;
-    frontlet:composedOf frontlet_data:alpes_Death_84 .
-
-frontlet_data:alpes_Person_85 a frontlet:Person ;
-    frontlet:composedOf frontlet_data:alpes_Death_85 .
-
-frontlet_data:alpes_Person_9 a frontlet:Person ;
-    frontlet:aged [ a frontlet:Age ;
-            frontlet:hasAge 24 ] ;
-    frontlet:birthPlace frontlet_data:alpes_Country_SYR ;
-    frontlet:composedOf frontlet_data:alpes_Death_9 .
+frontlet_data:pologne_Person_1 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:pologne_Death_1 .
+
+frontlet_data:pologne_Person_10 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_10 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_10 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_11 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_11 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_demokratyczna_republika_konga ;
+    frontlet:composedOf frontlet_data:pologne_Death_11 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_12 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_nieznany ;
+    frontlet:composedOf frontlet_data:pologne_Death_12 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_13 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_nieznany ;
+    frontlet:composedOf frontlet_data:pologne_Death_13 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_14 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_14 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:pologne_Death_14 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_15 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_15 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:pologne_Death_15 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_16 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_16 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_palestyna ;
+    frontlet:composedOf frontlet_data:pologne_Death_16 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_17 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_17 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_17 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_18 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_18 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:pologne_Death_18 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_19 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_19 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_19 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_2 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_2 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_2 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_20 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_20 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kurdyjka_z_iraku ;
+    frontlet:composedOf frontlet_data:pologne_Death_20 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_21 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_21 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_NGA ;
+    frontlet:composedOf frontlet_data:pologne_Death_21 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_22 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_nieznany ;
+    frontlet:composedOf frontlet_data:pologne_Death_22 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_23 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_23 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_23 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_24 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kurd_z_iraku ;
+    frontlet:composedOf frontlet_data:pologne_Death_24 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_25 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_GIN ;
+    frontlet:composedOf frontlet_data:pologne_Death_25 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_26 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_26 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_26 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_27 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_27 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_27 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_28 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_28 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_EGY ;
+    frontlet:composedOf frontlet_data:pologne_Death_28 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_29 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_29 ;
+    frontlet:composedOf frontlet_data:pologne_Death_29 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_3 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_3 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_nieznany ;
+    frontlet:composedOf frontlet_data:pologne_Death_3 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_30 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_30 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SDN ;
+    frontlet:composedOf frontlet_data:pologne_Death_30 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_31 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_31 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_31 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_32 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_32 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_afryka_po__nocna ;
+    frontlet:composedOf frontlet_data:pologne_Death_32 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_33 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_33 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_afryka_po__nocna ;
+    frontlet:composedOf frontlet_data:pologne_Death_33 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_34 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_34 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_34 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_35 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_35 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_35 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_36 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_36 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_36 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_37 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_37 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_37 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_38 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_38 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_TGO ;
+    frontlet:composedOf frontlet_data:pologne_Death_38 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_39 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_39 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_39 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_4 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_4 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_4 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_40 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_40 ;
+    frontlet:composedOf frontlet_data:pologne_Death_40 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_41 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_41 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_ETH ;
+    frontlet:composedOf frontlet_data:pologne_Death_41 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_42 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_42 ;
+    frontlet:composedOf frontlet_data:pologne_Death_42 .
+
+frontlet_data:pologne_Person_43 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_43 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_43 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_44 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_44 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_kraj_arabski ;
+    frontlet:composedOf frontlet_data:pologne_Death_44 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_45 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_45 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_45 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_46 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_46 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_46 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_47 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_47 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_ETH ;
+    frontlet:composedOf frontlet_data:pologne_Death_47 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_48 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_48 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_ETH ;
+    frontlet:composedOf frontlet_data:pologne_Death_48 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_49 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_49 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_CMR ;
+    frontlet:composedOf frontlet_data:pologne_Death_49 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_5 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_5 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_5 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_50 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_50 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_nieznany ;
+    frontlet:composedOf frontlet_data:pologne_Death_50 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_51 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_51 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_ETH ;
+    frontlet:composedOf frontlet_data:pologne_Death_51 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_52 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_52 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_52 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_53 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_53 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_53 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_54 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_54 ;
+    frontlet:composedOf frontlet_data:pologne_Death_54 .
+
+frontlet_data:pologne_Person_55 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_55 ;
+    frontlet:composedOf frontlet_data:pologne_Death_55 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_56 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_56 ;
+    frontlet:composedOf frontlet_data:pologne_Death_56 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_57 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_57 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_57 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_58 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_58 ;
+    frontlet:composedOf frontlet_data:pologne_Death_58 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_59 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_59 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_59 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_6 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_6 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_6 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_60 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_60 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_60 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_61 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_61 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_61 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_62 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_62 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_62 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_63 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_63 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_CMR ;
+    frontlet:composedOf frontlet_data:pologne_Death_63 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_64 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_64 ;
+    frontlet:composedOf frontlet_data:pologne_Death_64 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_65 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_65 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_65 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_66 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_66 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_66 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_67 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_67 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_EGY ;
+    frontlet:composedOf frontlet_data:pologne_Death_67 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_68 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_68 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_68 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_69 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_69 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SOM ;
+    frontlet:composedOf frontlet_data:pologne_Death_69 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_7 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_7 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_IRQ ;
+    frontlet:composedOf frontlet_data:pologne_Death_7 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_70 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_70 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_70 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_71 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_71 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_71 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_72 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_72 ;
+    frontlet:composedOf frontlet_data:pologne_Death_72 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_73 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_73 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_DZA ;
+    frontlet:composedOf frontlet_data:pologne_Death_73 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_74 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_74 ;
+    frontlet:composedOf frontlet_data:pologne_Death_74 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_75 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_75 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_jemen ;
+    frontlet:composedOf frontlet_data:pologne_Death_75 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_76 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_prawdopodobnie_bliski_wscho_d ;
+    frontlet:composedOf frontlet_data:pologne_Death_76 .
+
+frontlet_data:pologne_Person_77 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_77 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_77 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_78 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_78 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_PAK ;
+    frontlet:composedOf frontlet_data:pologne_Death_78 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_79 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_79 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_79 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_8 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_8 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_8 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_80 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_80 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_80 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_81 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_etiopia_ ;
+    frontlet:composedOf frontlet_data:pologne_Death_81 ;
+    frontlet:hasGender thes:female .
+
+frontlet_data:pologne_Person_82 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_82 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_AFG ;
+    frontlet:composedOf frontlet_data:pologne_Death_82 ;
+    frontlet:hasGender thes:male .
+
+frontlet_data:pologne_Person_83 a frontlet:Person ;
+    frontlet:birthPlace frontlet_data:pologne_Country_bd_nd ;
+    frontlet:composedOf frontlet_data:pologne_Death_83 .
+
+frontlet_data:pologne_Person_84 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:pologne_Death_84 .
+
+frontlet_data:pologne_Person_85 a frontlet:Person ;
+    frontlet:composedOf frontlet_data:pologne_Death_85 .
+
+frontlet_data:pologne_Person_9 a frontlet:Person ;
+    frontlet:aged frontlet_data:pologne_Age_9 ;
+    frontlet:birthPlace frontlet_data:pologne_Country_SYR ;
+    frontlet:composedOf frontlet_data:pologne_Death_9 ;
+    frontlet:hasGender thes:male .
 
 frontlet:AgeCategory a owl:Class ;
     rdfs:subClassOf frontlet:AgeInterval ;
@@ -576,13 +582,6 @@ frontlet:Injury a owl:Class ;
 frontlet:MediaType a owl:Class ;
     skos:definition "Type de média servant de source au décès d'un migrant"@fr .
 
-frontlet:OtherOfficialDocument a owl:Class ;
-    rdfs:subClassOf frontlet:OfficialDocument ;
-    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
-        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
-    skos:prefLabel "Other offical document"@en,
-        "Autre document officiel"@fr .
-
 frontlet:Testimony a owl:Class ;
     rdfs:subClassOf frontlet:IndividualEvent ;
     skos:definition "Ante mortem event consisting in one person seing a migrant without getting directly in contact with him."@en,
@@ -603,591 +602,1024 @@ frontlet:Transport a owl:Class ;
     skos:prefLabel "Transport"@en,
         "Transport"@fr .
 
-frontlet_data:alpes_Country_DZA a frontlet:Country ;
+frontlet_data:pologne_Age_10 a frontlet:Age ;
+    frontlet:hasAge 19 .
+
+frontlet_data:pologne_Age_11 a frontlet:Age ;
+    frontlet:hasAge 30 .
+
+frontlet_data:pologne_Age_14 a frontlet:Age ;
+    frontlet:hasAge 25 .
+
+frontlet_data:pologne_Age_15 a frontlet:Age ;
+    frontlet:hasAge 35 .
+
+frontlet_data:pologne_Age_16 a frontlet:Age ;
+    frontlet:hasAge 44 .
+
+frontlet_data:pologne_Age_17 a frontlet:Age ;
+    frontlet:hasAge 20 .
+
+frontlet_data:pologne_Age_18 a frontlet:Age ;
+    frontlet:hasAge 24 .
+
+frontlet_data:pologne_Age_19 a frontlet:Age ;
+    frontlet:hasAge 25 .
+
+frontlet_data:pologne_Age_2 a frontlet:Age ;
+    frontlet:hasAge 29 .
+
+frontlet_data:pologne_Age_20 a frontlet:Age ;
+    frontlet:hasAge 38 .
+
+frontlet_data:pologne_Age_21 a frontlet:Age ;
+    frontlet:hasAge 31 .
+
+frontlet_data:pologne_Age_23 a frontlet:Age ;
+    frontlet:hasAge 26 .
+
+frontlet_data:pologne_Age_26 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_27 a frontlet:Age ;
+    frontlet:hasAge 50 .
+
+frontlet_data:pologne_Age_28 a frontlet:Age ;
+    frontlet:hasAge 21 .
+
+frontlet_data:pologne_Age_29 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_3 a frontlet:Age ;
+    frontlet:hasAge "unknown" .
+
+frontlet_data:pologne_Age_30 a frontlet:Age ;
+    frontlet:hasAge 21 .
+
+frontlet_data:pologne_Age_31 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_32 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_33 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_34 a frontlet:Age ;
+    frontlet:hasAge 22 .
+
+frontlet_data:pologne_Age_35 a frontlet:Age ;
+    frontlet:hasAge 20 .
+
+frontlet_data:pologne_Age_36 a frontlet:Age ;
+    frontlet:hasAge 66 .
+
+frontlet_data:pologne_Age_37 a frontlet:Age ;
+    frontlet:hasAge 30 .
+
+frontlet_data:pologne_Age_38 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_39 a frontlet:Age ;
+    frontlet:hasAge 33 .
+
+frontlet_data:pologne_Age_4 a frontlet:Age ;
+    frontlet:hasAge 37 .
+
+frontlet_data:pologne_Age_40 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_41 a frontlet:Age ;
+    frontlet:hasAge 30 .
+
+frontlet_data:pologne_Age_42 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_43 a frontlet:Age ;
+    frontlet:hasAge 31 .
+
+frontlet_data:pologne_Age_44 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_45 a frontlet:Age ;
+    frontlet:hasAge 22 .
+
+frontlet_data:pologne_Age_46 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_47 a frontlet:Age ;
+    frontlet:hasAge 28 .
+
+frontlet_data:pologne_Age_48 a frontlet:Age ;
+    frontlet:hasAge 23 .
+
+frontlet_data:pologne_Age_49 a frontlet:Age ;
+    frontlet:hasAge 44 .
+
+frontlet_data:pologne_Age_5 a frontlet:Age ;
+    frontlet:hasAge 38 .
+
+frontlet_data:pologne_Age_50 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_51 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_52 a frontlet:Age ;
+    frontlet:hasAge 23 .
+
+frontlet_data:pologne_Age_53 a frontlet:Age ;
+    frontlet:hasAge 27 .
+
+frontlet_data:pologne_Age_54 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_55 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_56 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_57 a frontlet:Age ;
+    frontlet:hasAge 41 .
+
+frontlet_data:pologne_Age_58 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_59 a frontlet:Age ;
+    frontlet:hasAge 58 .
+
+frontlet_data:pologne_Age_6 a frontlet:Age ;
+    frontlet:hasAge "unknown" .
+
+frontlet_data:pologne_Age_60 a frontlet:Age ;
+    frontlet:hasAge 37 .
+
+frontlet_data:pologne_Age_61 a frontlet:Age ;
+    frontlet:hasAge 25 .
+
+frontlet_data:pologne_Age_62 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_63 a frontlet:Age ;
+    frontlet:hasAge 14 .
+
+frontlet_data:pologne_Age_64 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_65 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_66 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_67 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_68 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_69 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_7 a frontlet:Age ;
+    frontlet:hasAge 16 .
+
+frontlet_data:pologne_Age_70 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_71 a frontlet:Age ;
+    frontlet:hasAge 23 .
+
+frontlet_data:pologne_Age_72 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_73 a frontlet:Age ;
+    frontlet:hasAge 30 .
+
+frontlet_data:pologne_Age_74 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_75 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_77 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_78 a frontlet:Age ;
+    frontlet:hasAge 32 .
+
+frontlet_data:pologne_Age_79 a frontlet:Age ;
+    frontlet:hasAge "Unknown" .
+
+frontlet_data:pologne_Age_8 a frontlet:Age ;
+    frontlet:hasAge 33 .
+
+frontlet_data:pologne_Age_80 a frontlet:Age ;
+    frontlet:hasAge 28 .
+
+frontlet_data:pologne_Age_82 a frontlet:Age ;
+    frontlet:hasAge 36 .
+
+frontlet_data:pologne_Age_9 a frontlet:Age ;
+    frontlet:hasAge 24 .
+
+frontlet_data:pologne_Country_DZA a frontlet:Country ;
     rdfs:label "Algeria"@en ;
     frontlet:isoAlpha2 "DZ" ;
     frontlet:isoAlpha3 "DZA" ;
     skos:notation "DZA" .
 
-frontlet_data:alpes_Country_GIN a frontlet:Country ;
+frontlet_data:pologne_Country_GIN a frontlet:Country ;
     rdfs:label "Guinea"@en ;
     frontlet:isoAlpha2 "GN" ;
     frontlet:isoAlpha3 "GIN" ;
     skos:notation "GIN" .
 
-frontlet_data:alpes_Country_NGA a frontlet:Country ;
+frontlet_data:pologne_Country_NGA a frontlet:Country ;
     rdfs:label "Nigeria"@en ;
     frontlet:isoAlpha2 "NG" ;
     frontlet:isoAlpha3 "NGA" ;
     skos:notation "NGA" .
 
-frontlet_data:alpes_Country_PAK a frontlet:Country ;
+frontlet_data:pologne_Country_PAK a frontlet:Country ;
     rdfs:label "Pakistan"@en ;
     frontlet:isoAlpha2 "PK" ;
     frontlet:isoAlpha3 "PAK" ;
     skos:notation "PAK" .
 
-frontlet_data:alpes_Country_SDN a frontlet:Country ;
+frontlet_data:pologne_Country_SDN a frontlet:Country ;
     rdfs:label "Sudan"@en ;
     frontlet:isoAlpha2 "SD" ;
     frontlet:isoAlpha3 "SDN" ;
     skos:notation "SDN" .
 
-frontlet_data:alpes_Country_SOM a frontlet:Country ;
+frontlet_data:pologne_Country_SOM a frontlet:Country ;
     rdfs:label "Somalia"@en ;
     frontlet:isoAlpha2 "SO" ;
     frontlet:isoAlpha3 "SOM" ;
     skos:notation "SOM" .
 
-frontlet_data:alpes_Country_TGO a frontlet:Country ;
+frontlet_data:pologne_Country_TGO a frontlet:Country ;
     rdfs:label "Togo"@en ;
     frontlet:isoAlpha2 "TG" ;
     frontlet:isoAlpha3 "TGO" ;
     skos:notation "TGO" .
 
-frontlet_data:alpes_Country_bd_nd a frontlet:Country ;
+frontlet_data:pologne_Country_bd_nd a frontlet:Country ;
     rdfs:label "bd/nd" .
 
-frontlet_data:alpes_Country_demokratyczna_republika_konga a frontlet:Country ;
+frontlet_data:pologne_Country_demokratyczna_republika_konga a frontlet:Country ;
     rdfs:label "Demokratyczna Republika Konga" .
 
-frontlet_data:alpes_Country_etiopia_ a frontlet:Country ;
+frontlet_data:pologne_Country_etiopia_ a frontlet:Country ;
     rdfs:label "Etiopia?" .
 
-frontlet_data:alpes_Country_kraj_arabski a frontlet:Country ;
+frontlet_data:pologne_Country_kraj_arabski a frontlet:Country ;
     rdfs:label "Kraj arabski" .
 
-frontlet_data:alpes_Country_kurdyjka_z_iraku a frontlet:Country ;
+frontlet_data:pologne_Country_kurdyjka_z_iraku a frontlet:Country ;
     rdfs:label "Kurdyjka z Iraku" .
 
-frontlet_data:alpes_Country_palestyna a frontlet:Country ;
+frontlet_data:pologne_Country_palestyna a frontlet:Country ;
     rdfs:label "Palestyna" .
 
-frontlet_data:alpes_Country_prawdopodobnie_bliski_wscho_d a frontlet:Country ;
+frontlet_data:pologne_Country_prawdopodobnie_bliski_wscho_d a frontlet:Country ;
     rdfs:label "prawdopodobnie Bliski Wschód" .
 
-frontlet_data:alpes_Death_1 a frontlet:Death,
+frontlet_data:pologne_Death_1 a frontlet:Death,
         frontlet:IndividualEvent .
 
-frontlet_data:alpes_Death_10 a frontlet:Death,
+frontlet_data:pologne_Death_10 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """uton?? w Bugu; Cia?o 19-latka nurkowie wydobyli 20 pa?dziernika. Sekcja zw?ok wykaza?a, ?e przyczyn? ?mierci by?o utoni?cie. M??czyzna pochodzi? ze zrujnowanego miasta Homs w Syrii. Przebywa? w obozie dla uchod?ców w Jordanii, gdzie Syryjczycy schronili si? przed wojn? domow?. W obozie zacz?? studia. Wedle relacji wspó?towarzysza ch?opaka, do rzeki mia? go wepchn?? bia?oruski stra?nik graniczny, cho? Syryjczyk krzycza?, ?e nie umie p?ywa?. 
+Pochowany na mizarze w Bohonikach; By? to pierwszy pogrzeb cudzoziemca, który zmar? na terenie Polski po przekroczeniu granicy z Bia?orusi?. Cia?o do Bohonik sprowadzi?a bia?ostocka Fundacja Dialog. Rodzina Syryjczyka uczestniczy?a w pogrzebie przez po??czenie online.""" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Uton?? w Bugu. Cia?o 19-latka nurkowie wydobyli 20 pa?dziernika. Sekcja zw?ok wykaza?a, ?e przyczyn? ?mierci by?o utoni?cie. M??czyzna pochodzi? ze zrujnowanego miasta Homs w Syrii. Przebywa? w obozie dla uchod?ców w Jordanii, gdzie Syryjczycy schronili si? przed wojn? domow?. W obozie zacz?? studia." ;
+    frontlet:lieu "Bug" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_10 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_10 .
+    geo:hasGeometry frontlet_data:pologne_geometry_10 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2021-10-19"^^xsd:date .
 
-frontlet_data:alpes_Death_11 a frontlet:Death,
+frontlet_data:pologne_Death_11 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_CHN ;
+    frontlet:hasDeathCause thes:deathCause ;
     frontlet:hasNarrative "Przy ciele nie znaleziono dokumentów - nie uda?o si? ustali? to?samo?ci m??czyzny. Prawdopodobnie pochodzi? ze Sri Lanki." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_11 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_11 .
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2021-10-22"^^xsd:date .
 
-frontlet_data:alpes_Death_12 a frontlet:Death,
+frontlet_data:pologne_Death_12 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "cukrzyca, informacja z Bia?orusi" ;
     frontlet:hasNarrative "Zmar? po stronie bia?oruskiej w obozowisku. Prawdopodobnie chorowa? na cukrzyc?." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_12 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_12 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2021-10-27"^^xsd:date .
 
-frontlet_data:alpes_Death_13 a frontlet:Death,
+frontlet_data:pologne_Death_13 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasNarrative "Zmar? po stronie bia?oruskiej w obozowisku. Autor nagrania, na którym wida? dwa cia?a przykryte foli? NRC, mówi?, ?e w obozowisku przebywa?o w tamtym czasie 300 osób, cz??? w bardzo z?ym stanie." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_13 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_13 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2021-10-27"^^xsd:date .
 
-frontlet_data:alpes_Death_14 a frontlet:Death,
+frontlet_data:pologne_Death_14 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Cukrzyca i schorzenia kr?gos?upa, po?redni? przyczyn? ?mierci by? brak dost?pu do leków. S?u?by rozdzieli?y jego i rodzin?, zosta? sam." ;
     frontlet:hasNarrative "Kurd z Iraku. Chorowa? na cukrzyc?, mia? te? problemy z kr?gos?upem. Po?redni? przyczyn? ?mierci by? brak dost?pu do leków." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_14 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_14 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2021-10-27"^^xsd:date .
 
-frontlet_data:alpes_Death_15 a frontlet:Death,
+frontlet_data:pologne_Death_15 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "udar mózgu" ;
     frontlet:hasNarrative "Kurd z Iraku. Zmar? w Mi?sku po powrocie spod granicy, na skutek udaru mózgu." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_15 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_15 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-10-31"^^xsd:date .
 
-frontlet_data:alpes_Death_16 a frontlet:Death,
+frontlet_data:pologne_Death_16 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "zmar?a po wywózce do Bia?orusi; \"Z kolei 43-letnia Syryjko-Palestynka Rajaa Hasan Hasan najprawdopodobniej zmar?a z wych?odzenia. Próbowa?a wróci? do Syrii, ale bia?oruskie s?u?by mia?y j? zawróci?  i przerzuca? do kolejnych koczowisk przy granicy.\"" ;
     frontlet:hasNarrative "Syryjko-Palestynka, zmar?a najprawdopodobniej z wych?odzenia. Próbowa?a wróci? do Syrii, ale bia?oruskie s?u?by zawróci?y j? i przerzuca?y mi?dzy kolejnymi obozowiskami przy granicy." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_16 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_16 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2021-11-08"^^xsd:date .
 
-frontlet_data:alpes_Death_17 a frontlet:Death,
+frontlet_data:pologne_Death_17 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "m?odszy brat prosi? o pomoc SG, gdy Mohammed jeszcze ?y?, ten zosta? jednak wywieziony - nie udzielono mu pomocy; - Ujawnione zw?oki nale?? najprawdopodobniej do m??czyzny w wieku 21 lat, obywatelstwa syryjskiego. Przy zmar?ym nie znaleziono paszportu, lecz bilet lotniczy, za?wiadczenie o szczepieniu na COVID i dokumenty w j?zyku arabskim. Nie pozwalaj? one na identyfikacj? osoby - przekaza? Onetowi Jan Andrejczuk, prokurator rejonowy w Hajnówce." ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody m??czyzna z Syrii. Jego m?odszy brat prosi? o pomoc SG, gdy Mohammed jeszcze ?y?. Nie udzielono mu pomocy, brata z kolei wywieziono na stron? bia?orusk?." ;
+    frontlet:lieu "Czeremcha / Wólka Terechowska" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_17 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_17 .
+    geo:hasGeometry frontlet_data:pologne_geometry_17 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2021-11-11"^^xsd:date .
 
-frontlet_data:alpes_Death_18 a frontlet:Death,
+frontlet_data:pologne_Death_18 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Matk? by?a Avin Irfan Zahir, która po przedwczesnym porodzie/poronieniu zmar?a 3.12.2021,
+pochowany na mizarze w Bohonikach""" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Dziecko, którego matk? by?a Avin Irfan Zahir. Avin urodzi?a przedwcze?nie - w 24 tygodniu ci??y. Dziecko by?o oczekiwane, mia?o wybrane imi?. Mia?o urodzi? si? w bezpiecznym kraju." ;
-    geo:hasGeometry frontlet_data:alpes_geometry_18 .
+    frontlet:lieu "szpital w Hajnówce" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_18 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-11-14"^^xsd:date .
 
-frontlet_data:alpes_Death_19 a frontlet:Death,
+frontlet_data:pologne_Death_19 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Próbowa? 9 razy dosta? si? do Polski, ostatecznie zmar? w samochodzie na granicy polsko-niemieckiej." .
+    frontlet:hasDeathCause "Próbowa? 9 razy dosta? si? do Polski, ostatecznie zmar? w samochodzie na granicy polsko-niemieckiej." ;
+    frontlet:hasNarrative "Próbowa? 9 razy dosta? si? do Polski, ostatecznie zmar? w samochodzie na granicy polsko-niemieckiej." ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2021-11-23"^^xsd:date .
 
-frontlet_data:alpes_Death_2 a frontlet:Death,
+frontlet_data:pologne_Death_2 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """zw?oki ujawniono 19.09.2021
+zmar? z wych?odzenia, cia?o wróci?o do Iraku""" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Zmar? z wych?odzenia, cia?o wróci?o do Iraku." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_2 .
+    frontlet:lieu "Fr?cki pod Gibami" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_2 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_2 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2021-09-18"^^xsd:date .
 
-frontlet_data:alpes_Death_20 a frontlet:Death,
+frontlet_data:pologne_Death_20 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """hipotermia i kwasica + wycie?czenie;
+
+38-latka do szpitala w Hajnówce trafi?a 12 listopada. Mimo zaawansowanej ci??y ukrywa?a si? przed polsk? stra?? graniczn?, chcia?a unikn?? kolejnego push-backu na stron? bia?orusk?. W lesie pod Narewk? znale?li j? wolontariusze z Grupy Granica. Temperatura jej cia?a wynosi?a 28 stopni, a oprócz hipotermii kobieta mia?a te? kwasic?. Poroni?a dwa dni pó?niej, w 24. tygodniu ci??y. Nie pomog?o dializowanie i nieprzytomna kobieta zmar?a 3 grudnia wieczorem."
+pochowana na mizarze w Bohonikach""" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "38-latka do szpitala w Hajnówce trafi?a 12 listopada. W lesie pod Narewk? znale?li j? wolontariusze z Grupy Granica. Temperatura jej cia?a wynosi?a 28 stopni, a oprócz hipotermii kobieta mia?a te? kwasic?. Poroni?a dwa dni pó?niej, b?d?c w 24 tygodniu ci??y. Nieprzytomna, zmar?a 3 grudnia wieczorem." ;
+    frontlet:lieu "szpital w Hajnówce" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_20 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_20 .
+    geo:hasGeometry frontlet_data:pologne_geometry_20 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2021-12-03"^^xsd:date .
 
-frontlet_data:alpes_Death_21 a frontlet:Death,
+frontlet_data:pologne_Death_21 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """"Na cmentarzu szukam grobu migranta — jest w k?cie. Ganiyu Olashile Raji. Zmar? 12 grudnia 2021 r. Wed?ug wolontariuszy cia?o Nigeryjczyka znaleziono we wsi Olchówka w pobli?u domów mieszkalnych — zamarz?. Nie wiadomo, czy ba? si? zapuka?, czy te? nie mia? ju? si?. Prawie dwa lata pó?niej na grobie nadal wbity jest tymczasowy drewniany krzy?: zwykle taki krzy? jest usuwany po roku i instalowany jest nagrobek."
+pochowany na cmentarzu komunalnym w Narewce""" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Zmar? 12 grudnia 2021 r. Wed?ug wolontariuszy cia?o Nigeryjczyka znaleziono we wsi Olchówka w pobli?u domów mieszkalnych — zamarz?. Nie wiadomo, czy ba? si? zapuka?, czy te? nie mia? ju? si?." ;
+    frontlet:lieu "Olchówka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_21 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_21 .
+    geo:hasGeometry frontlet_data:pologne_geometry_21 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2021-12-07"^^xsd:date .
 
-frontlet_data:alpes_Death_22 a frontlet:Death,
+frontlet_data:pologne_Death_22 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Osoba znajduj?ca si? w sistiemie wys?a?a zdj?cia swojego przyjaciela, który zmar? oko?o 15 dni wcze?niej." .
+    frontlet:hasDeathCause "osoba znajduj?ca si? w sistemie wys?a?a zdj?cia swojego przyjaciela zmar?ego ok. 15 dni temu" ;
+    frontlet:hasNarrative "Osoba znajduj?ca si? w sistiemie wys?a?a zdj?cia swojego przyjaciela, który zmar? oko?o 15 dni wcze?niej." ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2022-02-18"^^xsd:date .
 
-frontlet_data:alpes_Death_23 a frontlet:Death,
+frontlet_data:pologne_Death_23 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_SGP ;
+    frontlet:hasDeathCause "utoni?cie, towarzysze wyszli z lasu i poprosili s?u?by o pomoc w wyniesieniu cia?a, wszyscy zostali wywiezieni" ;
     frontlet:hasNarrative "Jeme?czyk. Uton??. Towarzysze wyszli z lasu i poprosili s?u?by o pomoc w wyniesieniu cia?a, jednak wszyscy zostali wywiezieni do Bia?orusi." ;
-    geo:hasGeometry frontlet_data:alpes_geometry_23 .
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2022-02-21"^^xsd:date .
 
-frontlet_data:alpes_Death_24 a frontlet:Death,
+frontlet_data:pologne_Death_24 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Okoliczno?ci ?mierci nieznane. Zmar?y by? Kurdem. Cia?o wróci?o do Iraku." .
+    frontlet:hasDeathCause "cia?o wróci?o do Iraku" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "Okoliczno?ci ?mierci nieznane. Zmar?y by? Kurdem. Cia?o wróci?o do Iraku." ;
+    frontlet:lieu "Puszcza Bia?owieska, Le?nictwo Grudki" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_24 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2022-03-24"^^xsd:date .
 
-frontlet_data:alpes_Death_25 a frontlet:Death,
+frontlet_data:pologne_Death_25 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "cia?o znalezione po stronie bia?oruskiej, osoba mia?a przy sobie polskie produkty spo?ywcze (wg relacji bia?oruskich)" ;
     frontlet:hasNarrative "Obywatel Gwinei. O ?mierci poinformowa?y s?u?by bia?oruskie." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_25 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_25 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2022-04-03"^^xsd:date .
 
-frontlet_data:alpes_Death_26 a frontlet:Death,
+frontlet_data:pologne_Death_26 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_BLR ;
+    frontlet:hasDeathCause """Wg ?ród?a: "We wtorek s?ynny jeme?ski YouTuber zmar? z g?odu w lasach Bia?orusi, próbuj?c przedosta? si? do Europy.
+?ród?o bliskie jeme?skiemu YouTuberowi Abdulowi Majeedowi Khaledowi poda?o, ?e ten ostatni zmar? z g?odu i zm?czenia w bia?oruskich lasach, próbuj?c przedosta? si? do Europy.
+Khaled studiowa? studia podyplomowe w Malezji, zanim zdecydowa? si? wyemigrowa? do Europy przez Bia?oru?.\"""" ;
     frontlet:hasNarrative """Wg ?ród?a: "We wtorek s?ynny jeme?ski YouTuber zmar? z g?odu w lasach Bia?orusi, próbuj?c przedosta? si? do Europy.
 ?ród?o bliskie jeme?skiemu YouTuberowi Abdulowi Majeedowi Khaledowi poda?o, ?e ten ostatni zmar? z g?odu i zm?czenia w bia?oruskich lasach, próbuj?c przedosta? si? do Europy.
 Khaled studiowa? studia podyplomowe w Malezji, zanim zdecydowa? si? wyemigrowa? do Europy przez Bia?oru?.\"""" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_26 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_26 .
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2022-05-17"^^xsd:date .
 
-frontlet_data:alpes_Death_27 a frontlet:Death,
+frontlet_data:pologne_Death_27 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Syryjka. Zmar?a na wysoko?ci Usnarza po stronie bia?oruskiej. ?mier? potwierdzona przez bliskich." .
+    frontlet:hasDeathCause "?mier? potwierdzona przez bliskich" ;
+    frontlet:hasNarrative "Syryjka. Zmar?a na wysoko?ci Usnarza po stronie bia?oruskiej. ?mier? potwierdzona przez bliskich." ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2022-06-02"^^xsd:date .
 
-frontlet_data:alpes_Death_28 a frontlet:Death,
+frontlet_data:pologne_Death_28 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "M?ody Egipcjanin. Cia?o znaleziono w ?wis?oczy." .
+    frontlet:hasNarrative "M?ody Egipcjanin. Cia?o znaleziono w ?wis?oczy." ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2022-07-29"^^xsd:date .
 
-frontlet_data:alpes_Death_29 a frontlet:Death,
+frontlet_data:pologne_Death_29 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "cia?o zauwa?y?a bia?oruska SG 2 pa?dziernika" ;
     frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_29 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_29 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2022-10-02"^^xsd:date .
 
-frontlet_data:alpes_Death_3 a frontlet:Death,
+frontlet_data:pologne_Death_3 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Cia?o m??czyzny nad ranem w niedziel? stra?nicy graniczni znale?li w pasie granicznym na polu niedaleko Poniatowicz w powiecie sokólskim, pochowany na cmentarzu katolickim w Sokó?ce 22 listopada. Spraw? przej??a Prokuratura w Suwa?kach. Nie ustali?a wieku, kraju pochodzenia, ani personaliów m??czyzny. Prokurator wyda? zw?oki gminie." ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Cia?o m??czyzny stra?nicy graniczni znale?li na polu niedaleko Poniatowicz. Nie ustalono wieku, kraju pochodzenia ani to?samo?ci m??czyzny." ;
+    frontlet:lieu "Poniatowicze" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_3 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_3 .
+    geo:hasGeometry frontlet_data:pologne_geometry_3 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-09-19"^^xsd:date .
 
-frontlet_data:alpes_Death_30 a frontlet:Death,
+frontlet_data:pologne_Death_30 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """uton?? w ?wis?oczy
+pochowany na mizarze w Bohonikach w listopadzie 2022;""" ;
     frontlet:hasNarrative "M?ody Suda?czyk. Uton?? w ?wis?oczy." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_30 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_30 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2022-10-25"^^xsd:date .
 
-frontlet_data:alpes_Death_31 a frontlet:Death,
+frontlet_data:pologne_Death_31 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause thes:deathCause ;
     frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna. Zmar?y to obywatel Iraku." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_31 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_31 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2022-11-19"^^xsd:date .
 
-frontlet_data:alpes_Death_32 a frontlet:Death,
+frontlet_data:pologne_Death_32 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Wed?ug informacji z gpk (bia?oruska SG): "Wczoraj, 21 listopada, stra? graniczna odkry?a w pobli?u polskich barier in?ynieryjnych kilku uchod?ców z Afryki Pó?nocnej. Obok grupy le?a?o zw?oki m??czyzny.
+Wed?ug brata zmar?ego w momencie zatrzymania przez polskie si?y bezpiecze?stwa przebywali oni na terytorium Polski. Cudzoziemcy byli wyczerpani. Pomimo pró?b uchod?ców o ?ywno?? i wod?, polskie wojsko nie udzieli?o im pomocy. Po ?mierci jednego z uchod?ców cudzoziemcy zmuszeni byli przenie?? jego cia?o na terytorium Bia?orusi, otwieraj?c bram? w p?ocie. Na miejsce wezwano zespó? dochodzeniowo-?ledczy, który ustali okoliczno?ci zdarzenia i przyczyny ?mierci.\"""" ;
     frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_32 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_32 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2022-11-21"^^xsd:date .
 
-frontlet_data:alpes_Death_33 a frontlet:Death,
+frontlet_data:pologne_Death_33 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Wed?ug informacji z gpk (bia?oruska SG): Wczoraj, 23 listopada, w pobli?u polskich p?otów patrol graniczny odkry? cia?o m??czyzny wygl?daj?cego na Afrykanina. Zw?oki cudzoziemca znajdowa?y si? w pobli?u bramy przeznaczonej do migracji zwierz?t. Na miejsce wezwano zespó? dochodzeniowo-?ledczy, który ma ustali? okoliczno?ci zdarzenia." ;
     frontlet:hasNarrative "Cia?o zauwa?y?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_33 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_33 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2022-11-23"^^xsd:date .
 
-frontlet_data:alpes_Death_34 a frontlet:Death,
+frontlet_data:pologne_Death_34 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." .
+    frontlet:hasDeathCause "dwaj bracia zmarli na bagnach w BY" ;
+    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2022-12-09"^^xsd:date .
 
-frontlet_data:alpes_Death_35 a frontlet:Death,
+frontlet_data:pologne_Death_35 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." .
+    frontlet:hasDeathCause "dwaj bracia zmarli na bagnach w BY" ;
+    frontlet:hasNarrative "Dwaj bracia zmarli na bagnach w Bia?orusi. Pochodzili z Jemenu." ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2022-12-09"^^xsd:date .
 
-frontlet_data:alpes_Death_36 a frontlet:Death,
+frontlet_data:pologne_Death_36 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasNarrative "Syryjczyk zmar?y po stronie bia?oruskiej, kilka dni po wywózce z Polski." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_36 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_36 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2022-12-21"^^xsd:date .
 
-frontlet_data:alpes_Death_37 a frontlet:Death,
+frontlet_data:pologne_Death_37 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasNarrative "M?oda Syryjka zmar?a po stronie bia?oruskiej. Okoliczno?ci ?mierci nieznane." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_37 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_37 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2022-12-28"^^xsd:date .
 
-frontlet_data:alpes_Death_38 a frontlet:Death,
+frontlet_data:pologne_Death_38 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Wed?ug informacji z gpk (bia?oruska SG), charakter odnalezionych przez bieg?ych ?ladów wskazywa? na to, ?e cudzoziemiec zosta? wywleczony z terytorium Polski. Nie mamy mo?liwo?ci zweryfikowania tych informacji." ;
     frontlet:hasNarrative "Obywatel Togo zmar? po stronie bia?oruskiej. Cia?o znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_38 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_38 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2022-12-28"^^xsd:date .
 
-frontlet_data:alpes_Death_39 a frontlet:Death,
+frontlet_data:pologne_Death_39 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "7 stycznia zmar? z wyzi?bienia w Puszczy Bia?owieskiej. W Jemenie pracowa? jako lekarz. Mia? 36 lat." .
+    frontlet:hasDeathCause "pochowany na mizarze w Bohonikach 9.02.2023 (siódmy grób osoby w drodze); lekarz z Jemenu," ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "7 stycznia zmar? z wyzi?bienia w Puszczy Bia?owieskiej. W Jemenie pracowa? jako lekarz. Mia? 36 lat." ;
+    frontlet:lieu "Przew?oka" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_39 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-01-07"^^xsd:date .
 
-frontlet_data:alpes_Death_4 a frontlet:Death,
+frontlet_data:pologne_Death_4 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Zmar? z wych?odzenia. Pochowany na mizarze w Bohonikach. Ambasada jeme?ska skontaktowa?a si? z rodzin? zmar?ego. Prokurator wyda? zgod? na pochówek w Polsce. 
+W pogrzebie brali udzia? brat zmar?ego, a tak?e przedstawiciel ambasady Jemenu w Polsce. Pierwotnie spraw? zarejestrowa?a Prokuratura Rejonowa w Bia?ymstoku. Prowadzi?a je w kierunku nieumy?lnego spowodowania ?mierci. ?ledztwo przekazano do suwalskiej okr?gówki.""" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Jeme?czyk. Zmar? z wych?odzenia. Pochowany na mizarze w Bohonikach." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_4 .
+    frontlet:lieu "?ubry/Bobrowniki" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_4 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_4 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-09-19"^^xsd:date .
 
-frontlet_data:alpes_Death_40 a frontlet:Death,
+frontlet_data:pologne_Death_40 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
-    geo:hasGeometry frontlet_data:alpes_geometry_40 .
+    frontlet:lieu "Czerlonka" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_40 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-01-13"^^xsd:date .
 
-frontlet_data:alpes_Death_41 a frontlet:Death,
+frontlet_data:pologne_Death_41 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody m??czyzna z Etiopii. Zmar? w polskim lesie." ;
+    frontlet:lieu "Czerlonka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_41 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_41 .
+    geo:hasGeometry frontlet_data:pologne_geometry_41 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-01-13"^^xsd:date .
 
-frontlet_data:alpes_Death_42 a frontlet:Death,
+frontlet_data:pologne_Death_42 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
-    geo:hasGeometry frontlet_data:alpes_geometry_42 .
+    frontlet:lieu "Czerlonka" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_42 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-01-13"^^xsd:date .
 
-frontlet_data:alpes_Death_43 a frontlet:Death,
+frontlet_data:pologne_Death_43 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasNarrative "Jego cia?o znaleziono w lesie niedaleko Czerlonki." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_43 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_43 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-01-26"^^xsd:date .
 
-frontlet_data:alpes_Death_44 a frontlet:Death,
+frontlet_data:pologne_Death_44 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Wed?ug informacji z gpk (bia?oruska SG): 
+"? ????????? ??? ???????? ?? ??????? ? ??????? ? ?????????? ?????? ??????????? ??????????????? ?????????? ??????????? ???? ??????? ???????? ??????????????. ? ????????? ?? ???? ??? ???? ?????? ????? ? ??????????.\"""" ;
     frontlet:hasNarrative "Cia?o m??czyzny znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_44 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_44 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-01-31"^^xsd:date .
 
-frontlet_data:alpes_Death_45 a frontlet:Death,
+frontlet_data:pologne_Death_45 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Wed?ug informacji z gpk (bia?oruska SG): 
+"4 lutego pi?? metrów od barierek na granicy z Polsk? bia?oruscy stra?nicy graniczni odkryli cia?o cudzoziemca, prawdopodobnie obywatela Iraku urodzonego w 2001 roku. Cia?o m??czyzny znaleziono w pobli?u przepustu w polskim p?ocie. Kraty przykrywaj?ce otwór technologiczny mo?na podnosi? od strony polskiej.Wed?ug wst?pnych danych to w?a?nie przepustem zw?oki przewieziono na terytorium Bia?orusi.\"""" ;
     frontlet:hasNarrative "Cia?o Irakijczyka znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_45 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_45 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-02-04"^^xsd:date .
 
-frontlet_data:alpes_Death_46 a frontlet:Death,
+frontlet_data:pologne_Death_46 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Wed?ug informacji z gpk (bia?oruska SG): 
+"Na granicy z Polsk? odnaleziono kolejne zw?oki cudzoziemca, obywatela Jemenu. Ustalono, ?e zmar?y mia? przy sobie dokumenty. Na miejscu zdarzenia pracowa?a grupa dochodzeniowo-?ledcza.\"""" ;
     frontlet:hasNarrative "Cia?o Jeme?czyka znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_46 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_46 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-02-10"^^xsd:date .
 
-frontlet_data:alpes_Death_47 a frontlet:Death,
+frontlet_data:pologne_Death_47 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Towarzyszy podró?y wywieziono do Bia?orusi, jej samej nie udzielono pomocy. Zmar?a w samotno?ci." ;
+    frontlet:lieu "Hajnówka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_47 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_47 .
+    geo:hasGeometry frontlet_data:pologne_geometry_47 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-02-12"^^xsd:date .
 
-frontlet_data:alpes_Death_48 a frontlet:Death,
+frontlet_data:pologne_Death_48 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Cia?o odnalezione w wyniku oficjalnych poszukiwa? zorganizowanych przez Polskie Ochotnicze Pogotowie Humanitarne. Celem poszukiwa? by?y konkretne osoby zaginione na granicy." ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Etiopczyk, cia?o znaleziono w polskim lesie. Okoliczno?ci ?mierci nie wyja?niono." ;
+    frontlet:lieu "Czerlonka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_48 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_48 .
+    geo:hasGeometry frontlet_data:pologne_geometry_48 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-02-16"^^xsd:date .
 
-frontlet_data:alpes_Death_49 a frontlet:Death,
+frontlet_data:pologne_Death_49 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." .
+    frontlet:hasDeathCause "Zw?oki odnalaz?a stra? graniczna." ;
+    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-02-16"^^xsd:date .
 
-frontlet_data:alpes_Death_5 a frontlet:Death,
+frontlet_data:pologne_Death_5 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_RUS ;
+    frontlet:hasDeathCause """hipotermia
+pochowana w Iraku""" ;
     frontlet:hasNarrative "Irakijka, zmar?a w nast?pstwie hipotermii. Pochowana w Iraku." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_5 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_5 .
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2021-09-19"^^xsd:date .
 
-frontlet_data:alpes_Death_50 a frontlet:Death,
+frontlet_data:pologne_Death_50 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." .
+    frontlet:hasDeathCause "Zw?oki odnalaz?a stra? graniczna." ;
+    frontlet:hasNarrative "Cia?a Livine i m??czyzny znaleziono w ?wis?oczy w okolicy Ozieran." ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-02-16"^^xsd:date .
 
-frontlet_data:alpes_Death_51 a frontlet:Death,
+frontlet_data:pologne_Death_51 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """wyrzucony mokry i w hipotermii, zmar? w bia?oruskim szpitalu pod wp?ywem wywózki
+pochowany na Bia?orusi""" ;
     frontlet:hasNarrative "By? przemoczony i wych?odzony, ale nie udzielono mu pomocy. Zosta? wyrzucony do Bia?orusi. Tam zmar? w szpitalu." .
 
-frontlet_data:alpes_Death_52 a frontlet:Death,
+frontlet_data:pologne_Death_52 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "W sobot? wieczorem zosta? sam - nie mia? si?y i?? dalej. W niedziel? po po?udniu aktywi?ci znale?li jego cia?o." .
+    frontlet:hasDeathCause "w sobote wieczorem zosta? sam, bo nie mia? si?y i??, w niedziel? o 14 odnale?li cia?o aktywi?ci GG" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "W sobot? wieczorem zosta? sam - nie mia? si?y i?? dalej. W niedziel? po po?udniu aktywi?ci znale?li jego cia?o." ;
+    frontlet:lieu "Puszcza Bia?owieska" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_52 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-03-12"^^xsd:date .
 
-frontlet_data:alpes_Death_53 a frontlet:Death,
+frontlet_data:pologne_Death_53 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "mia? problemy z sercem" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody Afga?czyk. Chorowa? na serce. Zmar? samotnie w Puszczy Bia?owieskiej." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_53 .
+    frontlet:lieu "Puszcza Bia?owieska" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_53 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_53 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-03-21"^^xsd:date .
 
-frontlet_data:alpes_Death_54 a frontlet:Death,
+frontlet_data:pologne_Death_54 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Cia?o znaleziono na terenie Puszczy Bia?owieskiej." .
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "Cia?o znaleziono na terenie Puszczy Bia?owieskiej." ;
+    frontlet:lieu "Puszcza Bia?owieska" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_54 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-03-24"^^xsd:date .
 
-frontlet_data:alpes_Death_55 a frontlet:Death,
+frontlet_data:pologne_Death_55 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "brak szczegó?owych informacji w komunikacie gpk" ;
     frontlet:hasNarrative "Cia?o znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_55 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_55 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-03-26"^^xsd:date .
 
-frontlet_data:alpes_Death_56 a frontlet:Death,
+frontlet_data:pologne_Death_56 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Wed?ug informacji z gpk (bia?oruska SG): 
+"Zw?oki m??czyzny znaleziono w pobli?u ogrodzenia zainstalowanego na terytorium Polski. Przy ciele znaleziono przedmioty osobiste – plecak i telefon komórkowy. Aby ustali? wszystkie okoliczno?ci zdarzenia, na miejscu pracowa?a ekipa dochodzeniowo-?ledcza.\"""" ;
     frontlet:hasNarrative "Cia?o znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_56 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_56 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2023-04-10"^^xsd:date .
 
-frontlet_data:alpes_Death_57 a frontlet:Death,
+frontlet_data:pologne_Death_57 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "Zmar? z wych?odzenia. Cia?o Afga?czyka odnalaz?o Podlaskie Ochotnicze Pogotowie Humanitarne." .
+    frontlet:hasDeathCause "Cia?o znalaz? POPH, osoba by?a w hipotermii." ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "Zmar? z wych?odzenia. Cia?o Afga?czyka odnalaz?o Podlaskie Ochotnicze Pogotowie Humanitarne." ;
+    frontlet:lieu "Carska Tropina" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_57 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-04-18"^^xsd:date .
 
-frontlet_data:alpes_Death_58 a frontlet:Death,
+frontlet_data:pologne_Death_58 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Cia?o znale?li tury?ci, nie wiemy nic o zmar?ym." ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Jego cia?o znale?li tury?ci. Nie uda?o si? go zidentyfikowa?." ;
+    frontlet:lieu "Istok" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_58 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_58 .
+    geo:hasGeometry frontlet_data:pologne_geometry_58 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-04-22"^^xsd:date .
 
-frontlet_data:alpes_Death_59 a frontlet:Death,
+frontlet_data:pologne_Death_59 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "W wyniku upadku z muru po?ama? ko?ci, które przebi?y t?tnice. Zmar? w szpitalu po dziewi?tnastu dniach." .
+    frontlet:hasDeathCause "zmar? w szpitalu po 19 dniach, w wyniku upadku z muru ko?ci przebi?y t?tnice" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
+    frontlet:hasNarrative "W wyniku upadku z muru po?ama? ko?ci, które przebi?y t?tnice. Zmar? w szpitalu po dziewi?tnastu dniach." ;
+    frontlet:lieu "szpital Bia?ystok" ;
+    geo:hasGeometry frontlet_data:pologne_geometry_59 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-04-23"^^xsd:date .
 
-frontlet_data:alpes_Death_6 a frontlet:Death,
+frontlet_data:pologne_Death_6 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "m??czyzna zmar? w nocy, prawdopodobnie na zawa? serca, pó? kilometra od linii granicznej - info z portalu onet.pl : \"Stra?nicy przez ok. pó? godziny prowadzili reanimacj? do momentu przekazania m??czyzny zespo?owi karetki pogotowia. M??czyzna zmar? w nocy. Prawdopodobnie mia? zawa? serca.\"" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M??czyzna zmar? w nocy pó? kilometra od linii granicznej mimo d?ugiej akcji reanimacyjnej. Prawdopodobnie mia? zawa? serca." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_6 .
+    frontlet:lieu "Chworo?ciany" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_6 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_6 ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2021-09-24"^^xsd:date .
 
-frontlet_data:alpes_Death_60 a frontlet:Death,
+frontlet_data:pologne_Death_60 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "osoba zmar?a na miejscu w wypadku drogowym" .
+    frontlet:hasDeathCause "osoba zmar?a na miejscu w wypadku drogowym" ;
+    frontlet:hasNarrative "osoba zmar?a na miejscu w wypadku drogowym" ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-05-05"^^xsd:date .
 
-frontlet_data:alpes_Death_61 a frontlet:Death,
+frontlet_data:pologne_Death_61 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "zmar? w szpitalu w wyniku urazów po wypadku drogowym" .
+    frontlet:hasDeathCause "zmar? w szpitalu w wyniku urazów po wypadku drogowym" ;
+    frontlet:hasNarrative "zmar? w szpitalu w wyniku urazów po wypadku drogowym" ;
+    time:dayOfWeek time:Friday ;
+    time:inXSDDate "2023-05-05"^^xsd:date .
 
-frontlet_data:alpes_Death_62 a frontlet:Death,
+frontlet_data:pologne_Death_62 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "info z mediów bia?oruskich, zauwa?ony 6 maja przez polskie SG, 5 metrów od muru" ;
     frontlet:hasNarrative "Zauwa?ony przez Stra? Graniczn? kilka metrów od muru. Kilka dni pó?niej zmar? w sistiemie na wysoko?ci Bia?owie?y." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_62 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_62 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2023-05-08"^^xsd:date .
 
-frontlet_data:alpes_Death_63 a frontlet:Death,
+frontlet_data:pologne_Death_63 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """na zw?oki natrafiono przy u?yciu drona, podczas dzia?a? patrolowych Stra?y Granicznej
+pogrzeb odby? si? 7.09.2023""" ;
     frontlet:hasNarrative "Cia?o znaleziono w ?wis?oczy, w maju - podczas dzia?a? patrolowych Stra?y Granicznej, przy u?yciu drona. Pogrzeb odby? si? we wrze?niu." ;
     frontlet:sourcedBy frontlet_data:pologne_Source_63 .
 
-frontlet_data:alpes_Death_64 a frontlet:Death,
+frontlet_data:pologne_Death_64 a frontlet:Death,
         frontlet:IndividualEvent ;
     frontlet:hasNarrative "Cia?o znaleziono w ?wis?oczy po stronie bia?oruskiej." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_64 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_64 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-06-06"^^xsd:date .
 
-frontlet_data:alpes_Death_65 a frontlet:Death,
+frontlet_data:pologne_Death_65 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "aktywistki podczas sprz?tania lasu zauwa?y?y cia?a w rzece" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody Jeme?czyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
+    frontlet:lieu "Narewka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_65 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_65 .
+    geo:hasGeometry frontlet_data:pologne_geometry_65 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-06-20"^^xsd:date .
 
-frontlet_data:alpes_Death_66 a frontlet:Death,
+frontlet_data:pologne_Death_66 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "aktywistki podczas sprz?tania lasu zauwa?y?y cia?a w rzece" ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "M?ody Syryjczyk. Jego cia?o znaleziono na brzegu Narewki przypadkiem, podczas sprz?tania lasu." ;
+    frontlet:lieu "Narewka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_66 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_66 .
+    geo:hasGeometry frontlet_data:pologne_geometry_66 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-06-20"^^xsd:date .
 
-frontlet_data:alpes_Death_67 a frontlet:Death,
+frontlet_data:pologne_Death_67 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Za wyborcz? (na podstawie komunikatu gpk): 
+"Jak stwierdzi?y bia?oruskie s?u?y graniczne, obywatel Syrii mia? powiedzie?, ?e zosta? wypchni?ty razem z nim Egipcjanin, który rzekomo przed tym zdarzeniem potrzebowa? pomocy medycznej, by? skrajnie wycie?czony. Bia?orusini utrzymuj?, ?e „ignoruj?c krytyczny stan Egipcjanina, polskie si?y bezpiecze?stwa kontynuowa?y zn?canie si? i bicie m??czyzn, zabieraj?c ich rzeczy i pieni?dze", a „nast?pnie, u?ywaj?c gazu, zmusili cudzoziemców do przej?cia przez szlaban". W komunikacie Pa?stwowego Komitetu Granicznego Republiki Bia?oru? mo?na przeczyta?: „Syryjczykowi uda?o si? przenie?? nieprzytomnego towarzysza kilkadziesi?t metrów, ale m??czyzna zmar?. Wezwano na miejsce karetk? pogotowia, lekarz stwierdzi? zgon uchod?cy. Obywatelowi Syrii udzielono niezb?dnej pomocy\"""" ;
     frontlet:hasNarrative "Egipcjanin zmar? prawdopodobnie na skutek pobicia przez polsk? stra? graniczn?. O ?mierci informowa?a bia?oruska stra? oraz polskie media." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_67 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_67 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-08-05"^^xsd:date .
 
-frontlet_data:alpes_Death_68 a frontlet:Death,
+frontlet_data:pologne_Death_68 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "?mier? prawdopodobnie w sistemie." ;
     frontlet:hasNarrative "M??czyzna zmar? w sistemie. By? wycie?czony. ?wiadkami ?mierci Afga?czyka byli jego towarzysze, którzy relacjonuj?, ?e stan jego zdrowia stopniowo si? pogarsza?." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_68 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_68 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-10-12"^^xsd:date .
 
-frontlet_data:alpes_Death_69 a frontlet:Death,
+frontlet_data:pologne_Death_69 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "W niedziel? (22.10) w okolicach Bia?owie?y przez dziur? wyci?t? w ogrodzeniu przesz?a grupa migrantów. Na widok polskich patroli zacz?li ucieka?. Jeden z m??czyzn utkn?? w bagnie. Polskim s?u?bom uda?o si? go wydosta? z mokrade?, ale by? bardzo wycie?czony. Zmar? przed przybyciem karetki pogotowia. M?ody m??czyzna prawdopodobnie pochodzi? z krajów Afryki, by? wychudzony i lekko ubrany - powiedzia? Polskiemu Radiu Bia?ystok szef Prokuratury Rejonowej w Hajnówce Jan Andrejczuk." ;
     frontlet:hasNarrative "W okolicach Bia?owie?y przez dziur? wyci?t? w ogrodzeniu przesz?a grupa osób. Na widok polskich patroli zacz?li ucieka?. Jeden z m??czyzn utkn?? w bagnie. Polskim s?u?bom uda?o si? go wydosta?, jednak jego stan by? bardzo ci??ki. M??czyzna zmar? w samochodzie stra?y granicznej, przed przybyciem karetki pogotowia." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_69 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_69 ;
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2023-10-22"^^xsd:date .
 
-frontlet_data:alpes_Death_7 a frontlet:Death,
+frontlet_data:pologne_Death_7 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """zmar? po wywózce z Polski, na pó?noc od Ku?nicy. Przed ?mierci? wymiotowa? krwi?. Info z onetu: "
+W okolicach 
+Ku?nicy przy polsko-bia?oruskiej granicy zmar? 16-letni Irakijczyk. 
+Wcze?niej wymiotowa? krwi?. Zdarzenie relacjonowa?a Kalina Czwarnóg z 
+Fundacji Ocalenie.
+- Nim zd??yli?my dojecha? na miejsce, ca?a rodzina zosta?a z powrotem wypchni?ta na Bia?oru? przez Stra? Graniczn? - mówi dzia?aczka. - 
+Niestety 16-latek tej nocy zmar?.""" ;
     frontlet:hasNarrative "Nastolatek z Iraku. Zmar? po wywózce z Polski, na pó?noc od Ku?nicy. Przed ?mierci? wymiotowa? krwi?." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_7 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_7 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2021-09-25"^^xsd:date .
 
-frontlet_data:alpes_Death_70 a frontlet:Death,
+frontlet_data:pologne_Death_70 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "W poniedzia?ek rano (23.10) patrol Stra?y Ochrony Kolei znalaz? zw?oki m?odego m??czyzny z Syrii przy torach w okolicach Dobrowody niedaleko Kleszczel. Spraw? wyja?nia hajnowska prokuratura. ?ledczy przypuszczaj?, ?e móg? on umrze? z wych?odzenia, bo by? do po?owy rozebrany." ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Patrol Stra?y Ochrony Kolei znalaz? zw?oki m?odego m??czyzny z Syrii przy torach w okolicach Dobrowody, niedaleko Kleszczel. Prawdopodobnie umar? z wych?odzenia." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_70 .
+    frontlet:lieu "Okolice Dobrowody, przy torach" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_70 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_70 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2023-10-23"^^xsd:date .
 
-frontlet_data:alpes_Death_71 a frontlet:Death,
+frontlet_data:pologne_Death_71 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Zagin?? w okolicy mi?dzy Bia?owie?? a Masiewem." ;
     frontlet:hasNarrative "Zagin?? w okolicy mi?dzy Bia?owie?? a Masiewem. Chorowa? przewlekle. Cia?o znaleziono w lesie w okolicy Bia?owie?y." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_71 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_71 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2023-11-04"^^xsd:date .
 
-frontlet_data:alpes_Death_72 a frontlet:Death,
+frontlet_data:pologne_Death_72 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "?mier? prawdopodobnie w sistemie, mo?liwe, ?e na skutek pushbacku." ;
     frontlet:hasNarrative "?mier? prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_72 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_72 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2023-11-28"^^xsd:date .
 
-frontlet_data:alpes_Death_73 a frontlet:Death,
+frontlet_data:pologne_Death_73 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasNarrative "M?ody Algierczyk. Zmar? 25 grudnia 2023, prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by. Informacja potwierdzona przez rodzin? zmar?ego." .
+    frontlet:hasDeathCause "informacje od rodziny zmar?ego" ;
+    frontlet:hasNarrative "M?ody Algierczyk. Zmar? 25 grudnia 2023, prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by. Informacja potwierdzona przez rodzin? zmar?ego." ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2023-12-25"^^xsd:date .
 
-frontlet_data:alpes_Death_74 a frontlet:Death,
+frontlet_data:pologne_Death_74 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "?mier? prawdopodobnie w sistemie, mo?liwe, ?e na skutek pushbacku." ;
     frontlet:hasNarrative "?mier? prawdopodobnie w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_74 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_74 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2023-12-28"^^xsd:date .
 
-frontlet_data:alpes_Death_75 a frontlet:Death,
+frontlet_data:pologne_Death_75 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "?mier? prawdopodobnie w sistemie, mo?liwe, ?e na skutek pushbacku." ;
     frontlet:hasNarrative "Jeme?czyk, prawdopodobnie zmar? w sistiemie. Mo?liwe, ?e na skutek wywózki przeprowadzonej przez polskie s?u?by." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_75 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_75 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2024-01-06"^^xsd:date .
 
-frontlet_data:alpes_Death_76 a frontlet:Death,
+frontlet_data:pologne_Death_76 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "prokuratura w Hajnówce prowadzi ?ledztwo ws. znalezienia w lutym w Puszczy Bia?owieskiej przy drodze Stara Bia?owie?a-Narewka ludzkiej czaszki. Z ekspertyz bieg?ego medycyny s?dowej wynika, ?e nale?a?a ona do osoby z krajów Bliskiego Wschodu. Czyli przyjmujemy, ?e jest to czaszka migranta - doda?. B?d? zlecone kolejne ekspertyzy, w tym badania DNA oraz antropologiczne." ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Prokuratura w Hajnówce prowadzi ?ledztwo w sprawie znalezienia w lutym 2024 w Puszczy Bia?owieskiej ludzkej czaszki. Z ekspertyz wynika, ?e nale?a?a ona do osoby z krajów Bliskiego Wschodu." ;
+    frontlet:lieu "Polska" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_76 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_76 .
+    geo:hasGeometry frontlet_data:pologne_geometry_76 .
 
-frontlet_data:alpes_Death_77 a frontlet:Death,
+frontlet_data:pologne_Death_77 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "?mier? prawdopodobnie w sistemie, mo?liwe, ?e na skutek pushbacku." ;
     frontlet:hasNarrative "Syryjczyk, jego cia?o znalaz?a bia?oruska stra? graniczna." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_77 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_77 ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2024-03-09"^^xsd:date .
 
-frontlet_data:alpes_Death_78 a frontlet:Death,
+frontlet_data:pologne_Death_78 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Cia?o znalezione przez funkcjonariuszy SG" ;
+    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Cia?o Pakista?czyka znaleziono w pobli?u miejscowo?ci Sorocza Nó?ka." ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_78 .
+    frontlet:lieu "Sorocza Nó?ka" ;
+    frontlet:sourcedBy frontlet_data:pologne_Source_78 ;
+    geo:hasGeometry frontlet_data:pologne_geometry_78 ;
+    time:dayOfWeek time:Thursday ;
+    time:inXSDDate "2024-03-14"^^xsd:date .
 
-frontlet_data:alpes_Death_79 a frontlet:Death,
+frontlet_data:pologne_Death_79 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "Na podstawie ?wiadectwa cz?onka rodziny" ;
     frontlet:hasNarrative "Na podstawie ?wiadectwa cz?onka rodziny" .
 
-frontlet_data:alpes_Death_8 a frontlet:Death,
+frontlet_data:pologne_Death_8 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause "We wtorek (12 pa?dziernika) przed godzin? 13 na wje?dzie z S19 na S8 pod Wasilkowem dosz?o do zderzenia samochodu osobowego z ci??arowym. Farhad zgin?? na miejscu, 3 inne osoby by?y ranne. Farhad szuka? lepszego ?ycia dla siebie i swojej rodziny, po kilku wywózkach uda?o mu si? wydosta? z lasu. Nie dojecha? jednak do celu." ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Syryjczyk zmar? w wypadku samochodowym, w drodze z granicy po lepsze ?ycie." ;
+    frontlet:lieu "Wasilków" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_8 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_8 .
+    geo:hasGeometry frontlet_data:pologne_geometry_8 ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2021-10-12"^^xsd:date .
 
-frontlet_data:alpes_Death_80 a frontlet:Death,
+frontlet_data:pologne_Death_80 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """M??czyzna mia? umrze? w Sistiemie
+Na podstawie ?wiadectwa cz?onka rodziny""" ;
     frontlet:hasNarrative """M??czyzna mia? umrze? w Sistiemie
-Na podstawie ?wiadectwa cz?onka rodziny""" .
+Na podstawie ?wiadectwa cz?onka rodziny""" ;
+    time:dayOfWeek time:Tuesday ;
+    time:inXSDDate "2024-04-02"^^xsd:date .
 
-frontlet_data:alpes_Death_81 a frontlet:Death,
+frontlet_data:pologne_Death_81 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause """Kobieta mia?a umrze? w Sistiemie
+Na podstawie ?wiadectwa grupy, z któr? podró?owa?a""" ;
     frontlet:hasNarrative """Kobieta mia?a umrze? w Sistiemie
-Na podstawie ?wiadectwa grupy, z któr? podró?owa?a""" .
+Na podstawie ?wiadectwa grupy, z któr? podró?owa?a""" ;
+    time:dayOfWeek time:Saturday ;
+    time:inXSDDate "2024-04-06"^^xsd:date .
 
-frontlet_data:alpes_Death_82 a frontlet:Death,
+frontlet_data:pologne_Death_82 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:sourcedBy frontlet_data:pologne_Source_82 .
+    frontlet:sourcedBy frontlet_data:pologne_Source_82 ;
+    time:dayOfWeek time:Monday ;
+    time:inXSDDate "2024-04-08"^^xsd:date .
 
-frontlet_data:alpes_Death_83 a frontlet:Death,
+frontlet_data:pologne_Death_83 a frontlet:Death,
         frontlet:IndividualEvent ;
-    frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_BGD ;
     frontlet:sourcedBy frontlet_data:pologne_Source_83 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_83 .
+    time:dayOfWeek time:Sunday ;
+    time:inXSDDate "2024-05-05"^^xsd:date .
 
-frontlet_data:alpes_Death_84 a frontlet:Death,
+frontlet_data:pologne_Death_84 a frontlet:Death,
         frontlet:IndividualEvent .
 
-frontlet_data:alpes_Death_85 a frontlet:Death,
+frontlet_data:pologne_Death_85 a frontlet:Death,
         frontlet:IndividualEvent .
 
-frontlet_data:alpes_Death_9 a frontlet:Death,
+frontlet_data:pologne_Death_9 a frontlet:Death,
         frontlet:IndividualEvent ;
+    frontlet:hasDeathCause thes:deathCause ;
     frontlet:hasDeathCountry frontlet_data:pologne_DeathCountry_POL ;
     frontlet:hasNarrative "Za?oga policyjnego ?mig?owca dostrzeg?a na polu cia?o m??czyzny. Zmar?y okaza? si? 24-letnim obywatelem Syrii. ?ledztwo nie wyja?ni?o przyczyny ?mierci." ;
+    frontlet:lieu "Klimówka" ;
     frontlet:sourcedBy frontlet_data:pologne_Source_9 ;
-    geo:hasGeometry frontlet_data:alpes_geometry_9 .
-
-frontlet_data:alpes_geometry_10 a geo:Geometry ;
-    geo:asWKT "POINT(23.5646822 51.5347566)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_11 a geo:Geometry ;
-    geo:asWKT "POINT(119.2815086 29.3109093)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_17 a geo:Geometry ;
-    geo:asWKT "POINT(23.3905556 52.5288889)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_18 a geo:Geometry ;
-    geo:asWKT "POINT(23.6115256 52.7461643)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_20 a geo:Geometry ;
-    geo:asWKT "POINT(23.6115256 52.7461643)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_21 a geo:Geometry ;
-    geo:asWKT "POINT(23.8295828 52.8539796)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_23 a geo:Geometry ;
-    geo:asWKT "POINT(103.8454469 1.2996219)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_26 a geo:Geometry ;
-    geo:asWKT "POINT(27.6971358 53.4250605)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_3 a geo:Geometry ;
-    geo:asWKT "POINT(23.6387915 53.4302246)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_40 a geo:Geometry ;
-    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_41 a geo:Geometry ;
-    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_42 a geo:Geometry ;
-    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_47 a geo:Geometry ;
-    geo:asWKT "POINT(23.5878728 52.7365783)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_48 a geo:Geometry ;
-    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_5 a geo:Geometry ;
-    geo:asWKT "POINT(20.5492602 54.6323612)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_58 a geo:Geometry ;
-    geo:asWKT "POINT(20.4882544 42.7816777)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_65 a geo:Geometry ;
-    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_66 a geo:Geometry ;
-    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_76 a geo:Geometry ;
-    geo:asWKT "POINT(19.134422 52.215933)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_8 a geo:Geometry ;
-    geo:asWKT "POINT(23.2056777 53.198684)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_83 a geo:Geometry ;
-    geo:asWKT "POINT(90.3652099 23.6602426)"^^geo:wktLiteral .
-
-frontlet_data:alpes_geometry_9 a geo:Geometry ;
-    geo:asWKT "POINT(23.692513 53.4375049)"^^geo:wktLiteral .
-
-frontlet_data:pologne_DeathCountry_BGD a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "Bangladesh"@en .
-
-frontlet_data:pologne_DeathCountry_BLR a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "Belarus"@en .
-
-frontlet_data:pologne_DeathCountry_CHN a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "China"@en .
-
-frontlet_data:pologne_DeathCountry_RUS a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "Russian Federation"@en .
-
-frontlet_data:pologne_DeathCountry_SGP a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "Singapore"@en .
+    geo:hasGeometry frontlet_data:pologne_geometry_9 ;
+    time:dayOfWeek time:Wednesday ;
+    time:inXSDDate "2021-10-13"^^xsd:date .
 
 frontlet_data:pologne_Source_10 a frontlet:Media,
         frontlet:Source ;
@@ -1252,7 +1684,7 @@ frontlet_data:pologne_Source_26 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://archive.ph/ATCPI#selection-859.18-885.170" .
 
-frontlet_data:pologne_Source_29 a frontlet:Media,
+frontlet_data:pologne_Source_29 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink """https://web.archive.org/web/20231103205141/https://gpk.gov.by/news/gpk/147700/
 https://t.me/gpkgovby/2163""" .
@@ -1266,7 +1698,7 @@ frontlet_data:pologne_Source_30 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://euobserver.com/world/156420" .
 
-frontlet_data:pologne_Source_31 a frontlet:Media,
+frontlet_data:pologne_Source_31 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink """https://web.archive.org/web/20221209015818/https://gpk.gov.by/news/gpk/148780/
 https://t.me/gpkgovby/2409""" .
@@ -1276,7 +1708,7 @@ frontlet_data:pologne_Source_32 a frontlet:Media,
     frontlet:hasWebLink """https://tass.ru/situaciya-s-migrantami-na-granice-polshi-i-belorussii/16394351
 https://t.me/gpkgovby/2421""" .
 
-frontlet_data:pologne_Source_33 a frontlet:Media,
+frontlet_data:pologne_Source_33 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink """https://web.archive.org/web/20231001061524/https://gpk.gov.by/news/gpk/148884/
 https://t.me/gpkgovby/2427""" .
@@ -1289,7 +1721,7 @@ frontlet_data:pologne_Source_37 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://bialystok.wyborcza.pl/bialystok/7,35241,29307097,koszmar-na-granicy-polsko-bialoruskiej-smierc-30-letniej-syryjki.html" .
 
-frontlet_data:pologne_Source_38 a frontlet:Media,
+frontlet_data:pologne_Source_38 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/gpkgovby/2577" .
 
@@ -1307,15 +1739,15 @@ frontlet_data:pologne_Source_43 a frontlet:Media,
     frontlet:hasWebLink """https://tvn24.pl/bialystok/czerlonka-puszcza-bialowieska-jednego-dnia-znalezli-szczatki-nieznanej-osoby-kolejnego-cialo-mezczyzny-dzialania-strazy-granicznej-6626833
 https://www.facebook.com/mofa.gov.ye/posts/pfbid023eKBaLpEGKoavyGz6TvcvRsqM8i4KyQTZPGrP38KPm4cxhYg9Ujw3QBg1ZHrseW5l""" .
 
-frontlet_data:pologne_Source_44 a frontlet:Media,
+frontlet_data:pologne_Source_44 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/skgovby/8757" .
 
-frontlet_data:pologne_Source_45 a frontlet:Media,
+frontlet_data:pologne_Source_45 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/gpkgovby/2786" .
 
-frontlet_data:pologne_Source_46 a frontlet:Media,
+frontlet_data:pologne_Source_46 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/gpkgovby/2813" .
 
@@ -1336,11 +1768,11 @@ frontlet_data:pologne_Source_53 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://oko.press/straznicy-parku-zablokowali-poszukiwania-migranta-znaleziono-cialo" .
 
-frontlet_data:pologne_Source_55 a frontlet:Media,
+frontlet_data:pologne_Source_55 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/gpkgovby/3051" .
 
-frontlet_data:pologne_Source_56 a frontlet:Media,
+frontlet_data:pologne_Source_56 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://t.me/gpkgovby/3112" .
 
@@ -1399,15 +1831,15 @@ frontlet_data:pologne_Source_71 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://oko.press/mial-23-lata-ofiara-smiertelna-na-granicy" .
 
-frontlet_data:pologne_Source_72 a frontlet:Media,
+frontlet_data:pologne_Source_72 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://gpk.gov.by/news/gpk/154514/" .
 
-frontlet_data:pologne_Source_74 a frontlet:Media,
+frontlet_data:pologne_Source_74 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://gpk.gov.by/news/gpk/157124/" .
 
-frontlet_data:pologne_Source_75 a frontlet:Media,
+frontlet_data:pologne_Source_75 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://gpk.gov.by/news/gpk/157389/" .
 
@@ -1415,7 +1847,7 @@ frontlet_data:pologne_Source_76 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://www.rmf24.pl/regiony/bialystok/news-zwloki-migranta-znaleziono-przy-granicy-z-bialorusia,nId,7390081#crp_state=1" .
 
-frontlet_data:pologne_Source_77 a frontlet:Media,
+frontlet_data:pologne_Source_77 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://web.archive.org/web/20240416164552/https://gpk.gov.by/news/gpk/158917/" .
 
@@ -1427,17 +1859,133 @@ frontlet_data:pologne_Source_8 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://www.spiegel.de/international/world/a-chronicle-of-refugee-deaths-along-the-border-between-poland-and-belarus-a-de0d7ace-3322-4ac9-9826-9f2774a540ee; https://tvn24.pl/bialystok/bialystok-wypadek-na-obwodnicy-wasilkowa-zginela-jedna-osoba-syryjczyk-z-zarzutami-trafil-do-aresztu-st5455012l; https://tvn24.pl/bialystok/podlaskie-wypadek-na-obwodnicy-wasilkowa-nie-zyje-jedna-osoba-a-trzy-ranne-po-zderzenie-auta-osobowego-i-ciezarowki-st5449481; https://bialystok.wyborcza.pl/bialystok/7,35241,27680443,wypadek-pod-wasilkowem-jedna-osoba-nie-zyje-trzy-w-szpitalu.html" .
 
-frontlet_data:pologne_Source_82 a frontlet:Media,
+frontlet_data:pologne_Source_82 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://web.archive.org/web/20240409193341/https://gpk.gov.by/news/gpk/159833/" .
 
-frontlet_data:pologne_Source_83 a frontlet:Media,
+frontlet_data:pologne_Source_83 a frontlet:OtherOfficialDocument,
         frontlet:Source ;
     frontlet:hasWebLink "https://web.archive.org/web/20240508161926/https://gpk.gov.by/news/gpk/160602/" .
 
 frontlet_data:pologne_Source_9 a frontlet:Media,
         frontlet:Source ;
     frontlet:hasWebLink "https://oko.press/jezus-radza-ahmad-i-inni-zmarli-miedzy-polska-a-bialorusia-jak-europejskie-granice-staly-sie-cmentarzami" .
+
+frontlet_data:pologne_geometry_10 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.5646822 51.5347566)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_17 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.390854 52.5183162)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_18 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.5475037 52.7597118)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_2 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(17.6902964 50.4558194)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_20 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.5475037 52.7597118)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_21 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.8295828 52.8539796)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_24 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.8810102 52.8649192)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_3 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.6387915 53.4302246)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_39 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(19.5088313 50.5260464)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_4 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(18.9545437 52.7792249)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_40 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_41 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_42 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_47 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.5712488 52.7317575)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_48 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.7213262 52.6898709)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_52 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.8810102 52.8649192)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_53 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.8810102 52.8649192)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_54 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.8810102 52.8649192)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_57 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(22.5656879 53.229244)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_58 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.4824383 52.6649799)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_59 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.1562903 53.1235928)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_6 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.6118351 53.6185524)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_65 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_66 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.757029 52.8359438)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_70 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(18.9782192 49.8109796)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_76 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(19.134422 52.215933)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_78 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.6190916 52.7941221)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_8 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.2056777 53.198684)"^^geo:wktLiteral .
+
+frontlet_data:pologne_geometry_9 a geo:Geometry ;
+    frontlet:hasPrecision false ;
+    geo:asWKT "POINT(23.692513 53.4375049)"^^geo:wktLiteral .
 
 frontlet:AgeInterval a owl:Class ;
     rdfs:subClassOf frontlet:AgeEntity ;
@@ -1446,19 +1994,19 @@ frontlet:AgeInterval a owl:Class ;
     skos:prefLabel "Age interval"@en,
         "Inervalle d'âge"@fr .
 
-frontlet_data:alpes_Country_CMR a frontlet:Country ;
+frontlet_data:pologne_Country_CMR a frontlet:Country ;
     rdfs:label "Cameroon"@en ;
     frontlet:isoAlpha2 "CM" ;
     frontlet:isoAlpha3 "CMR" ;
     skos:notation "CMR" .
 
-frontlet_data:alpes_Country_EGY a frontlet:Country ;
+frontlet_data:pologne_Country_EGY a frontlet:Country ;
     rdfs:label "Egypt"@en ;
     frontlet:isoAlpha2 "EG" ;
     frontlet:isoAlpha3 "EGY" ;
     skos:notation "EGY" .
 
-frontlet_data:alpes_Country_afryka_po__nocna a frontlet:Country ;
+frontlet_data:pologne_Country_afryka_po__nocna a frontlet:Country ;
     rdfs:label "Afryka Pó?nocna" .
 
 frontlet:AgeEntity a owl:Class ;
@@ -1487,48 +2035,76 @@ frontlet:OfficialDocument a owl:Class ;
     skos:prefLabel "Official document"@en,
         "Document officiel"@fr .
 
-frontlet_data:alpes_Country_ETH a frontlet:Country ;
+frontlet_data:pologne_Country_ETH a frontlet:Country ;
     rdfs:label "Ethiopia"@en ;
     frontlet:isoAlpha2 "ET" ;
     frontlet:isoAlpha3 "ETH" ;
     skos:notation "ETH" .
 
-frontlet_data:alpes_Country_kurd_z_iraku a frontlet:Country ;
+frontlet_data:pologne_Country_kurd_z_iraku a frontlet:Country ;
     rdfs:label "Kurd z Iraku" .
 
-frontlet_data:alpes_Country_nieznany a frontlet:Country ;
+frontlet_data:pologne_Country_nieznany a frontlet:Country ;
     rdfs:label "nieznany" .
 
-frontlet_data:alpes_Country_IRQ a frontlet:Country ;
+frontlet_data:pologne_Country_IRQ a frontlet:Country ;
     rdfs:label "Iraq"@en ;
     frontlet:isoAlpha2 "IQ" ;
     frontlet:isoAlpha3 "IRQ" ;
     skos:notation "IRQ" .
 
-frontlet_data:alpes_Country_AFG a frontlet:Country ;
+frontlet_data:pologne_Country_AFG a frontlet:Country ;
     rdfs:label "Afghanistan"@en ;
     frontlet:isoAlpha2 "AF" ;
     frontlet:isoAlpha3 "AFG" ;
     skos:notation "AFG" .
 
-frontlet_data:alpes_Country_jemen a frontlet:Country ;
+time:Monday a time:DayOfWeek ;
+    rdfs:label "Monday"@en .
+
+time:Wednesday a time:DayOfWeek ;
+    rdfs:label "Wednesday"@en .
+
+frontlet_data:pologne_Country_jemen a frontlet:Country ;
     rdfs:label "Jemen" .
 
-frontlet_data:alpes_Country_SYR a frontlet:Country ;
+time:Thursday a time:DayOfWeek ;
+    rdfs:label "Thursday"@en .
+
+time:Saturday a time:DayOfWeek ;
+    rdfs:label "Saturday"@en .
+
+time:Sunday a time:DayOfWeek ;
+    rdfs:label "Sunday"@en .
+
+frontlet_data:pologne_Country_SYR a frontlet:Country ;
     rdfs:label "Syrian Arab Republic"@en ;
     frontlet:isoAlpha2 "SY" ;
     frontlet:isoAlpha3 "SYR" ;
     skos:notation "SYR" .
 
-frontlet_data:pologne_DeathCountry_POL a frontlet:Country,
-        frontlet:DeathCountry ;
-    rdfs:label "Poland"@en .
+time:Friday a time:DayOfWeek ;
+    rdfs:label "Friday"@en .
+
+time:Tuesday a time:DayOfWeek ;
+    rdfs:label "Tuesday"@en .
+
+frontlet:OtherOfficialDocument a owl:Class ;
+    rdfs:subClassOf frontlet:OfficialDocument ;
+    skos:definition "Other official document attesting the passage or the death of a migrant"@en,
+        "Autre document officiel attestant du passage ou de la mort d'un migrant"@fr ;
+    skos:prefLabel "Other offical document"@en,
+        "Autre document officiel"@fr .
 
 frontlet:Country a owl:Class ;
     rdfs:subClassOf geo:Feature ;
     skos:definition "Pays de naissance d'un migrant ou pays traversé lors d'une migration"@fr ;
     skos:prefLabel "Country"@en,
         "Pays"@fr .
+
+frontlet_data:pologne_DeathCountry_POL a frontlet:Country,
+        frontlet:DeathCountry ;
+    rdfs:label "Poland"@en .
 
 frontlet:Media a owl:Class ;
     rdfs:subClassOf frontlet:Source ;

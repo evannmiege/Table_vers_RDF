@@ -1,9 +1,9 @@
 UE_Sud;Thesaurus;Nature
 acute edema of the glottis;médical;médical
 acute reaction to toxic substances;médical;médical
-asphyxia;asphyxie;
+asphyxia;asphyxie;accident
 asthma;médical;médical
-carbon monoxide poisoning;empoisonnement;
+carbon monoxide poisoning;empoisonnement;accident
 cardiac arrest;médical;médical
 cardiac failure;médical;médical
 cardiogenic shock;médical;médical
@@ -12,11 +12,11 @@ cardiorespiratory failure;médical;médical
 cardiorespiratory failure of undetermined origin;médical;médical
 cerebral anoxia;médical;médical
 dehydration;mort de faim ou de soif;
-drowning;noyade;
+drowning;noyade;accident
 heart attack;médical;médical
 hemothorax;médical;médical
-hypothermia;hypothermie;
-inhalation of toxic gas;asphyxie;
+hypothermia;hypothermie;accident
+inhalation of toxic gas;asphyxie;accident
 injury;médical;médical
 injury sustained from being crushed;accident de transport;accident
 injury sustained from car accident;accident de voiture;accident
@@ -46,7 +46,7 @@ shock (hemorrhagic, traumatic);médical;médical
 shock (septic);médical;médical
 shock (traumatic);médical;médical
 shot;arme à feu;homicide
-starvation;mort de faim ou de soif;
+starvation;mort de faim ou de soif;accident
 sudden death;médical;médical
 suffocation;asphyxie;accident
 trauma;médical;médical
